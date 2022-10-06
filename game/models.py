@@ -28,5 +28,6 @@ class Rule(models.Model):
 
 
 class Exclusion(models.Model):
-    zone = postgres_fields.DateTimeRangeField(name="Apply To This Zones")
+    room = models.ForeignKey(Room,on_delete=models.CASCADE , related_name="exclusions")
+    zone = postgres_fields.DateTimeRangeField(name="zones")
     is_suspended = models.BooleanField(default=True)
