@@ -1,8 +1,6 @@
-from django.urls import path
+from django.urls import path , include
 from . import views
-
+from .api import urls as api_urls
 urlpatterns = [
-    path("", views.index),
-    path("test", views.create_test_hour),
-    path("dummy_execs", views.create_test_execs)
+    path("api/" , include(api_urls , namespace="main_api"))
 ]

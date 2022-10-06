@@ -1,5 +1,5 @@
 import time
-
+from django.core.exceptions import ObjectDoesNotExist
 from persiantools.jdatetime import JalaliDate, JalaliDateTime
 from game import models
 from orders import models as orders_model
@@ -24,6 +24,11 @@ class Month():
         calendar = dict()
         week_num = 0
         calendar[0] = dict()
+        try:
+            room = models.Room.objects.get(pk=room_id)
+        except ObjectDoesNotExist as e:
+            print(e)
+            return None
         for day in range(1, self.month_range + 1):
             this_day = dict()
             this_weekday = JalaliDate(self.year, self.month, day).isoweekday()
@@ -32,14 +37,13 @@ class Month():
                 week_num += 1
                 calendar[week_num] = dict()
             this_day["weekday"] = this_weekday
-            this_day['times'] = self.get_this_day_times(day, room_id)
+            this_day['times'] = self.get_this_day_times(day, room)
             calendar[week_num][day] = this_day
         return calendar
 
-    def get_this_day_times(self, day, room_id):
+    def get_this_day_times(self, day, room):
         hours = dict()
         this_day = JalaliDate(self.year, self.month, day, locale="fa")
-        room = models.Room.objects.get(id=room_id)
         if not this_day.isoweekday() in room.default_days:
             return hours
         for hour in room.default_hours:
