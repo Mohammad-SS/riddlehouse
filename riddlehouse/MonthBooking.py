@@ -4,6 +4,8 @@ from persiantools.jdatetime import JalaliDate, JalaliDateTime
 from game import models
 from orders import models as orders_model
 import datetime
+from riddlehouse.helpers import functions
+from riddlehouse.helpers import enums
 
 
 class Month():
@@ -11,7 +13,6 @@ class Month():
 
     def __init__(self, month, year=None):
         self.month = month
-
         if not year:
             self.year = JalaliDate.today().year
         else:
@@ -37,6 +38,7 @@ class Month():
                 week_num += 1
                 calendar[week_num] = dict()
             this_day["weekday"] = this_weekday
+            this_day["selectable"] = self.is_day_selectable(day)
             this_day['times'] = self.get_this_day_times(day, room)
             calendar[week_num][day] = this_day
         return calendar
@@ -52,17 +54,14 @@ class Month():
                                             int(this_minutes)).timestamp()
             hours[hour] = dict()
             hours[hour]["timestamp"] = this_timestamp
-            hours[hour]['is_reservable'] , hours[hour]['status'] = self.check_hour(this_timestamp, room)
+            hours[hour]['is_reservable'], hours[hour]['status'] = self.check_hour(this_timestamp, room)
         return hours
 
     @classmethod
     def check_hour(cls, timestamp, room: models.Room):
         # check ORDERS DATABASE
         this_hour = datetime.datetime.fromtimestamp(timestamp)
-        t = time.time()
         is_excluded = room.exclusions.filter(zones__contains=this_hour).exists()
-        t = time.time() - t
-        print(t)
         if is_excluded:
             return False, "CLOSED"
 
@@ -72,3 +71,13 @@ class Month():
             return False, "RESERVED"
 
         return True, "FREE"
+
+    def is_day_selectable(self, day):
+        today = datetime.date.today()
+        day = JalaliDate(year=self.year, month=self.month, day=day, locale="en").to_gregorian()
+        diff = (day - today).days
+        days_limit = int(functions.get_setting(enums.DefaultSettings.LIMIT_DAYS_FOR_RESERVATION, 7))
+        if diff < 0 or diff > days_limit:
+            return False
+        else:
+            return True

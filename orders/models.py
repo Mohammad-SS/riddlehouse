@@ -3,7 +3,7 @@ from riddlehouse.helpers import enums
 
 
 class Order(models.Model):
-    room = models.ForeignKey("game.Room", on_delete=models.DO_NOTHING , related_name="orders")
+    room = models.ForeignKey("game.Room", on_delete=models.DO_NOTHING, related_name="orders")
     customer_name = models.CharField(max_length=255)
     customer_number = models.CharField(max_length=15)
     transaction_number = models.CharField(max_length=255)
@@ -15,7 +15,10 @@ class Order(models.Model):
     payment_time = models.DateTimeField(auto_now_add=True)
     sms_bulk = models.CharField(max_length=31, null=True, blank=True)
     reserved_time = models.DateTimeField()
+    created_date = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.customer_name} - ({self.room} : {self.reserved_time})"
 
 class Coupon(models.Model):
     available_rooms = models.ManyToManyField("game.Room", related_name="coupons")

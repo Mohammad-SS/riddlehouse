@@ -1,4 +1,5 @@
 from django.db import models
+from enum import Enum
 
 
 class WeekDays(models.IntegerChoices):
@@ -24,3 +25,7 @@ class CouponsType(models.TextChoices):
 class RuleTypes(models.TextChoices):
     SINGLE_DAY = "D", "Single Day"
     WEEK_DAY = "W", "Week Day"
+
+
+class DefaultSettings(Enum):
+    LIMIT_DAYS_FOR_RESERVATION = {"slug": "limits_day_reservation", "default": 30}
