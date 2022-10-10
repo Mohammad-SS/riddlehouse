@@ -1,11 +1,12 @@
-import time
+import datetime
+import random
+
 from django.core.exceptions import ObjectDoesNotExist
 from persiantools.jdatetime import JalaliDate, JalaliDateTime
+
 from game import models
-from orders import models as orders_model
-import datetime
-from riddlehouse.helpers import functions
 from riddlehouse.helpers import enums
+from riddlehouse.helpers import functions
 
 
 class Month():
@@ -37,6 +38,7 @@ class Month():
             if this_weekday == 1 and not day == 1:
                 week_num += 1
                 calendar[week_num] = dict()
+            this_day['date'] = "{}/{}/{}".format(self.year, self.month, day)
             this_day["weekday"] = this_weekday
             this_day["selectable"] = self.is_day_selectable(day)
             this_day['times'] = self.get_this_day_times(day, room)
@@ -55,6 +57,7 @@ class Month():
             hours[hour] = dict()
             hours[hour]["timestamp"] = this_timestamp
             hours[hour]['is_reservable'], hours[hour]['status'] = self.check_hour(this_timestamp, room)
+            hours[hour]['rand_id'] = "_{}".format(random.randint(10000, 99999))
         return hours
 
     @classmethod

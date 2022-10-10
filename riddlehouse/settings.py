@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -80,10 +81,11 @@ WSGI_APPLICATION = "riddlehouse.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "HOST": "localhost",
+        "HOST": "gina.iran.liara.ir",
+        "PORT" : "34646",
         "NAME": "riddlehouse",
-        "USER": "admin",
-        "PASSWORD": "P@ssw0rdd"
+        "USER": "root",
+        "PASSWORD": "3HXOsHHy2QGVmGFK8NMcGdRG"
     }
 }
 
@@ -117,7 +119,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [str(BASE_DIR / "static") ]
+MEDIA_ROOT = os.path.join(BASE_DIR, "medias")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

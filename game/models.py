@@ -9,7 +9,7 @@ class Room(models.Model):
     min_players = models.IntegerField()
     max_players = models.IntegerField()
     game_duration = models.CharField(max_length=255)
-    pre_payment = models.IntegerField()
+    price_per_unit = models.IntegerField()
     final_payment = models.IntegerField()
     default_hours = postgres_fields.ArrayField(models.CharField(max_length=12, blank=True))
     default_days = postgres_fields.ArrayField(models.IntegerField(choices=enums.WeekDays.choices))

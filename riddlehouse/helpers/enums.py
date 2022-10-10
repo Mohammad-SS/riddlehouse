@@ -1,5 +1,6 @@
 from django.db import models
 from enum import Enum
+from riddlehouse import settings
 
 
 class WeekDays(models.IntegerChoices):
@@ -29,3 +30,17 @@ class RuleTypes(models.TextChoices):
 
 class DefaultSettings(Enum):
     LIMIT_DAYS_FOR_RESERVATION = {"slug": "limits_day_reservation", "default": 30}
+    ZARINPAL_MERCHANT_KEY = {"slug": "zarinpal_merchant", "default": None}
+    MAX_SMS_API_URL = {"slug": "max_sms_api_url", "default": "http://ippanel.com/api/select"}
+    MAX_SMS_ADMIN_PATTERN_CODE = {"slug": "max_sms_admin_pattern_code", "default": "0syz2av5yv"}
+    MAX_SMS_USER_PATTERN_CODE = {"slug": "max_sms_user_pattern_code", "default": "lqtobvthhs"}
+    MAX_SMS_USERNAME = {"slug": "max_sms_username", "default": False}
+    MAX_SMS_PASSWORD = {"slug": "max_sms_password", "default": False}
+    MAX_SMS_LINE_NUMBER = {"slug": "max_sms_line_number", "default": "100020400"}
+    MAX_SMS_ADMIN_NUMBER = {"slug": "max_sms_admin_number", "default": "09212518775"}
+    MAX_SMS_SURPRISE_USER_PATTERN_CODE = {"slug": "max_sms_surprise_user_pattern_code", "default": "gy6ikksu5t"}
+    ZARINPAL_START_URL = {"slug": "zarinpal_start_url",
+                          "default": "https://api.zarinpal.com/pg/v4/payment/request.json"}
+    ZARINPAL_VERIFY_URL = {"slug": "zarinpal_verify_url",
+                           "default": "https://api.zarinpal.com/pg/v4/payment/verify.json"}
+    ZARINPAL_CALLBACK_URL = {"slug": "zarinpal_callback", "default": "http://127.0.0.1:8000" + "/reserve-completed"}
