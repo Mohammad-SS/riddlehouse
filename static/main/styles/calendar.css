@@ -1,0 +1,138 @@
+.calendar {
+    padding: .5em;
+    width: fit-content;
+    background: var(--mb-white);
+    border-radius: 0px 0px 5px 5px;
+    position: relative;
+    user-select: none !important;
+
+}
+
+.calendar-loader {
+    border-radius: 5px;
+}
+
+/* flex-fill d-flex align-items-center justify-content-between px-3 bg-white p-2" style="border-radius: 5px 5px 0 0; */
+.calendar-head  {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .5em 1em 0em 1em;
+    background-color: var(--mb-white);
+    border-radius: 5px 5px 0px 0px;
+}
+
+.next_month_btn, .previous_month_btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.calendar * {
+    font-size: 16px;
+}
+
+.calendar ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.calendar ul li {
+    width: 3em;
+    height: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5em;
+    color: #222222;
+    margin: .25em;
+    position: relative;
+}
+
+.calendar ul li:not(.selectable-day,.empty,.weekday):hover {
+    background-color: var(--mb-gray-200);
+}
+
+.calendar ul:first-child li {
+    color: var(--mb-white);
+    height: 2em;
+}
+
+.calendar::before {
+    content: '';
+    width: 97%;
+    height: 100%;
+    background: #ffffff82;
+    display: flex;
+    top: 0.5em;
+    position: absolute;
+    left: 50%;
+    z-index: -1;
+    transform: translate(-50%, 0%);
+    border-radius: 10px;
+}
+
+.calendar::after {
+    content: '';
+    width: 92%;
+    height: 100%;
+    background: #ffffff4f;
+    display: flex;
+    top: 1em;
+    position: absolute;
+    left: 50%;
+    z-index: -2;
+    transform: translate(-50%, 0%);
+    border-radius: 10px;
+}
+
+.calendar ul:nth-child(1) {
+    background: #7f65ff !important;
+    border-radius: 5em;
+    height: 2em;
+    align-items: center;
+    color: var(--mb-white) !important;
+    font-weight: bold;
+}
+
+
+.calendar li.selectable-day {
+    background-color: rgb(127, 101, 255);
+    color: var(--mb-white) !important;
+    cursor: pointer;
+}
+
+li.selectable-day span {
+  width: 1.5em;
+  height: 1.5em;
+  background: #503fa5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border-radius: 1em;
+  right: 0;
+  bottom: 0;
+  margin-right: -0.25em;
+  margin-bottom: -0.35em;
+  border: 2px solid;
+}
+
+
+@media only screen and (max-width: 480px) {
+    .calendar ul li {
+        width: 2.5em;
+        height: 2.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5em;
+     
+        color: #484848;
+        margin: .25em;
+        position: relative;
+    }
+}

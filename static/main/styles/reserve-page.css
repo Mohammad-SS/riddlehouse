@@ -1,0 +1,677 @@
+/* @keyframes zoghzogh {
+    0% {
+        text-shadow: 0px 1px 2px #000;
+    }
+
+    50% {
+        text-shadow: 0px 1px 0px #000;
+    }
+
+    100% {
+        text-shadow: 0px 1px 2px #000;
+    }
+} */
+
+section.teaser-section {
+    width: 100%;
+    height: 45em;
+    display: none;
+}
+
+section.teaser-section video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+section.reserve-section {
+    height: 48em;
+    padding: 0em 1em;
+    margin: 2em 0em;
+    color: #333;
+    display: flex;
+    justify-content: center;
+}
+
+.reserve-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    max-width: 105em;
+}
+
+.room-reserve {
+    background: white;
+    width: calc(100% - 5em);
+    border-radius: 10px;
+}
+
+.room-container#reserve {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    min-width: 23em;
+    max-width: 30em;
+    width: 28em;
+    height: 41em;
+    border-radius: 10px;
+    margin: 0 !IMPORTANT;
+    background: transparent;
+}
+
+.room-container#reserve .room-detail {
+    margin-top: 23em;
+}
+
+.room-name {
+    font-weight: bold;
+    display: flex;
+}
+
+.room-container#reserve .room-image {
+    height: 23em;
+}
+
+.room-reserve-detail {
+    width: calc(100% - 27em);
+    height: 100%;
+    padding: 2em 3em 2em 0em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: relative;
+}
+
+.room-reserve-detail::before {
+    content: ' ';
+    width: 1em;
+    background: var(--mb-gray-300);
+    height: 100%;
+    position: absolute;
+    border-radius: 0px 10px 10px 0px;
+    top: 0;
+    right: 0;
+}
+
+.room-scenario {
+    margin-top: 2em;
+    padding: 0em 2em;
+    line-height: 2em;
+    text-align: justify;
+}
+
+.room-desctiption {
+    /* max-height: 35em; */
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    border-radius: 10px;
+    overflow-x: hidden;
+}
+
+.room-action-bar {
+    min-height: 6em;
+    max-height: 6em;
+    width: 100%;
+    background: var(--mb-gray-200);
+    border-radius: 10px;
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+    padding: 0em 2em;
+}
+
+.action {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.room-md-container {
+    display: none;
+    border-radius: 10px;
+    margin-bottom: 2em;
+    transform: scale(1.02);
+    background: white;
+}
+
+.room-md-image-container {
+    width: 100%;
+    height: 25em;
+
+}
+
+.room-md-info {
+    flex-direction: column;
+    width: 10em;
+    margin-top: 0em;
+    justify-content: center;
+}
+
+.room-md-info .vr {
+    display: none;
+}
+
+.md-price {
+    display: none;
+}
+
+
+.reserve-rols {
+    text-align: justify;
+    background-color: var(--mb-gray-200);
+    border-radius: 10px;
+    padding: 1em;
+    flex: 1;
+    line-height: 2em;
+    height: fit-content;
+}
+
+
+.reserve-stepper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2em;
+    padding: 0em 1em;
+}
+
+.zoghzogh {
+    /* text-shadow: 0px 0px 0px #550000; */
+    animation: zoghzogh 1s linear infinite;
+}
+
+.step {
+    width: 3.5em;
+    height: 3.5em;
+    background-position: center;
+    background-size: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+}
+
+.step-line {
+    position: relative;
+}
+
+.step-line #spliter {
+    width: 5em;
+    margin: 0 .5em;
+    border-radius: 10px;
+    border: 1px solid;
+    opacity: 1;
+}
+
+.step-line .step-check {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--mb-white);
+}
+
+.step-complete+div * {
+    color: var(--mb-original-red);
+    /* background-color: red; */
+}
+
+
+
+.step#rols {
+    background-image: url(./../images/icons/rols.svg);
+}
+
+.step#turn {
+    background-image: url(./../images/icons/caledar.svg);
+}
+
+.step#info {
+    background-image: url(./../images/icons/info.svg);
+}
+
+.step#resept {
+    background-image: url(./../images/icons/resept.svg);
+}
+
+.step.step-complete#rols {
+    background-image: url(./../images/icons/rols-checked.svg);
+}
+
+.step.step-complete#turn {
+    background-image: url(./../images/icons/caledar-checked.svg);
+}
+
+.step.step-complete#info {
+    background-image: url(./../images/icons/info-checked.svg);
+}
+
+.step.step-complete#resept {
+    background-image: url(./../images/icons/resept-checked.svg);
+}
+
+img.room-md-image {
+    width: 100%;
+    height: 100%;
+    padding: 0.3em;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+
+.reserve-dates {
+    height: 100%;
+    width: 100%;
+}
+
+.date-info {
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 1em 2em;
+    background: var(--mb-gray-200);
+    justify-content: space-between;
+
+}
+
+
+
+
+
+
+
+/* weekday picker */
+
+.reserve-weekday-picker-container {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.452);
+    z-index: 50;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .2s;
+
+    /* backdrop-filter: blur(2px) */
+}
+
+.reserve-weekday-picker-container.show {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+
+    /* backdrop-filter: blur(2px) opacity(1); */
+}
+
+.reserve-weekday-picker-back {
+    width: 100%;
+    height: 100%;
+    background: #00131e88;
+    position: absolute;
+    z-index: 5;
+    transition: all .2s;
+}
+
+.reserve-weekday-picker {
+    transform: scale(.6);
+    transition: all .2s;
+    margin-top: 10em;
+    position: relative;
+}
+
+.show .reserve-weekday-picker {
+    transform: scale(1);
+    margin-top: 0em;
+}
+
+.reserve-weekday {
+    width: 100%;
+    height: 4em;
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 0em 2em;
+    cursor: pointer;
+
+}
+
+/* .reserve-weekday:not(.reserve-header):not(.reserve-footer) {
+    opacity: 0;
+    transform: translate(0% ,80%);
+    transition: all .2s;
+    transition-delay: .1s;
+}
+
+.show .reserve-weekday:not(.reserve-header):not(.reserve-footer) {
+    transform: translate(0% ,0%);
+    opacity: 1;
+} */
+
+.reserve-weekday.reserve-footer {
+    z-index: 60;
+}
+
+.reserve-weekday:hover {
+    background: var(--mb-black-10);
+}
+
+.reserve-weekday .weekday {
+    text-align: center;
+    width: 10em;
+}
+
+.reserve-weekday .weekday-date {
+    text-align: center;
+    width: 10em;
+}
+
+.reserve-weekday .weekday-vacanty {
+    text-align: center;
+    width: 100%;
+}
+
+.date-picker {
+
+    display: flex;
+}
+
+/* weekday picker */
+
+
+.reserve-time-section>div {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.reserve-time-section div label {
+    min-width: 17em;
+    height: 5em;
+    margin: .5em;
+    background-color: var(--mb-light-success);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    flex: 1;
+    user-select: none !important;
+}
+
+.reserve-time-section div label {
+    transition: all .2s;
+    cursor: pointer;
+}
+
+.reserve-time-section div label .reserve-time-detail {
+    display: flex;
+    flex-direction: column;
+    margin-right: .5em;
+}
+
+.reserve-time-section div label .status-icon {
+    width: 3em;
+    height: 3em;
+    background: url(./../images/icons/reserve-open.svg);
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+
+}
+
+label.selected-time {
+    background-color: var(--mb-light-purple) !important;
+}
+
+label.selected-time .status-icon {
+    background: url(./../images/icons/reserving.svg) !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+.reserve-form {
+    width: 100%;
+}
+
+/* .date-picker-btn {
+    min-width: 15em;
+} */
+
+.empty_reserve_list {
+    display: flex;
+    width: 100%;
+    height: 100% !important;
+    min-height: 5em;
+    justify-content: center;
+    align-items: center;
+}
+
+.reserve-form input {
+    min-width: 18em;
+}
+
+.reserve-form {
+    display: flex;
+
+}
+
+.register-form-info {
+    flex: 1;
+    background: rgb(255, 255, 255);
+    padding: 2em 2em;
+    min-width: 25em;
+    /* box-shadow: 0px 0px 9px #c1c1c1; */
+    border-radius: 5px;
+}
+
+.register-form-detail {
+    width: 25em;
+    padding: 2em 2em;
+    background: white;
+    box-shadow: 0px 0px 9px #c1c1c1 inset;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 1280px) {
+
+
+    .room-reserve-detail {
+        width: calc(100% - 24em);
+    }
+
+    .action {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .room-action-bar {
+        max-height: max-content;
+        padding: 2em 2em;
+    }
+
+    .action-btn {
+        margin-top: 1em;
+    }
+
+    
+    .reserved-details>div {
+        margin-right: 0 !important;
+        margin-left: 2em !important;
+        /* margin-bottom: 1em; */
+    }
+
+    .select-date {
+        flex-direction: row !important;
+        padding: 1em 0em;
+        align-items: flex-end;
+    }
+
+
+
+
+}
+
+@media only screen and (max-width: 1240px) {
+    .reserve-form {
+        flex-direction: column;
+    }
+
+    .register-form-detail {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .reserved-details {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .reserved-details>div {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+        margin-bottom: 1em;
+    }
+
+}
+
+@media only screen and (max-width: 900px) {
+
+    .md-price {
+        display: flex;
+    }
+
+    .room-container#reserve {
+        display: none;
+    }
+
+    .room-reserve-detail {
+        width: 100%
+    }
+
+    .room-reserve {
+        width: 100%;
+    }
+
+    .room-reserve-detail {
+        padding: 1em;
+        justify-content: flex-start;
+    }
+
+    .room-reserve-detail::before {
+        display: none;
+    }
+
+    section.reserve-section {
+        height: max-content;
+    }
+
+    .room-md-container {
+        display: flex;
+    }
+
+    .room-desctiption {
+        height: fit-content;
+        max-height: fit-content;
+        overflow: hidden;
+    }
+
+}
+
+@media only screen and (max-width: 480px) {
+    .room-md-info {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-evenly;
+        margin: 1.5em 0;
+    }
+
+    .room-md-info .hz {
+        display: none;
+    }
+
+    .room-md-info .vr {
+        display: block;
+    }
+
+    .room-md-container {
+        flex-direction: column;
+    }
+
+
+    .step-line #spliter {
+        width: 2em;
+    }
+
+    /* .reserve-weekday-picker {
+        width: 100%;
+        border-radius: 10px 10px 0px 0px;
+    } */
+    /* 
+    .reserve-weekday-picker-container {
+        justify-content: flex-end;
+        align-items: flex-end;
+    } */
+    /* 
+    .reserve-weekday {
+        padding: 0em 1em;
+    } */
+
+    /* .reserve-weekday-picker {
+        transform: scale(1) !important;
+        margin-bottom: -5em;
+    } */
+    /* 
+    .show .reserve-weekday-picker {
+        transform: scale(1) !important;
+        margin-bottom: 0em;
+    } */
+
+    .date-picker {
+        margin: 0 !important;
+        margin-bottom: 1em !important;
+        width: 100%;
+    }
+
+    .date-picker>button {
+        margin: 0 !important;
+    }
+
+    .date-info {
+        justify-content: center;
+    }
+
+    .select-date {
+        flex-direction: column !important;
+        padding: 0em 0em;
+        align-items: flex-end;
+        justify-content: center;
+    }
+
+    .reserved-details {
+        width: 100%;
+    }
+
+    .register-form-info {
+        padding: 0;
+        padding-bottom: 1em;
+        min-width: 18em;
+    }
+
+
+}

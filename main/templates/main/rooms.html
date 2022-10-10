@@ -1,0 +1,227 @@
+{% load static %}
+<!-- rooms -->
+<section class="section rooms">
+    <div class="section-header" data-aos="fade-up">
+        <h6 class="section-title" id='rooms'>
+            بازی ها
+        </h6>
+        <hr class="section-line">
+    </div>
+    <div class="sectoin-body">
+        <div class="rooms-container">
+            <div class="room-container" data-aos="fade-up">
+                <div class="room-image">
+                    <img loading="lazy" class="mb-shadow" src="{% static 'main/' %}images/surprise-room.jpg"
+                        alt="خانه معما | اتاق فرار | فرار غافلگیرانه">
+                </div>
+                <div class="room-detail-container">
+                    <div class="room-detail" data-aos="zoom-in" data-aos-offset="130">
+                        <div class="room-title">
+                            <h2 id="title">فرار غافلگیرانه</h2>
+                            <span id="price" class="badge badge-success">نفری 40 هزار تومان</span>
+                        </div>
+                        <div class="room-info">
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-genre.svg"
+                                        alt="ژانر | فرار غافلگیرانه">
+                                </span>
+                                <span class="info-title mb-sans-num">اتاق فرار</span>
+                            </div>
+                            <div class="vr"></div>
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-team.svg"
+                                        alt="تعداد نفرات تیم | فرار غافلگیرانه">
+                                </span>
+                                <span class="info-title mb-sans-num">4 تا 8 نفر</span>
+                            </div>
+                            <div class="vr"></div>
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-time.svg"
+                                        alt="زمان بازی | فرار غافلگیرانه">
+                                </span>
+                                <span class="info-title mb-sans-num">45 + 5</span>
+                            </div>
+                            <div class="vr"></div>
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-dificalaty.svg"
+                                        alt="سختی بازی | فرار غافلگیرانه">
+                                </span>
+                                <span class="info-title mb-sans-num">85/100</span>
+                            </div>
+                        </div>
+                        <div class="room-actions">
+                            <a href="{% url 'main:roompage' 1 %}">
+                                <button class="btn btn-success shadow-0" style="width: 10em;">رزرو</button>
+                            </a>
+                            <button class="btn btn-primary shadow-0 ms-2" style="width: 10em;">توضیحات</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="room-container" data-aos="fade-up">
+                <div class="room-image">
+                    <img loading="lazy" class="mb-shadow" src="{% static 'main/' %}images/museum-1.jpg"
+                        alt="خانه معما | اتاق فرار | فرار از موزه">
+                </div>
+                <div class="room-detail-container">
+                    <div class="room-detail" data-aos="zoom-in" data-aos-offset="130">
+                        <div class="room-title">
+                            <h2 id="title">فرار از موزه</h2>
+                            <span id="price" class="badge badge-success">نفری 40 هزار تومان</span>
+                        </div>
+                        <div class="room-info">
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-genre.svg"
+                                        alt="ژانر | فرار از موزه">
+                                </span>
+                                <span class="info-title mb-sans-num">اتاق فرار</span>
+                            </div>
+                            <div class="vr"></div>
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-team.svg"
+                                        alt="تعداد نفرات تیم | فرار از موزه">
+                                </span>
+                                <span class="info-title mb-sans-num">4 تا 8 نفر</span>
+                            </div>
+                            <div class="vr"></div>
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-time.svg"
+                                        alt="زمان بازی | فرار از موزه">
+                                </span>
+                                <span class="info-title mb-sans-num">45 + 5</span>
+                            </div>
+                            <div class="vr"></div>
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-dificalaty.svg"
+                                        alt="سختی بازی | فرار از موزه">
+                                </span>
+                                <span class="info-title mb-sans-num">85/100</span>
+                            </div>
+                        </div>
+                        <div class="room-actions">
+                            <a href="{% url 'main:roompage' 1 %}">
+                                <button class="btn btn-success shadow-0" style="width: 10em;">رزرو</button>
+                            </a>
+                            <button class="btn btn-primary shadow-0 ms-2" style="width: 10em;">توضیحات</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="room-container" data-aos="fade-up">
+                <div class="room-image">
+                    <img loading="lazy" class="mb-shadow" src="{% static 'main/' %}images/ALKATRAZ2.jpg"
+                        alt="خانه معما | اتاق فرار | فرار از الکاتراز">
+                </div>
+                <div class="room-detail-container">
+                    <div class="room-detail" data-aos="zoom-in" data-aos-offset="130">
+                        <div class="room-title">
+                            <h2 id="title">فرار الکاتراز</h2>
+                            <span id="price" class="badge badge-success">نفری 40 هزار تومان</span>
+                        </div>
+                        <div class="room-info">
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-genre.svg"
+                                        alt="ژانر بازی | فرار از الکاتراز">
+                                </span>
+                                <span class="info-title mb-sans-num">اتاق فرار</span>
+                            </div>
+                            <div class="vr"></div>
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-team.svg"
+                                        alt="تعداد نفرات تیم | فرار از الکاتراز">
+                                </span>
+                                <span class="info-title mb-sans-num">4 تا 8 نفر</span>
+                            </div>
+                            <div class="vr"></div>
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-time.svg"
+                                        alt="زمان بازی | فرار از الکاتراز">
+                                </span>
+                                <span class="info-title mb-sans-num">45 + 5</span>
+                            </div>
+                            <div class="vr"></div>
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-dificalaty.svg"
+                                        alt="سختی بازی | فرار از الکاتراز">
+                                </span>
+                                <span class="info-title mb-sans-num">85/100</span>
+                            </div>
+                        </div>
+                        <div class="room-actions">
+                            <a href="{% url 'main:roompage' 1 %}">
+                                <button class="btn btn-success shadow-0" style="width: 10em;">رزرو</button>
+                            </a>
+                            <button class="btn btn-primary shadow-0 ms-2" style="width: 10em;">توضیحات</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="room-container" data-aos="fade-up">
+                <div class="room-image">
+                    <img loading="lazy" class="mb-shadow" src="{% static 'main/' %}images/savak2.jpg"
+                        alt="خانه معما | اتاق فرار | اتاق ساواک">
+                </div>
+                <div class="room-detail-container">
+                    <div class="room-detail" data-aos="zoom-in" data-aos-offset="130">
+                        <div class="room-title">
+                            <h2 id="title">اتاق ساواک</h2>
+                            <span id="price" class="badge badge-success">نفری 40 هزار تومان</span>
+                        </div>
+                        <div class="room-info">
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-genre.svg"
+                                        alt="ژانر بازی | اتاق ساواک">
+                                </span>
+                                <span class="info-title mb-sans-num">اتاق فرار</span>
+                            </div>
+                            <div class="vr"></div>
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-team.svg"
+                                        alt="تعداد نفرات تیم | اتاق ساواک">
+                                </span>
+                                <span class="info-title mb-sans-num">4 تا 8 نفر</span>
+                            </div>
+                            <div class="vr"></div>
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-time.svg"
+                                        alt="زمان بازی | اتاق ساواک">
+                                </span>
+                                <span class="info-title mb-sans-num">45 + 5</span>
+                            </div>
+                            <div class="vr"></div>
+                            <div class="room-info-item">
+                                <span class="info-icon">
+                                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-dificalaty.svg"
+                                        alt="سختی بازی | اتاق ساواک">
+                                </span>
+                                <span class="info-title mb-sans-num">85/100</span>
+                            </div>
+                        </div>
+                        <div class="room-actions">
+                            <a href="{% url 'main:roompage' 1 %}">
+                                <button class="btn btn-success shadow-0" style="width: 10em;">رزرو</button>
+                            </a>
+                            <button class="btn btn-primary shadow-0 ms-2" style="width: 10em;">توضیحات</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- rooms -->

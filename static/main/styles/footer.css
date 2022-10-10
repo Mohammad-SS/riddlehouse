@@ -1,0 +1,134 @@
+/* footer style */
+.footer {
+    display: flex;
+    padding: 2em;
+    width: 100%;
+    background-color: var(--mb-black-90);
+    margin-top: 2em;
+}
+
+.footer-detail {
+    display: flex;
+    flex: 1;
+    justify-content: flex-start;
+    margin-right: 2em;
+}
+
+.footer-detail li {
+    margin-top: .5em;
+}
+
+.footer-detail .branch {
+    margin-right: 5em;
+}
+
+.footer .licenses ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.footer .licenses li a {
+    margin-left: 1em;
+    height: 6em;
+}
+
+.footer .licenses .license-item img {
+    height: inherit;
+}
+
+.copyright {
+    /* background-color: rgb(255, 47, 47) !important; */
+    padding: 1.5em;
+    justify-content: center;
+    text-align: center;
+}
+
+.newsletter .newsletter-footer .icon {
+    width: 3em;
+    height: 3em;
+    display: flex;
+    background-size: cover;
+    background-position: center;
+}
+
+
+.newsletter .newsletter-footer .icon#email {
+    background-image: url(./../images/icons/email.webp);
+}
+
+.newsletter .newsletter-footer .icon#instagram {
+    background-image: url(./../images/icons/instagram.webp);
+}
+
+.newsletter .newsletter-footer .icon#whatsapp {
+    background-image: url(./../images/icons/whatsapp.webp);
+}
+
+.newsletter .newsletter-footer .icon#telegram {
+    background-image: url(./../images/icons/telegram_1.webp);
+}
+
+
+
+@media only screen and (max-width: 900px) {
+    .footer {
+        flex-direction: column;
+    }
+
+    .footer .licenses ul {
+        flex-wrap: wrap;
+        margin-top: 1em;
+        justify-content: center;
+    }
+
+
+
+    .footer .licenses .license-item {
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+
+    .footer .licenses a {
+        margin-bottom: 2em;
+    }
+}
+
+/* footer style */
+
+
+@media only screen and (max-width: 500px) {
+
+    .footer .footer-detail {
+        margin: 0 !important;
+    }
+
+    /* .footer .footer-detail ul {
+        padding: 0 !important;
+    }
+     */
+
+    /* .licenses {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .footer .licenses ul {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start !important;
+    } */
+
+
+}
+
+@media only screen and (max-width: 768px) {
+
+    .newsletter-container {
+        justify-content: center !important;
+        margin-top: 2em;
+    }
+}

@@ -1,0 +1,168 @@
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    33% {
+        transform: rotate(15deg);
+    }
+
+    66% {
+        transform: rotate(-15deg);
+        ;
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.informations {
+    display: flex;
+    width: 100%;
+}
+
+.information-container {
+    width: 100%;
+}
+
+.information {
+    flex: 1;
+    background-color: var(--mb-black-60);
+    min-height: 20em;
+    border-radius: 5px;
+    margin-top: 1em;
+    padding: 2em 3em;
+    text-align: justify !important;
+}
+
+.information .about-us {
+    line-height: 2.5em;
+
+}
+.information {
+    position: relative;
+}
+.information::before {
+    content: ' ';
+    width: 15em;
+    height: 15em;
+    position: absolute;
+    bottom: 1em;
+    left: 1em;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    opacity: .1;
+}
+
+.about-us-info::before {
+    background-image: url(./../images/icons/about-us.svg);
+}
+.contact-us-info::before {
+    background-image: url(./../images/icons/contact-us.svg);
+}
+
+.contact-us-item {
+    display: flex;
+    align-items: flex-start;
+}
+
+
+
+
+
+.newsletter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.newsletter-footer {
+    display: flex;
+    width: 14em;
+    justify-content: space-between;
+}
+
+.newsletter-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.newsletter-body input {
+    width: 16em;
+    height: 3em;
+    padding: 0em 1em;
+}
+
+.newsletter-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5em;
+}
+
+.newsletter-body span {
+    /*! font-size: 1.2em; */
+    font-weight: bold;
+    margin: .5em 0;
+    display: flex;
+    align-items: center;
+}
+
+.newsletter .newsletter-footer .icon {
+    width: 3em;
+    height: 3em;
+    display: flex;
+    background-size: cover;
+    background-position: center;
+}
+
+
+.newsletter .newsletter-footer .icon#email {
+    background-image: url(./../images/icons/email.webp);
+}
+
+.newsletter .newsletter-footer .icon#instagram {
+    background-image: url(./../images/icons/instagram.webp);
+}
+
+.newsletter .newsletter-footer .icon#whatsapp {
+    background-image: url(./../images/icons/whatsapp.webp);
+}
+
+.newsletter .newsletter-footer .icon#telegram {
+    background-image: url(./../images/icons/telegram_1.webp);
+}
+
+
+
+
+@media only screen and (max-width: 1024px) {
+    .informations {
+        flex-direction: column;
+        width: auto;
+    }
+    .information-container {
+        width: auto;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    .contact-us {
+        align-items: center;
+    }
+
+    .newsletter-container {
+        justify-content: center !important;
+        margin-top: 2em;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .information-container {
+        margin: 1em .5em;
+    }
+}

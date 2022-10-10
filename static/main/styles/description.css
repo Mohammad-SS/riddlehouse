@@ -1,0 +1,165 @@
+@import url(./head-slider.css);
+
+
+/* description box style */
+.description {
+
+    width: 100%;
+    height: fit-content;
+    min-height: 18em;
+    background-color: var(--mb-black-60);
+    display: flex;
+    align-items: center;
+    margin-top: 3em;
+}
+
+.description .detail {
+    text-align: justify;
+    padding: 1em 3em 1em 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: 1;
+    line-height: 2em;
+}
+
+.cube-tip-box {
+    min-width: 19em;
+    max-width: 19em;
+    height: 20em;
+    margin-left: 4em;
+    margin-right: 2.5em;
+    transform: scale(1);
+    position: relative;
+}
+
+
+.cube-tip-box .tip-card::before{
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: var(--mb-white);
+    position: absolute;
+    left: 0;
+    z-index: 0;
+    transform: scaleY(1.1);
+}
+
+.cube-tip-box .tip-card * {
+    z-index: 1;
+}
+
+/* tip card style */
+
+.tip-card-title {
+    margin-right: 0.5em;
+}
+
+.tip-card {
+    font-size: 13px !important;
+    color: var(--mb-gray-900);
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    background-color: var(--mb-white);
+    display: flex;
+    flex-direction: column;
+    border-radius: .1em;
+    line-height: 1.8em;
+
+}
+
+.tip-card-header {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    height: 2.5em;
+    background: var(--mb-black-20);
+    margin: 1em 0 0 0;
+    border-radius: 3em 0em 0em 3em;
+    padding: 0em 0.5em 0em 0em;
+}
+
+.cube-tip-box .tip-card-header {
+    margin-top: 0;
+}
+
+.tip-card-title {
+    font-weight: bold;
+}
+
+.tip-card-title-icon {
+    width: 3em;
+    padding: 0.4em;
+}
+
+.tip-card-title-icon img {
+    width: 100%;
+}
+
+.tip-card-body {
+    text-align: justify;
+    padding: 1em;
+    overflow: auto;
+}
+
+
+.tip-card-foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.tip-card-foot .swipe-icon {
+    width: 1.8em;
+    height: 1.8em;
+    background: url(./../images/icons/swipe.svg);
+    color: var(--mb-gray-900);
+    background-size: contain;
+    margin-left: .5em;
+}
+
+.coverflow-tip-box {
+    display: none;
+    margin-top: -4em;
+    width: 100%;
+}
+
+.coverflow-tip-box .tip-card {
+    width: 20em;
+    height: 24em;
+    border-radius: .5em;
+}
+
+/* description box style */
+
+@media only screen and (max-width: 900px) {
+
+    .description .detail {
+        line-height: 1.7em;
+        padding: 1em;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    .description {
+        margin-top: 1em;
+        padding-bottom: 5em;
+        flex-wrap: wrap;
+    }
+
+    .description .detail {
+        padding: 1.5em;
+    }
+
+    .cube-tip-box {
+        display: none;
+    }
+
+    .coverflow-tip-box {
+        display: block;
+    }
+
+}
