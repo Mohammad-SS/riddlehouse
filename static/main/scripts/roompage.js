@@ -4,6 +4,7 @@ var app = new Vue({
 
     delimiters: ["[[", "]]"],
     data: {
+        current_room: null,
         step: 1,
         accept_rols: false,
         page_loading: true,
@@ -42,11 +43,12 @@ var app = new Vue({
     },
 
     async mounted() {
+        this.current_room = parseInt(this.$el.getAttribute("roomId"))
         AOS.init({
             offset: 20,
         });
 
-        let calendar_data = await this.get_calendar(1, this.current_date[0], this.current_date[1])
+        let calendar_data = await this.get_calendar(this.current_room, this.current_date[0], this.current_date[1])
         this.default_calendar = calendar_data
         this.calendar = calendar_data
         create_reserve_calendar(this.calendar)
@@ -59,7 +61,7 @@ var app = new Vue({
 
     methods: {
 
-        change_step: function(step) {
+        change_step: function (step) {
             if (step < this.step) {
                 this.step = step
             }
@@ -103,7 +105,7 @@ var app = new Vue({
                 this.current_date[1] = 1
             }
 
-            let calendar_data = await this.get_calendar(1, this.current_date[0], this.current_date[1])
+            let calendar_data = await this.get_calendar(this.current_room, this.current_date[0], this.current_date[1])
 
             if (calendar_data) {
                 this.calendar = calendar_data
@@ -128,7 +130,7 @@ var app = new Vue({
                 this.current_date[1] = 12
             }
 
-            let calendar_data = await this.get_calendar(1, this.current_date[0], this.current_date[1])
+            let calendar_data = await this.get_calendar(this.current_room, this.current_date[0], this.current_date[1])
 
             if (calendar_data) {
                 this.calendar = calendar_data
