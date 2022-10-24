@@ -12,6 +12,10 @@ class WeekDays(models.IntegerChoices):
     THURSDAY = 6, "پنج شنبه"
     FRIDAY = 7, "جمعه"
 
+class RoomType(models.TextChoices):
+    REAL = "REAL" , "اتاق عادی"
+    BOX = "BOX" , "اسکیپ باکس"
+
 
 class RoomPaymentMethod(models.TextChoices):
     PER_PERSON = "P", "Per Person"

@@ -5,29 +5,23 @@ from riddlehouse.helpers import enums
 
 class Room(models.Model):
     name = models.CharField(max_length=255)
-    difficulty = models.IntegerField()
-    min_players = models.IntegerField()
-    max_players = models.IntegerField()
-    game_duration = models.CharField(max_length=255)
-    price_per_unit = models.IntegerField()
-    final_payment = models.IntegerField()
+    difficulty = models.IntegerField(blank=True,null=True)
+    min_players = models.IntegerField(blank=True,null=True)
+    max_players = models.IntegerField(blank=True,null=True)
+    conditions = models.TextField(blank=True,null=True)
+    game_duration = models.CharField(max_length=255 , blank=True,null=True)
+    price_per_unit = models.IntegerField(blank=True,null=True)
     default_hours = postgres_fields.ArrayField(models.CharField(max_length=12, blank=True))
     default_days = postgres_fields.ArrayField(models.IntegerField(choices=enums.WeekDays.choices))
-    final_payment_method = models.CharField(max_length=1, choices=enums.RoomPaymentMethod.choices,
-                                            default=enums.RoomPaymentMethod.PER_PERSON)
-    description = models.TextField()
-    warnings = models.TextField()
-
-
-class Rule(models.Model):
-    name = models.CharField(max_length=255)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="rules")
-    date = models.DateField(null=True, blank=True)
-    rule_by = models.CharField(max_length=1, choices=enums.RuleTypes.choices, default=enums.RuleTypes.SINGLE_DAY)
-    week_day = models.IntegerField(choices=enums.WeekDays.choices, blank=True, null=True)
-
+    room_type = models.CharField(max_length=7 , choices=enums.RoomType.choices , default=enums.RoomType.REAL)
+    box_packages_prices = postgres_fields.ArrayField(models.IntegerField() , blank=True,null=True)
+    description = models.TextField(blank=True,null=True)
+    warnings = models.TextField(blank=True,null=True)
+    banner = models.ImageField(upload_to="rooms" , blank=True,null=True)
 
 class Exclusion(models.Model):
     room = models.ForeignKey(Room,on_delete=models.CASCADE , related_name="exclusions")
     zone = postgres_fields.DateTimeRangeField(name="zones")
     is_suspended = models.BooleanField(default=True)
+
+

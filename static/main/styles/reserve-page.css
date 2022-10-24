@@ -15,7 +15,7 @@
 section.teaser-section {
     width: 100%;
     height: 45em;
-    display: none;
+    /*display: none;*/
 }
 
 section.teaser-section video {

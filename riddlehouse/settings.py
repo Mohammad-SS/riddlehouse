@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "main",
     "orders",
     #     THIRD PARTY APPS :
-    "rest_framework"
+    "rest_framework",
+    "django.contrib.humanize"
 ]
 
 MIDDLEWARE = [
@@ -80,12 +81,12 @@ WSGI_APPLICATION = "riddlehouse.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "HOST": "gina.iran.liara.ir",
-        "PORT" : "34646",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "HOST": os.getenv("rdl_psql_host" , "gina.iran.liara.ir"),
+        "PORT" : os.getenv("rdl_psql_port" , "32937"),
         "NAME": "riddlehouse",
         "USER": "root",
-        "PASSWORD": "3HXOsHHy2QGVmGFK8NMcGdRG"
+        "PASSWORD": "oSVMLjxK4QZ3TXGj37DXQddp"
     }
 }
 
@@ -123,6 +124,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [str(BASE_DIR / "static") ]
 MEDIA_ROOT = os.path.join(BASE_DIR, "medias")
+MEDIA_URL = "media/"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
