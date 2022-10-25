@@ -1,0 +1,21 @@
+<div ref="stepper"></div>
+<div class="reserve-stepper" v-if="step > 1">
+    <div :class="step > 2 ? 'step-complete' : '' " class="step" @click='()=>{change_step(2)}'
+         id="rols"></div>
+    <div class="step-line">
+        <hr id="spliter">
+        <i class="fas fa-check-circle step-check"></i>
+    </div>
+    <div :class="step > 3 ? 'step-complete' : '' " class="step" @click='()=>{change_step(3)}'
+         id="turn"></div>
+    <div class="step-line">
+        <hr id="spliter">
+        <i class="fas fa-check-circle step-check"></i>
+    </div>
+    <div :class="step > 4 ? 'step-complete' : '' " class="step" id="info"></div>
+    <div class="step-line">
+        <hr id="spliter">
+        <i class="fas fa-check-circle step-check"></i>
+    </div>
+    <div :class="step >= 5 ? 'step-complete' : '' " class="step" id="resept"></div>
+</div>

@@ -1,0 +1,47 @@
+{% load static %}
+{% load humanize %}
+<div class="room-container" id="reserve">
+    <div class="room-image">
+        <img loading="lazy" class="mb-shadow-50" src="{{ room.banner.url }}"
+             alt="خانه معما | اتاق فرار | {{ room.name }}">
+    </div>
+    <div class="room-detail-container mb-shadow-50">
+        <div class="room-detail">
+            <div class="room-title">
+                <h2 id="title">{{ room.name }}</h2>
+                <span id="price" class="badge badge-success">
+                    {% if room.price_per_unit and not room.box_packages_prices %}
+                        نفری {{ room.price_per_unit|intcomma }} تومان
+                    {% else %}
+                        {{room.box_packages_prices|length}} پکیج
+                    {% endif %}
+                    
+                </span>
+            </div>
+                <div class="room-info">
+                    <div class="room-info-item">
+                    <span class="info-icon">
+                        <img loading="lazy" src="{% static 'main/' %}images/icons/detail-genre.svg"
+                             alt="ژانر | {{ room.name }}">
+                    </span>
+                        <span class="info-title mb-sans-num">اسکیپ باکس</span>
+                    </div>
+                    {% for packages_price in room.box_packages_prices %}
+                    <div class="vr"></div>
+                        <div class="room-info-item">
+                    <span class="info-icon" style="width:100%;font-weight: bold">
+                        پکیج {{ forloop.counter }}
+                    </span>
+                            <span class="info-title mb-sans-num">{{ packages_price|intcomma }} تومان </span>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+            {% comment %} <div class="room-actions">
+                <button class="btn btn-success shadow-0 d-none" style="width: 10em;">رزرو</button>
+                <button class="btn btn-primary shadow-0 ms-2" style="width: 10em;">توضیحات</button>
+            </div> {% endcomment %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+{% load static %}
+{% load humanize %}
+<div class="room-md-container mb-shadow-50">
+    <div class="room-md-image-container">
+        <img src="{{ room.banner.url }}" alt="خانه معما | اتاق فرار | {{ room.name }}"
+             class="room-md-image">
+    </div>
+    <div class="room-info room-md-info">
+        <div class="room-info-item">
+        <span class="info-icon">
+            <img loading="lazy" src="{% static 'main/' %}images/icons/detail-genre.svg"
+                 alt="ژانر | {{ room.name }}">
+        </span>
+            <span class="info-title mb-sans-num">اسکیپ باکس</span>
+        </div>
+        {% for packages_price in room.box_packages_prices %}
+            <hr class="hz">
+            <div class="vr"></div>
+            <div class="room-info-item">
+            <span class="info-icon" style="width:100%;font-weight: bold">
+                پکیج {{ forloop.counter }}
+            </span>
+                <span class="info-title mb-sans-num">{{ packages_price|intcomma }} تومان </span>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>

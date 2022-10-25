@@ -1,0 +1,50 @@
+{% load static %}
+{% load humanize %}
+<div v-if='step == 3' class="reserve-dates">
+
+    <div class="date-info flex-wrap">
+        <div class="date-picker me-2">
+            <button name="date-picker select"
+                    class="date-picker-btn btn btn-success shadow-0 border-3  flex-fill me-3 justify-content-center align-items-center"
+                    placeholder="" @click='datepicker = true'>
+
+                {% comment %} <div class="" :class="!datepicker_loader ? 'd-none' : ''">
+                        <i class="fas fa-spinner loading"></i>
+                    </div> {% endcomment %}
+
+                <span v-if="!reserve_date">تاریخ را انتخاب کنید</span>
+                <span v-if="reserve_date">[[reserve_date]] &nbsp;<i
+                        class="far fa-calendar"></i></span>
+            </button>
+        </div>
+        <div class="d-flex flex-column p-2 flex-wrap">
+            <span><i class="fas fa-circle fa-sm text-success"></i>&nbsp; نوبت های آزاد :
+                <span class="badge badge-success fw-bold">[[free_turns]] نوبت</span></span>
+            <span><i class="fas fa-circle fa-sm text-danger"></i>&nbsp; نوبت های رزرو شده:
+                <span class="badge badge-danger fw-bold">[[reserved_turns]] نوبت</span></span>
+        </div>
+    </div>
+    <div class="reserve-time-section mt-3">
+        <div>
+
+            <span class="empty_reserve_list" v-if='is_reservable_time_list_empty'>لطفا تاریخ رزرو را انتخاب کنید</span>
+            <label v-else v-for='item in reservable_time_list' :id='item.rand_id'
+                   @click='() => {select_time(item)}'>
+                <span class="status-icon"></span>
+                <div class="reserve-time-detail">
+                    {% if room.room_type == "REAL" %}
+                        <span class="time fw-bold">ساعت [[item.time]]</span>
+                    {% else %}
+                        <span class="time fw-bold">رزرو این روز</span>
+                    {% endif %}
+
+                    {% if room.price_per_unit %}
+                        <span class="price ">{{ room.price_per_unit }}</span>
+                    {% endif %}
+
+                </div>
+            </label>
+
+        </div>
+    </div>
+</div>

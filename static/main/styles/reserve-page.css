@@ -24,6 +24,11 @@ section.teaser-section video {
     object-fit: cover;
 }
 
+
+section.teaser-section + section.reserve-section {
+    margin-top: -6em;
+}
+
 section.reserve-section {
     height: 48em;
     padding: 0em 1em;
@@ -147,7 +152,7 @@ section.reserve-section {
 .room-md-info {
     flex-direction: column;
     width: 10em;
-    margin-top: 0em;
+    margin-top: 0em !important;
     justify-content: center;
 }
 

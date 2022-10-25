@@ -1,0 +1,45 @@
+{% load static %}
+{% load humanize %}
+<div class="room-reserve-detail">
+    
+
+    <!-- reserve stepper -->
+    {% include 'main/roompage/reserve_steps/stepper.html' %}
+    <!-- reserve stepper -->
+
+    <div class="room-desctiption">
+
+        <!-- room description -->
+        {% include 'main/roompage/reserve_steps/templates/description.html' %}
+        <!-- room description -->
+
+        <!-- room ruls -->
+        {% include 'main/roompage/reserve_steps/templates/ruls.html' %}
+        <!-- room ruls -->
+
+        <!-- room date selector -->
+        {% include 'main/roompage/reserve_steps/templates/date_select.html' %}
+        <!-- room date selector -->
+
+        <!-- room information form -->
+        {% include 'main/roompage/reserve_steps/templates/information_form.html' %}
+        <!-- room information form -->
+
+    </div>
+
+    <div class="room-action-bar" v-if='step < 4'>
+
+            <!-- room description actions -->
+            {% include 'main/roompage/reserve_steps/actions/description.html' %}
+            <!-- room description actions -->
+    
+            <!-- room ruls actions -->
+            {% include 'main/roompage/reserve_steps/actions/ruls.html' %}
+            <!-- room ruls actions -->
+    
+            <!-- room date selector actions -->
+            {% include 'main/roompage/reserve_steps/actions/date_select.html' %}
+            <!-- room date selector actions -->
+
+    </div>
+</div>

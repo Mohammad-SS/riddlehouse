@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-r!mz(^h)&ci#nc72emflxbfpc$^@x(j53!z1ysekb2!!_%!y07
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '192.168.1.5']
 
 # Application definition
 
@@ -82,11 +82,11 @@ WSGI_APPLICATION = "riddlehouse.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "HOST": os.getenv("rdl_psql_host" , "gina.iran.liara.ir"),
-        "PORT" : os.getenv("rdl_psql_port" , "32937"),
-        "NAME": "riddlehouse",
-        "USER": "root",
-        "PASSWORD": "oSVMLjxK4QZ3TXGj37DXQddp"
+        "HOST": os.getenv("rdl_psql_host"),
+        "PORT" : os.getenv("rdl_psql_port"),
+        "NAME": os.getenv("rdl_psql_db_name"),
+        "USER": os.getenv("rdl_psql_user"),
+        "PASSWORD": os.getenv("rdl_psql_password"),
     }
 }
 
