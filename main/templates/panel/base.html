@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'panel/' %}images/g-simple-logo.svg">
+    <!-- material design bootstrap -->
+    <!-- Font Awesome -->
+    <link href="{% static 'modules/all.min.css' %}" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="{% static 'modules/google.fonts.css' %}" rel="stylesheet" />
+    <!-- MDB -->
+    
+    {% block mdb %}
+    <link href="{% static 'modules/mdb.min.css' %}" rel="stylesheet" />
+    {% endblock mdb %}
+
+    <!-- material design bootstrap -->
+
+    <!-- styles -->
+    <link rel="stylesheet" href="{% static 'panel/' %}styles/base.css">
+    <link rel="stylesheet" href="{% static 'panel/' %}styles/menu.css">
+    <link rel="stylesheet" href="{% static 'panel/' %}styles/content.css">
+    <link rel="stylesheet" href="{% static 'panel/' %}styles/navbar.css">
+   
+    {% block styles %}
+    {% endblock %}
+
+    <!-- styles -->
+
+    <!-- scripts -->
+    <script src="{% static 'modules/feather.min.js' %}"></script>
+    <script src="{% static 'modules/axios.min.js' %}"></script>
+    {% block header-scripts %}
+    {% endblock %}
+    <!-- scripts -->
+
+    <title>
+        {% block title %}
+        {{ title }}
+        {% endblock %}
+    </title>
+
+</head>
+
+<body>
+
+    
+
+    {% block body %}
+    <div id="app" class="mb-panel">
+        <div class="mb-rtl">
+            {% block dialogs %}{% endblock dialogs %}
+        </div>
+        <div class="mb-content">
+            <div class="mb-detail">
+                {% include 'panel/nav.html' %}
+                {% block contentHead %}
+                {% endblock contentHead %}
+                {% block contentHeadSpliter %}
+                    <hr class="mx-3 my-0">
+                {% endblock contentHeadSpliter %}
+                {% block content %}
+                  
+                {% endblock %}
+            </div>
+        </div>
+
+        {% block panelmenu %}
+        <!-- Panel menu (side bar) -->
+        {% include 'panel/menu.html' %}
+        <!-- Panel menu (side bar) -->
+        {% endblock panelmenu %}
+
+        <label class='content-hamb-menu mb-collapse mt-3' for="hamb-menu">
+            <span class="me-2">منو</span>
+            <i class="fas fa-bars mb-menu-icon"></i>
+        </label>
+    </div>
+    {% endblock %}
+
+
+
+    <!-- scripts -->
+    {% block footer-scripts %}
+
+    {% endblock %}
+    <script src="{% static 'modules/mdb.min.js' %}"></script>
+    <script src="{% static 'panel/' %}scripts/script.js"></script>
+    <script src="{% static 'panel/' %}scripts/menu.js"></script>
+    <!-- scripts -->
+</body>
+
+</html>

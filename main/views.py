@@ -9,6 +9,21 @@ from game import models as game_models
 
 # Create your views here.
 
+class PanelRoomsView(View):
+    template_name = 'panel/manage-rooms/manage-rooms.html'
+    def get(self, request):
+        return render(request, self.template_name, {})
+
+class PanelRoomView(View):
+    template_name = 'panel/manage-rooms/create.html'
+    def get(self, request):
+        return render(request, self.template_name, {})
+    
+class PanelCoupanView(View):
+    template_name = 'panel/coupan.html'
+    def get(self, request):
+        return render(request, self.template_name, {})
+
 
 class LandingView(View):
     def get(self, request):

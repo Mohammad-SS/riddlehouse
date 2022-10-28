@@ -1,0 +1,184 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% block styles %}
+
+
+<link rel="stylesheet" href="{% static 'panel/' %}styles/create.css">
+{% endblock %}
+{% block contentHead %}
+  <div class="content-head">
+    <h4>ایجاد بازی جدید</h4>
+  </div>
+{% endblock %}
+
+
+
+{% block header-scripts %}
+<script src="{% static 'modules/tinymce.min.js' %}"></script>
+
+<script>
+    tinymce.init({
+        language: 'fa',
+        statusbar: false,
+        selector: '#description',
+        plugins: [
+            'lists', 'link', 'image', 'preview', 'table', 'insertdatetime', 'media', 'codesample', 'emoticons', 'directionality'
+        ],
+        
+        menubar: false,
+        toolbar1: 'ormatpainter casechange blocks | table tabledelete | link  numlist bullist | codesample emoticons code insertdatetime preview',
+        toolbar2: 'bold italic forecolor backcolor removeformat | ltr rtl | alignleft aligncenter alignright alignjustify | hr',
+
+    });
+</script>
+
+{% endblock %}
+
+
+{% block content %}
+  <form action="" class="container mb-rtl mt-5">
+
+    <div class="row">
+      <div class="mb-3 col-lg-6 col-12">
+        {% comment %} <label for="name" class="form-label d-md-none d-block">نام اتاق</label> {% endcomment %}
+        <input type="text" class="form-control" id="name" placeholder="نام اتاق">
+      </div>
+      <div class="mb-3 col-lg-2 col-6">
+        {% comment %} <label for="difficulty" class="form-label d-md-block d-md-none d-block">سختی بازی</label> {% endcomment %}
+        <input type="number" class="form-control" id="difficulty" placeholder="سختی بازی">
+      </div>
+      <div class="mb-3 col-lg-2 col-6">
+        {% comment %} <label for="min-player" class="form-label d-md-block d-md-none d-block">حداقل بازیکن</label> {% endcomment %}
+        <input type="number" class="form-control" id="min-player" placeholder="حداقل بازیکن">
+      </div>
+      <div class="mb-3 col-lg-2 col-6">
+        {% comment %} <label for="max-player" class="form-label d-md-block d-md-none d-block">حداکثر بازیکن</label> {% endcomment %}
+        <input type="number" class="form-control" id="max-player" placeholder="حداکثر بازیکن">
+      </div>
+      
+    </div>
+    
+    <div class="row">
+      
+      <div class="col-lg-6 col-12 mb-md-0 mb-4">
+        <div class="col-12 mb-2 badge badge-basic fs-6 py-2">
+          نوع اتاق و قیمت ها
+        </div>
+        <div class="row">
+          <div class="mb-3 col-6">
+            <select class="form-select" aria-label="Default select example" v-model='room_mode'>
+              <option selected disabled>نوع بازی</option>
+              <option value="real">معمولی</option>
+              <option value="box">اسکیپ باکس</option>
+            </select>
+          </div>
+          <div class="col-6">
+            {% comment %} <label for="price" class="form-label d-md-block d-md-none d-block">قیمت هر نفر</label> {% endcomment %}
+            <input type="number" class="form-control" :disabled='room_mode == "box"' id="price" placeholder="قیمت هر نفر">
+          </div>
+        </div>
+        <div class="row mb-3" v-if='packages.length > 0'>
+          <div class="col-12 d-flex mt-1" v-for='(package, index) in packages'>
+            <input type="hidden" name='price'>
+            <div class="d-flex align-items-center flex-fill packages-container shadow-2 fs-6">
+              <i class="far text-success fa-check-circle fa-lg ms-2"></i>
+              <span>[[package.name]] : [[package.price]] تومان</span>
+              <span class="mb-expand"></span>
+              <span class="btn btn-link text-danger shadow-0" @click="() => removePackage(package.id)">
+                <i class="fas fa-times"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div v-if='room_mode == "box" && packages.length < 3' class="d-flex">
+          <input type="number" class="form-control" id="add_package" ref='add_package' placeholder="قیمت پکیج">
+          <div><span @click='add_package' class="btn btn-success fs-6 me-2"><i class="fas fa-check"></i></span></div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-12 ">
+        <div class="col-12 mb-2 badge badge-basic fs-6 py-2">
+          روزهای هفته و ساعات
+        </div>
+        <div class="row">
+          <div class="mb-3 col-12 weekday-selector">
+            <input class="d-none" type="checkbox" name='weekday' id='d-1'>
+            <label for="d-1" class="ripple btn btn-basic rounded shadow-2">
+              <span>شنبه</span>
+            </label>
+            <input class="d-none" type="checkbox" name='weekday' id='d-2'>
+            <label for="d-2" class="ripple btn btn-basic rounded shadow-2">
+              <span>یکشنبه</span>
+            </label>
+            <input class="d-none" type="checkbox" name='weekday' id='d-3'>
+            <label for="d-3" class="ripple btn btn-basic rounded shadow-2">
+              <span>دوشنبه</span>
+            </label>
+            <input class="d-none" type="checkbox" name='weekday' id='d-4'>
+            <label for="d-4" class="ripple btn btn-basic rounded shadow-2">
+              <span>سه شنبه</span>
+            </label>
+            <input class="d-none" type="checkbox" name='weekday' id='d-5'>
+            <label for="d-5" class="ripple btn btn-basic rounded shadow-2">
+              <span>چهارشنبه</span>
+            </label>
+            <input class="d-none" type="checkbox" name='weekday' id='d-6'>
+            <label for="d-6" class="ripple btn btn-basic rounded shadow-2">
+              <span>پنجشنبه</span>
+            </label>
+            <input class="d-none" type="checkbox" name='weekday' id='d-7'>
+            <label for="d-7" class="ripple btn btn-basic rounded shadow-2">
+              <span>جمعه</span>
+            </label>
+          </div>
+          <div class="col-12 user-select-none">
+            <div class="form-control">
+              <div class="row px-2  mt-2 mb-2" dir="ltr">
+                <input @input='set_time' class="time-picker my-3 col-12" ref='timepicker' type="range" min="0" max="288" steps="1" value="0" id='time-picker'>
+                <div class="col-12 d-flex align-items-center justify-content-center bg-light shadow-2">
+                  <span class=" btn text-success btn-link fs-6" @click='addTag'><i class="fas fa-check"></i></span>
+                  <span class="mx-3 fw-bold">[[time]]</span>
+                  <span class=" btn text-danger btn-link fs-6"><i class="fas fa-times"></i></span>
+                </div>
+              </div>
+              <div v-if='tags.length > 0' class="d-flex justify-content-center flex-wrap mt-2">
+                <span v-for="(tag, index) in tags" class="zoom-effect badge badge-info fw-light m-1 fs-6">
+                  <input @click='reset_time_picker' type="hidden" name='hours' :id="'hour_' + index">
+                  <label :for="'hour_' + index">
+                    <span>[[tag]]</span>
+                    <span @click='() => removeTag(tag)' class="me-2" style="cursor:pointer;"> <i class="fas fa-times"></i></span>
+                  </label>
+                </span>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-6 col-12 mb-md-0 mb-4">
+        <p>توضیحات</p>
+        <input type="text" id="description">
+      </div>
+      <div class="col-md-6 col-12">
+        <p>نکات و قوانین</p>
+        <input type="text" id="description">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 mt-4 text-end d-flex justify-content-md-end justify-content-center">
+        <button class="btn btn-danger ms-2" type='reset'>خالی کردن فرم</button>
+        <button class="btn btn-primary" type="submot">ثبت اطلاعات</button>
+      </div>
+    </div>
+  </form>
+{% endblock %}
+
+
+{% block footer-scripts %}
+
+<script src="{% static 'modules/vue.js' %}"></script>
+<script src="{% static 'panel/scripts/create.js' %}"></script>
+
+
+{% endblock %}

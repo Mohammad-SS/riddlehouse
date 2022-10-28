@@ -1,0 +1,107 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% block styles %}
+<link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet"/>
+<link rel="stylesheet" href="{% static 'panel/' %}styles/coupan.css">
+<link rel="stylesheet" href="{% static 'panel/' %}styles/coupan-ticket.css">
+<link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
+{% endblock %}
+{% block contentHead %}
+  <div class="content-head">
+    <h4>کدهای تخفیف</h4>
+  </div>
+{% endblock %}
+
+
+{% block dialogs %}
+{% comment %} {% include 'panel/manage-rooms/room-add-pupop.html' %} {% endcomment %}
+{% endblock dialogs %}
+
+{% block content %}
+  <div class="coupan-container mb-rtl">
+    <div class="mb-filter mb-card mb-3">
+      <button class="btn btn-success" @click='room_add_dialog = true'>
+        +&nbsp;&nbsp;ایجاد اتاق جدید
+      </button>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="my-2 coupan col-lg-6 col-xl-4 col-xxl-3 col-12 d-flex">
+          <div class="coupan-content">
+            <div class="coupan-rooms fw-bold">
+             
+            </div>
+            <span class="coupan-code ripple badge badge-success">
+              <i class="far fa-clone"></i>
+              <span>کد تخفیف</span>
+            </span>
+            <span class="coupan-delete ripple badge badge-danger">
+              <i class="far fa-trash-alt"></i>
+              <span>حذف تخفیف</span>
+            </span>
+          </div>
+        </div>
+        <div class="my-2 coupan col-lg-6 col-xl-4 col-xxl-3 col-12 d-flex">
+          <div class="coupan-content">
+            <div class="coupan-rooms fw-bold">
+              <span>فرار از الکاتراز</span>
+              <span>فرار از الکاتراز</span>
+              <span>فرار از الکاتراز</span>
+            </div>
+            <span class="coupan-code ripple badge badge-success">
+              <i class="far fa-clone"></i>
+              <span>کد تخفیف</span>
+            </span>
+            <span class="coupan-delete ripple badge badge-danger">
+              <i class="far fa-trash-alt"></i>
+              <span>حذف تخفیف</span>
+            </span>
+          </div>
+        </div>
+        <div class="my-2 coupan col-lg-6 col-xl-4 col-xxl-3 col-12 d-flex">
+          <div class="coupan-content">
+            <div class="coupan-rooms fw-bold">
+              <span>فرار از الکاتراز</span>
+              <span>فرار از الکاتراز</span>
+              <span>فرار از الکاتراز</span>
+            </div>
+            <span class="coupan-code ripple badge badge-success">
+              <i class="far fa-clone"></i>
+              <span>کد تخفیف</span>
+            </span>
+            <span class="coupan-delete ripple badge badge-danger">
+              <i class="far fa-trash-alt"></i>
+              <span>حذف تخفیف</span>
+            </span>
+          </div>
+        </div>
+        <div class="my-2 coupan col-lg-6 col-xl-4 col-xxl-3 col-12 d-flex">
+          <div class="coupan-content">
+            <div class="coupan-rooms fw-bold">
+              <span>فرار از الکاتراز</span>
+              <span>فرار از الکاتراز</span>
+              <span>فرار از الکاتراز</span>
+            </div>
+            <span class="coupan-code ripple badge badge-success">
+              <i class="far fa-clone"></i>
+              <span>کد تخفیف</span>
+            </span>
+            <span class="coupan-delete ripple badge badge-danger">
+              <i class="far fa-trash-alt"></i>
+              <span>حذف تخفیف</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}
+
+
+{% block footer-scripts %}
+<script src="{% static 'modules/vue.js' %}"></script>
+<script src="{% static 'panel/scripts/coupan.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% load static %}
+<div class="mb-menu mb-rtl">
+    <div class="mb-menu-header">
+        <span class="mb-menu-header-logo"></span>
+    </div>
+    <div class="mb-profile">
+        <div class="profile-img">
+            <img src="{% static 'panel/images/fake-profile.png' %}" alt="">
+        </div>
+        <div class="profile-name">
+            <span>نام</span>
+        </div>
+    </div>
+    <div class="mb-menu-content grtl">
+        <ul class="mb-menu-items">
+            <a href="#">
+                <input type="checkbox" class="d-none" id="hamb-menu">
+                <label class="mb-menu-item hamb-menu" for="hamb-menu">
+                    <i class="fas fa-bars mb-menu-icon"></i>
+                    <span>منو</span>
+                </label>
+            </a>
+            <a href="#">
+                <li class="mb-menu-item ripple">
+                    <i class="fas fa-dice-d6 mb-menu-icon"></i>
+                    <span>مدیریت بازی ها</span>
+                </li>
+            </a>
+            <a href="#">
+                <li class="mb-menu-item ripple">
+                    <i class="fas fa-shopping-cart mb-menu-icon"></i>
+                    <span>مدیریت سفارش ها</span>
+                </li>
+            </a>
+            
+            <a href="#">
+                <li class="mb-menu-item ripple">
+                    <i class="fas fa-cut mb-menu-icon"></i>
+                    <span>کدهای تخفیف</span>
+                </li>
+            </a>
+            <a href="#">
+                <li class="mb-menu-item ripple">
+                    <i class="fas fa-adjust mb-menu-icon"></i>
+                    <span>شخصی سازی</span>
+                </li>
+            </a>
+            <a href="#">
+                <li class="mb-menu-item ripple">
+                    <i class="fab fa-paypal mb-menu-icon"></i>
+                    <span>تنظیمات درگاه پرداخت</span>
+                </li>
+            </a>
+            <a href="#">
+                <li class="mb-menu-item ripple">
+                    <i class="fas fa-sign-out-alt mb-menu-icon"></i>
+                    <span>خروج</span>
+                </li>
+            </a>
+            <span class="mb-expand"></span>
+        </ul>
+    </div>
+    <span class="expand"></span>
+    {% comment %} <div class="mb-menu-footer">
+        <a href="#" class="ripple p-3 rounded mb-menu-item " >
+            <i class="fas fa-sign-out-alt mb-menu-icon"></i>
+            <span class="me-2">خروج</span>
+        </a>
+    </div> {% endcomment %}
+</div>

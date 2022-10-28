@@ -1,0 +1,102 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% block styles %}
+<link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet"/>
+<link rel="stylesheet" href="{% static 'panel/' %}styles/manage-rooms.css">
+<link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
+{% endblock %}
+{% block contentHead %}
+  <div class="content-head">
+    <h4>مدیریت بازی ها</h4>
+  </div>
+{% endblock %}
+
+
+{% block dialogs %}
+{% comment %} {% include 'panel/manage-rooms/room-add-pupop.html' %} {% endcomment %}
+{% endblock dialogs %}
+
+{% block content %}
+  <div class="manage-rooms mb-rtl">
+    <div class="mb-filter mb-card mb-3">
+      <button class="btn btn-success" @click='room_add_dialog = true'>
+        +&nbsp;&nbsp;ایجاد اتاق جدید
+      </button>
+    </div>
+    <table class="table align-middle mb-0">
+
+      <tbody>
+        <tr class="sm-room-name">
+            <td colspan="2" class="shadow-5 border-0 text-center">
+              <span class="fw-bold">فرار از موزه</span>
+            </td>
+          </tr>
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="{% static 'main/images/ALKATRAZ2.jpg' %}" alt="" style="width: 8em; height: 5em;object-fit: cover;filter: brightness(1.2);" class="rounded bg-light" />
+              <div class="room-name me-3">
+                <span class="fw-bold">فرار از موزه</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div>
+                <p class="m-0"><span class="badge badge-success  mb-1">اطلاعات شماره 1</span></p>
+                <p class="m-0"><span class="badge badge-danger ">اطلاعات شماره 2</span></p>
+            </div>
+
+          </td>
+        </tr>
+        <tr class="sm-room-actions">
+          <td colspan="2" class="text-center">
+          <div>
+            
+            <button type="button" class="btn btn-link btn-sm btn-rounded">مشاهده</button>
+            <button type="button" class="me-2 btn btn-link text-success btn-sm btn-rounded">ویرایش</button>
+          </div>
+        </td>
+        </tr>
+        <tr class="sm-room-empty-space"></tr>
+        <tr class="sm-room-name">
+          <td colspan="2" class="shadow-5 border-0 text-center">
+            <span class="fw-bold">فرار از موزه</span>
+          </td>
+        </tr>
+      <tr>
+        <td>
+          <div class="d-flex align-items-center">
+            <img src="{% static 'main/images/ALKATRAZ2.jpg' %}" alt="" style="width: 8em; height: 5em;object-fit: cover;filter: brightness(1.2);" class="rounded bg-light" />
+            <div class="room-name me-3">
+              <span class="fw-bold">فرار از موزه</span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div>
+            <p class="m-0"><span class="badge badge-success  mb-1">اطلاعات شماره 1</span></p>
+            <p class="m-0"><span class="badge badge-danger ">اطلاعات شماره 2</span></p>
+        </div>
+        </td>
+      </tr>
+      <tr class="sm-room-actions">
+        <td colspan="2" class="text-center">
+        <div>
+          
+          <button type="button" class="btn btn-link btn-sm btn-rounded">مشاهده</button>
+          <button type="button" class="me-2 btn btn-link text-success btn-sm btn-rounded">ویرایش</button>
+        </div>
+      </td>
+      </tr>
+        <tr class="sm-room-empty-space"></tr>
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+
+
+{% block footer-scripts %}
+<script src="{% static 'modules/vue.js' %}"></script>
+<script src="{% static 'panel/scripts/manage_rooms.js' %}"></script>
+
+{% endblock %}

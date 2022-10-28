@@ -1,0 +1,154 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% block styles %}
+<link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet"/>
+<link rel="stylesheet" href="{% static 'panel/' %}styles/coupan.css">
+<link rel="stylesheet" href="{% static 'panel/' %}styles/coupan-ticket.css">
+<link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
+{% endblock %}
+{% block contentHead %}
+  <div class="content-head">
+    <h4>کدهای تخفیف</h4>
+  </div>
+{% endblock %}
+
+
+{% block dialogs %}
+{% comment %} {% include 'panel/manage-rooms/room-add-pupop.html' %} {% endcomment %}
+{% endblock dialogs %}
+
+{% block content %}
+  <div class="coupan-container mb-rtl">
+    <div class="mb-filter mb-card mb-2">
+      <button class="btn btn-success" @click='room_add_dialog = true'>
+        +&nbsp;&nbsp;ایجاد کد تخفیف
+      </button>
+    </div>
+    <div class="mb-3 mb-card">
+      <form action="" class="mb-rtl">
+          <div class="row">
+            <div class="mb-3 col-3">
+              <select class="form-select" aria-label="Default select example" v-model='room_mode'>
+                <option selected disabled>نوع تخفیف</option>
+                <option value="percentage">1</option>
+                <option value="constant">2</option>
+              </select>
+            </div>
+            <div class="col-2">
+              <input type="text" class="form-control" id="" placeholder="مبلغ / درصد">
+            </div>
+            <div class="col-2">
+              <input type="text" class="form-control" id="" placeholder="تعداد قابل استفاده">
+            </div>
+            <div class="col-3">
+              <select multiple class="form-select" aria-label="Default select example" v-model='room_mode'>
+                <option selected disabled>بازی ها</option>
+                <option value="percentage">1</option>
+                <option value="constant">2</option>
+              </select>
+            </div>
+            <div class="col-1">
+              <button type="submit" class='btn btn-primary'>ثبت</button>
+            </div>
+          </div>
+      </form>
+    </div>
+    <div class="container-fluid">
+      <table class="table align-middle mb-0 coupan-table">
+        <tbody>
+          <tr>
+            <td class="border-0 sm-coupan-col">
+              <div class="d-flex align-items-center">
+                <div>
+                  <p class="fw-bold mb-1">کد تخفیف: <span class="badge badge-primary"><i class="far fa-clone"></i> codecode</span></p>
+                </div>
+              </div>
+            </td>
+            <td class="border-0 sm-coupan-col">
+              <span class="coupan-action-item btn btn-sm btn-link text-danger">
+                <span class="badge badge-primary">نوع</span>
+                <span class="badge badge-success">مبلغ</span>
+                <span class="badge badge-warning">تعداد استفاده</span>
+              </span>
+            </td>
+          </tr>
+          <tr class="sm-coupan-room-row">
+            <td colspan="2" class="sm-coupan-col">
+              <span class="fw-bold">بازی ها: </span> 
+              <span class="badge badge-info">فرارغافلگیرانه</span>
+              <span class="badge badge-info">فرار از موزه</span>
+              <span class="badge badge-info">اتاق ساواک</span>
+              <span class="badge badge-info">فرارغافلگیرانه</span>
+              <span class="badge badge-info">فرار از موزه</span>
+              <span class="badge badge-info">اتاق ساواک</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-center text-danger">
+              <form action="">
+                <button type="submit" class="btn btn-link text-danger">
+                  <i class="far fa-trash-alt"></i>
+                <span>حذف تخفیف</span>
+                </button>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="coupan-col-empty p-1 border-0 bg-transparent">
+            </td>
+          </tr>
+          
+          <tr>
+            <td class="border-0 sm-coupan-col">
+              <div class="d-flex align-items-center">
+                <div>
+                  <p class="fw-bold mb-1">کد تخفیف: <span class="badge badge-primary"><i class="far fa-clone"></i> codecode</span></p>
+                </div>
+              </div>
+            </td>
+            <td class="border-0 sm-coupan-col">
+              <span class="coupan-action-item btn btn-sm btn-link text-danger">
+                <span class="badge badge-primary">نوع</span>
+                <span class="badge badge-success">مبلغ</span>
+                <span class="badge badge-warning">تعداد استفاده</span>
+              </span>
+            </td>
+          </tr>
+          <tr class="sm-coupan-room-row">
+            <td colspan="2" class="sm-coupan-col">
+              <span class="fw-bold">بازی ها: </span> 
+              <span class="badge badge-info">فرارغافلگیرانه</span>
+              <span class="badge badge-info">فرار از موزه</span>
+              <span class="badge badge-info">اتاق ساواک</span>
+              <span class="badge badge-info">فرارغافلگیرانه</span>
+              <span class="badge badge-info">فرار از موزه</span>
+              <span class="badge badge-info">اتاق ساواک</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-center text-danger">
+              <form action="">
+                <button type="submit" class="btn btn-link text-danger">
+                  <i class="far fa-trash-alt"></i>
+                <span>حذف تخفیف</span>
+                </button>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="coupan-col-empty p-1 border-0 bg-transparent">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+{% endblock %}
+
+
+{% block footer-scripts %}
+<script src="{% static 'modules/vue.js' %}"></script>
+<script src="{% static 'panel/scripts/coupan.js' %}"></script>
+
+{% endblock %}
