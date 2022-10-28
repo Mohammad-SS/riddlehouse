@@ -20,7 +20,7 @@ class PanelRoomView(View):
         return render(request, self.template_name, {})
     
 class PanelCoupanView(View):
-    template_name = 'panel/coupan.html'
+    template_name = 'panel/coupan/coupan.html'
     def get(self, request):
         return render(request, self.template_name, {})
 

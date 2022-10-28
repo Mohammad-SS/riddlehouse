@@ -21,7 +21,6 @@
 }
 
 .weekday-selector label::before {
-    content: '';
     content: "\2714";
     width: 1.2em;
     height: 1.2em;

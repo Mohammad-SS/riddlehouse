@@ -1,0 +1,69 @@
+<div class="gdialog-back" :class="coupan_add_pupop ? 'gdialog-show' : 'gdialog-hide'"
+     @click="coupan_add_pupop=false"></div>
+<div 
+    class="gdialog-content mb-rtl col-md-2"
+    :class="coupan_add_pupop ? 'gdialog-show gdialog-motion' : 'gdialog-hide gdialog-motion-off'"
+    style="max-width: 90% !important; width: 30em;" dir="rtl"
+>
+    
+     <div class="gdialog-head">
+        <span class="gdialog-title fs-5">
+            ایجاد کد تخفیف
+        </span>
+        <span class="mb-expand"></span>
+        <span class="gdialog-close-icon ripple" @click='coupan_add_pupop=false'>
+            <i data-feather="x" width="20px" height="20px"></i>
+        </span>
+    </div>
+
+    <div class="gdialog-body">
+        <div class="px-md-2">
+            <form method="post" action="" class="gltr" ref='coupan_add_form'>
+                {% csrf_token %}
+                
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <select  class="form-select" aria-label="Default select example">
+                            <option selected disabled>نوع تخفیف</option>
+                            <option value="percentage">درصدی</option>
+                            <option value="constant">ثابت</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control" id="name" placeholder="مبلغ / درصد">
+                    </div>
+                    <div class="col-6">
+                        <input type="number" class="form-control" id="name" placeholder="تعداد قابل استفاده">
+                    </div>
+                    <div class="col-12 mt-3 multi_select">
+                        انتخاب بازی
+                        <hr>
+                        <div class="multiselector">
+                            <div class="multiselector-item">
+                                <input type="checkbox" name='room' class="d-none" id='text'>
+                                <label for="text">بازی</label>
+                            </div>
+                            <div class="multiselector-item">
+                                <input type="checkbox" name='room' class="d-none" id='text1'>
+                                <label for="text1">بازی</label>
+                            </div>
+                            <div class="multiselector-item">
+                                <input type="checkbox" name='room' class="d-none" id='text2'>
+                                <label for="text2">بازی</label>
+                            </div>
+                            <div class="multiselector-item">
+                                <input type="checkbox" name='room' class="d-none" id='text3'>
+                                <label for="text3">بازی</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-3 d-flex flex-fill justify-content-end">
+                        <button class="btn btn-primary btn-sm me-1">ثبت</button>
+                        <button class="btn btn-danger btn-sm">انصراف</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

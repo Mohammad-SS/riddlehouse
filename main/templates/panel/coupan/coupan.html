@@ -14,44 +14,15 @@
 
 
 {% block dialogs %}
-{% comment %} {% include 'panel/manage-rooms/room-add-pupop.html' %} {% endcomment %}
+{% include 'panel/coupan/coupan-add-pupop.html' %} 
 {% endblock dialogs %}
 
 {% block content %}
   <div class="coupan-container mb-rtl">
-    <div class="mb-filter mb-card mb-2">
-      <button class="btn btn-success" @click='room_add_dialog = true'>
+    <div class="mb-filter mb-card mb-3">
+      <button class="btn btn-success" @click='coupan_add_pupop = true'>
         +&nbsp;&nbsp;ایجاد کد تخفیف
       </button>
-    </div>
-    <div class="mb-3 mb-card">
-      <form action="" class="mb-rtl">
-          <div class="row">
-            <div class="mb-3 col-3">
-              <select class="form-select" aria-label="Default select example" v-model='room_mode'>
-                <option selected disabled>نوع تخفیف</option>
-                <option value="percentage">1</option>
-                <option value="constant">2</option>
-              </select>
-            </div>
-            <div class="col-2">
-              <input type="text" class="form-control" id="" placeholder="مبلغ / درصد">
-            </div>
-            <div class="col-2">
-              <input type="text" class="form-control" id="" placeholder="تعداد قابل استفاده">
-            </div>
-            <div class="col-3">
-              <select multiple class="form-select" aria-label="Default select example" v-model='room_mode'>
-                <option selected disabled>بازی ها</option>
-                <option value="percentage">1</option>
-                <option value="constant">2</option>
-              </select>
-            </div>
-            <div class="col-1">
-              <button type="submit" class='btn btn-primary'>ثبت</button>
-            </div>
-          </div>
-      </form>
     </div>
     <div class="container-fluid">
       <table class="table align-middle mb-0 coupan-table">
