@@ -23,6 +23,11 @@ class PanelCoupanView(View):
     template_name = 'panel/coupan/coupan.html'
     def get(self, request):
         return render(request, self.template_name, {})
+    
+class PanelOrderView(View):
+    template_name = 'panel/order/orders.html'
+    def get(self, request):
+        return render(request, self.template_name, {})
 
 
 class LandingView(View):

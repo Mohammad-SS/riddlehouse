@@ -45,7 +45,7 @@ ol {
 }
 
 ::selection {
-    background-color: var(--gblue);
+    background-color: #df627a;
     color: white;
 }
 
@@ -258,6 +258,24 @@ body {
 .multiselector-item input[type='checkbox']:checked + label::before {
     color: var(--mdb-success);
 }
+
+
+
+[collapse-id-data] {
+    cursor: pointer !important;
+}
+
+[collapse-id] {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;    
+}
+
+
+
+
+
+
 /* media query */
 @media screen and (max-width: 1024px) {}
 

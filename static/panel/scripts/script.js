@@ -32,22 +32,20 @@ function pagination(params) {
 
 function collapse() {
 
-    let coll = document.getElementsByClassName("gcollapsible");
-    let i;
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function () {
-            this.classList.toggle("gcollapse-active");
-            let icon = this.querySelector('.gcollapsible-icon')
-            icon.classList.toggle("gcollapsible-icon-rotate")
-            let content = this.nextElementSibling;
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
+    let collapsible_list = document.querySelectorAll('[collapse-id-data]')
+    
+    collapsible_list.forEach(item => {
+        item.addEventListener('click' , function() {
+            let collapsible_content_id = item.getAttribute('collapse-id-data')
+            let collapsible_content = document.querySelector(`[collapse-id="${collapsible_content_id}"]`)
+            if (collapsible_content.style.maxHeight) {
+                collapsible_content.style.maxHeight = null;
             } else {
-                content.style.maxHeight = content.scrollHeight + "px";
+                let child_height = collapsible_content.firstElementChild.getBoundingClientRect().height
+                collapsible_content.style.maxHeight = child_height + "px";
             }
-        });
-    }
+        })
+    })
 }
 
 
@@ -109,5 +107,5 @@ function topFunction() {
 
 // scroll_up()
 // pagination()
-// collapse()
+collapse()
 // autocomplete()
