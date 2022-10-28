@@ -116,7 +116,7 @@ body {
 }
 
 .fs-7 {
-    font-size: .9rem;
+    font-size: .9rem !important;
 }
 
 .badge-basic {

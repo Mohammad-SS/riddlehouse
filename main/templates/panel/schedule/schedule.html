@@ -1,0 +1,83 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% block styles %}
+<link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'modules/jalalidatepicker.min.css' %}" rel="stylesheet"/>
+<link rel="stylesheet" href="{% static 'panel/' %}styles/order.css">
+<link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
+{% endblock %}
+{% block contentHead %}
+  <div class="content-head">
+    <h4>زمانبندی بازی ها</h4>
+  </div>
+{% endblock %}
+
+
+{% block dialogs %}
+{% include 'panel/schedule/add-schedule-pupop.html' %}
+{% endblock dialogs %}
+
+{% block content %}
+  <div class="schedule mt-3 px-3">
+    <div class="mb-card mb-3" dir="rtl">
+      <button class="btn btn-success" @click='add_schedule_pupop = true'>
+        + بلاک / ازاد کردن
+      </button>
+    </div>
+    <table class="table align-middle mb-0 bg-white" dir="rtl">
+      <thead class="bg-light">
+        <tr>
+          <th>مشخصات</th>
+          <th>عملیات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr collapse-id-data='collapse_1'>
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="">
+                <p class="fw-bold mb-1">نام بازی</p>
+                <p class="text-muted mb-0">تاریخ : 1401/01/01</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <form action="">
+                <button type="submit" class="btn btn-link text-danger">
+                    <i class="far fa-trash-alt"></i>
+                    <span>حذف تخفیف</span>
+                </button>
+            </form>
+          </td>
+        </tr>
+        <tr >
+          <td colspan="5" class="m-0 p-0">
+            <div collapse-id='collapse_1'>
+              <div style='min-height:5em;' class='px-3 py-2 d-flex align-items-center flex-wrap'>
+                <span class="p-3 align-items-center d-flex">
+                  <i class="far fa-calendar text-primary"></i>&nbsp;
+                  روزهای هفته : شنبه - یکشنبه - سه شنبه
+                </span>
+                <span class="p-3 align-items-center d-flex">
+                  <i class="far fa-clock text-warning"></i>&nbsp;
+                  ساعات : 10:20 - 15:00 - 18:00
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    {% comment %} <div style="height: 5em; background-color:red;" class="mb-collapsible" collapse-id-data='collapse_1'></div>
+    <div collapse-id='collapse_1'>
+      asdsad
+    </div> {% endcomment %}
+  </div>
+{% endblock %}
+
+
+{% block footer-scripts %}
+<script src="{% static 'modules/vue.js' %}"></script>
+<script src="{% static 'modules/jalalidatepicker.min.js' %}"></script>
+<script src="{% static 'panel/scripts/schedule.js' %}"></script>
+{% endblock %}

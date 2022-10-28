@@ -33,7 +33,8 @@ var app = new Vue({
         tags: [],
         time: '00:00',
         room_mode: 'real',
-        packages: []
+        packages: [],
+
     },
 
     methods: {

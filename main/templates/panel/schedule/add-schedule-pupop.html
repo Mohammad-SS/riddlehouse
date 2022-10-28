@@ -1,0 +1,82 @@
+<div class="gdialog-back" :class="add_schedule_pupop ? 'gdialog-show' : 'gdialog-hide'"
+     @click="add_schedule_pupop=false"></div>
+<div 
+    class="gdialog-content mb-rtl col-md-2"
+    :class="add_schedule_pupop ? 'gdialog-show gdialog-motion' : 'gdialog-hide gdialog-motion-off'"
+    style="max-width: 90% !important; width: 30em;" dir="rtl"
+>
+    
+     <div class="gdialog-head">
+        <span class="gdialog-title fs-5">
+            ثبت سفارش حضوری
+        </span>
+        <span class="mb-expand"></span>
+        <span class="gdialog-close-icon ripple" @click='add_schedule_pupop=false'>
+            <i data-feather="x" width="20px" height="20px"></i>
+        </span>
+    </div>
+
+    <div class="gdialog-body">
+        <div class="px-md-2">
+            <form method="post" action="" class="gltr" ref='order_add_form'>
+                {% csrf_token %}
+                <div class="row">
+                    <span class="badge badge-primary mb-3">
+                        انتخاب تاریخ و ساعت
+                    </span>
+                    <div class="col-12 mb-2">
+                        <input data-jdp class="form-control" placeholder="تاریخ را انتخاب کنید" > 
+                    </div>
+                    
+                    <div class="col-12 user-select-none">
+                      <div class="form-control">
+                        <div class="row px-2  mt-2 mb-2" dir="ltr">
+                          <input @input='set_time' class="time-picker my-3 col-12" ref='timepicker' type="range" min="0" max="288" steps="1" value="0" id='time-picker'>
+                          <div class="col-12 d-flex align-items-center justify-content-center bg-light shadow-2">
+                            <span class=" btn text-success btn-link fs-6" @click='addTag'><i class="fas fa-check"></i></span>
+                            <span class="mx-3 fw-bold">[[time]]</span>
+                            <span class=" btn text-danger btn-link fs-6"><i class="fas fa-times"></i></span>
+                          </div>
+                        </div>
+                        <div v-if='tags.length > 0' class="d-flex justify-content-center flex-wrap mt-2">
+                          <span v-for="(tag, index) in tags" class="zoom-effect badge badge-info fw-light m-1 fs-6">
+                            {% comment %} <input @click='reset_time_picker' type="hidden" name='hours' :id="'hour_' + index"> {% endcomment %}
+                            <label :for="'hour_' + index">
+                              <span>[[tag]]</span>
+                              <span @click='() => removeTag(tag)' class="me-2" style="cursor:pointer;"> <i class="fas fa-times"></i></span>
+                            </label>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <div class="row mt-3">
+                    <span class="badge badge-secondary mb-3">
+                        انتخاب بازی
+                    </span>
+                    <div class="col-8">
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected disabled>انتخاب</option>
+                            <option value="real">معمولی</option>
+                            <option value="box">اسکیپ باکس</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected disabled>بلاک/ازاد</option>
+                            <option value="real">بلاک کردن</option>
+                            <option value="box">ازاد کردن</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 mt-4 d-flex flex-fill justify-content-end">
+                        <button class="btn btn-primary btn-sm me-1">ثبت</button>
+                        <span @click='add_schedule_pupop=false' class="btn btn-danger btn-sm">انصراف</span>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>

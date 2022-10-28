@@ -28,6 +28,11 @@ class PanelOrderView(View):
     template_name = 'panel/order/orders.html'
     def get(self, request):
         return render(request, self.template_name, {})
+    
+class PanelScheduleView(View):
+    template_name = 'panel/schedule/schedule.html'
+    def get(self, request):
+        return render(request, self.template_name, {})
 
 
 class LandingView(View):
