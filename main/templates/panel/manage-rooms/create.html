@@ -19,7 +19,8 @@
 
 <script>
     tinymce.init({
-        language: 'fa',
+      height : "300",  
+      language: 'fa',
         statusbar: false,
         selector: '#description',
         plugins: [
@@ -32,7 +33,8 @@
 
     });
     tinymce.init({
-        language: 'fa',
+      height : "300",  
+      language: 'fa',
         statusbar: false,
         selector: '#warnings',
         plugins: [
@@ -45,7 +47,8 @@
 
     });
     tinymce.init({
-        language: 'fa',
+      height : "300",  
+      language: 'fa',
         statusbar: false,
         selector: '#conditions',
         plugins: [
@@ -67,25 +70,62 @@
   <form method="post" action="" class="container mb-rtl mt-5">
     {% csrf_token %}
     <div class="row">
-      <div class="mb-3 col-lg-6 col-12">
-        {% comment %} <label for="name" class="form-label d-md-none d-block">نام اتاق</label> {% endcomment %}
-        <input name="name" type="text" class="form-control" id="name" placeholder="نام اتاق">
+      <div class="col-lg-6 col-12">
+          <div class="row">
+            <div class="mb-3 col-12">
+              {% comment %} <label for="name" class="form-label d-md-none d-block">نام اتاق</label> {% endcomment %}
+              <input name="name" type="text" class="form-control" id="name" placeholder="نام اتاق">
+            </div>
+            <div class="mb-3 col-4">
+              {% comment %} <label for="difficulty" class="form-label d-md-block d-md-none d-block">سختی بازی</label> {% endcomment %}
+              <input name="difficulty" type="number" class="form-control" id="difficulty" placeholder="سختی بازی">
+            </div>
+            <div class="mb-3 col-4">
+              {% comment %} <label for="min-player" class="form-label d-md-block d-md-none d-block">حداقل بازیکن</label> {% endcomment %}
+              <input name="min_players" type="number" class="form-control" id="min-player" placeholder="حداقل بازیکن">
+            </div>
+            <div class="mb-3 col-4">
+              {% comment %} <label for="max-player" class="form-label d-md-block d-md-none d-block">حداکثر بازیکن</label> {% endcomment %}
+              <input name="max_players" type="number" class="form-control" id="max-player" placeholder="حداکثر بازیکن">
+            </div>
+          </div>
+      </div>  
+      <div class="banner-section col-lg-6 col-12 mb-3">
+        <input type="file" accept="image/png,image/jpeg,image/jpg" class="form-control d-none" name='banner' id="banner" @change='handle_banner' />
+          <div class="form-control banner-label">
+            <div class="banner-detail" dir="ltr">
+              <p :class='get_banner_name ? "banner-animate-block" : ""' class="banner-d-none fw-bold mb-1">
+                <i class="fas fa-upload"></i>&nbsp;
+                [[get_banner_name]] 
+              </p>
+              <p :class='get_banner_size ? "banner-animate-block" : ""' class="banner-d-none m-0">
+                <span class="badge badge-secondary">
+                  <i class="far fa-hdd"></i>&nbsp;
+                  [[get_banner_size]]
+                </span>
+                <span class="badge badge-info">
+                  <i class="far fa-file-alt"></i>&nbsp;
+                  [[get_banner_type]]
+                </span>
+                <span>
+                  <label for="banner" class="badge badge-warning">
+                    <i class="fas fa-sync"></i></i>&nbsp;
+                    تغییر تصویر
+                  </label>
+                </span>
+              </p>
+            </div>
+            <label :class='!banner ? "banner-animate-block" : ""' for="banner" class="banner-d-none btn btn-basic btn-sm shadow-2 banner-selector">
+              <i class="far fa-images"></i>&nbsp;
+              انتخاب تصویر
+            </label>
+            <div :class='get_banner_src ? "banner-animate-block" : ""' class="banner-d-none banner-img">
+              <img :src="get_banner_src" alt="">
+            </div>
+          </div>
       </div>
-      <div class="mb-3 col-lg-2 col-6">
-        {% comment %} <label for="difficulty" class="form-label d-md-block d-md-none d-block">سختی بازی</label> {% endcomment %}
-        <input name="difficulty" type="number" class="form-control" id="difficulty" placeholder="سختی بازی">
-      </div>
-      <div class="mb-3 col-lg-2 col-6">
-        {% comment %} <label for="min-player" class="form-label d-md-block d-md-none d-block">حداقل بازیکن</label> {% endcomment %}
-        <input name="min_players" type="number" class="form-control" id="min-player" placeholder="حداقل بازیکن">
-      </div>
-      <div class="mb-3 col-lg-2 col-6">
-        {% comment %} <label for="max-player" class="form-label d-md-block d-md-none d-block">حداکثر بازیکن</label> {% endcomment %}
-        <input name="max_players" type="number" class="form-control" id="max-player" placeholder="حداکثر بازیکن">
-      </div>
-      
     </div>
-    
+      
     <div class="row">
       
       <div class="col-lg-6 col-12 mb-md-0 mb-4">

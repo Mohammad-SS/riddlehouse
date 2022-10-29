@@ -76,8 +76,8 @@
                     <td colspan="2" class="text-center">
                         <div>
 
-                            <a href="{% url 'main:room-page' pk=room.pk %}">
-                                <button type="button" class="btn btn-link btn-sm btn-rounded">مشاهده</button>
+                            <a class="btn btn-link btn-sm btn-rounded" href="{% url 'main:room-page' pk=room.pk %}">
+                                مشاهده
                             </a>
 
                             <button type="button" class="me-2 btn btn-link text-success btn-sm btn-rounded">ویرایش
@@ -85,10 +85,11 @@
                         </div>
                     </td>
                 </tr>
+                <tr class="sm-room-empty-space"></tr>
             {% endfor %}
 
 
-            <tr class="sm-room-empty-space"></tr>
+            
             </tbody>
         </table>
     </div>

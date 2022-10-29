@@ -119,6 +119,10 @@ body {
     font-size: .9rem !important;
 }
 
+.mb-dnone {
+    display: none;
+}
+
 .badge-basic {
     background-color: #636c78;
     color: #ffffff;
