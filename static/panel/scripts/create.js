@@ -111,6 +111,11 @@ var app = new Vue({
             const i = Math.floor(Math.log(bytes) / Math.log(k))
 
             return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
+        },
+
+        reset_form: function(e) {
+            this.banner = false
+            this.$refs.room_create_form.reset()
         }
 
     },

@@ -67,7 +67,7 @@
 
 
 {% block content %}
-  <form method="post" action="" class="container mb-rtl mt-5">
+  <form method="post" action="" ref='room_create_form' class="container mb-rtl mt-5">
     {% csrf_token %}
     <div class="row">
       <div class="col-lg-6 col-12">
@@ -241,7 +241,7 @@
     </div>
     <div class="row">
       <div class="col-12 mt-4 text-end d-flex justify-content-md-end justify-content-center">
-        <button class="btn btn-danger ms-2" type='reset'>خالی کردن فرم</button>
+        <button class="btn btn-danger ms-2" type='reset' @click='reset_form($event)'>خالی کردن فرم</button>
         <button class="btn btn-primary" type="submot">ثبت اطلاعات</button>
       </div>
     </div>
