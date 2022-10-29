@@ -1,5 +1,6 @@
 {% extends 'panel/base.html' %}
 {% load static %}
+{% load humanize %}
 {% block styles %}
 <link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet"/>
 <link rel="stylesheet" href="{% static 'panel/' %}styles/coupan.css">
@@ -14,7 +15,7 @@
 
 
 {% block dialogs %}
-{% include 'panel/coupan/coupan-add-pupop.html' %} 
+{% include 'panel/coupan/coupan-add-pupop.html' %}
 {% endblock dialogs %}
 
 {% block content %}
@@ -27,89 +28,49 @@
     <div class="container-fluid">
       <table class="table align-middle mb-0 coupan-table">
         <tbody>
-          <tr>
+          {% for coupon in coupons %}
+            <tr>
             <td class="border-0 sm-coupan-col">
               <div class="d-flex align-items-center">
                 <div>
-                  <p class="fw-bold mb-1">کد تخفیف: <span class="badge badge-primary"><i class="far fa-clone"></i> codecode</span></p>
+                  <p class="fw-bold mb-1">کد تخفیف: <span class="badge badge-primary"><i class="far fa-clone"></i> {{ coupon.code }}</span></p>
                 </div>
               </div>
             </td>
             <td class="border-0 sm-coupan-col">
               <span class="coupan-action-item btn btn-sm btn-link text-danger">
-                <span class="badge badge-primary">نوع</span>
-                <span class="badge badge-success">مبلغ</span>
-                <span class="badge badge-warning">تعداد استفاده</span>
+                {% if coupon.type == "P" %}
+                <span class="badge badge-primary">{{ coupon.amount }} درصد </span>
+                    {% else %}
+                    <span class="badge badge-primary">{{ coupon.amount|intcomma }} تومان </span>
+                {% endif %}
+                <span class="badge badge-warning">{{ coupon.used }} استفاده شده </span>
+                  <span class="badge badge-info">{{ coupon.capacity }} ظرفیت </span>
               </span>
             </td>
-          </tr>
-          <tr class="sm-coupan-room-row">
+            </tr>
+              <tr class="sm-coupan-room-row">
             <td colspan="2" class="sm-coupan-col">
-              <span class="fw-bold">بازی ها: </span> 
-              <span class="badge badge-info">فرارغافلگیرانه</span>
-              <span class="badge badge-info">فرار از موزه</span>
-              <span class="badge badge-info">اتاق ساواک</span>
-              <span class="badge badge-info">فرارغافلگیرانه</span>
-              <span class="badge badge-info">فرار از موزه</span>
-              <span class="badge badge-info">اتاق ساواک</span>
+              <span class="fw-bold">بازی ها: </span>
+                {% for room in coupon.available_rooms.all %}
+                              <span class="badge badge-info">{{ room.name }}</span>
+                {% endfor %}
+
+
             </td>
           </tr>
           <tr>
             <td colspan="2" class="text-center text-danger">
-              <form action="">
-                <button type="submit" class="btn btn-link text-danger">
+              <form method="post" action="{% url 'main:remove-coupon' pk=coupon.pk %}">
+                  {% csrf_token %}
+                <button type="submit" value="delete" name="action" class="btn btn-link text-danger">
                   <i class="far fa-trash-alt"></i>
                 <span>حذف تخفیف</span>
                 </button>
               </form>
             </td>
           </tr>
-          <tr>
-            <td colspan="2" class="coupan-col-empty p-1 border-0 bg-transparent">
-            </td>
-          </tr>
-          
-          <tr>
-            <td class="border-0 sm-coupan-col">
-              <div class="d-flex align-items-center">
-                <div>
-                  <p class="fw-bold mb-1">کد تخفیف: <span class="badge badge-primary"><i class="far fa-clone"></i> codecode</span></p>
-                </div>
-              </div>
-            </td>
-            <td class="border-0 sm-coupan-col">
-              <span class="coupan-action-item btn btn-sm btn-link text-danger">
-                <span class="badge badge-primary">نوع</span>
-                <span class="badge badge-success">مبلغ</span>
-                <span class="badge badge-warning">تعداد استفاده</span>
-              </span>
-            </td>
-          </tr>
-          <tr class="sm-coupan-room-row">
-            <td colspan="2" class="sm-coupan-col">
-              <span class="fw-bold">بازی ها: </span> 
-              <span class="badge badge-info">فرارغافلگیرانه</span>
-              <span class="badge badge-info">فرار از موزه</span>
-              <span class="badge badge-info">اتاق ساواک</span>
-              <span class="badge badge-info">فرارغافلگیرانه</span>
-              <span class="badge badge-info">فرار از موزه</span>
-              <span class="badge badge-info">اتاق ساواک</span>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" class="text-center text-danger">
-              <form action="">
-                <button type="submit" class="btn btn-link text-danger">
-                  <i class="far fa-trash-alt"></i>
-                <span>حذف تخفیف</span>
-                </button>
-              </form>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" class="coupan-col-empty p-1 border-0 bg-transparent">
-            </td>
-          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>

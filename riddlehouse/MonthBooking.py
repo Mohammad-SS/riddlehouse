@@ -40,7 +40,7 @@ class Month():
                 calendar[week_num] = dict()
             this_day['date'] = "{}/{}/{}".format(self.year, self.month, day)
             this_day["weekday"] = this_weekday
-            this_day["selectable"] = self.is_day_selectable(day)
+            this_day["selectable"] = self.is_day_selectable(day , room)
             this_day['times'] = self.get_this_day_times(day, room)
             calendar[week_num][day] = this_day
         return calendar
@@ -73,14 +73,25 @@ class Month():
         if is_ordered:
             return False, "RESERVED"
 
+        if datetime.datetime.now() + datetime.timedelta(hours=2) >this_hour:
+            return False , "PASSED"
+
         return True, "FREE"
 
-    def is_day_selectable(self, day):
+    def is_day_selectable(self, day , room):
         today = datetime.date.today()
         day = JalaliDate(year=self.year, month=self.month, day=day, locale="en").to_gregorian()
         diff = (day - today).days
+        if room.room_type == enums.RoomType.BOX:
+            start_days = 4
+        else:
+            start_days = 0
+
         days_limit = int(functions.get_setting(enums.DefaultSettings.LIMIT_DAYS_FOR_RESERVATION, 7))
-        if diff < 0 or diff > days_limit:
+        if diff < start_days or diff > days_limit:
             return False
         else:
             return True
+
+    def is_hour_passed(self , timestamp , delta):
+        pass

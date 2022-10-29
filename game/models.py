@@ -19,6 +19,9 @@ class Room(models.Model):
     warnings = models.TextField(blank=True,null=True)
     banner = models.ImageField(upload_to="rooms" , blank=True,null=True)
 
+    def __str__(self):
+        return self.name
+
 class Exclusion(models.Model):
     room = models.ForeignKey(Room,on_delete=models.CASCADE , related_name="exclusions")
     zone = postgres_fields.DateTimeRangeField(name="zones")

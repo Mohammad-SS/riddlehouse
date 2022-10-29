@@ -1,102 +1,111 @@
 {% extends 'panel/base.html' %}
+{% load humanize %}
 {% load static %}
 {% block styles %}
-<link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet"/>
-<link href="{% static 'modules/jalalidatepicker.min.css' %}" rel="stylesheet"/>
-<link rel="stylesheet" href="{% static 'panel/' %}styles/order.css">
-<link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
+    <link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'modules/jalalidatepicker.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'panel/' %}styles/order.css">
+    <link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
 {% endblock %}
 {% block contentHead %}
-  <div class="content-head">
-    <h4>مدیریت سفارش ها</h4>
-  </div>
+    <div class="content-head">
+        <h4>مدیریت سفارش ها</h4>
+    </div>
 {% endblock %}
 
 
 {% block dialogs %}
-{% include 'panel/order/order-add-pupop.html' %}
+    {% include 'panel/order/order-add-pupop.html' %}
 {% endblock dialogs %}
 
 {% block content %}
-  <div class="orders mt-3 px-3">
-    <div class="mb-card mb-3" dir="rtl">
-      <button class="btn btn-success" @click='order_add_pupop = true'>
-        + ثبت نوبت حضوری
-      </button>
-    </div>
-    <table class="table align-middle mb-0 bg-white" dir="rtl">
-      <thead class="bg-light">
-        <tr>
-          <th>مشخصات</th>
-          <th>اطلاعات</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr collapse-id-data='collapse_1'>
-          <td>
-            <span class="order-status bg-success"></span>
-            <div class="d-flex align-items-center">
-              <div class="">
-                <p class="fw-bold mb-1">مهدی باقرزاده</p>
-                <p class="text-muted mb-0">09214323964</p>
-              </div>
-            </div>
-          </td>
-          <td>
-            <p class="fw-normal mb-1">
+    <div class="orders mt-3 px-3">
+        <div class="mb-card mb-3" dir="rtl">
+            <button class="btn btn-success" @click='order_add_pupop = true'>
+                + ثبت نوبت حضوری
+            </button>
+        </div>
+        <table class="table align-middle mb-0 bg-white" dir="rtl">
+            <thead class="bg-light">
+            <tr>
+                <th>مشخصات</th>
+                <th>اطلاعات</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr collapse-id-data='collapse_1'>
+                    <td>
+                        <span class="order-status bg-success"></span>
+                        <div class="d-flex align-items-center">
+                            <div class="">
+                                <p class="fw-bold mb-1">{{ order.customer_name }}</p>
+                                <p class="text-muted mb-0">{{ order.customer_number }}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="order-status bg-success"></span>
+                        <div class="d-flex align-items-center">
+                            <div class="">
+                                <p class="fw-bold mb-1">{{ order.room.name }}</p>
+                                <p class="text-muted mb-0">{{ order.persian_dates.reserved }}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">
               <span class="badge badge-success">
                 <i class="fas fa-hand-holding-usd"></i>&nbsp;
-                مبلغ: 40.000 تومان
+                مبلغ: {{ order.paid|intcomma }} تومان
               </span>
-              <span class="badge badge-secondary">
+                            <span class="badge badge-secondary">
                 <i class="far fa-calendar-check"></i>&nbsp;
-                پرداخت : 1401/01/01 - 14:30
+                پرداخت : {{ order.persian_dates.created }}
               </span>
-            </p>
-            <p class="text-muted mb-0">
+                        </p>
+                        <p class="text-muted mb-0">
               <span class="badge badge-info">
                 <i class="fas fa-users"></i>&nbsp;
-                تعداد نفرات : 4نفر
+                تعداد نفرات : {{ order.players_number }}نفر
               </span>
-              <span class="badge badge-warning">
-                <i class="fas fa-calendar-alt"></i>&nbsp;
-               رزرو : 1401/01/01 - 14:30
-              </span>
-            </p>
-          </td>
-        </tr>
-        <tr >
-          <td colspan="5" class="m-0 p-0">
-            <div collapse-id='collapse_1'>
-              <div style='min-height:5em;' class='px-3 py-2 d-flex align-items-center flex-wrap'>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="m-0 p-0">
+                        <div collapse-id='collapse_1'>
+                            <div style='min-height:5em;' class='px-3 py-2 d-flex align-items-center flex-wrap'>
                 <span class="p-3 align-items-center d-flex">
                   <i class="fas fa-qrcode text-primary"></i>&nbsp;
-                  شماره تراکنش : 65156165156101551561
+                  شماره تراکنش : {{ order.transaction_number }}
                 </span>
-                <span class="p-3 align-items-center d-flex">
+                                <span class="p-3 align-items-center d-flex">
                   <i class="fas fa-cut text-warning"></i>&nbsp;
-                  کد تخفیف استفاده شده : #TEST5416
+                  کد تخفیف استفاده شده : {{ order.used_coupon }}                </span>
+                                <span class="p-3 align-items-center d-flex">
+                  <i class="fas fa-key text-danger"></i>&nbsp;
+کلید : {{ order.key }}
                 </span>
-                <span class="p-3 align-items-center d-flex">
-                  <i class="far fa-money-bill-alt text-danger"></i>&nbsp;
-                  مبلغ کسر شده : 10.000 تومان
-                </span>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    {% comment %} <div style="height: 5em; background-color:red;" class="mb-collapsible" collapse-id-data='collapse_1'></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+        {% comment %} <div style="height: 5em; background-color:red;" class="mb-collapsible" collapse-id-data='collapse_1'></div>
     <div collapse-id='collapse_1'>
       asdsad
     </div> {% endcomment %}
-  </div>
+    </div>
 {% endblock %}
 
 
 {% block footer-scripts %}
-<script src="{% static 'modules/vue.js' %}"></script>
-<script src="{% static 'modules/jalalidatepicker.min.js' %}"></script>
-<script src="{% static 'panel/scripts/orders.js' %}"></script>
+    <script src="{% static 'modules/vue.js' %}"></script>
+    <script src="{% static 'modules/jalalidatepicker.min.js' %}"></script>
+    <script src="{% static 'panel/scripts/orders.js' %}"></script>
 {% endblock %}

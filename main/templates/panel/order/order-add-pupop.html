@@ -26,11 +26,11 @@
                         انتخاب تاریخ و ساعت
                     </span>
                     <div class="col-12 mb-3">
-                        <input data-jdp class="form-control" placeholder="تاریخ را انتخاب کنید" > 
+                        <input name="date" data-jdp class="form-control" placeholder="تاریخ را انتخاب کنید" >
                     </div>
                     <div class="col-12 mb-3">
                         
-                        <input dir="ltr" @input='set_time' class="time-picker my-2 col-12" ref='timepicker' type="range" min="0" max="288" steps="1" value="0" id='time-picker'>
+                        <input name="hour" dir="ltr" @input='set_time' class="time-picker my-2 col-12" ref='timepicker' type="range" min="0" max="288" steps="1" value="0" id='time-picker'>
 
                         <span>
                             ساعت : [[time]]
@@ -38,10 +38,10 @@
                     </div>
                     <span class="badge badge-info mb-3">مشخصات</span>
                     <div class="col-6">
-                        <input type="text" class="form-control" id="name" placeholder="نام">
+                        <input name="name" type="text" class="form-control" id="name" placeholder="نام">
                     </div>
                     <div class="col-6 mb-3">
-                        <input type="text" class="form-control" id="name" placeholder="شماره موبایل">
+                        <input name="phone" type="text" class="form-control" id="name" placeholder="شماره موبایل">
                     </div>
                     <span class="badge badge-secondary mb-3">
                         انتخاب بازی
@@ -49,8 +49,11 @@
                     <div class="col-12">
                         <select class="form-select" aria-label="Default select example" v-model='room_mode'>
                             <option selected disabled>انتخاب</option>
-                            <option value="real">معمولی</option>
-                            <option value="box">اسکیپ باکس</option>
+                            {% for room in rooms %}
+                            <option value="{{ room.pk }}">{{ room.name }}</option>
+                            {% endfor %}
+
+
                           </select>
                     </div>
                     <div class="col-12 mt-4 d-flex flex-fill justify-content-end">

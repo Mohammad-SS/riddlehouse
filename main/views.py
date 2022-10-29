@@ -1,36 +1,139 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 import game.models
 from riddlehouse.helpers import enums
 from . import models as main_models
 from game import models as game_models
+from orders import models as order_models
+from django.template.defaultfilters import slugify
 
 
 # Create your views here.
 
 class PanelRoomsView(View):
-    template_name = 'panel/manage-rooms/manage-rooms.html'
     def get(self, request):
-        return render(request, self.template_name, {})
+        rooms = game_models.Room.objects.all()
+        context = {
+            "title": "اتاق ها",
+            "rooms": rooms
+        }
+        return render(request, 'panel/manage-rooms/manage-rooms.html', context)
+
 
 class PanelRoomView(View):
-    template_name = 'panel/manage-rooms/create.html'
     def get(self, request):
-        return render(request, self.template_name, {})
-    
+        return render(request, "panel/manage-rooms/create.html", {})
+
+    def post(self, request):
+        data = request.POST
+        room_type = data.get("room_type", None)
+        if room_type == "box":
+            this_type = enums.RoomType.BOX
+            price = data.getlist("price", None)
+            for package_price in price:
+                package_price = int(package_price)
+            box_packages_prices = price
+            price = None
+        elif room_type == "real":
+            this_type = enums.RoomType.REAL
+            price = data.get("price", None)
+            price = int(price)
+            box_packages_prices = None
+        else:
+            this_type = None
+            box_packages_prices = None
+            price = None
+        name = data.get("name", None)
+        difficulty = data.get("difficulty", None)
+        min_players = data.get("min_players", None)
+        max_players = data.get("max_players", None)
+        weekdays = data.getlist("weekday", None)
+        hours = data.getlist("hours", None)
+        warnings = data.get("warnings", None)
+        descriptions = data.get("descriptions", None)
+        conditions = data.get("conditions", None)
+        fields = {
+            "name": name,
+            "difficulty": difficulty,
+            "price_per_unit": price,
+            "default_hours": hours,
+            "warnings": warnings,
+            "description": descriptions,
+            "conditions": conditions,
+            "default_days": weekdays,
+            "room_type": this_type,
+            "box_packages_prices": box_packages_prices,
+        }
+        room = game_models.Room(**fields)
+        room.save()
+        return redirect("main:rooms")
+
+
 class PanelCoupanView(View):
-    template_name = 'panel/coupan/coupan.html'
     def get(self, request):
-        return render(request, self.template_name, {})
-    
+        coupons = order_models.Coupon.objects.all()
+        rooms = game_models.Room.objects.all()
+        context = {
+            "coupons": coupons,
+            "title": "کد های تخفیف",
+            "rooms": rooms
+        }
+        return render(request, 'panel/coupan/coupan.html', context)
+
+    def post(self, request):
+        data = request.POST
+        code = data.get("code")
+        code = slugify(code)
+        does_code_exists = order_models.Coupon.objects.filter(code=code).exists()
+        if does_code_exists:
+            return redirect("main:coupans")
+        price = data.get("price")
+        max_number = data.get("max_number")
+        rooms = data.getlist("room", None)
+        code_type = data.get("type", None)
+        if code_type == "constant":
+            code_type = enums.CouponsType.CONSTANT
+        elif code_type == "percentage":
+            code_type = enums.CouponsType.PERCENTAGE
+        else:
+            code_type = None
+
+        fields = {
+            "code": code,
+            "amount": price,
+            "type": code_type,
+            "capacity": max_number
+        }
+        this_coupon = order_models.Coupon(**fields)
+        this_coupon.save()
+        for room in rooms:
+            this_room = game_models.Room.objects.get(pk=room)
+            this_coupon.available_rooms.add(this_room)
+        this_coupon.save()
+        return redirect("main:coupans")
+
+
 class PanelOrderView(View):
-    template_name = 'panel/order/orders.html'
     def get(self, request):
-        return render(request, self.template_name, {})
-    
+        orders = order_models.Order.objects.all()
+        rooms = game_models.Room.objects.all()
+        context = {
+            "orders": orders,
+            "rooms": rooms,
+            "title": "سفارش ها"
+        }
+        return render(request, 'panel/order/orders.html', context)
+
+
+    def post(self , request):
+        data =request.POST
+        print(data)
+
+
 class PanelScheduleView(View):
     template_name = 'panel/schedule/schedule.html'
+
     def get(self, request):
         return render(request, self.template_name, {})
 
@@ -52,3 +155,11 @@ class RoomView(View):
             "title": room.name,
         }
         return render(request, 'main/reserveroom.html', context)
+
+
+class RemoveCoupon(View):
+
+    def post(self, request, pk):
+        coupon = order_models.Coupon.objects.get(pk=pk)
+        coupon.delete()
+        return redirect("main:coupans")

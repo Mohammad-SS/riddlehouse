@@ -8,7 +8,10 @@ urlpatterns = [
     # path("panel/", views.PanelView.as_view(), name='panel'),
     path("panel/manage-rooms", views.PanelRoomsView.as_view(), name='rooms'),
     path("panel/manage-rooms/create", views.PanelRoomView.as_view(), name='createroom'),
+
     path("panel/coupans", views.PanelCoupanView.as_view(), name='coupans'),
+    path("panel/coupans/<int:pk>/remove", views.RemoveCoupon.as_view(), name='remove-coupon'),
+
     path("panel/orders", views.PanelOrderView.as_view(), name='orders'),
     path("panel/schedule", views.PanelScheduleView.as_view(), name='schedule'),
   
