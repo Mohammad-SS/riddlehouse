@@ -48,7 +48,7 @@
                         انتخاب بازی
                     </span>
                     <div class="col-12">
-                        <select class="form-select" aria-label="Default select example" v-model='room_mode'>
+                        <select class="form-select" aria-label="Default select example">
                             <option selected disabled>انتخاب</option>
                             {% for room in rooms %}
                             <option value="{{ room.pk }}">{{ room.name }}</option>

@@ -1,0 +1,61 @@
+.mb-filter {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.mb-filter * {
+    min-width: max-content;
+}
+
+
+.mb-filter-item {
+    display: flex;
+    align-items: center;
+    margin: .5em .5em;
+    flex: 1;
+}
+
+
+.mb-filter-date-picker {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.mb-filter-date-picker>div {
+    width: inherit;
+    margin: .25em 0;
+}
+
+.mb-filter-date-picker input {
+    width: inherit
+}
+
+.mb-filter-item-actions {
+    justify-content: flex-end;
+}
+
+@media screen and (max-width: 720px) {
+
+    .mb-filter {
+        flex-direction: column;
+        align-items: flex-start;
+
+
+    }
+
+    .mb-filter-item {
+        width: 100%;
+        margin: .5em 0em;
+    }
+
+    .mb-filter-item.date-picker {
+        flex-direction: column !important;
+    }
+
+    .mb-filter-date-picker {
+        width: 100%;
+    }
+
+}

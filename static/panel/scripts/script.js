@@ -15,7 +15,7 @@ feather.replace()
 
 
 function pagination(params) {
-    let pagination_items = document.getElementsByClassName('gpagination-item')
+    let pagination_items = document.getElementsByClassName('mb-pagination-item')
     Array.from(pagination_items).map(pagination_item => {
         pagination_item.addEventListener('click', (e) => {
             let page_number = pagination_item.getAttribute('g-page-number')
@@ -106,7 +106,7 @@ function topFunction() {
 }
 
 // scroll_up()
-// pagination()
+pagination()
 collapse()
 // autocomplete()
 

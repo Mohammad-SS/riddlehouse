@@ -1,111 +1,190 @@
 {% extends 'panel/base.html' %}
 {% load humanize %}
+{% load custom_tags %}
 {% load static %}
 {% block styles %}
-    <link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet"/>
-    <link href="{% static 'modules/jalalidatepicker.min.css' %}" rel="stylesheet"/>
-    <link rel="stylesheet" href="{% static 'panel/' %}styles/order.css">
-    <link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
+<link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet" />
+<link href="{% static 'modules/jalalidatepicker.min.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'panel/' %}styles/order.css">
+<link rel="stylesheet" href="{% static 'panel/' %}styles/filters.css">
+<link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
 {% endblock %}
 {% block contentHead %}
-    <div class="content-head">
-        <h4>مدیریت سفارش ها</h4>
-    </div>
+<div class="content-head">
+    <h4>مدیریت سفارش ها</h4>
+</div>
 {% endblock %}
 
 
 {% block dialogs %}
-    {% include 'panel/order/order-add-pupop.html' %}
+{% include 'panel/order/order-add-pupop.html' %}
 {% endblock dialogs %}
 
 {% block content %}
-    <div class="orders mt-3 px-3">
-        <div class="mb-card mb-3" dir="rtl">
-            <button class="btn btn-success" @click='order_add_pupop = true'>
-                + ثبت نوبت حضوری
+<div class="orders mt-3 px-3">
+    <div class="mb-card mb-3" dir="rtl">
+
+        <button class="btn btn-success" @click='order_add_pupop = true'>
+            + ثبت نوبت حضوری
+        </button>
+    </div>
+    <div class="mb-filter filter-options mb-rtl mb-card mb-2">
+        <div class="mb-filter-item">
+            <span class="mx-3">اتاق</span>
+            <select class="form-select" v-model="room">
+                <option class="mb-rtl" selected disabled value=null>انتخاب کنید</option>
+                {% for room in rooms %}
+                    <option class="mb-rtl" value="{{ room.id }}">{{ room.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-filter-item date-picker">
+            <div class="mb-filter-date-picker">
+                <span class="mx-3">از تاریخ</span>
+                <div class="form-controll rounded">
+                    <input data-jdp name="time_range_start" type="text" onfocus="(this.type='date')"
+                        onfocusout="(this.type='text')" placeholder="روز/ماه/سال" class="rounded p-2"
+                        style="min-width: 15em;border:1px solid var(--gray)" v-model="min_date">
+                </div>
+            </div>
+            <div class="mb-filter-date-picker">
+                <span class="mx-3">تا تاریخ</span>
+                <div class="form-controll rounded">
+                    <input data-jdp name="time_range_start" type="text" onfocus="(this.type='date')"
+                        onfocusout="(this.type='text')" placeholder="روز/ماه/سال" class="rounded p-2"
+                        style="min-width: 15em;border:1px solid var(--gray)" v-model="max_date">
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-filter-item mb-filter-item-actions">
+            <button class="btn btn-primary me-1" @click='handle_filters'>
+                <i class="fas fa-filter"></i>&nbsp;
+                فیلتر
+            </button>
+            <button id="close-filter" class="btn btn-danger me-1" @click="clear_filters" v-if='!clear_filter_btn'>
+                <i class="fas fa-times"></i>
+
             </button>
         </div>
-        <table class="table align-middle mb-0 bg-white" dir="rtl">
-            <thead class="bg-light">
+    </div>
+    <table class="table align-middle mb-0 bg-white" dir="rtl">
+        <thead class="bg-light">
             <tr>
-                <th>مشخصات</th>
-                <th>اطلاعات</th>
+                <th>سفارش ها (مجموع: {{order_count}})</th>
             </tr>
-            </thead>
-            <tbody>
+        </thead>
+        <tbody>
             {% for order in orders %}
-                <tr collapse-id-data='collapse_1'>
-                    <td>
-                        <span class="order-status bg-success"></span>
-                        <div class="d-flex align-items-center">
-                            <div class="">
-                                <p class="fw-bold mb-1">{{ order.customer_name }}</p>
-                                <p class="text-muted mb-0">{{ order.customer_number }}</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <span class="order-status bg-success"></span>
-                        <div class="d-flex align-items-center">
-                            <div class="">
-                                <p class="fw-bold mb-1">{{ order.room.name }}</p>
-                                <p class="text-muted mb-0">{{ order.persian_dates.reserved }}</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <p class="fw-normal mb-1">
-              <span class="badge badge-success">
-                <i class="fas fa-hand-holding-usd"></i>&nbsp;
-                مبلغ: {{ order.paid|intcomma }} تومان
-              </span>
-                            <span class="badge badge-secondary">
-                <i class="far fa-calendar-check"></i>&nbsp;
-                پرداخت : {{ order.persian_dates.created }}
-              </span>
-                        </p>
+            <tr>
+                <td colspan="2" class="border-0 p-0 px-2 m-0"  collapse-id-data='collapse_{{order.id}}'>
+                    <span class="order-status bg-success"></span>
+                    <div class="d-flex w-100 flex-wrap">
+                        
+                        <span class="pt-3 px-3 align-items-center d-flex flex-wrap">
+                            {% comment %} <i class="fa-lg fas fa-cube"></i></i>&nbsp;&nbsp; {% endcomment %}
+                            <span class="mb-min-w-max  fw-bold">نام اتاق :&nbsp;</span>
+                            <span> {{ order.room.name }}</span>
+                        </span>
+                        <span class="pt-3 px-3 align-items-center d-flex">
+                            {% comment %} <i class="fa-lg fas fa-user-ninja"></i>&nbsp;&nbsp; {% endcomment %}
+                           <span class="mb-min-w-max  fw-bold"> نام مشتری :&nbsp;</span>
+                           <span> {{ order.customer_name }}</span>
+                        </span>
+                        <span class="pt-3 px-3 align-items-center d-flex">
+                            {% comment %} <i class="fa-lg fas fa-mobile-alt"></i>&nbsp;&nbsp; {% endcomment %}
+                            <span class="mb-min-w-max  fw-bold">موبایل :&nbsp;</span>
+                            <span>{{ order.customer_number }}</span>
+                        </span>
+                       
+                    </div>
+                </td>
+            </tr>
+            <tr collapse-id-data='collapse_{{order.id}}'>
+                <td>
+                    <span class="order-status bg-success"></span>
+                    <p class="fw-normal mb-1">
                         <p class="text-muted mb-0">
-              <span class="badge badge-info">
-                <i class="fas fa-users"></i>&nbsp;
-                تعداد نفرات : {{ order.players_number }}نفر
-              </span>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="5" class="m-0 p-0">
-                        <div collapse-id='collapse_1'>
-                            <div style='min-height:5em;' class='px-3 py-2 d-flex align-items-center flex-wrap'>
-                <span class="p-3 align-items-center d-flex">
-                  <i class="fas fa-qrcode text-primary"></i>&nbsp;
-                  شماره تراکنش : {{ order.transaction_number }}
-                </span>
-                                <span class="p-3 align-items-center d-flex">
-                  <i class="fas fa-cut text-warning"></i>&nbsp;
-                  کد تخفیف استفاده شده : {{ order.used_coupon }}                </span>
-                                <span class="p-3 align-items-center d-flex">
-                  <i class="fas fa-key text-danger"></i>&nbsp;
-کلید : {{ order.key }}
-                </span>
-                            </div>
+                        
+                        <span class="badge badge-success">
+                            <i class="fas fa-hand-holding-usd"></i>&nbsp;
+                            مبلغ: {{ order.paid|intcomma }} تومان
+                        </span>
+                        <span class="badge badge-secondary">
+                            <i class="far fa-calendar-check"></i>&nbsp;
+                            پرداخت : {{ order.persian_dates.created }}
+                        </span>
+                        <span class="badge badge-info">
+                            <i class="fas fa-users"></i>&nbsp;
+                            تعداد نفرات : {{ order.players_number }}نفر
+                        </span>
+                        <span class="badge badge-warning">
+                            <i class="fas fa-calendar-alt"></i>&nbsp;
+                            رزرو : {{ order.persian_dates.reserved }}
+                        </span>
+                    </p>
+         
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5" class="m-0 p-0">
+                    <div collapse-id='collapse_{{order.id}}'>
+                        <div style='min-height:5em;' class='px-3 py-2 d-flex align-items-center flex-wrap'>
+                            
+                            <span class="p-3 align-items-center d-flex">
+                                <i class="fas fa-qrcode text-info"></i>&nbsp;
+                                شماره تراکنش : {{ order.transaction_number }}
+                            </span>
+                            <span class="p-3 align-items-center d-flex">
+                                <i class="fas fa-cut text-warning"></i>&nbsp;
+                                کد تخفیف  : {{ order.used_coupon }} </span>
+                            <span class="p-3 align-items-center d-flex">
+                                <i class="fas fa-key text-danger"></i>&nbsp;
+                                کلید : {{ order.key }}
+                            </span>
                         </div>
-                    </td>
-                </tr>
+                    </div>
+                </td>
+            </tr>
             {% endfor %}
 
 
-            </tbody>
-        </table>
-        {% comment %} <div style="height: 5em; background-color:red;" class="mb-collapsible" collapse-id-data='collapse_1'></div>
-    <div collapse-id='collapse_1'>
-      asdsad
-    </div> {% endcomment %}
+        </tbody>
+    </table>
+    <span class="mb-expand"></span>
+    <div v-if="{{orders.paginator.num_pages}} > 1" class="mb-pagination">
+        <ul class="mb-pagination-items pagination">
+
+            {% if orders.number > 3 %}
+                <li class="page-item mb-pagination-item" g-page-number='1'>
+                    <span class="page-link">صفحه اول</span>
+                </li>
+                &nbsp;|&nbsp;
+            {% endif %}
+
+            {% for page in orders.paginator.page_range|pagination_handle_pages:orders.number %}
+                <li class="page-item mb-pagination-item 
+                    {% if page == orders.number %}active{% endif %}" g-page-number="{{ page }}">
+                    <span class="page-link">{{page}}</span>
+                </li>
+                &nbsp;
+            {% endfor %}
+
+            {% if orders.number < orders.paginator.num_pages|add:'-2' %} &nbsp;|&nbsp; <li
+                class="page-item mb-pagination-item" g-page-number='{{orders.paginator.num_pages}}'>
+                <span class="page-link">صفحه اخر</span>
+                </li>
+            {% endif %}
+
+
+        </ul>
     </div>
+</div>
 {% endblock %}
 
 
 {% block footer-scripts %}
-    <script src="{% static 'modules/vue.js' %}"></script>
-    <script src="{% static 'modules/jalalidatepicker.min.js' %}"></script>
-    <script src="{% static 'panel/scripts/orders.js' %}"></script>
+<script src="{% static 'modules/vue.js' %}"></script>
+<script src="{% static 'modules/jalalidatepicker.min.js' %}"></script>
+<script src="{% static 'panel/scripts/orders.js' %}"></script>
 {% endblock %}

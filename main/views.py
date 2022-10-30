@@ -7,7 +7,7 @@ from . import models as main_models
 from game import models as game_models
 from orders import models as order_models
 from django.template.defaultfilters import slugify
-
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -116,13 +116,24 @@ class PanelCoupanView(View):
 
 class PanelOrderView(View):
     def get(self, request):
-        orders = order_models.Order.objects.all()
+        # filters
+        page_number = request.GET.get('page', 1)
+
         rooms = game_models.Room.objects.all()
+        orders = order_models.Order.objects.all()
+        paginator = Paginator(orders, 15)
+        page_obj = paginator.get_page(page_number)
+        print(page_obj.__dict__)
         context = {
-            "orders": orders,
+            "orders": page_obj,
             "rooms": rooms,
-            "title": "سفارش ها"
+            "title": "سفارش ها",
+            "order_count": len(orders)
+
         }
+        
+        
+        
         return render(request, 'panel/order/orders.html', context)
 
 

@@ -43,6 +43,12 @@
     padding: 2em 3em;
 }
 
+.mb-detail {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
 .content-head h4 {
     font-weight: bold;
 }

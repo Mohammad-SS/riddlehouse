@@ -115,7 +115,7 @@
                 </span>
               </p>
             </div>
-            <label :class='!banner ? "banner-animate-block" : ""' for="banner" class="banner-d-none btn btn-basic btn-sm shadow-2 banner-selector">
+            <label :class='!banner ? "banner-animate-block" : ""' for="banner" class="banner-d-none btn btn-link btn-sm text-basic banner-selector">
               <i class="far fa-images"></i>&nbsp;
               انتخاب تصویر
             </label>
@@ -201,11 +201,16 @@
           <div class="col-12 user-select-none">
             <div class="form-control">
               <div class="row px-2  mt-2 mb-2" dir="ltr">
-                <input @input='set_time' class="time-picker my-3 col-12" ref='timepicker' type="range" min="0" max="288" steps="1" value="0" id='time-picker'>
+                <input :disabled='room_mode == "box"' @input='set_time' class="time-picker my-3 col-12" ref='timepicker' type="range" min="0" max="288" steps="1" value="0" id='time-picker'>
                 <div class="col-12 d-flex align-items-center justify-content-center bg-light shadow-2">
                   <span class=" btn text-success btn-link fs-6" @click='addTag'><i class="fas fa-check"></i></span>
                   <span class="mx-3 fw-bold">[[time]]</span>
-                  <span class=" btn text-danger btn-link fs-6"><i class="fas fa-times"></i></span>
+                  <span @click='handle_tag_remove_all' class=" btn text-danger btn-link fs-6">
+                    <i v-if='!tag_remove_all' class="fas fa-times"></i>
+                    <i v-else class="fas fa-check text-success"></i>
+                  </span>
+                  <span @click='tag_remove_all = false' v-show='tag_remove_all' class="btn text-danger btn-link fs-6"><i class="fas fa-times"></i></span>
+                  
                 </div>
               </div>
               <div v-if='tags.length > 0' class="d-flex justify-content-center flex-wrap mt-2">
@@ -213,7 +218,7 @@
                   <input @click='reset_time_picker' type="hidden" name='hours' :id="'hour_' + index" :value="[[tag]]">
                   <label :for="'hour_' + index">
                     <span>[[tag]]</span>
-                    <span @click='() => removeTag(tag)' class="me-2" style="cursor:pointer;"> <i class="fas fa-times"></i></span>
+                    <span @click='() => removeTag(tag)' class="me-2" style="cursor:pointer;"> <i class="fas fa-times text-danger"></i></span>
                   </label>
                 </span>
               </div>

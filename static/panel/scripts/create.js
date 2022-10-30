@@ -31,6 +31,7 @@ var app = new Vue({
     el: '#app',
     data: {
         tags: [],
+        tag_remove_all: false,
         time: '00:00',
         room_mode: 'real',
         packages: [],
@@ -38,15 +39,30 @@ var app = new Vue({
 
     },
 
+    watch: {
+        room_mode(new_value, old_value) {
+            if (new_value != 'box') {
+                this.packages = []
+                this.tags = []
+            } else {
+                this.tags = ["12:00"]
+            }
+        }
+    },
+
     methods: {
         addTag() {
-            if (this.time.trim().length === 0 || this.tags.includes(this.time.trim())) {
-                return
+            if (this.room_mode != 'box') {
+                if (this.time.trim().length === 0 || this.tags.includes(this.time.trim())) {
+                    return
+                }
+                this.tags.push(this.time.trim())
             }
-            this.tags.push(this.time.trim())
         },
         removeTag(tag) {
-            this.tags = this.tags.filter(t => t !== tag)
+            if (this.room_mode != 'box') {
+                this.tags = this.tags.filter(t => t !== tag)
+            }
         },
 
         two_digits: (num) => num.toLocaleString('en-US', {
@@ -113,9 +129,20 @@ var app = new Vue({
             return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
         },
 
-        reset_form: function(e) {
+        reset_form: function (e) {
             this.banner = false
             this.$refs.room_create_form.reset()
+        },
+
+        handle_tag_remove_all: function() {
+            if (this.tag_remove_all) {
+                this.tags = []
+                this.tag_remove_all = false
+            } else {
+                if (this.tags.length > 0) {
+                    this.tag_remove_all = true
+                }
+            }
         }
 
     },
@@ -128,7 +155,7 @@ var app = new Vue({
                 name.pop()
                 name = name.join()
                 if (name.length > 20) {
-                    name = name.substr(0,20) + "..."
+                    name = name.substr(0, 20) + "..."
                 }
                 return name
             }
