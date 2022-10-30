@@ -336,3 +336,15 @@ body {
         padding-bottom: 4em;
     }
 }
+/* media query */
+@media screen and (max-width: 400px) {
+    .mb-panel {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .mb-panel * {
+        font-size: 12px;
+    }
+}

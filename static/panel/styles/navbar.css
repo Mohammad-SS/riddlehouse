@@ -77,6 +77,6 @@
         visibility: visible;
         margin-top: 1em;
         transform: scale(1);
-        height: 5em;
+        min-height: 5em;
     }
 }
