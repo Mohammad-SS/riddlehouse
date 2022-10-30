@@ -41,8 +41,10 @@
     .mb-filter {
         flex-direction: column;
         align-items: flex-start;
+    }
 
-
+    .radio-select {
+        justify-content: center;
     }
 
     .mb-filter-item {

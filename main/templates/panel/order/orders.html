@@ -56,6 +56,18 @@
                 </div>
             </div>
         </div>
+        <div class="mb-filter-item radio-select">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" v-model='filter_mode' value="reserve" id="reserve"/>
+                <label class="form-check-label" for="reserve"> تاریخ رزرو </label>
+              </div>
+              
+              <!-- Default checked radio -->
+              <div class="form-check">
+                <input class="form-check-input" type="radio" v-model='filter_mode' value="payment" id="payment" checked/>
+                <label class="form-check-label" for="payment"> تاریخ پرداخت </label>
+              </div>
+        </div>
 
         <div class="mb-filter-item mb-filter-item-actions">
             <button class="btn btn-primary me-1" @click='handle_filters'>
