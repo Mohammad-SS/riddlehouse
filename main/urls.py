@@ -14,6 +14,9 @@ urlpatterns = [
 
     path("panel/orders", views.PanelOrderView.as_view(), name='orders'),
     path("panel/schedule", views.PanelScheduleView.as_view(), name='schedule'),
+    
+    path("panel/settings", views.PanelSettingsView.as_view(), name='settings'),
+
   
     path("api/" , include(api_urls , namespace="main_api")),
     path("" ,  views.LandingView.as_view() ,name='main'),

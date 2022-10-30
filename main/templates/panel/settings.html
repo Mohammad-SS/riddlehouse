@@ -1,0 +1,142 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block styles %}
+<link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'panel/' %}styles/settings.css">
+<link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
+{% endblock %}
+{% block contentHead %}
+<div class="content-head">
+  <h4>شخصی سازی و تنظیمات</h4>
+</div>
+{% endblock %}
+
+{% block header-scripts %}
+<script src="{% static 'modules/tinymce.min.js' %}"></script>
+<script>
+  tinymce.init({
+    height: "300",
+    language: 'fa',
+    statusbar: false,
+    selector: '#aboutus',
+    plugins: [
+      'lists', 'link', 'image', 'preview', 'table', 'insertdatetime', 'media', 'codesample', 'emoticons', 'directionality'
+    ],
+
+    menubar: false,
+    toolbar1: 'ormatpainter casechange blocks | table tabledelete | link  numlist bullist | codesample emoticons code insertdatetime preview',
+    toolbar2: 'bold italic forecolor backcolor removeformat | ltr rtl | alignleft aligncenter alignright alignjustify | hr',
+
+  });
+</script>
+{% endblock header-scripts %}
+
+{% block dialogs %}
+{% include 'panel/coupan/coupan-add-pupop.html' %}
+{% endblock dialogs %}
+
+{% block content %}
+<form method="post" action="" ref='room_create_form' class="container mb-rtl settings-container ">
+  {% csrf_token %}
+  <div class="row">
+    
+    <div class="col-lg-6 col-12">
+      <span class="col-12 badge badge-basic mb-2 fs-6">
+        اطلاعات ارتباطی
+      </span>
+      
+      <div class="row">
+        <div class="col-12 custom-input-group mb-3">
+          <textarea type="text" class="form-control" style="resize: none;" rows="5" placeholder="آدرس ..."></textarea>
+        </div>
+        <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input type="text" class="form-control" placeholder="موبایل">
+          <span class="input-group-icon" id="basic-addon1">
+            <i class="fas fa-phone-alt d-flex align-items-center justify-content-center"></i>
+          </span>
+        </div>
+        <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input type="text" class="form-control" placeholder="ایمیل">
+          <span class="input-group-icon" id="basic-addon1">
+            <i class="far fa-envelope d-flex align-items-center justify-content-center"></i>
+          </span>
+        </div>
+        <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input type="text" class="form-control" placeholder="تلگرام">
+          <span class="input-group-icon" id="basic-addon1">
+            <i class="fab fa-telegram d-flex align-items-center justify-content-center"></i>
+          </span>
+        </div>
+        <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input type="text" class="form-control" placeholder="اینستاگرام">
+          <span class="input-group-icon" id="basic-addon1">
+            <i class="fab fa-instagram d-flex align-items-center justify-content-center"></i>
+          </span>
+        </div>
+        <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input type="text" class="form-control" placeholder="واتساپ">
+          <span class="input-group-icon" id="basic-addon1">
+            <i class="fab fa-whatsapp d-flex align-items-center justify-content-center"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-12">
+      <span class="col-12 badge badge-basic mb-2 fs-6">
+        تنظیمات پنل پیامکی
+      </span>
+      <div class="row">
+        <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input type="text" class="form-control" placeholder="نام کاربری پنل">
+        
+        </div>
+        <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input type="text" class="form-control" placeholder="رمز پنل">
+        </div>
+        <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input type="text" class="form-control" placeholder="شماره سامانه پیامکی">
+        
+        </div>
+        <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input type="text" class="form-control" placeholder="کد پترن ادمین">
+        </div>
+        <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input type="text" class="form-control" placeholder="کد پترن مشتری">
+        </div>
+        <div class="col-lg-6 col-12 custom-input-group mb-3" data-mdb-toggle="tooltip" title="بدون صفر وارد شود ، با| جدا کنید . مثلا 912123456|919123456"> 
+          <input type="text" class="form-control" placeholder="شماره های ادمین">
+        </div>
+      </div>
+      <span class="col-12 badge badge-basic mb-2 fs-6">
+        درباره ما
+      </span>
+      <div class="row">
+        <div class="col-12 custom-input-group mb-3">
+          <textarea type="text" class="form-control" style="resize: none;" rows="5" placeholder="بنویسید ..."></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <span class="col-12 badge badge-basic mb-2 fs-6">
+        تنظیمات درگاه پرداخت
+      </span>
+      <div class="col-12 mb-3">
+        <input type="text" class="form-control" placeholder="کد درگاه پرداخت ">
+        <div class="d-flex justify-content-start"><label for="" class="form-label" dir="ltr">XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX : نمونه</label></div>
+      </div>
+    </div>
+    <div class="col-12 d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary me-2">ثبت</button>
+      <button type="reset" class="btn btn-danger">خالی کردن</button>
+    </div>
+  </div>
+</form>
+{% endblock %}
+
+
+{% block footer-scripts %}
+<script src="{% static 'modules/vue.js' %}"></script>
+<script src="{% static 'panel/scripts/settings.js' %}"></script>
+
+{% endblock %}

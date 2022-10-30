@@ -163,3 +163,10 @@ class RemoveCoupon(View):
         coupon = order_models.Coupon.objects.get(pk=pk)
         coupon.delete()
         return redirect("main:coupans")
+    
+    
+class PanelSettingsView(View):
+    template_name = 'panel/settings.html'
+
+    def get(self, request):
+        return render(request, self.template_name, {})
