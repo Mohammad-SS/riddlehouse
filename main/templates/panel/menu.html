@@ -4,11 +4,11 @@
         <span class="mb-menu-header-logo"></span>
     </div>
     <div class="mb-profile">
-        <div class="profile-img">
-            <img src="{% static 'panel/images/fake-profile.png' %}" alt="">
-        </div>
+{#        <div class="profile-img">#}
+{#            <img src="{% static 'panel/images/fake-profile.png' %}" alt="">#}
+{#        </div>#}
         <div class="profile-name">
-            <span>نام</span>
+            <span>{{ user.first_name }} {{ user.last_name }} خوش آمدید </span>
         </div>
     </div>
     <div class="mb-menu-content grtl">
@@ -20,8 +20,10 @@
                     <span>منو</span>
                 </label>
             </a>
-            <a href="#">
-                <li class="mb-menu-item ripple">
+            <a href="{% url 'main:rooms' %}">
+                <li class="mb-menu-item ripple {% if title == 'اتاق ها' %}
+                active
+                {% endif %} ">
                     <i class="fas fa-dice-d6 mb-menu-icon"></i>
                     <span>مدیریت بازی ها</span>
                 </li>
@@ -32,21 +34,27 @@
                     <span>زمانبندی (بلاک/ازاد کردن </span>
                 </li>
             </a>
-            <a href="#">
-                <li class="mb-menu-item ripple">
+            <a href="{% url 'main:orders' %}">
+                <li class="mb-menu-item ripple {% if title == 'سفارش ها' %}
+                active
+                {% endif %} ">
                     <i class="fas fa-shopping-cart mb-menu-icon"></i>
                     <span>مدیریت سفارش ها</span>
                 </li>
             </a>
             
-            <a href="#">
-                <li class="mb-menu-item ripple">
+            <a href="{% url 'main:coupans' %}">
+                <li class="mb-menu-item ripple {% if title == 'کد های تخفیف' %}
+                active
+                {% endif %} ">
                     <i class="fas fa-cut mb-menu-icon"></i>
                     <span>کدهای تخفیف</span>
                 </li>
             </a>
-            <a href="#">
-                <li class="mb-menu-item ripple">
+            <a href="{% url 'main:settings' %}">
+                <li class="mb-menu-item ripple {% if title == 'تنظیمات' %}
+                active
+                {% endif %} ">
                     <i class="fas fa-cog mb-menu-icon"></i>
                     <span>تنظیمات</span>
                 </li>

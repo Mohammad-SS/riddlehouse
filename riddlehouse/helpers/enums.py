@@ -35,6 +35,13 @@ class RuleTypes(models.TextChoices):
 class DefaultSettings(Enum):
     LIMIT_DAYS_FOR_RESERVATION = {"slug": "limits_day_reservation", "default": 30}
     ZARINPAL_MERCHANT_KEY = {"slug": "zarinpal_merchant", "default": None}
+    LOCATION_ADDRESS = {"slug": "location_address", "default": ""}
+    ABOUT_US= {"slug": "about_us", "default": ""}
+    MOBILE_PHONE = {"slug": "mobile_phone", "default": ""}
+    EMAIL_ADDRESS = {"slug": "email_address", "default": ""}
+    TELEGRAM_ID = {"slug": "telegram_id", "default": ""}
+    INSTAGRAM_USER = {"slug": "instagram_user", "default": ""}
+    WHATSAPP_NUMBER = {"slug": "whatsapp_number", "default": ""}
     MAX_SMS_API_URL = {"slug": "max_sms_api_url", "default": "http://ippanel.com/api/select"}
     MAX_SMS_ADMIN_PATTERN_CODE = {"slug": "max_sms_admin_pattern_code", "default": "0syz2av5yv"}
     MAX_SMS_USER_PATTERN_CODE = {"slug": "max_sms_user_pattern_code", "default": "lqtobvthhs"}

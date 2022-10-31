@@ -67,7 +67,7 @@
 
 
 {% block content %}
-  <form method="post" action="" ref='room_create_form' class="container mb-rtl mt-5">
+  <form method="post" action="" enctype="multipart/form-data" ref='room_create_form' class="container mb-rtl mt-5">
     {% csrf_token %}
     <div class="row">
       <div class="col-lg-6 col-12">

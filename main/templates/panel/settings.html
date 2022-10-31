@@ -1,6 +1,7 @@
 {% extends 'panel/base.html' %}
 {% load static %}
 {% load humanize %}
+{% load custom_tags %}
 {% block styles %}
 <link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet" />
 <link rel="stylesheet" href="{% static 'panel/' %}styles/settings.css">
@@ -48,34 +49,34 @@
       
       <div class="row">
         <div class="col-12 custom-input-group mb-3">
-          <textarea type="text" class="form-control" style="resize: none;" rows="5" placeholder="آدرس ..."></textarea>
+          <textarea name="{{ settings.LOCATION_ADDRESS.name }}" type="text" class="form-control" style="resize: none;" rows="5" placeholder="آدرس ...">{{ settings.LOCATION_ADDRESS.value }}</textarea>
         </div>
         <div class="col-lg-6 col-12 custom-input-group mb-3">
-          <input type="text" class="form-control" placeholder="موبایل">
+          <input name="{{ settings.MOBILE_PHONE.name }}" value="{{ settings.MOBILE_PHONE.value }}" type="text" class="form-control" placeholder="موبایل">
           <span class="input-group-icon" id="basic-addon1">
             <i class="fas fa-phone-alt d-flex align-items-center justify-content-center"></i>
           </span>
         </div>
         <div class="col-lg-6 col-12 custom-input-group mb-3">
-          <input type="text" class="form-control" placeholder="ایمیل">
+          <input name="{{ settings.EMAIL_ADDRESS.name }}" value="{{ settings.EMAIL_ADDRESS.value }}" type="text" class="form-control" placeholder="ایمیل">
           <span class="input-group-icon" id="basic-addon1">
             <i class="far fa-envelope d-flex align-items-center justify-content-center"></i>
           </span>
         </div>
         <div class="col-lg-6 col-12 custom-input-group mb-3">
-          <input type="text" class="form-control" placeholder="تلگرام">
+          <input name="{{ settings.TELEGRAM_ID.name }}" value="{{ settings.TELEGRAM_ID.value }}" type="text" class="form-control" placeholder="تلگرام">
           <span class="input-group-icon" id="basic-addon1">
             <i class="fab fa-telegram d-flex align-items-center justify-content-center"></i>
           </span>
         </div>
         <div class="col-lg-6 col-12 custom-input-group mb-3">
-          <input type="text" class="form-control" placeholder="اینستاگرام">
+          <input name="{{ settings.INSTAGRAM_USER.name }}" value="{{ settings.INSTAGRAM_USER.value }}" type="text" class="form-control" placeholder="اینستاگرام">
           <span class="input-group-icon" id="basic-addon1">
             <i class="fab fa-instagram d-flex align-items-center justify-content-center"></i>
           </span>
         </div>
         <div class="col-lg-6 col-12 custom-input-group mb-3">
-          <input type="text" class="form-control" placeholder="واتساپ">
+          <input name="{{ settings.WHATSAPP_NUMBER.name }}" value="{{ settings.WHATSAPP_NUMBER.value }}" type="text" class="form-control" placeholder="واتساپ">
           <span class="input-group-icon" id="basic-addon1">
             <i class="fab fa-whatsapp d-flex align-items-center justify-content-center"></i>
           </span>
@@ -88,32 +89,36 @@
       </span>
       <div class="row">
         <div class="col-lg-6 col-12 custom-input-group mb-3">
-          <input type="text" class="form-control" placeholder="نام کاربری پنل">
+          <input name="{{ settings.MAX_SMS_USERNAME.name }}" value="{{ settings.MAX_SMS_USERNAME.value }}" type="text" class="form-control" placeholder="نام کاربری پنل">
         
         </div>
         <div class="col-lg-6 col-12 custom-input-group mb-3">
-          <input type="text" class="form-control" placeholder="رمز پنل">
+          <input name="{{ settings.MAX_SMS_PASSWORD.name }}" value="{{ settings.MAX_SMS_PASSWORD.value }}" type="text" class="form-control" placeholder="رمز پنل">
         </div>
         <div class="col-lg-6 col-12 custom-input-group mb-3">
-          <input type="text" class="form-control" placeholder="شماره سامانه پیامکی">
+          <input name="{{ settings.MAX_SMS_LINE_NUMBER.name }}" value="{{ settings.MAX_SMS_LINE_NUMBER.value }}" type="text" class="form-control" placeholder="شماره سامانه پیامکی">
         
         </div>
         <div class="col-lg-6 col-12 custom-input-group mb-3">
-          <input type="text" class="form-control" placeholder="کد پترن ادمین">
+          <input name="{{ settings.MAX_SMS_ADMIN_PATTERN_CODE.name }}" value="{{ settings.MAX_SMS_ADMIN_PATTERN_CODE.value }}" type="text" class="form-control" placeholder="کد پترن ادمین">
         </div>
         <div class="col-lg-6 col-12 custom-input-group mb-3">
-          <input type="text" class="form-control" placeholder="کد پترن مشتری">
+          <input name="{{ settings.MAX_SMS_USER_PATTERN_CODE.name }}" value="{{ settings.MAX_SMS_USER_PATTERN_CODE.value }}" type="text" class="form-control" placeholder="کد پترن مشتری">
+        </div>
+          <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input name="{{ settings.MAX_SMS_SURPRISE_USER_PATTERN_CODE.name }}" value="{{ settings.MAX_SMS_SURPRISE_USER_PATTERN_CODE.value }}" type="text" class="form-control" placeholder="کد پترن سورپرایز باکس">
         </div>
         <div class="col-lg-6 col-12 custom-input-group mb-3" data-mdb-toggle="tooltip" title="بدون صفر وارد شود ، با| جدا کنید . مثلا 912123456|919123456"> 
-          <input type="text" class="form-control" placeholder="شماره های ادمین">
+          <input name="{{ settings.MAX_SMS_ADMIN_NUMBER.name }}" value="{{ settings.MAX_SMS_ADMIN_NUMBER.value }}" type="text" class="form-control" placeholder="شماره های ادمین">
         </div>
+
       </div>
       <span class="col-12 badge badge-basic mb-2 fs-6">
         درباره ما
       </span>
       <div class="row">
         <div class="col-12 custom-input-group mb-3">
-          <textarea type="text" class="form-control" style="resize: none;" rows="5" placeholder="بنویسید ..."></textarea>
+          <textarea name="{{ settings.ABOUT_US.name }}" type="text" class="form-control" style="resize: none;" rows="5" placeholder="بنویسید ...">{{ settings.ABOUT_US.value }}</textarea>
         </div>
       </div>
     </div>
@@ -122,7 +127,7 @@
         تنظیمات درگاه پرداخت
       </span>
       <div class="col-12 mb-3">
-        <input type="text" class="form-control" placeholder="کد درگاه پرداخت ">
+        <input name="{{ settings.ZARINPAL_MERCHANT_KEY.name }}" value="{{ settings.ZARINPAL_MERCHANT_KEY.value }}" type="text" class="form-control" placeholder="کد درگاه پرداخت ">
         <div class="d-flex justify-content-start"><label for="" class="form-label" dir="ltr">XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX : نمونه</label></div>
       </div>
     </div>

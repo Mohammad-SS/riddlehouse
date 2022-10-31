@@ -8,6 +8,8 @@ from game import models as game_models
 from orders import models as order_models
 from django.template.defaultfilters import slugify
 from django.core.paginator import Paginator
+from riddlehouse.helpers import functions
+
 
 # Create your views here.
 
@@ -28,6 +30,7 @@ class PanelRoomView(View):
     def post(self, request):
         data = request.POST
         room_type = data.get("room_type", None)
+        picture = request.FILES.get("banner", None)
         if room_type == "box":
             this_type = enums.RoomType.BOX
             price = data.getlist("price", None)
@@ -50,6 +53,7 @@ class PanelRoomView(View):
         max_players = data.get("max_players", None)
         weekdays = data.getlist("weekday", None)
         hours = data.getlist("hours", None)
+        hours.sort(key=lambda x: int(x.split(":")[0]))
         warnings = data.get("warnings", None)
         descriptions = data.get("descriptions", None)
         conditions = data.get("conditions", None)
@@ -59,6 +63,8 @@ class PanelRoomView(View):
             "price_per_unit": price,
             "default_hours": hours,
             "warnings": warnings,
+            "min_players" : min_players ,
+            "max_players": max_players ,
             "description": descriptions,
             "conditions": conditions,
             "default_days": weekdays,
@@ -66,6 +72,7 @@ class PanelRoomView(View):
             "box_packages_prices": box_packages_prices,
         }
         room = game_models.Room(**fields)
+        room.banner = picture
         room.save()
         return redirect("main:rooms")
 
@@ -131,14 +138,11 @@ class PanelOrderView(View):
             "order_count": len(orders)
 
         }
-        
-        
-        
+
         return render(request, 'panel/order/orders.html', context)
 
-
-    def post(self , request):
-        data =request.POST
+    def post(self, request):
+        data = request.POST
         print(data)
 
 
@@ -174,10 +178,30 @@ class RemoveCoupon(View):
         coupon = order_models.Coupon.objects.get(pk=pk)
         coupon.delete()
         return redirect("main:coupans")
-    
-    
-class PanelSettingsView(View):
-    template_name = 'panel/settings.html'
 
+
+class PanelSettingsView(View):
     def get(self, request):
-        return render(request, self.template_name, {})
+        _settings = [e for e in enums.DefaultSettings]
+        settings = dict()
+        for setting in _settings:
+            settings[setting.name] = dict()
+            settings[setting.name]["slug"] = setting.value['slug']
+            settings[setting.name]["name"] = setting.name
+            settings[setting.name]["value"] = functions.get_setting(setting)
+        print(settings)
+        context = {
+            "title": "تنظیمات",
+            "settings": settings
+        }
+        return render(request, 'panel/settings.html', context)
+
+    def post(self,request):
+        data = request.POST.copy()
+        data.pop("csrfmiddlewaretoken")
+
+        for key , setting in data.items():
+            name = key.upper()
+            functions.set_setting(name,setting)
+
+        return redirect("main:settings")

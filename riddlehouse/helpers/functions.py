@@ -204,3 +204,13 @@ def get_sms_configs(receiver: str, to_number, input_data):
         "inputData": input_data,
     }
     return url, data
+
+
+def set_setting(name , value):
+    setting_object = main_models.Setting.objects.filter(name=name)
+    setting = enums.DefaultSettings[name]
+    if setting_object.exists():
+        setting_object.update(value=value)
+    else:
+        setting_object = main_models.Setting(slug=setting.value['slug'],value=value,name=name)
+        setting_object.save()

@@ -1,6 +1,5 @@
 from django import template
 
-
 register = template.Library()
 
 
@@ -17,5 +16,10 @@ def pagination_handle_pages(value, arg):
     return value
 
 
+def get_setting_value(name):
+    print(name)
+    return None
+
 
 register.filter('pagination_handle_pages', pagination_handle_pages)
+register.filter('get_setting_value', get_setting_value)
