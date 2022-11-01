@@ -34,15 +34,17 @@
             {{ coupon.code }}
           </p>
           <p class="p-0 m-0 mb-2">
-            <span class="badge badge-secondary w-100">اتاق ها</span>
+            <span class="badge badge-secondary w-100 py-2">اتاق ها</span>
           </p>
 
-          {% for room in coupon.available_rooms.all %}
+          <div class="py-2">
+            {% for room in coupon.available_rooms.all %}
             <span class="badge text-dark">
               <i class="fas fa-check text-primary"></i>&nbsp;
               {{ room.name }}
             </span>
           {% endfor %}
+          </div>
         </div>
         <hr class="m-1">
         <div class="coupan-actions px-2 pb-2">
