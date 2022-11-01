@@ -33,9 +33,7 @@
           <p dir="ltr" class="m-0 mb-2 coupan-code shadow-2 text-center w-100 badge badge-light fs-6 py-3">
             {{ coupon.code }}
           </p>
-          <p class="p-0 m-0 mb-2">
-            <span class="badge badge-secondary w-100 py-2">اتاق ها</span>
-          </p>
+         
 
           <div class="py-2">
             {% for room in coupon.available_rooms.all %}
@@ -46,8 +44,8 @@
           {% endfor %}
           </div>
         </div>
-        <hr class="m-1">
-        <div class="coupan-actions px-2 pb-2">
+    
+        <div class="coupan-actions px-2 pb-2 mt-1">
           <span class="badge text-dark">
             {% if coupon.type == "P" %}
             <i class="fas fa-percent text-warning"></i>&nbsp;
@@ -73,7 +71,8 @@
           <form method="post" action="{% url 'main:remove-coupon' pk=coupon.pk %}">
             {% csrf_token %}
             <button type="submit" value="delete" name="action" class="btn btn-link shadow-0 w-100 badge-danger">
-              <i class="far fa-trash-alt"></i>
+              <i class="far fa-trash-alt"></i>&nbsp;
+              حذف تخفیف
             </button>
           </form>
         </div>
