@@ -3,6 +3,7 @@
 {% load humanize %}
 {% block styles %}
     <link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'modules/jalalidatepicker.min.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" href="{% static 'panel/' %}styles/manage-rooms.css">
     <link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
 {% endblock %}
@@ -12,12 +13,19 @@
     </div>
 {% endblock %}
 
+{% block header-scripts %}
+{% comment %} {{room.default_hours}}
+{{room.default_days}} {% endcomment %}
+{% endblock header-scripts %}
 
 {% block dialogs %}
-    {% comment %} {% include 'panel/manage-rooms/room-add-pupop.html' %} {% endcomment %}
+{% include 'panel/schedule/add-schedule-pupop.html' %}
 {% endblock dialogs %}
 
 {% block content %}
+ {% for room in rooms %}
+
+ {% endfor %}
     <div class="manage-rooms mb-rtl">
         <div class="mb-filter mb-card mb-3">
             <a href="{% url 'main:createroom' %}">
@@ -27,12 +35,14 @@
                 </button>
             </a>
 
+            
+
         </div>
         <table class="table align-middle mb-0">
 
             <tbody>
             {% for room in rooms %}
-                <tr class="sm-room-name">
+                <tr class="sm-room-name" id='{{room.id}}' :data='{{room.default_hours}}'>
                     <td colspan="2" class="shadow-5 border-0 text-center">
                         <span class="fw-bold">{{ room.name }}</span>
                     </td>
@@ -82,6 +92,9 @@
 
                             <button type="button" class="me-2 btn btn-link text-success btn-sm btn-rounded">ویرایش
                             </button>
+
+                            <button  @click='()=>show_schedule_pupop({{room.id}} ,{{room.default_days}}, {{room.default_hours}})' type="button" class="me-2 btn btn-link text-warning btn-sm btn-rounded">زمانبندی
+                            </button>
                         </div>
                     </td>
                 </tr>
@@ -98,6 +111,7 @@
 
 {% block footer-scripts %}
     <script src="{% static 'modules/vue.js' %}"></script>
+    <script src="{% static 'modules/jalalidatepicker.min.js' %}"></script>
     <script src="{% static 'panel/scripts/manage_rooms.js' %}"></script>
 
 {% endblock %}

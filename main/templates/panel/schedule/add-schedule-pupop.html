@@ -8,7 +8,7 @@
     
      <div class="gdialog-head">
         <span class="gdialog-title fs-5">
-            ثبت سفارش حضوری
+            زمانبندی
         </span>
         <span class="mb-expand"></span>
         <span class="gdialog-close-icon ripple" @click='add_schedule_pupop=false'>
@@ -20,14 +20,66 @@
         <div class="px-md-2">
             <form method="post" action="" class="gltr" ref='order_add_form'>
                 {% csrf_token %}
+                <input type="hidden" name='room' :value='schedule_room_id'>
                 <div class="row">
                     <span class="badge badge-primary mb-3">
-                        انتخاب تاریخ و ساعت
+                        حالت زمانبندی
                     </span>
-                    <div class="col-12 mb-2">
-                        <input data-jdp class="form-control" placeholder="تاریخ را انتخاب کنید" > 
+                    <div class="col-12 mb-3">
+                      <select class="form-select" name='mode' v-model='schedule_mode' id="">
+                        <option value=1>
+                          بر اساس تاریخ
+                        </option>
+                        <option value=2>
+                          بر اساس روز های هفته
+                        </option>
+                        <option value=3>
+                          بر اساس تاریخ و روز های هفته
+                        </option>
+                      </select>
                     </div>
-                    
+                    <div v-show='schedule_mode == 1 || schedule_mode == 3' class="col-6 mb-3">
+                        <input data-jdp class="form-control" placeholder="از تاریخ" > 
+                    </div>
+                    <div v-show='schedule_mode == 1 || schedule_mode == 3' class="col-6 mb-3">
+                      <input data-jdp class="form-control" placeholder="تا تاریخ" > 
+                    </div>
+                    <div  v-show='schedule_mode == 2 || schedule_mode == 3' class="mb-3 col-12 weekday-selector">
+                      <input class="d-none" type="checkbox" name='weekday' id='d-1' :checked='schedule_room_days.includes(1)' value="1">
+                      <label for="d-1" class="ripple btn btn-basic rounded shadow-2">
+                        <span>شنبه</span>
+                      </label>
+                      <input class="d-none" type="checkbox" name='weekday' id='d-2' :checked='schedule_room_days.includes(2)' value="2">
+                      <label for="d-2" class="ripple btn btn-basic rounded shadow-2">
+                        <span>یکشنبه</span>
+                      </label>
+                      <input class="d-none" type="checkbox" name='weekday' id='d-3' :checked='schedule_room_days.includes(3)' value="3">
+                      <label for="d-3" class="ripple btn btn-basic rounded shadow-2">
+                        <span>دوشنبه</span>
+                      </label>
+                      <input class="d-none" type="checkbox" name='weekday' id='d-4' :checked='schedule_room_days.includes(4)' value="4">
+                      <label for="d-4" class="ripple btn btn-basic rounded shadow-2">
+                        <span>سه شنبه</span>
+                      </label>
+                      <input class="d-none" type="checkbox" name='weekday' id='d-5' :checked='schedule_room_days.includes(5)' value="5">
+                      <label for="d-5" class="ripple btn btn-basic rounded shadow-2">
+                        <span>چهارشنبه</span>
+                      </label>
+                      <input class="d-none" type="checkbox" name='weekday' id='d-6' :checked='schedule_room_days.includes(6)' value="6">
+                      <label for="d-6" class="ripple btn btn-basic rounded shadow-2">
+                        <span>پنجشنبه</span>
+                      </label>
+                      <input class="d-none" type="checkbox" name='weekday' id='d-7' :checked='schedule_room_days.includes(7)' value="7">
+                      <label for="d-7" class="ripple btn btn-basic rounded shadow-2">
+                        <span>جمعه</span>
+                      </label>
+                    </div>
+                    <div class="col-12">
+                      <div class="row">
+                        <input type="checkbox" class="d-none" name="" id="1">
+                        <label for="1"></label>
+                      </div>
+                    </div>
                     <div class="col-12 user-select-none">
                       <div class="form-control">
                         <div class="row px-2  mt-2 mb-2" dir="ltr">
@@ -35,40 +87,27 @@
                           <div class="col-12 d-flex align-items-center justify-content-center bg-light shadow-2">
                             <span class=" btn text-success btn-link fs-6" @click='addTag'><i class="fas fa-check"></i></span>
                             <span class="mx-3 fw-bold">[[time]]</span>
-                            <span class=" btn text-danger btn-link fs-6"><i class="fas fa-times"></i></span>
+                            <span @click='handle_tag_remove_all' class=" btn text-danger btn-link fs-6">
+                              <i v-if='!tag_remove_all' class="fas fa-times"></i>
+                              <i v-else class="fas fa-check text-success"></i>
+                            </span>
+                            <span @click='tag_remove_all = false' v-show='tag_remove_all' class="btn text-danger btn-link fs-6"><i class="fas fa-times"></i></span>
+                            
                           </div>
                         </div>
-                        <div v-if='tags.length > 0' class="d-flex justify-content-center flex-wrap mt-2">
+                        <div v-show='tags.length > 0' class="d-flex justify-content-center flex-wrap mt-2">
                           <span v-for="(tag, index) in tags" class="zoom-effect badge badge-info fw-light m-1 fs-6">
-                            {% comment %} <input @click='reset_time_picker' type="hidden" name='hours' :id="'hour_' + index"> {% endcomment %}
+                            <input @click='reset_time_picker' type="hidden" name='hours' :id="'hour_' + index" :value="[[tag]]">
                             <label :for="'hour_' + index">
                               <span>[[tag]]</span>
-                              <span @click='() => removeTag(tag)' class="me-2" style="cursor:pointer;"> <i class="fas fa-times"></i></span>
+                              <span @click='() => removeTag(tag)' class="me-2" style="cursor:pointer;"> <i class="fas fa-times text-danger"></i></span>
                             </label>
                           </span>
                         </div>
                       </div>
                     </div>
+                    
                   </div>
-                <div class="row mt-3">
-                    <span class="badge badge-secondary mb-3">
-                        انتخاب بازی
-                    </span>
-                    <div class="col-8">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected disabled>انتخاب</option>
-                            <option value="real">معمولی</option>
-                            <option value="box">اسکیپ باکس</option>
-                        </select>
-                    </div>
-                    <div class="col-4">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected disabled>بلاک/ازاد</option>
-                            <option value="real">بلاک کردن</option>
-                            <option value="box">ازاد کردن</option>
-                          </select>
-                    </div>
-                </div>
                 <div class="row mt-3">
                     <div class="col-12 mt-4 d-flex flex-fill justify-content-end">
                         <button class="btn btn-primary btn-sm me-1">ثبت</button>

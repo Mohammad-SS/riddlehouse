@@ -5,7 +5,10 @@ var app = new Vue({
         add_schedule_pupop: false,
         add_loschedule_ading: false,
         tags: [],
-        time: '00:00'
+        tag_remove_all: false,
+        time: '00:00',
+        schedule_mode: 1,
+
     },
 
     methods: {
@@ -32,6 +35,22 @@ var app = new Vue({
         removeTag(tag) {
             this.tags = this.tags.filter(t => t !== tag)
         },
+
+        
+        reset_time_picker: function (e) {
+            this.$refs.timepicker.value = '0'
+        },
+
+        handle_tag_remove_all: function() {
+            if (this.tag_remove_all) {
+                this.tags = []
+                this.tag_remove_all = false
+            } else {
+                if (this.tags.length > 0) {
+                    this.tag_remove_all = true
+                }
+            }
+        }
     },
 });
 
