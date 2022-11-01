@@ -13,6 +13,10 @@
     padding-left: 3em;
 }
 
+.mb-menu a:hover {
+    color: inherit !important;
+}
+
 
 
 .mb-menu-header {

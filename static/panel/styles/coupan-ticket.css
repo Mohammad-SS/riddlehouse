@@ -1,4 +1,4 @@
-.coupan {
+/* .coupan {
 
     min-height: 12em;
     display: flex;
@@ -15,16 +15,16 @@
 .coupan-detail {
     flex: .3;
     background:#fff;
-    /* border-radius: 0.2em; */
-}
-.coupan-content {
+    border-radius: 0.2em;
+} */
+/* .coupan-content {
     flex: 1;
     background:rgb(255, 255, 255);
     border-right: 5px dotted #f2f2f2;
     border-left: 5px dotted #f2f2f2;
     position: relative;
-    /* border-radius: .2em; */
-}
+    border-radius: .2em;
+} */
 
 /* .coupan-delete {
     width: fit-content;
@@ -34,7 +34,7 @@
     cursor: pointer;
 } */
 
-.coupan-code {
+/* .coupan-code {
     width: fit-content;
     position: absolute;
     bottom: 1em;
@@ -66,7 +66,7 @@
 .sm-coupan-room-row td {
     padding: 1em 1.4em !important;
     padding-top: 0 !important;
-}
+} */
 
 /* 
 .coupan-action-item {
