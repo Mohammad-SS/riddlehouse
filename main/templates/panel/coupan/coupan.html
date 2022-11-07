@@ -30,8 +30,9 @@
       {% for coupon in coupons %}
       <div class="coupan-item shadow-2">
         <div class="coupan-detail p-2">
-          <p dir="ltr" class="m-0 mb-2 coupan-code shadow-2 text-center w-100 badge badge-light fs-6 py-3">
-            {{ coupon.code }}
+          <p dir="ltr" class="m-0 mb-2 rounded-1
+           coupan-code shadow-2 text-center w-100 badge badge-light fs-6 py-3">
+            <span data-mdb-toggle="tooltip"  title="کلیک کنید">{{ coupon.code }}</span>
           </p>
          
 

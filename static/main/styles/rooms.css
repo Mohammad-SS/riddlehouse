@@ -153,6 +153,16 @@
     }
 }
 
+@media only screen and (max-width: 900px) {
+    .reserve-section .room-info {
+        box-shadow: none;
+        transform: scale(1);
+        background: #fff;
+        padding: 1em;
+    }
+    
+}
+
 @media only screen and (max-width: 680px) {
     .section.rooms {
         margin: 2em !important;    

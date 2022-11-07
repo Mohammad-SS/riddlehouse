@@ -25,21 +25,23 @@
         </div>
     </div>
     <div class="reserve-time-section mt-3">
-        <div>
-
-            <span class="empty_reserve_list" v-if='is_reservable_time_list_empty'>لطفا تاریخ رزرو را انتخاب کنید</span>
-            <label v-else v-for='item in reservable_time_list' :id='item.rand_id'
-                   @click='() => {select_time(item, {{room.price_per_unit}})}'>
+        <span class="empty_reserve_list" v-if='is_reservable_time_list_empty'>لطفا تاریخ رزرو را انتخاب کنید</span> 
+        <div v-else>
+           
+            {% for price in room.box_packages_prices %}
+            <label id='package_{{ forloop.counter }}' @click="()=>select_package({{ forloop.counter }}, {{price}})">
                 <span class="status-icon"></span>
                 <div class="reserve-time-detail">
-                    <span class="time fw-bold">ساعت [[item.time]]</span>
+                    <span class="time fw-bold">رزرو پکیج {{ forloop.counter }}</span>
                     {% if room.price_per_unit %}
-                        <span class="price ">{{ room.price_per_unit }}</span>
+                    {{ price|intcomma }} تومان [[picked]]
                     {% endif %}
-
                 </div>
             </label>
 
+            {% endfor %}
+
+            
         </div>
     </div>
 </div>

@@ -6,9 +6,10 @@ var app = new Vue({
     data: {
         current_room: null,
         step: 1,
-        accept_rols: false,
+        accept_ruls: false,
         page_loading: true,
         reserve_date: null,
+        selected_date: null,
         datepicker: false,
         changing_calendar: false,
         picked: null,
@@ -18,12 +19,33 @@ var app = new Vue({
         current_date: get_today_jalali(),
         free_turns: '-',
         reserved_turns: '-',
-        selected_turn: null
+        selected_turn: {
+            time: null,
+            price: null,
+        },
+        package: {
+            id: null,
+            price: null
+        },
+
+        player_numbers: {
+            min: 1,
+            max: 1,
+            current: 1
+        }
 
     },
 
 
     watch: {
+        accept_ruls(newvalue, oldvalue) {
+            if (newvalue === "true") {
+                this.accept_ruls = true
+            } else {
+                this.value = false
+            }
+        },
+
         step(newvalue, oldvalue) {
             let rect = this.$refs.stepper.getBoundingClientRect()
             let scroll_pos = rect.top + window.pageYOffset - 28;
@@ -31,7 +53,6 @@ var app = new Vue({
         },
 
         datepicker(newvalue, oldvalue) {
-            console.log(oldvalue, newvalue);
             if (!newvalue) {
                 setTimeout(() => {
                     this.calendar = this.default_calendar
@@ -44,6 +65,9 @@ var app = new Vue({
 
     async mounted() {
         this.current_room = parseInt(this.$el.getAttribute("roomId"))
+        player_numbers_input = this.$refs.players
+        this.init_player_numbers(player_numbers_input)
+
         AOS.init({
             offset: 20,
         });
@@ -72,12 +96,22 @@ var app = new Vue({
             this.datepicker = false
         },
 
-        select_time: function (item) {
-            this.selected_turn = item.time
+        select_time: function (item, price) {
+            console.log(item);
+            this.selected_turn.time = item.time
+            this.selected_turn.price = price
             document.querySelectorAll('.selected-time').forEach(el => el.classList.remove('selected-time'))
             document.getElementById(item.rand_id).classList.add('selected-time')
         },
 
+        select_package(_package, price) {
+            this.package = {
+                id: _package,
+                price: price
+            }
+            document.querySelectorAll('.selected-time').forEach(el => el.classList.remove('selected-time'))
+            document.getElementById(`package_${_package}`).classList.add('selected-time')
+        },
 
         get_calendar: async function (room, year, month) {
             try {
@@ -164,6 +198,7 @@ var app = new Vue({
             this.datepicker = false
             this.reservable_time_list = []
             this.reserve_date = selected_date
+            this.selected_date = detail.date
             this.free_turns = remaining_count
             this.reserved_turns = reserved_count
             Object.entries(detail.times).forEach(item => {
@@ -173,12 +208,54 @@ var app = new Vue({
                     this.reservable_time_list.push(obj)
                 }
             })
+        },
+
+        init_player_numbers: function (player_numbers_input) {
+            this.player_numbers.min = parseInt(player_numbers_input.min)
+            this.player_numbers.max = parseInt(player_numbers_input.max)
+            this.player_numbers.current = this.player_numbers.min
+            player_numbers_input.value = this.player_numbers.min
+        },
+
+
+        handle_players: function (e) {
+
+            value = e.target.valueAsNumber
+
+            if (value < this.player_numbers.min) {
+                value = this.player_numbers.min
+            }
+
+            if (value > this.player_numbers.max) {
+                value = this.player_numbers.max
+            }
+
+            this.player_numbers.current = value
         }
+
     },
+
+
 
     computed: {
         is_reservable_time_list_empty() {
             return this.reservable_time_list.length < 1 ? true : false
+        },
+
+        price() {
+            if (this.package.id) {
+                return { str: separate(this.package.price), num: this.package.price }
+            }
+
+            return { str: separate(this.selected_turn.price), num: this.selected_turn.price }
+        },
+
+        total_price() {
+            if (this.package.id) {
+                return { str: separate(this.player_numbers.current * this.package.price), num: this.player_numbers.current * this.package.price }
+            }
+
+            return { str: separate(this.player_numbers.current * this.selected_turn.price), num: this.player_numbers.current * this.selected_turn.price }
         }
     }
 })

@@ -1,26 +1,22 @@
 {% load static %}
 {% load humanize %}
-<div class="select-date action" v-if="step == 3">
+<div class="select-date action" v-show="step == 3">
     <div class="reserved-details d-flex">
         <div class="mb-status mb-status-purple d-flex flex-column align-items-start me-5">
             <span class="fw-bold">نوبت انتخابی</span>
-            <span class="mt-2">[[reserve_date]] - [[selected_turn]]</span>
+            <span  v-if='!is_reservable_time_list_empty' class="mt-2">
+                [[reserve_date]]<span v-if='selected_turn.time && selected_turn.price'> - [[selected_turn.time]]</span>
+            </span>
+            <span v-else class="mt-2">انتخاب نشده</span>
         </div>
 
         <div class="mb-status mb-status-success d-flex flex-column align-items-start ms-5">
             <span class="fw-bold">مبلغ پیش پرداخت</span>
-            {% if room.room_type == "REAL" %}
-                <span class="mt-2">نفری  {{ room.price_per_unit }}تومان [[picked]]</span>
-            {% else %}
-                {% for price in room.box_packages_prices %}
-                    <span class="mt-2">پکیج {{ forloop.counter }}:  {{ price|intcomma }} تومان [[picked]]</span>
-                {% endfor %}
-
-            {% endif %}
+            <span class="mt-2">نفری  {{ room.price_per_unit }}تومان [[picked]]</span>
         </div>
 
     </div>
     <button class="action-btn btn btn-success btn-lg shadow-0"
-            :class='!selected_turn ? "disabled" : "" ' @click="step = 4">تکمیل اطلاعات
+            :class='!selected_turn.time || !selected_turn.price ? "disabled" : "" ' @click="step = 4">تکمیل اطلاعات
     </button>
 </div>

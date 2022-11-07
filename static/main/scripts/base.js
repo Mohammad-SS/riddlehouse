@@ -60,7 +60,7 @@ function get_today_jalali() {
     let today_day = now.getDate()
     let today_month = now.getMonth() + 1
     let today_year = now.getFullYear()
-    return convert_to_jalali(today_year, today_month, today_day)   
+    return convert_to_jalali(today_year, today_month, today_day)
 }
 
 function getCookie(name) {
@@ -77,4 +77,17 @@ function getCookie(name) {
         }
     }
     return cookieValue;
+}
+
+
+function separate(Number) {
+    Number += '';
+    Number = Number.replace(',', '');
+    x = Number.split('.');
+    y = x[0];
+    z = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(y))
+        y = y.replace(rgx, '$1' + ',' + '$2');
+    return y + z;
 }

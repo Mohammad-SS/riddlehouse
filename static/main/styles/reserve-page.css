@@ -199,6 +199,7 @@ section.reserve-section {
     align-items: center;
     justify-content: center;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 .step-line {
