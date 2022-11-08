@@ -205,3 +205,14 @@ class PanelSettingsView(View):
             functions.set_setting(name,setting)
 
         return redirect("main:settings")
+
+
+class PanelRoomEditView(View):
+
+    def get(self,request,pk):
+        room = game_models.Room.objects.get(pk=pk)
+        context = {
+            "room" : room ,
+            "title" : "ویرایش اتاق",
+        }
+        return render(request , "" , context)
