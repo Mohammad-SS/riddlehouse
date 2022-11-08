@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render, redirect
 from django.views import View
 
@@ -164,10 +166,12 @@ class RoomView(View):
     def get(self, request, pk):
         rooms = game.models.Room.objects.all()
         room = game_models.Room.objects.get(pk=pk)
+        now = datetime.datetime.now().strftime("%Y/%m/%d")
         context = {
             "rooms": rooms,
             "room": room,
             "title": room.name,
+            "now" : now
         }
         return render(request, 'main/reserveroom.html', context)
 
