@@ -2,7 +2,7 @@ import datetime
 
 from django.shortcuts import render, redirect
 from django.views import View
-
+from persiantools import jdatetime
 import game.models
 from riddlehouse.helpers import enums
 from . import models as main_models
@@ -65,8 +65,8 @@ class PanelRoomView(View):
             "price_per_unit": price,
             "default_hours": hours,
             "warnings": warnings,
-            "min_players" : min_players ,
-            "max_players": max_players ,
+            "min_players": min_players,
+            "max_players": max_players,
             "description": descriptions,
             "conditions": conditions,
             "default_days": weekdays,
@@ -171,9 +171,44 @@ class RoomView(View):
             "rooms": rooms,
             "room": room,
             "title": room.name,
-            "now" : now
+            "now": now
         }
         return render(request, 'main/reserveroom.html', context)
+
+    def post(self, request, pk):
+        data = request.POST
+        room = game_models.Room.objects.get(pk=pk)
+
+        date = data.get("date", None)
+        turn = data.get("turn", None)
+        package = data.get("package" , None)
+        if room.room_type==enums.RoomType.REAL:
+            if not date or not turn:
+                return False
+            hour, minutes = turn.split(":")
+        else:
+            if not package:
+                return False
+            hour = 0
+            minutes = 0
+
+        year, month, day = date.split("/")
+        reserved_date = jdatetime.JalaliDateTime(int(year), int(month), int(day), int(hour), int(minutes)).to_gregorian()
+        fields = {
+            "amount": data.get("price", None),
+            "room_id": pk,
+            "customer_name": data.get('name', None),
+            "package" : package ,
+            "mobile": data.get('phone', None),
+            "players_number": data.get('persons', None),
+            "coupon": data.get('coupon', None),
+            "reserved_time": reserved_date,
+        }
+        payment = functions.start_payment(**fields)
+        if payment.get("valid" , None) :
+            return redirect(payment.get("url"))
+        else:
+            return redirect("main:room-page" , pk=pk)
 
 
 class RemoveCoupon(View):
@@ -200,23 +235,34 @@ class PanelSettingsView(View):
         }
         return render(request, 'panel/settings.html', context)
 
-    def post(self,request):
+    def post(self, request):
         data = request.POST.copy()
         data.pop("csrfmiddlewaretoken")
 
-        for key , setting in data.items():
+        for key, setting in data.items():
             name = key.upper()
-            functions.set_setting(name,setting)
+            functions.set_setting(name, setting)
 
         return redirect("main:settings")
 
 
 class PanelRoomEditView(View):
 
-    def get(self,request,pk):
+    def get(self, request, pk):
         room = game_models.Room.objects.get(pk=pk)
         context = {
-            "room" : room ,
-            "title" : "ویرایش اتاق",
+            "room": room,
+            "title": "ویرایش اتاق",
         }
-        return render(request , "" , context)
+        return render(request, "", context)
+
+
+class ReserveCompleted(View):
+
+    def get(self,request):
+        payment = functions.verify_payment(request.GET.get("Authority"))
+        context = {
+            "payment" : payment,
+            "title" : "نتیجه پرداخت",
+        }
+        return render(request,"TEMPLATE",context)

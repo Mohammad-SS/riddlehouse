@@ -4,3 +4,5 @@ from . import models
 # Register your models here.
 
 admin.site.register(models.Order)
+admin.site.register(models.Payment)
+admin.site.register(models.Coupon)
