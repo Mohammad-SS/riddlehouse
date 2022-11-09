@@ -261,6 +261,7 @@ class ReserveCompleted(View):
 
     def get(self,request):
         payment = functions.verify_payment(request.GET.get("Authority"))
+        print(payment)
         context = {
             "payment" : payment,
             "title" : "نتیجه پرداخت",

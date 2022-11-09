@@ -61,18 +61,21 @@ def create_payment_object(**kwargs):
     except exceptions.ObjectDoesNotExist as e:
         print(e)
         return None
-
+    package = kwargs.get("package", None)
+    if not package or package == "":
+        package = None
     fields = {
         "room": room,
         "customer_name": kwargs.get('customer_name', None),
         "customer_mobile": kwargs.get('mobile', None),
         "authority_key": kwargs.get('authority', None),
         "players_number": kwargs.get('players_number', None),
-        "package": kwargs.get("package", None),
+        "package": package,
         "amount": kwargs.get('amount', None),
         "used_coupon": kwargs.get('coupon', None),
         "reserved_time": kwargs.get('reserved_time', None),
     }
+    print(fields)
     obj = orders_models.Payment(**fields)
     obj.save()
     return obj
