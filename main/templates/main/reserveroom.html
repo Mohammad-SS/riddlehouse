@@ -24,5 +24,11 @@
 {% endblock content %}
 
 {% block scripts %}
-<script defer src="{% static 'main/' %}scripts/roompage.js"></script>
+
+{% if payment %}
+    <script defer src="{% static 'main/' %}scripts/roompage_receipt.js"></script>
+{% else %}
+    <script defer src="{% static 'main/' %}scripts/roompage.js"></script>
+{% endif %}
+
 {% endblock scripts %}

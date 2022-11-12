@@ -1,9 +1,12 @@
 {% load static %}
 {% load humanize %}
 
+
+{% if not payment %}
 <!-- date picker -->
 {% include 'main/roompage/calendar.html' %}
 <!-- date picker -->
+{% endif %}
 
 <!-- page loader -->
 <div class="mb-loader bg-white fixed mb-text-dark-gray" :class="!page_loading ? 'd-none' : ''">
@@ -22,7 +25,14 @@
     <div class="reserve-container">
         <div class="room-reserve mb-shadow">
             {% include 'main/roompage/room_md_box.html' %}
-            {% include 'main/roompage/reserve_steps.html' %}
+
+            {% if payment %}
+                {% include 'main/roompage/reserve_receipt_step.html' %}
+            {% else %}
+                {% include 'main/roompage/reserve_steps.html' %}
+            {% endif %}
+
+
         </div>
         {% include 'main/roompage/room_box.html' %}
     </div>

@@ -25,7 +25,7 @@ section.teaser-section video {
 }
 
 
-section.teaser-section + section.reserve-section {
+section.teaser-section+section.reserve-section {
     margin-top: -6em;
 }
 
@@ -492,6 +492,63 @@ label.selected-time .status-icon {
     flex-direction: column;
 }
 
+
+
+/* receipt card style */
+.receipt {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.receipt-header {
+    display: flex;
+    align-items: center;
+    padding: 1em 2em;
+    background-color: rgb(248, 248, 248);
+}
+
+
+.receipt-header .receipt-status {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.receipt-status .status-detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.receipt-status .status-icon {
+    display: flex;
+    align-self: center;
+}
+
+.receipt-body {
+    padding: 2em 2em;
+    background-color: rgb(255, 255, 255);
+}
+
+.receipt-body p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.receipt-body p>span:first-child {
+    width: 3em;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* receipt card style */
+
+
+
 @media only screen and (max-width: 1280px) {
 
 
@@ -514,7 +571,7 @@ label.selected-time .status-icon {
         margin-top: 1em;
     }
 
-    
+
     .reserved-details>div {
         margin-right: 0 !important;
         margin-left: 2em !important;

@@ -260,10 +260,12 @@ class PanelRoomEditView(View):
 class ReserveCompleted(View):
 
     def get(self,request):
+        rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL)
         payment = functions.verify_payment(request.GET.get("Authority"))
-        print(payment)
         context = {
             "payment" : payment,
+            "room": payment['order'].room,
             "title" : "نتیجه پرداخت",
+            "rooms" : rooms,
         }
-        return render(request,"TEMPLATE",context)
+        return render(request,"main/reserveroom.html",context)
