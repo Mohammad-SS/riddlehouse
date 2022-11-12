@@ -538,7 +538,7 @@ label.selected-time .status-icon {
 }
 
 .receipt-body p>span:first-child {
-    width: 3em;
+    min-width: 3em;
     height: fit-content;
     display: flex;
     justify-content: center;
