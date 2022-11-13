@@ -16,7 +16,8 @@ var app = new Vue({
         reservable_time_list: [],
         calendar: null,
         default_calendar: null,
-        current_date: get_today_jalali(),
+        today_date : document.today,
+        current_date: get_today_jalali(document.today),
         free_turns: '-',
         reserved_turns: '-',
         selected_turn: {
@@ -56,7 +57,7 @@ var app = new Vue({
             if (!newvalue) {
                 setTimeout(() => {
                     this.calendar = this.default_calendar
-                    this.current_date = get_today_jalali()
+                    this.current_date = get_today_jalali(this.today_date)
                     create_reserve_calendar(this.calendar)
                 }, 200)
             }
@@ -97,7 +98,6 @@ var app = new Vue({
         },
 
         select_time: function (item, price) {
-            console.log(item);
             this.selected_turn.time = item.time
             this.selected_turn.price = price
             document.querySelectorAll('.selected-time').forEach(el => el.classList.remove('selected-time'))

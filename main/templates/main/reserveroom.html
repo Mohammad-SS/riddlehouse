@@ -11,6 +11,12 @@
 
 {% endblock links %}
 
+{% block header-scripts %}
+    <script>
+        document.today = `{{now}}`
+    </script>
+{% endblock %}
+
 {% block content %}
 
 <div id="application" roomId='{{ room.pk }}'>

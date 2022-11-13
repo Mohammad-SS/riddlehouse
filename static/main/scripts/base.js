@@ -55,8 +55,8 @@ function get_csrf_token(e) {
 }
 
 
-function get_today_jalali() {
-    let now = new Date()
+function get_today_jalali(date) {
+    let now = new Date(date)
     let today_day = now.getDate()
     let today_month = now.getMonth() + 1
     let today_year = now.getFullYear()
