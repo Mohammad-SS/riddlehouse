@@ -162,6 +162,13 @@ class LandingView(View):
         return render(request, 'main/landing.html', {"rooms": rooms, "box": last_box})
 
 
+
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'panel/login.html', {})
+
+
+
 class RoomView(View):
     def get(self, request, pk):
         rooms = game.models.Room.objects.all()

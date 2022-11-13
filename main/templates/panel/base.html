@@ -21,10 +21,12 @@
     <!-- material design bootstrap -->
 
     <!-- styles -->
+    {% block basestyles %}
     <link rel="stylesheet" href="{% static 'panel/' %}styles/base.css">
     <link rel="stylesheet" href="{% static 'panel/' %}styles/menu.css">
     <link rel="stylesheet" href="{% static 'panel/' %}styles/content.css">
     <link rel="stylesheet" href="{% static 'panel/' %}styles/navbar.css">
+    {% endblock basestyles %}
    
     {% block styles %}
     {% endblock %}

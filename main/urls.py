@@ -21,6 +21,7 @@ urlpatterns = [
   
     path("api/" , include(api_urls , namespace="main_api")),
     path("" ,  views.LandingView.as_view() ,name='main'),
+    path("login" ,  views.LoginView.as_view() ,name='login'),
     path("room/<int:pk>" ,  views.RoomView.as_view() ,name='room-page'),
     path("reserve-completed", views.ReserveCompleted.as_view(), name='reserved-page')
 
