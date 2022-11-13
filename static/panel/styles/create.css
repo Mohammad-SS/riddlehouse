@@ -15,10 +15,11 @@ span.tags-input-tag {
 .banner-section {
     display: flex;
     position: relative;
+    align-items: flex-end;
 }
 
 .banner-selector {
-    min-width: 10em;
+    min-width: fit-content;
     max-width: 10em;
     position: absolute;
     left: calc(50% - 5em);
@@ -56,5 +57,5 @@ span.tags-input-tag {
     flex-direction: row-reverse;
     justify-content: space-between;
     min-height: 5em;
-    max-height: 5.3em;
+    max-height: 7.3em;
 }

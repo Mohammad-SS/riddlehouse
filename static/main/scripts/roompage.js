@@ -231,7 +231,8 @@ var app = new Vue({
             }
 
             this.player_numbers.current = value
-        }
+        }, 
+
 
     },
 

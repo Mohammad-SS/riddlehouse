@@ -254,7 +254,7 @@ class PanelRoomEditView(View):
             "room": room,
             "title": "ویرایش اتاق",
         }
-        return render(request, "", context)
+        return render(request, "panel/manage-rooms/edit.html", context)
 
 
 class ReserveCompleted(View):

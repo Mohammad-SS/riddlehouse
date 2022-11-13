@@ -1,31 +1,3 @@
-// Vue.component('tags-input', {
-//     template: `
-//       <div class="tags-input">
-
-//         <label id='timelabel' for="time"></label>
-
-//       </div>
-//     `,
-//     props: ['value'],
-//     data() {
-//         return {
-//             newTag: '',
-//         }
-//     },
-// methods: {
-//     addTag() {
-//         if (this.newTag.trim().length === 0 || this.value.includes(this.newTag.trim())) {
-//             return
-//         }
-//         this.$emit('input', [...this.value, this.newTag.trim()])
-//         this.newTag = ''
-//     },
-//     removeTag(tag) {
-//         this.$emit('input', this.value.filter(t => t !== tag))
-//     },
-// },
-// })
-
 var app = new Vue({
     delimiters: ["[[", "]]"],
     el: '#app',
@@ -37,6 +9,43 @@ var app = new Vue({
         packages: [],
         banner: false
 
+    },
+
+    mounted: function () {
+        if (document.room_obj) {
+            // set weekdays
+            let weekdays = document.room_obj.weekdays
+            if (weekdays && weekdays.length > 0) {
+                weekdays.map(wd => document.getElementById(`d-${wd}`).checked = true)
+            }
+
+            // set default room hours
+            let default_hours = document.room_obj.default_hours
+            if (default_hours && default_hours.length > 0) {
+                this.tags = default_hours
+            } else {
+                this.tags = []
+            }
+
+            // set room type
+            let room_type = document.room_obj.room_type
+            if (room_type) {
+                console.log("HERE");
+                this.room_mode = room_type == "REAL" ? 'real' : 'box'
+            }
+
+            // set room pakcages
+            let packages = document.room_obj.box_packages
+            if (packages && packages.length > 0) {
+                packages.map((package, index) => {
+                    this.packages.push({
+                        id: (index + 1),
+                        name: `پکیج شماره ` + (index + 1),
+                        price: package
+                    })
+                })
+            }
+        }
     },
 
     watch: {
@@ -134,7 +143,7 @@ var app = new Vue({
             this.$refs.room_create_form.reset()
         },
 
-        handle_tag_remove_all: function() {
+        handle_tag_remove_all: function () {
             if (this.tag_remove_all) {
                 this.tags = []
                 this.tag_remove_all = false
@@ -143,7 +152,14 @@ var app = new Vue({
                     this.tag_remove_all = true
                 }
             }
+        },
+
+
+
+        replace_room_data: function (e) {
+            console.log("HERE replace_room_data");
         }
+
 
     },
 
