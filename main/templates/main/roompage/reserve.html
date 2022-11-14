@@ -26,7 +26,7 @@
         <div class="room-reserve mb-shadow">
             {% include 'main/roompage/room_md_box.html' %}
 
-            {% if payment %}
+            {% if order_status %}
                 {% include 'main/roompage/reserve_receipt_step.html' %}
             {% else %}
                 {% include 'main/roompage/reserve_steps.html' %}

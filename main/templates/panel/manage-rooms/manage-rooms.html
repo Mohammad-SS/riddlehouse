@@ -92,9 +92,11 @@
 
                             <a type="button" class="me-2 btn btn-link text-success btn-sm btn-rounded" href="{% url 'main:editroom' pk=room.pk %}">ویرایش
                             </a>
-
+                            {% if room.room_type == "REAL" %}
                             <button  @click='()=>show_schedule_pupop({{room.id}} ,{{room.default_days}}, {{room.default_hours}})' type="button" class="me-2 btn btn-link text-warning btn-sm btn-rounded">زمانبندی
                             </button>
+                            {% endif %}
+
                         </div>
                     </td>
                 </tr>

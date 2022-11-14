@@ -10,7 +10,7 @@
     <div class="room-desctiption">
 
         <!-- room receipt -->
-        {% if payment.valid %}
+        {% if order_status.valid %}
         {% include 'main/roompage/reserve_steps/templates/receipt.html' %}
         {% else %}
         {% include 'main/roompage/reserve_steps/templates/receipt-faild.html' %}

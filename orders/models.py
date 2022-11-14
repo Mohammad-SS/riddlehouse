@@ -9,7 +9,7 @@ class Order(models.Model):
     customer_name = models.CharField(max_length=255)
     customer_number = models.CharField(max_length=15)
     transaction_number = models.CharField(max_length=255)
-    players_number = models.IntegerField(null=True,blank=True)
+    players_number = models.IntegerField(null=True, blank=True)
     paid = models.IntegerField()
     key = models.CharField(max_length=4)
     rest_payment = models.IntegerField(blank=True, null=True)
@@ -26,9 +26,11 @@ class Order(models.Model):
 
     @property
     def persian_dates(self):
-        reserved_time = jdatetime.JalaliDateTime.fromtimestamp(self.reserved_time.timestamp()).replace(locale="fa").strftime(
+        reserved_time = jdatetime.JalaliDateTime.fromtimestamp(self.reserved_time.timestamp()).replace(
+            locale="fa").strftime(
             "%Y/%m/%d %A %H:%M")
-        created_date = jdatetime.JalaliDateTime.fromtimestamp(self.created_date.timestamp()).replace(locale="fa").strftime(
+        created_date = jdatetime.JalaliDateTime.fromtimestamp(self.created_date.timestamp()).replace(
+            locale="fa").strftime(
             "%Y/%m/%d %A %H:%M")
 
         return {
@@ -52,9 +54,23 @@ class Payment(models.Model):
     customer_name = models.CharField(max_length=255)
     customer_mobile = models.CharField(max_length=15)
     authority_key = models.CharField(max_length=255)
-    players_number = models.IntegerField(null=True,blank=True)
-    package = models.IntegerField(null=True,blank=True)
+    players_number = models.IntegerField(null=True, blank=True)
+    package = models.IntegerField(null=True, blank=True)
     amount = models.IntegerField()
     used_coupon = models.CharField(max_length=15, null=True, blank=True)
     reserved_time = models.DateTimeField()
     created_date = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def persian_dates(self):
+        reserved_time = jdatetime.JalaliDateTime.fromtimestamp(self.reserved_time.timestamp()).replace(
+            locale="fa").strftime(
+            "%Y/%m/%d %A %H:%M")
+        created_date = jdatetime.JalaliDateTime.fromtimestamp(self.created_date.timestamp()).replace(
+            locale="fa").strftime(
+            "%Y/%m/%d %A %H:%M")
+
+        return {
+            "reserved": reserved_time,
+            "created": created_date
+        }

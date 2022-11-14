@@ -75,7 +75,6 @@ def create_payment_object(**kwargs):
         "used_coupon": kwargs.get('coupon', None),
         "reserved_time": kwargs.get('reserved_time', None),
     }
-    print(fields)
     obj = orders_models.Payment(**fields)
     obj.save()
     return obj
@@ -87,7 +86,7 @@ def verify_payment(authority):
         payment = orders_models.Payment.objects.get(authority_key=authority)
     except exceptions.ObjectDoesNotExist as e:
         print(e)
-        return False
+        return {"valid": False, "data": "No Authority key found", "payment": None, "order": None}
     # amount = payment.amount * 10
     amount = 1000
     url = get_setting(enums.DefaultSettings.ZARINPAL_VERIFY_URL)
@@ -99,14 +98,14 @@ def verify_payment(authority):
     request = requests.post(url, data=data)
     response = json.loads(request.text)
     if response['errors']:
-        return {"valid": False, "data": response['errors']}
+        return {"valid": False, "data": response['errors'], "payment": payment, "order": None}
     else:
-        order_object = place_order(authority, response['data']['ref_id'], response['data']['card_pan'])
+        order_object, payment_object = place_order(authority, response['data']['ref_id'], response['data']['card_pan'])
         if order_object:
             send_sms(order_object)
-            return {"valid": True, "data": response['data'], "order": order_object}
+            return {"valid": True, "data": response['data'], "order": order_object, "payment": payment_object}
         else:
-            return {"valid": False, "data": "Failed to place order"}
+            return {"valid": False, "data": "Failed to place order", "payment": None, "order": None}
 
 
 def place_order(authority, transaction_number=None, card_pan=None):
@@ -133,15 +132,15 @@ def place_order(authority, transaction_number=None, card_pan=None):
         "reserved_time": payment.reserved_time
     }
 
-    order , created = orders_models.Order.objects.get_or_create(transaction_number=transaction_number , defaults=fields)
+    order, created = orders_models.Order.objects.get_or_create(transaction_number=transaction_number, defaults=fields)
     payment.is_completed = True
     payment.save()
-    send_sms(order)
-    return order
+    return order, payment
 
 
-def send_sms(order : orders_models.Order):
+def send_sms(order: orders_models.Order):
     try:
+
         admin_sms = send_admin_sms(order)
         order.admin_sms_bulk = admin_sms
         order.save()
@@ -156,15 +155,18 @@ def send_sms(order : orders_models.Order):
 
 
 def send_admin_sms(order):
-    to_number = get_setting(enums.DefaultSettings.MAX_SMS_ADMIN_NUMBER)
+    to_numbers = get_setting(enums.DefaultSettings.MAX_SMS_ADMIN_NUMBER)
+
     if order.room.room_type == enums.RoomType.BOX:
         persons = "ندارد"
         time = "-"
     else:
         persons = order.players_number
-        time = order.reserved_time.time().strftime("%-H:%-M")
+        time = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp()).replace(locale="fa").strftime(
+            "%H:%M")
     date = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp()).replace(locale="fa").strftime(
         "%A %Y/%m/%d")
+
     input_data = {
         "user": order.customer_name,
         "phone": order.customer_number,
@@ -175,12 +177,17 @@ def send_admin_sms(order):
         "key": order.key,
         "transid": order.transaction_number
     }
-    url, data = get_sms_configs("admin", to_number, input_data)
-    if not url:
-        return False
-    request = requests.get(url, data)
-    response = json.loads(request.text)
-
+    try:
+        to_numbers = to_numbers.split(",")
+    except Exception as e:
+        print(e)
+        to_numbers = [to_numbers, ]
+    for to_number in to_numbers:
+        url, data = get_sms_configs("admin", to_number, input_data)
+        if not url:
+            return False
+        request = requests.get(url, data)
+        response = json.loads(request.text)
     return response
 
 
@@ -199,7 +206,8 @@ def get_surprise_input_date(order: orders_models.Order):
 def get_room_input_data(order):
     date = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp()).replace(locale="fa").strftime(
         "%A %Y/%m/%d")
-    time = order.reserved_time.time().strftime("%-H:%-M")
+    time = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp()).replace(locale="fa").strftime(
+        "%H:%M")
     input_data = {
         "user": order.customer_name,
         "game": order.room.name,
@@ -214,13 +222,14 @@ def send_user_sms(order: orders_models.Order):
     to_number = order.customer_number
     if order.room.room_type == enums.RoomType.BOX:
         input_data = get_surprise_input_date(order)
+        url, data = get_sms_configs("user", to_number, input_data, surprise=True)
     else:
         input_data = get_room_input_data(order)
-
-    url, data = get_sms_configs("user", to_number, input_data, surprise=True)
+        url, data = get_sms_configs("user", to_number, input_data, surprise=False)
 
     if not url:
         return False
+
     request = requests.get(url, data)
     response = json.loads(request.text)
     return response
@@ -259,3 +268,14 @@ def set_setting(name, value):
     else:
         setting_object = main_models.Setting(slug=setting.value['slug'], value=value, name=name)
         setting_object.save()
+
+
+def remove_nones(original):
+    none_free = {k: v for k, v in original.items() if v is not None}
+
+    return none_free
+
+
+def remove_empties(original):
+    empty_free = {k: v for k, v in original.items() if v != "" and v != " "}
+    return empty_free

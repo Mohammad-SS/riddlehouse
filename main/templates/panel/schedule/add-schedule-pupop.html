@@ -30,19 +30,16 @@
                         <option value=1>
                           بر اساس تاریخ
                         </option>
-                        <option value=2>
-                          بر اساس روز های هفته
-                        </option>
                         <option value=3>
                           بر اساس تاریخ و روز های هفته
                         </option>
                       </select>
                     </div>
                     <div v-show='schedule_mode == 1 || schedule_mode == 3' class="col-6 mb-3">
-                        <input data-jdp class="form-control" placeholder="از تاریخ" > 
+                        <input name="from_date" data-jdp class="form-control" placeholder="از تاریخ" >
                     </div>
                     <div v-show='schedule_mode == 1 || schedule_mode == 3' class="col-6 mb-3">
-                      <input data-jdp class="form-control" placeholder="تا تاریخ" > 
+                      <input name="to_date" data-jdp class="form-control" placeholder="تا تاریخ" >
                     </div>
                     <div  v-show='schedule_mode == 2 || schedule_mode == 3' class="mb-3 col-12 weekday-selector">
                       <input class="d-none" type="checkbox" name='weekday' id='d-1' :checked='schedule_room_days.includes(1)' value="1">

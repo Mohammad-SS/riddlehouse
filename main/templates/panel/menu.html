@@ -4,9 +4,9 @@
         <span class="mb-menu-header-logo"></span>
     </div>
     <div class="mb-profile">
-{#        <div class="profile-img">#}
-{#            <img src="{% static 'panel/images/fake-profile.png' %}" alt="">#}
-{#        </div>#}
+        {#        <div class="profile-img">#}
+        {#            <img src="{% static 'panel/images/fake-profile.png' %}" alt="">#}
+        {#        </div>#}
         <div class="profile-name">
             <span>{{ user.first_name }} {{ user.last_name }} خوش آمدید </span>
         </div>
@@ -28,10 +28,12 @@
                     <span>مدیریت بازی ها</span>
                 </li>
             </a>
-            <a href="#">
-                <li class="mb-menu-item ripple">
+            <a href="{% url 'main:schedule' %}">
+                <li class="mb-menu-item ripple {% if title == 'زمان بندی ها' %}
+                active
+                {% endif %}">
                     <i class="fas far fa-clock mb-menu-icon"></i>
-                    <span>زمانبندی (بلاک/ازاد کردن </span>
+                    <span>زمان بندی ها </span>
                 </li>
             </a>
             <a href="{% url 'main:orders' %}">
@@ -42,7 +44,7 @@
                     <span>مدیریت سفارش ها</span>
                 </li>
             </a>
-            
+
             <a href="{% url 'main:coupans' %}">
                 <li class="mb-menu-item ripple {% if title == 'کد های تخفیف' %}
                 active

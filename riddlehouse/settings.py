@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '192.168.1.5' , "*"]
 
+LOGIN_URL = "main:panel"
 # Application definition
 
 INSTALLED_APPS = [

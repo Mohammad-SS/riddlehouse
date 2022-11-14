@@ -1,6 +1,6 @@
 import datetime
 import random
-
+import pytz
 from django.core.exceptions import ObjectDoesNotExist
 from persiantools.jdatetime import JalaliDate, JalaliDateTime
 
@@ -40,7 +40,7 @@ class Month():
                 calendar[week_num] = dict()
             this_day['date'] = "{}/{}/{}".format(self.year, self.month, day)
             this_day["weekday"] = this_weekday
-            this_day["selectable"] = self.is_day_selectable(day , room)
+            this_day["selectable"] = self.is_day_selectable(day, room)
             this_day['times'] = self.get_this_day_times(day, room)
             calendar[week_num][day] = this_day
         return calendar
@@ -48,9 +48,10 @@ class Month():
     def get_this_day_times(self, day, room):
         hours = dict()
         this_day = JalaliDate(self.year, self.month, day, locale="fa")
+        this_day_hours = self.get_role_hours(this_day, room)
         if not this_day.isoweekday() in room.default_days:
             return hours
-        for hour in room.default_hours:
+        for hour in this_day_hours:
             this_hour, this_minutes = hour.split(":")
             this_timestamp = JalaliDateTime(self.year, self.month, day, int(this_hour),
                                             int(this_minutes)).timestamp()
@@ -62,23 +63,19 @@ class Month():
 
     @classmethod
     def check_hour(cls, timestamp, room: models.Room):
-        # check ORDERS DATABASE
-        this_hour = datetime.datetime.fromtimestamp(timestamp)
-        is_excluded = room.exclusions.filter(zones__contains=this_hour).exists()
-        if is_excluded:
-            return False, "CLOSED"
+        this_hour = datetime.datetime.fromtimestamp(timestamp, pytz.timezone("Asia/Tehran"))
 
-        is_ordered = room.orders.filter(reserved_time=this_hour).exists()
+        is_ordered = room.orders.filter(reserved_time__gt=this_hour-datetime.timedelta(minutes=30) , reserved_time__lt=this_hour+datetime.timedelta(minutes=30)).exists()
 
         if is_ordered:
             return False, "RESERVED"
 
-        if datetime.datetime.now() + datetime.timedelta(hours=2) >this_hour:
-            return False , "PASSED"
+        if datetime.datetime.now(pytz.timezone("Asia/Tehran")) + datetime.timedelta(hours=2) > this_hour:
+            return False, "PASSED"
 
         return True, "FREE"
 
-    def is_day_selectable(self, day , room):
+    def is_day_selectable(self, day, room):
         today = datetime.date.today()
         day = JalaliDate(year=self.year, month=self.month, day=day, locale="en").to_gregorian()
         diff = (day - today).days
@@ -93,5 +90,25 @@ class Month():
         else:
             return True
 
-    def is_hour_passed(self , timestamp , delta):
-        pass
+    def get_role_hours(self, day, room):
+        _day = day.to_gregorian()
+        date = datetime.date(_day.year, _day.month, _day.day)
+        exclusions = room.exclusions.filter(from_date__lte=date, to_date__gte=date)
+
+        if not exclusions.exists():
+            return room.default_hours
+
+        for exclusion in exclusions:
+            exclusion_hours = self.get_exclution_hours(exclusion, day)
+        return exclusion_hours
+
+    def get_exclution_hours(self, exclusion, day):
+        if exclusion.role == enums.ExclusionsType.DATE_AND_WEEKDAY:
+            if day.isoweekday() in exclusion.weekdays:
+                return exclusion.hours
+            else:
+                return exclusion.room.default_hours
+        elif exclusion.role == enums.ExclusionsType.DATE:
+            return exclusion.hours
+        else:
+            return exclusion.room.default_hours

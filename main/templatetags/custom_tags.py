@@ -1,5 +1,7 @@
 from django import template
 
+from riddlehouse.helpers import enums
+
 register = template.Library()
 
 
@@ -16,10 +18,22 @@ def pagination_handle_pages(value, arg):
     return value
 
 
-def get_setting_value(name):
-    print(name)
-    return None
+def convert_iso_to_weekday(day_number):
+    if day_number == 1:
+        return "شنبه"
+    if day_number == 2:
+        return "یک شنبه"
+    if day_number == 3:
+        return "دوشنبه"
+    if day_number == 4:
+        return "سه شنبه"
+    if day_number == 5:
+        return "چهارشنبه"
+    if day_number == 6:
+        return "پنج شنبه"
+    if day_number == 7:
+        return "جمعه"
 
 
 register.filter('pagination_handle_pages', pagination_handle_pages)
-register.filter('get_setting_value', get_setting_value)
+register.filter('convert_iso_to_weekday', convert_iso_to_weekday)

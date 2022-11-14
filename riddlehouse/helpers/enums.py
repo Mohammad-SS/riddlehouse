@@ -49,7 +49,7 @@ class DefaultSettings(Enum):
     MAX_SMS_USERNAME = {"slug": "max_sms_username", "default": False}
     MAX_SMS_PASSWORD = {"slug": "max_sms_password", "default": False}
     MAX_SMS_LINE_NUMBER = {"slug": "max_sms_line_number", "default": "5000125475"}
-    MAX_SMS_ADMIN_NUMBER = {"slug": "max_sms_admin_number", "default": "09212518775"}
+    MAX_SMS_ADMIN_NUMBER = {"slug": "max_sms_admin_number", "default": "09212518775,09358051274"}
     MAX_SMS_SURPRISE_USER_PATTERN_CODE = {"slug": "max_sms_surprise_user_pattern_code", "default": "gy6ikksu5t"}
     ZARINPAL_PAYMENT_URL = {"slug": "zarinpal_payment_url", "default": "https://www.zarinpal.com/pg/StartPay/"}
     ZARINPAL_START_URL = {"slug": "zarinpal_start_url",
@@ -57,3 +57,8 @@ class DefaultSettings(Enum):
     ZARINPAL_VERIFY_URL = {"slug": "zarinpal_verify_url",
                            "default": "https://api.zarinpal.com/pg/v4/payment/verify.json"}
     ZARINPAL_CALLBACK_URL = {"slug": "zarinpal_callback", "default": "http://127.0.0.1:8000" + "/reserve-completed"}
+
+
+class ExclusionsType(models.TextChoices):
+    DATE = "D" , "بر اساس تاریخ"
+    DATE_AND_WEEKDAY = "DW" , "بر اساس روز هفته و تاریخ"
