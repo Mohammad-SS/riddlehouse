@@ -1,0 +1,102 @@
+.manage-rooms {
+    margin-top: 1em;
+    padding: 0em 1em;
+}
+
+.manage-rooms table thead {
+    display: none;
+}
+
+.manage-rooms table tr {
+    background: white;
+}
+
+.manage-rooms table tr.sm-room-name {
+    display: none;
+}
+
+.manage-rooms table tr.sm-room-name td {
+    padding: 0 !important
+}
+
+.manage-rooms table tr.sm-room-name span {
+    display: flex;
+    border-bottom: 1px solid #d5d5d5;
+    justify-content: center;
+    align-items: center;
+    height: 4em;
+    margin: 0em 1em;
+}
+
+.manage-rooms table tr.sm-room-actions {
+    background-color: white;
+}
+
+.manage-rooms table tr.sm-room-actions td {
+    padding: 0;
+}
+
+.manage-rooms table tr.sm-room-actions td>div {
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    display: flex;
+    height: 4em;
+    justify-content: flex-end;
+    padding: .5em 2em;
+    align-items: center;
+}
+
+.manage-rooms table tr.sm-room-empty-space {
+    height: .5em;
+}
+
+
+
+
+@media screen and (max-width: 580px) {
+
+    .manage-rooms table tr .room-name {
+        display: none;
+    }
+
+    .manage-rooms table tr.sm-room-name {
+        display: table-row;
+    }
+
+    .manage-rooms table tr.sm-room-actions td>div {
+        justify-content: center;
+    }
+}
+
+/* 
+.manage-rooms table {
+    background: transparent;
+}
+
+.manage-rooms table tr {
+    background: white;
+}
+
+.manage-rooms table tr.sm-room-name {
+    display: flex;
+}
+
+.manage-rooms table tr.sm-room-name td {
+    padding: 0 !important
+}
+
+.manage-rooms table tr.sm-room-name span {
+    display: flex;
+    border-bottom: 1px solid #d5d5d5;
+    justify-content: center;
+    align-items: center;
+    height: 4em;
+    margin: 0em 1em;
+}
+
+
+.manage-rooms table tr.sm-room-empty-space {
+    display: block;
+    background: transparent;
+} */
+/* media query */

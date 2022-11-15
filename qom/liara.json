@@ -1,0 +1,10 @@
+{
+    "platform": "django",
+    "app": "riddlehouse",
+    "disks": [
+        {
+            "name": "riddlehouse",
+            "mountTo": "."
+        }
+    ]
+}

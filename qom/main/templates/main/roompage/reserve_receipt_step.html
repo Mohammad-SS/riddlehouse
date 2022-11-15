@@ -1,0 +1,25 @@
+{% load static %}
+{% load humanize %}
+<div class="room-reserve-detail">
+    
+
+    <!-- reserve stepper -->
+    {% include 'main/roompage/reserve_steps/stepper.html' %}
+    <!-- reserve stepper -->
+
+    <div class="room-desctiption">
+
+        <!-- room receipt -->
+        {% if order_status.valid %}
+        {% include 'main/roompage/reserve_steps/templates/receipt.html' %}
+        {% else %}
+        {% include 'main/roompage/reserve_steps/templates/receipt-faild.html' %}
+        {% endif %}
+        <!-- room receipt -->
+
+    </div>
+
+    <div class="room-action-bar" v-show='step < 4'>
+
+    </div>
+</div>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mahdi Bagherzade">
+
+
+    <!-- Material Design Bootstrap 5 -->
+    <!-- MDB -->
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.rtl.min.css" rel="stylesheet" />
+    <!-- Material Design Bootstrap 5 -->
+
+    
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <!-- Link Swiper's CSS -->
+
+    <!-- scroll animating -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- scroll animating -->
+    
+    <!-- styles -->
+    <link rel="stylesheet" href="{% static 'main/' %}styles/base.css">
+    <link rel="stylesheet" href="{% static 'main/' %}styles/nav.css">
+    <!-- styles -->
+
+    {% block header-scripts %}
+    {% endblock %}
+
+    {% block links %}{% endblock links %}
+
+    {% block metatags %}{% endblock metatags %}
+
+    <title>{% block title %}{% endblock title %}</title>
+
+    {% block headstyles %}{% endblock headstyles %}
+</head>
+<body>
+
+    {% block body %}
+    <div class="mb-content">
+
+        {% block navbar %}
+            {% include 'main/nav.html' %}
+        {% endblock navbar %}
+
+        {% block content %}{% endblock content %}
+
+    </div>
+
+    {% endblock body %}
+    
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Axios -->
+    
+    <!-- Material Design Bootstrap 5 -->
+    <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.js"></script>
+    <!-- Material Design Bootstrap 5 -->
+
+    <!-- Swiper JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <!-- Swiper JS -->
+
+    <!-- scroll animating -->
+    <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- scroll animating -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script defer src="{% static 'main/' %}scripts/calendar.js"></script>
+    <script defer src="{% static 'main/' %}scripts/base.js"></script>
+    <script defer src="{% static 'main/' %}scripts/nav.js"></script>
+    {% block scripts %}{% endblock scripts %}
+</body>
+</html>

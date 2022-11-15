@@ -1,0 +1,93 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block styles %}
+    <link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'modules/jalalidatepicker.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'panel/' %}styles/order.css">
+    <link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
+{% endblock %}
+{% block contentHead %}
+    <div class="content-head">
+        <h4>زمانبندی بازی ها</h4>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="schedule mt-3 px-3">
+        <table class="table align-middle mb-0 bg-white" dir="rtl">
+            <thead class="bg-light">
+            <tr>
+                <th>مشخصات</th>
+                <th>عملیات</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for exclusion in exclusions %}
+                <tr collapse-id-data='collapse_{{ exclusion.pk }}'>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="">
+                                <p class="fw-bold mb-1">{{ exclusion.room.name }}</p>
+                                <p class="text-muted mb-0">تاریخ ایجاد : {{ exclusion.persian_dates.created }}</p>
+                                <p class="text-muted mb-0">نوع : {{ exclusion.get_role_display }}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <form action="">
+                            <button type="submit" class="btn btn-link text-danger">
+                                <i class="far fa-trash-alt"></i>
+                                <span>حذف زمانبندی</span>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="m-0 p-0">
+                        <div collapse-id='collapse_{{ exclusion.pk }}'>
+                            <div style='min-height:5em;' class='px-3 py-2 d-flex align-items-center flex-wrap'>
+                <span class="p-3 align-items-center d-flex">
+                  <i class="far fa-calendar text-primary"></i>&nbsp;
+                  از تاریخ : {{ exclusion.persian_dates.from }} - تا تاریخ : {{ exclusion.persian_dates.to }}
+                </span>
+                            {% if exclusion.role == "DW" %}
+                            <span class="p-3 align-items-center d-flex">
+                  <i class="far fa-calendar-alt text-secondary"></i>&nbsp;
+                  روزهای هفته :
+                                    {% for weekday in exclusion.weekdays %}
+                                        {{ weekday|convert_iso_to_weekday }} -
+                                    {% endfor %}
+
+                </span>
+                            {% endif %}
+
+                                <span class="p-3 align-items-center d-flex">
+                  <i class="far fa-clock text-warning"></i>&nbsp;
+                  ساعات :
+                                    {% for hour in exclusion.hours %}
+                                        {{ hour }} -
+                                    {% endfor %}
+
+                </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+        {% comment %} <div style="height: 5em; background-color:red;" class="mb-collapsible" collapse-id-data='collapse_1'></div>
+    <div collapse-id='collapse_1'>
+      asdsad
+    </div> {% endcomment %}
+    </div>
+{% endblock %}
+
+
+{% block footer-scripts %}
+    <script src="{% static 'modules/vue.js' %}"></script>
+    <script src="{% static 'modules/jalalidatepicker.min.js' %}"></script>
+{% endblock %}

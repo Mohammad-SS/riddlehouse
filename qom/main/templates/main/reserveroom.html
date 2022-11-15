@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block links %}
+
+<link rel="stylesheet" href="{% static 'main/' %}styles/reserve-page.css">
+<link rel="stylesheet" href="{% static 'main/' %}styles/calendar.css">
+<link rel="stylesheet" href="{% static 'main/' %}styles/rooms.css">
+<link rel="stylesheet" href="{% static 'main/' %}styles/informations.css">
+<link rel="stylesheet" href="{% static 'main/' %}styles/footer.css">
+
+
+{% endblock links %}
+
+{% block header-scripts %}
+    <script>
+        document.today = `{{now}}`
+    </script>
+{% endblock %}
+
+{% block content %}
+
+<div id="application" roomId='{{ room.pk }}'>
+    {% include 'main/roompage/reserve.html' %}
+</div>
+
+{% include 'main/rooms.html' %}
+{% include 'main/about.html' %}
+{% include 'main/footer.html' %}
+
+{% endblock content %}
+
+{% block scripts %}
+
+{% if payment %}
+    <script defer src="{% static 'main/' %}scripts/roompage_receipt.js"></script>
+{% else %}
+    <script defer src="{% static 'main/' %}scripts/roompage.js"></script>
+{% endif %}
+
+{% endblock scripts %}

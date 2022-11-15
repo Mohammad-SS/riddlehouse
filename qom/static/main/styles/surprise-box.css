@@ -1,0 +1,151 @@
+/* surprise-box-detail */
+
+@keyframes surprise-box-image  {
+    0% {
+        box-shadow: 0px 0px 20px red;
+    }
+    
+    50% {
+        box-shadow: 0px 0px 20px blue;
+    }
+    
+    100% {
+        box-shadow: 0px 0px 20px red;
+    }
+}
+
+
+
+.surprise-box-detail {
+    text-align: center;
+    max-width: calc(42em);
+    line-height: 3em;
+}
+
+.surprise-box {
+    width: 100%;
+    height: fit-content;
+    background: var(--mb-black-90);
+    padding: 2em;
+    display: flex;
+    align-items: center;
+    margin-top: 7em;
+    justify-content: space-around;
+    position: relative;
+
+}
+
+
+.surprise-box-detail h2 {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+.surprise-box-detail h3 {
+    font-weight: bold;
+    margin-bottom: 1em;
+    color: red;
+}
+
+
+.surprise-box-image {
+    width: 35em;
+    height: 28em;
+    z-index: 1;
+    transform: scale(1.3);
+    border-radius: 10px;
+    animation: surprise-box-image 2s infinite ease-in;
+}
+
+.surprise-box-image img {
+    width: inherit;
+    border-radius: inherit;
+    height: inherit;
+}
+
+
+@media only screen and (max-width: 1600px) {
+    .surprise-box {
+        justify-content: space-around;
+        margin-left: 1em;
+    }
+
+
+    .surprise-box-image {
+        width: 28em;
+        height: 28em;
+    }
+
+    .surprise-box-image img {
+        object-fit: cover
+    }
+}
+
+@media only screen and (max-width: 1366px) {
+    .surprise-box {
+        justify-content: space-around;
+        margin-left: 1em;
+    }
+
+    .surprise-box-detail {
+        line-height: 2.5em;
+    }
+
+    .surprise-box-image {
+        width: 25em;
+        height: 25em;
+    }
+
+    .surprise-box-image img {
+        object-fit: cover
+    }
+}
+ 
+@media only screen and (max-width: 1280px) {
+
+    .surprise-box-detail {
+        max-width: calc(32em) !important;
+    }
+
+    .surprise-box-image {
+        width: 28em;
+        height: 30em;
+    }
+
+}
+
+@media only screen and (max-width: 1024px) {
+
+    .surprise-box {
+        box-shadow: 0px 3px 6px var(--mb-black);
+        margin-top: 4em;
+    }
+
+    .surprise-box-image {
+        transform: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        border-radius: 0;
+    }
+
+    .surprise-box-image img {
+        filter: brightness(25%);
+
+    }
+    .surprise-box-detail {
+        line-height: 3em;
+        z-index: 1;
+
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    .surprise-box {
+        margin-top: 3em;
+    }
+}

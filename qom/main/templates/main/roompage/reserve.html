@@ -1,0 +1,39 @@
+{% load static %}
+{% load humanize %}
+
+
+{% if not payment %}
+<!-- date picker -->
+{% include 'main/roompage/calendar.html' %}
+<!-- date picker -->
+{% endif %}
+
+<!-- page loader -->
+<div class="mb-loader bg-white fixed mb-text-dark-gray" :class="!page_loading ? 'd-none' : ''">
+    <i class="fas fa-spinner fa-2x loading"></i>
+</div>
+<!-- page loader -->
+
+{% comment %} <section class="teaser-section">
+    <video id="video" class="hidden-xs" autoplay="autoplay" playsinline="" autobuffer="" __idm_id__="1343489" muted>
+        <source  src="{% static 'main/1.1.mp4' %}" type="video/mp4" />
+        <source src="{% static 'main/16.9.webm' %}" type="video/webm">
+    </video>
+</section> {% endcomment %}
+
+<section class="reserve-section">
+    <div class="reserve-container">
+        <div class="room-reserve mb-shadow">
+            {% include 'main/roompage/room_md_box.html' %}
+
+            {% if order_status %}
+                {% include 'main/roompage/reserve_receipt_step.html' %}
+            {% else %}
+                {% include 'main/roompage/reserve_steps.html' %}
+            {% endif %}
+
+
+        </div>
+        {% include 'main/roompage/room_box.html' %}
+    </div>
+</section>

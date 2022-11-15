@@ -1,23 +1,44 @@
 version: '3.8'
 
 services:
-  web:
+  qom:
     build: ./app
     command: gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - ./app/:/usr/src/app/
-      - static_volume:/usr/src/app/static
-      - media_volume:/usr/src/app/medias
+      - ./qom/:/usr/src/app/
+      - qom_static_volume:/usr/src/app/static
+      - qom_media_volume:/usr/src/app/medias
     expose:
       - 8000
     env_file:
       - ./.env
     depends_on:
-      - db
-  db:
+      - qom_db
+  qom_db:
     image: postgres:13.0-alpine
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - qom_postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=riddle
+      - POSTGRES_PASSWORD=P@ssw0rdd
+      - POSTGRES_DB=riddlehouse
+  ahvaz:
+    build: ./app
+    command: gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:9000
+    volumes:
+      - ./ahvaz/:/usr/src/app/
+      - ahvaz_static_volume:/usr/src/app/static
+      - ahvaz_media_volume:/usr/src/app/medias
+    expose:
+      - 9000
+    env_file:
+      - ./.env
+    depends_on:
+      - ahvaz_db
+  ahvaz_db:
+    image: postgres:13.0-alpine
+    volumes:
+      - ahvaz_postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=riddle
       - POSTGRES_PASSWORD=P@ssw0rdd
@@ -25,14 +46,21 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - static_volume:/home/app/web/static
-      - media_volume:/home/app/web/medias
+      - qom_static_volume:/home/qom/static
+      - qom_media_volume:/home/qom/medias
+      - ahvaz_static_volume:/home/ahvaz/static
+      - ahvaz_mehdia_volume/home/ahvaz/medias
     ports:
-      - 80:80
+      - 8009:8009
+      - 8008:8008
     depends_on:
-      - web
+      - qom
+      - ahvaz
 
 volumes:
-  postgres_data:
-  static_volume:
-  media_volume:
+  qom_postgres_data:
+  ahvaz_postgres_data:
+  qom_static_volume:
+  qom_media_volume:
+  ahvaz_static_volume:
+  ahvaz_media_volume:

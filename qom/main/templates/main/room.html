@@ -1,0 +1,54 @@
+{% load static %}
+{% load humanize %}
+<div class="room-container" data-aos="fade-up">
+    <div class="room-image">
+        <img loading="lazy" class="mb-shadow" src="{{ room.banner.url }}"
+             alt="خانه معما | اتاق فرار | {{ room.name }}">
+    </div>
+    <div class="room-detail-container">
+        <div class="room-detail" data-aos="zoom-in" data-aos-offset="130">
+            <div class="room-title">
+                <h2 id="title">{{ room.name }}</h2>
+                <span id="price" class="badge badge-success">نفری {{ room.price_per_unit|intcomma }}  تومان</span>
+            </div>
+            <div class="room-info">
+                <div class="room-info-item">
+                <span class="info-icon">
+                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-genre.svg"
+                         alt="ژانر | فرار غافلگیرانه">
+                </span>
+                    <span class="info-title mb-sans-num">اتاق فرار</span>
+                </div>
+                <div class="vr"></div>
+                <div class="room-info-item">
+                <span class="info-icon">
+                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-team.svg"
+                         alt="تعداد نفرات تیم | فرار غافلگیرانه">
+                </span>
+                    <span class="info-title mb-sans-num">{{ room.min_players }} تا {{ room.max_players }} نفر</span>
+                </div>
+                <div class="vr"></div>
+                <div class="room-info-item">
+                <span class="info-icon">
+                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-time.svg"
+                         alt="زمان بازی | فرار غافلگیرانه">
+                </span>
+                    <span class="info-title mb-sans-num">{{ room.game_duration }}</span>
+                </div>
+                <div class="vr"></div>
+                <div class="room-info-item">
+                <span class="info-icon">
+                    <img loading="lazy" src="{% static 'main/' %}images/icons/detail-dificalaty.svg"
+                         alt="سختی بازی | فرار غافلگیرانه">
+                </span>
+                    <span class="info-title mb-sans-num">{{ room.difficulty }}/100</span>
+                </div>
+            </div>
+            <div class="room-actions">
+                <a href="{% url 'main:room-page' pk=room.pk %}">
+                    <button class="btn btn-success shadow-0" style="width: 10em;">رزرو</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

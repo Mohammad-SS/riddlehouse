@@ -1,0 +1,17 @@
+.orders {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+span.order-status {
+    width: 0.2em;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.orders table td {
+    position: relative;
+}

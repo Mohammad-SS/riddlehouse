@@ -1,0 +1,22 @@
+{% load static %}
+{% load humanize %}
+<div class="select-date action" v-show="step == 3">
+    <div class="reserved-details d-flex">
+        <div class="mb-status mb-status-purple d-flex flex-column align-items-start me-5">
+            <span class="fw-bold">نوبت انتخابی</span>
+            <span  v-if='!is_reservable_time_list_empty' class="mt-2">
+                [[reserve_date]]<span v-if='selected_turn.time && selected_turn.price'> - [[selected_turn.time]]</span>
+            </span>
+            <span v-else class="mt-2">انتخاب نشده</span>
+        </div>
+
+        <div class="mb-status mb-status-success d-flex flex-column align-items-start ms-5">
+            <span class="fw-bold">مبلغ پیش پرداخت</span>
+            <span class="mt-2">نفری  {{ room.price_per_unit }}تومان [[picked]]</span>
+        </div>
+
+    </div>
+    <button class="action-btn btn btn-success btn-lg shadow-0"
+            :class='!selected_turn.time || !selected_turn.price ? "disabled" : "" ' @click="step = 4">تکمیل اطلاعات
+    </button>
+</div>

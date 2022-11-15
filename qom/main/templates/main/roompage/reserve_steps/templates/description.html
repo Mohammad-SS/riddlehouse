@@ -1,0 +1,39 @@
+{% load static %}
+{% load humanize %}
+<div v-show="step == 1">
+    <h1 class="room-name">
+        فرار غافلگیرانه
+        <span class="mb-expand"></span>
+        <div class="md-price">
+            {% if room.price_per_unit %}
+                <span class="badge badge-success fs-6">
+                نفری {{ room.price_per_unit|intcomma }} تومان
+            </span>
+            {% endif %}
+
+        </div>
+    </h1>
+
+    <div class="room-scenario">
+        <strong>سناریو</strong>
+        <p>
+            {{ room.description }}
+        </p>
+        <br>
+        <strong>توضیحات</strong>
+        <p>این بازی با دکوری متفاوت و خاص، آمیخته با ترس و هیجان، یکی از سخت ترین اتاق های
+            مجموعه خانه معما می باشد. طراحی این اتاق بر اساس EQ ، IQ ، خلاقیت و کارِ گروهی
+            انجام
+            شده و برای رده سنی 16 سال به بالا مناسب است. توصیه می شود برای بازی در این اتاق
+            لباس
+            های راحت بپوشید و در صورت داشتن هرگونه بیماری قلبی، از شرکت در این بازی
+            بپرهیزید.
+        </p>
+        <br>
+        <strong>توجه</strong>
+        <p>- بازی فرار از آلکتاراز در پاییز 1398 توسط تیم طراحی خانه معما طراحی و اجرا شده
+            است .
+        </p>
+
+    </div>
+</div>

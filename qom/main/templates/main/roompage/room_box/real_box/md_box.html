@@ -1,0 +1,45 @@
+{% load static %}
+{% load humanize %}
+
+<div class="room-md-container mb-shadow-50">
+    <div class="room-md-image-container">
+        <img src="{{ room.banner.url }}" alt="خانه معما | اتاق فرار | {{ room.name }}"
+             class="room-md-image">
+    </div>
+    <div class="room-info room-md-info">
+        <div class="room-info-item">
+        <span class="info-icon">
+            <img loading="lazy" src="{% static 'main/' %}images/icons/detail-genre.svg"
+                 alt="ژانر | {{ room.name }}">
+        </span>
+            <span class="info-title mb-sans-num">اتاق فرار</span>
+        </div>
+        <hr class="hz">
+        <div class="vr"></div>
+        <div class="room-info-item">
+        <span class="info-icon">
+            <img loading="lazy" src="{% static 'main/' %}images/icons/detail-team.svg"
+                 alt="تعداد نفرات تیم | {{ room.name }}">
+        </span>
+            <span class="info-title mb-sans-num">{{ room.min_players }} تا {{ room.max_players }} نفر</span>
+        </div>
+        <hr class="hz">
+        <div class="vr"></div>
+        <div class="room-info-item">
+        <span class="info-icon">
+            <img loading="lazy" src="{% static 'main/' %}images/icons/detail-time.svg"
+                 alt="زمان بازی | {{ room.name }}">
+        </span>
+            <span class="info-title mb-sans-num">{{ room.game_duration }}</span>
+        </div>
+        <hr class="hz">
+        <div class="vr"></div>
+        <div class="room-info-item">
+        <span class="info-icon">
+            <img loading="lazy" src="{% static 'main/' %}images/icons/detail-dificalaty.svg"
+                 alt="سختی بازی | {{ room.name }}">
+        </span>
+            <span class="info-title mb-sans-num">{{ room.difficulty }}/100</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+{% load static %}
+{% load humanize %}
+<!-- rooms -->
+<section class="section rooms">
+    <div class="section-header" data-aos="fade-up">
+        <h6 class="section-title" id='rooms'>
+            بازی ها
+        </h6>
+        <hr class="section-line">
+    </div>
+    <div class="sectoin-body">
+        <div class="rooms-container">
+            {% for room in rooms %}
+                {% include 'main/room.html' %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- rooms -->

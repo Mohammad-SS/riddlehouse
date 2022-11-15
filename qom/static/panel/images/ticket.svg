@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320.239" height="160.014" viewBox="0 0 320.239 160.014">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #efb052;
+      }
+
+      .cls-2, .cls-3 {
+        fill: none;
+        stroke: #efb052;
+        stroke-linecap: round;
+      }
+
+      .cls-2 {
+        stroke-width: 2px;
+        stroke-dasharray: 5 4;
+      }
+
+      .cls-3 {
+        stroke-width: 4px;
+        stroke-dasharray: 4 9;
+      }
+    </style>
+  </defs>
+  <g id="ticket" transform="translate(-434.761 -176.992)">
+    <path id="ticket-discount" class="cls-1" d="M14.012,0H67V160H13.953L.016,146,0,14.014Z" transform="translate(686 176.992)"/>
+    <path id="ticket-detail" class="cls-1" d="M231.442.065,0,0V160l200.5.014h29.666L244.182,146l.057-131.986Z" transform="translate(436.761 176.992)"/>
+    <line id="ticket-spliter" class="cls-2" x1="0.5" y2="124.508" transform="translate(683 196.492)"/>
+    <line id="ticket-discount-dashed" class="cls-3" y2="152" transform="translate(753 182.746)"/>
+    <line id="ticket-detail-dashed" class="cls-3" y2="152" transform="translate(436.761 182.746)"/>
+  </g>
+</svg>

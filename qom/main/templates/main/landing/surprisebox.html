@@ -1,0 +1,25 @@
+{% load static %}
+<!-- Surprise Box -->
+<section class="surprise-box" data-aos="fade-up">
+    <div class="surprise-box-image">
+        <img loading="lazy" src="{{ box.banner.url }}" alt="">
+    </div>
+    <div class="surprise-box-detail">
+        <h2>{{ box.name }}</h2>
+        <h3>(( برای اولین بار در ایران ))</h3>
+        <p>
+            {% autoescape off %}
+                        {{ box.description|slice:"0:500" }}...
+            {% endautoescape %}
+
+        </p>
+        <div class="mt-3">
+            <a href="{% url 'main:room-page' pk=box.pk %}">
+
+            <button class="btn btn-lg btn-success shadow-0" style="width: 10em;">رزرو</button>
+                            </a>
+
+        </div>
+    </div>
+</section>
+<!-- Surprise Box -->

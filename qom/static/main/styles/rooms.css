@@ -1,0 +1,195 @@
+/* rooms style */
+.rooms {
+    margin-top: 5em;
+}
+
+
+.rooms-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.room-container {
+    flex: 1;
+    width: 23em;
+    max-width: 25em;
+    min-width: 21em;
+    height: 30em;
+    margin: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.room-container:hover .room-image img {
+    transform: scale(1.03);
+    margin-top: .3em;
+    filter: brightness(100%);
+}
+
+.rooms .sectoin-body {
+    display: flex;
+    justify-content: center;
+}
+
+.room-detail-container {
+    width: 96%;
+    height: 100%;
+    border-radius: 5px;
+    background: var(--mb-white);
+    display: flex;
+    flex-direction: column;
+}
+
+.room-image {
+    position: absolute;
+    width: 100%;
+    height: 15em;
+    left: 50%;
+    top: .5em;
+    transform: translate(-50%);
+    border-radius: 5px;
+}
+
+
+.room-image img {
+    object-fit: cover;
+    width: inherit;
+    border-radius: inherit;
+    height: inherit;
+    transition: all .2s;
+    filter: brightness(80%);
+}
+
+
+.room-detail {
+    margin-top: 15.5em;
+    padding: 1em;
+    color: #333 !important;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+
+.room-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+
+.room-title #title {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0em .5em;
+}
+
+.room-title #price {
+    font-size: 1em;
+}
+
+
+.room-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 1.5em;
+}
+.reserve-section .room-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 1.5em;
+    transform: scale(1.1);
+    background: #f3f3f3;
+    border-radius: 0.3em;
+    box-shadow: 0px 1px 2px #9b9b9b;
+    padding: 1em;
+}
+
+.room-info-item:hover {
+    animation: swing;
+    /* referring directly to the animation's @keyframe declaration */
+    animation-duration: .6s;
+    /* don't forget to set a duration! */
+}
+
+.room-info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+}
+
+.room-info .vr {
+    background-color: var(--mb-gray-400);
+    width: 1px;
+}
+
+.room-info .info-icon {
+    width: 1.5em;
+    height: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.room-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+
+}
+
+@media only screen and (max-width: 1024px) {
+    .rooms {
+        margin-top: 3em;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .reserve-section .room-info {
+        box-shadow: none;
+        transform: scale(1);
+        background: #fff;
+        padding: 1em;
+    }
+    
+}
+
+@media only screen and (max-width: 680px) {
+    .section.rooms {
+        margin: 2em !important;    
+    }
+
+    .room-container {
+        flex: 1;
+        width: 100%;
+        max-width: inherit;
+        min-width: inherit;
+        height: 30em;
+        margin: 1em;
+    }
+    
+    
+}
+
+@media only screen and (max-width: 480px) {
+
+    .section.rooms {
+        margin: 1em !important;
+    }
+
+    .room-container {
+        margin: 1em 0em;
+    }
+}
+
+
+/* rooms style */

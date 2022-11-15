@@ -1,0 +1,7 @@
+{% load static %}
+{% load humanize %}
+{% if room.room_type == "REAL" %}
+    {% include 'main/roompage/room_box/real_box/md_box.html' %}
+{% else %}
+    {% include 'main/roompage/room_box/scape_box/md_box.html' %}
+{% endif %}

@@ -1,0 +1,46 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+
+{% block basestyles %}
+    <link rel="stylesheet" href="{% static 'panel/' %}styles/base.css">
+{% endblock basestyles %}
+
+{% block styles %}
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #636c78 !important;
+
+        }
+    </style>
+{% endblock styles %}
+
+{% block body %}
+
+    <form action="" method="post" class="container" dir="rtl">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card  bg-white border-0 shadow rounded-3 my-5">
+                    <div class="card-body p-4 p-sm-5">
+                        <h2 class="card-title text-dark text-center mb-5 fw-light">ورود به پنل</h2>
+                        {% csrf_token %}
+                        <input name="username" type="text" class="form-control form-control-lg" id="floatingInput"
+                               placeholder="نام کاربری">
+                        <input name="password" type="password" class="form-control form-control-lg mt-3"
+                               id="floatingInput"
+                               placeholder="رمز ورود">
+
+                        <div class="d-grid mt-3">
+                            <button class="btn btn-basic btn-login btn-lg text-uppercase fw-bold"
+                                    type="submit">ورود
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock body %}

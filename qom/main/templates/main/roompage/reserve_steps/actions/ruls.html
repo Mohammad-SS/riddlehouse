@@ -1,0 +1,15 @@
+
+
+
+<div class="accept-room-rols action" v-show="step == 2">
+    <div class="form-check d-flex flex-row align-items-center">
+        <input class="timing me-3" type="checkbox" value="" id="role-check"
+               v-model="accept_ruls" true-value="true" false-value="false" />
+        <label class="text-start" for="role-check"><strong>تمامی شرایط و قوانین را
+            مطالعه کرده و قبول میکنم</strong></label>
+    </div>
+    <button class="action-btn btn btn-success shadow-0 btn-lg" @click="step = 3"
+            :class="!accept_ruls ? 'disabled' : ''">
+        مرحله بعد
+    </button>
+</div>

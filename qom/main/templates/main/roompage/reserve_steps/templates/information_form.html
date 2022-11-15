@@ -1,0 +1,91 @@
+{% load static %}
+{% load humanize %}
+
+
+<form action="" method="post" v-show='step == 4' class="reserve-form p-2">
+{% csrf_token %}
+    <!-- from unvisible data -->
+    <input name='rols' type="checkbox" class="d-none" v-model='accept_ruls'>
+    <input name='date' type="hidden" v-model='selected_date'>
+    <input name='turn' type="hidden" v-model='selected_turn.time'>
+    <input name='turn_price' type="hidden" v-model='selected_turn.price'>
+    <input name='package' type="hidden" v-model='package.id'>
+    <input name='package_price' type="hidden" v-model='package.price'>
+    <input name='price' type="hidden" v-model.lazy='total_price.num'>
+    {% comment %} <input name='price_with_coupon' type="hidden" v-model='price_with_coupon'> {% endcomment %}
+
+    <!-- from unvisible data -->
+
+
+    <div class="register-form-info">
+        <span class="fs-4 fw-bold mb-4 d-flex align-items-center justify-content-center">
+            فرم اطلاعات شخصی
+        </span>
+        <div class="form-outline mb-4">
+            <input name="name" type="text" id="name" class="form-control form-control-lg" />
+            <label class="form-label" for="name">نام و نام خانوادگی</label>
+        </div>
+        <div class="form-outline mb-4">
+            <input name="phone" type="text" id="phone" class="form-control form-control-lg" />
+            <label class="form-label" for="phone">شماره موبایل</label>
+        </div>
+        <div class="col-12">
+            <div class="form-outline mb-4">
+                {% if room.room_type == "REAL" %}
+                <input name="persons" type="number" ref='players' min="{{room.min_players}}" max="{{room.max_players}}"
+                    id="persons" class="form-control form-control-lg" @change='handle_players' />
+                <label class="form-label" for="persons">تعداد
+                    نفرات</label>
+                {% else %}
+                <input type="number" ref='players' min="1" max="1" id="persons" class="d-none"
+                    @change='handle_players' />
+                <label class="form-label">پکیج انتخابی</label>
+                <br />
+                <span>
+                    پکیج [[package.id]] : [[price.str]] تومان
+                </span>
+
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-outline mb-4">
+                <input name="coupon" type="text" id="coupon" class="form-control form-control-lg" />
+                <label class="form-label" for="coupon">کد تخفیف</label>
+            </div>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-success fs-6">اعمال کد تخفیف</button>
+        </div>
+
+
+    </div>
+    <div class="register-form-detail">
+        <span class="fs-4 fw-bold mb-4 d-flex align-items-center justify-content-center">
+            اطلاعات رزرو
+        </span>
+
+        <div>
+            <p><b>روز انتخاب شده :</b> [[reserve_date]]</p>
+            {% if room.room_type == "REAL" %}
+            <p>ساعت رزرو : [[selected_turn.time]]</p>
+            {% endif %}
+        </div>
+        <hr>
+        <div>
+            <p><b>تعداد نفرات :</b> [[player_numbers.current]] نفر</p>
+            <p><b>مبلغ به ازای هر نفر :</b> [[price.str]] تومان</p>
+        </div>
+        <hr>
+        <div>
+            <p><b>مبلغ کل :</b> [[total_price.str]] تومان</p>
+            <p><b>مبلع با احتساب کد تخفیف :</b> - </p>
+        </div>
+        <hr>
+        <span class="mb-expand"></span>
+        <button type="submit" class="btn btn-success btn-lg fs-6">
+            پرداخت و ثبت اطلاعات
+        </button>
+    </div>
+</form>

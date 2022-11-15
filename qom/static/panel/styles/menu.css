@@ -1,0 +1,265 @@
+.mb-menu {
+    width: 20em;
+    min-width: 20em;
+    min-height: calc(100vh - 2em);
+    background: #636c78;
+    display: flex;
+    flex-direction: column;
+    position: -webkit-sticky;
+    /* Safari */
+    position: sticky;
+    color: white;
+    border-radius: 0em 3em 3em 0em;
+    padding-left: 3em;
+}
+
+.mb-menu a:hover {
+    color: inherit !important;
+}
+
+
+
+.mb-menu-header {
+    width: 100%;
+    height: 5em;
+    min-height: 5em;
+    padding: 0em 2em;
+    margin-top: 3em;
+    margin-bottom: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .5s;
+}
+
+.mb-menu-header-logo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./../images/riddle-logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+
+.mb-menu-content {
+    flex: 1;
+    justify-content: center;
+    display: flex;
+}
+
+.mb-menu-footer {
+    width: 100%;
+    height: 10em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.mb-menu-footer a {
+    color: white;
+}
+
+
+.mb-menu-footer-logo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+.mb-menu-items {
+    width: 90%;
+    margin: 1em 0;
+    padding: 0 !important;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mb-menu-items a {
+    color: inherit;
+    position: relative !important;
+}
+
+
+
+.mb-menu-item {
+    display: flex !important;
+    align-items: center !important;
+    height: 3.5em;
+    padding: 0em 1em;
+    user-select: none;
+    cursor: pointer;
+    transition: all .1s;
+    margin-top: .5em;
+    border-radius: 5px;
+    font-size: 12px !important;
+
+}
+
+.mb-menu-item:hover,
+.mb-menu-item.active {
+    background-color: #df627a;
+    color: #fff;
+}
+
+
+/* .mb-menu-item.glogout {
+    color: var(--gblack);
+    background-color: var(--gwhite);
+}
+
+.mb-menu-item.glogout:hover {
+    color: var(--gwhite);
+    background-color: var(--gred);
+} */
+
+.mb-menu-item span {
+    margin-right: 1em;
+}
+
+.mb-menu-item-container {
+    position: relative;
+}
+
+.mb-menu-icon {
+    font-size: 1.3em;
+}
+
+.mb-menu-icon-sm {
+    width: 15px;
+    height: 15px;
+}
+
+
+/* profile style */
+
+.mb-profile {
+    height: 10em;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all .5s;
+}
+
+.profile-img {
+    width: 5em;
+    height: 5em;
+    border: 2px solid #f2f2f2;
+    border-radius: 5em;
+    position: relative;
+}
+
+.profile-img::before {
+    content: '';
+    background: url(./../images/profile-back.png);
+    position: absolute;
+    width: 5em;
+    height: 5em;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    top: -1em;
+    left: -1em;
+}
+
+.profile-name {
+    margin-top: 1em;
+}
+
+
+.profile-img img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.hamb-menu {
+    display: none !important;
+}
+
+
+
+@media screen and (max-width: 1024px) {
+    .hamb-menu {
+        display: flex !important;
+    }
+
+    .mb-profile {
+        opacity: 0;
+        visibility: hidden;
+        margin-top: 1em;
+        transform: scale(1);
+        height: 0;
+        width: 0;
+    }
+
+    .mb-menu:not(.mb-menu-collapse) .mb-menu-header {
+        width: 5em;
+        height: 5em;
+        padding: .5em;
+    }
+
+    .mb-menu:not(.mb-menu-collapse) .mb-menu-header-logo {
+        background-image: url(./../images/riddle-sm-logo.png);
+    }
+
+    .mb-menu:not(.mb-menu-collapse) .mb-menu-content {
+        justify-content: flex-start;
+    }
+
+    .mb-menu:not(.mb-menu-collapse) .mb-menu-items {
+        width: 5em;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mb-menu:not(.mb-menu-collapse) .mb-menu-item {
+        width: 5em;
+        justify-content: center;
+    }
+
+    .mb-menu:not(.mb-menu-collapse) .mb-menu-footer {
+        display: none;
+    }
+
+    .mb-menu-footer {
+        display: none !important;
+    }
+
+    .mb-menu:not(.mb-menu-collapse) .mb-menu-item span:not(.logout) {
+        opacity: 0;
+        visibility: hidden;
+        display: none;
+
+    }
+
+}
+
+/* media query */
+@media screen and (max-width: 480px) {
+    .mb-menu:not(.mb-menu-collapse) .mb-menu-header-logo {
+        background-image: url('./../images/riddle-logo.png');
+    }
+ 
+    .hamb-menu {
+        display: none !important;
+    }
+}
+/* media query */
+@media screen and (max-width: 340px) {
+    .mb-menu {
+        border-radius: 3em;
+    }
+}

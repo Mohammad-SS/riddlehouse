@@ -1,0 +1,93 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block styles %}
+<link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'panel/' %}styles/coupan.css">
+<link rel="stylesheet" href="{% static 'panel/' %}styles/coupan-ticket.css">
+<link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
+{% endblock %}
+{% block contentHead %}
+<div class="content-head">
+  <h4>کدهای تخفیف</h4>
+</div>
+{% endblock %}
+
+
+{% block dialogs %}
+{% include 'panel/coupan/coupan-add-pupop.html' %}
+{% endblock dialogs %}
+
+{% block content %}
+<div class="coupan-container mb-rtl">
+  <div class="mb-filter mb-card mb-3">
+    <button class="btn btn-success" @click='coupan_add_pupop = true'>
+      +&nbsp;&nbsp;ایجاد کد تخفیف
+    </button>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      {% for coupon in coupons %}
+      <div class="coupan-item shadow-2">
+        <div class="coupan-detail p-2">
+          <p dir="ltr" class="m-0 mb-2 rounded-1
+           coupan-code shadow-2 text-center w-100 badge badge-light fs-6 py-3">
+            <span data-mdb-toggle="tooltip"  title="کلیک کنید">{{ coupon.code }}</span>
+          </p>
+         
+
+          <div class="py-2">
+            {% for room in coupon.available_rooms.all %}
+            <span class="badge text-dark">
+              <i class="fas fa-check text-primary"></i>&nbsp;
+              {{ room.name }}
+            </span>
+          {% endfor %}
+          </div>
+        </div>
+    
+        <div class="coupan-actions px-2 pb-2 mt-1">
+          <span class="badge text-dark">
+            {% if coupon.type == "P" %}
+            <i class="fas fa-percent text-warning"></i>&nbsp;
+            {{ coupon.amount|intcomma }} درصد
+            {% else %}
+            <i class="far fa-money-bill-alt text-warning"></i>&nbsp;
+            {{ coupon.amount|intcomma }} تومان
+            {% endif %}
+
+          </span>
+          <span class="badge text-dark">
+            <i class="fas fa-check-square text-success"></i>&nbsp;
+            استفاده شده : {{ coupon.used }}
+          </span>
+          <span class="badge text-dark">
+            <i class="far fa-check-square text-primary"></i>&nbsp;
+            ظرفیت : {{ coupon.capacity }}
+          </span>
+
+          <span class="mb-expand"></span>
+        </div>
+        <div class="mt-2">
+          <form method="post" action="{% url 'main:remove-coupon' pk=coupon.pk %}">
+            {% csrf_token %}
+            <button type="submit" value="delete" name="action" class="btn btn-link shadow-0 w-100 badge-danger">
+              <i class="far fa-trash-alt"></i>&nbsp;
+              حذف تخفیف
+            </button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+
+{% block footer-scripts %}
+<script src="{% static 'modules/vue.js' %}"></script>
+<script src="{% static 'panel/scripts/coupan.js' %}"></script>
+
+{% endblock %}

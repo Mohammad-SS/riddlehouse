@@ -1,0 +1,39 @@
+{% load static %}
+{% load humanize %}
+<div class="d-flex justify-content-center align-items-start mb-5 mt-3 mx-2 flex-fill">
+    <div class="receipt shadow-5" dir="rtl">
+        <div class="receipt-header shadow-3 rounded">
+            <div class="receipt-status">
+                <div class="status-detail">
+                    <span class="fs-4">رسید تراکنش</span>
+                    <span class="text-success fw-bold">پرداخت موفق</span>
+                </div>
+                <div class="status-icon">
+                    <i class="far fa-check-circle text-success fa-3x"></i>
+                </div>
+            </div>
+        </div>
+        <div class="receipt-body">
+            <p>
+                <span><i class="far fa-credit-card text-success  me-3 fa-lg"></i></span>
+                <span>مبلغ پرداخت شده : {{order_status.order.paid|intcomma}} تومان </span>
+                <hr class="">
+            </p>
+            <p>
+                <span><i class="fas fa-barcode text-primary me-3 fa-lg"></i></span>
+                <span>شماره تراکنش : {{order_status.order.transaction_number}}</span>
+                <hr class="">
+            </p>
+            <p>
+                <span><i class="fas fa-money-check text-warning me-3 fa-lg"></i></span>
+                <span>تاریخ رزرو : {{order_status.order.persian_dates.reserved}}</span>
+                <hr class="">
+            </p>
+            <p>
+                <span><i class="far fa-calendar-check text-info me-3 fa-lg"></i></span>
+                <span>تاریخ و زمان پرداخت : {{order_status.order.persian_dates.created}}</span>
+
+            </p>
+        </div>
+    </div>
+</div>

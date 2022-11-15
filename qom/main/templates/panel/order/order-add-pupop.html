@@ -1,0 +1,68 @@
+<div class="gdialog-back" :class="order_add_pupop ? 'gdialog-show' : 'gdialog-hide'"
+     @click="order_add_pupop=false"></div>
+<div 
+    class="gdialog-content mb-rtl col-md-2"
+    :class="order_add_pupop ? 'gdialog-show gdialog-motion' : 'gdialog-hide gdialog-motion-off'"
+    style="max-width: 90% !important; width: 30em;" dir="rtl"
+>
+    
+     <div class="gdialog-head">
+        <span class="gdialog-title fs-5">
+            ثبت سفارش حضوری
+        </span>
+        <span class="mb-expand"></span>
+        <span class="gdialog-close-icon ripple" @click='order_add_pupop=false'>
+            <i data-feather="x" width="20px" height="20px"></i>
+        </span>
+    </div>
+
+    <div class="gdialog-body">
+        <div class="px-md-2">
+            <form method="post" action="" class="gltr" ref='order_add_form'>
+                {% csrf_token %}
+                
+                <div class="row">
+                    <span class="badge badge-primary mb-3">
+                        انتخاب تاریخ و ساعت
+                    </span>
+                    <div class="col-12 mb-3">
+                        <input name="date" data-jdp class="form-control" placeholder="تاریخ را انتخاب کنید" >
+                    </div>
+                    <div class="col-12 mb-3">
+                        
+                        <input type="hidden"  name="hour" :value="time">                            
+                        <input dir="ltr" @input='set_time' class="time-picker my-2 col-12" ref='timepicker' type="range" min="0" max="288" steps="1" value="0" id='time-picker'>
+
+                        <span>
+                            ساعت : [[time]]
+                        </span>
+                    </div>
+                    <span class="badge badge-info mb-3">مشخصات</span>
+                    <div class="col-6">
+                        <input name="name" type="text" class="form-control" id="name" placeholder="نام">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <input name="phone" type="text" class="form-control" id="name" placeholder="شماره موبایل">
+                    </div>
+                    <span class="badge badge-secondary mb-3">
+                        انتخاب بازی
+                    </span>
+                    <div class="col-12">
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected disabled>انتخاب</option>
+                            {% for room in rooms %}
+                            <option value="{{ room.pk }}">{{ room.name }}</option>
+                            {% endfor %}
+
+
+                          </select>
+                    </div>
+                    <div class="col-12 mt-4 d-flex flex-fill justify-content-end">
+                        <button class="btn btn-primary btn-sm me-1">ثبت</button>
+                        <span @click='order_add_pupop=false' class="btn btn-danger btn-sm">انصراف</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
