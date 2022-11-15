@@ -25,8 +25,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-CSRF_TRUSTED_ORIGINS = ['http://87.107.164.118']
+ALLOWED_HOSTS = os.environ.get("DJANGO_AHVAZ_ALLOWED_HOSTS").split(" ")
+CSRF_TRUSTED_ORIGINS = ['http://ahvaz.mazimi.ir']
 
 LOGIN_URL = "main:panel"
 # Application definition

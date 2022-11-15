@@ -61,7 +61,7 @@ services:
     image: wordpress:latest
     restart: always
     ports:
-      - "8010:80"
+      - "8090:80"
     environment:
       WORDPRESS_DB_HOST: wordpress_db:3306
       WORDPRESS_DB_USER: riddle
@@ -77,11 +77,11 @@ services:
       - ahvaz_static_volume:/home/ahvaz/static
       - ahvaz_media_volume:/home/ahvaz/medias
     ports:
-      - 8009:8009
-      - 8008:8008
+      - 80:80
     depends_on:
       - qom
       - ahvaz
+      - wordpress
 
 volumes:
   qom_postgres_data:
