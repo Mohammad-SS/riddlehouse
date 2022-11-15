@@ -84,7 +84,7 @@ WSGI_APPLICATION = "riddlehouse.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "HOST": os.getenv("RDL_PSQL_HOST"),
+        "HOST": os.getenv("RDL_QOM_PSQL_HOST"),
         "PORT" : 5432,
         "NAME": os.getenv("RDL_PSQL_DB_NAME"),
         "USER": os.getenv("RDL_PSQL_USER"),

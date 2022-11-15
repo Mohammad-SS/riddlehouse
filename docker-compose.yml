@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   qom:
-    build: ./app
+    build: ./qom
     command: gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - ./qom/:/usr/src/app/
@@ -23,7 +23,7 @@ services:
       - POSTGRES_PASSWORD=P@ssw0rdd
       - POSTGRES_DB=riddlehouse
   ahvaz:
-    build: ./app
+    build: ./ahvaz
     command: gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:9000
     volumes:
       - ./ahvaz/:/usr/src/app/
@@ -49,7 +49,7 @@ services:
       - qom_static_volume:/home/qom/static
       - qom_media_volume:/home/qom/medias
       - ahvaz_static_volume:/home/ahvaz/static
-      - ahvaz_mehdia_volume/home/ahvaz/medias
+      - ahvaz_media_volume:/home/ahvaz/medias
     ports:
       - 8009:8009
       - 8008:8008
