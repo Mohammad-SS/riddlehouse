@@ -43,6 +43,32 @@ services:
       - POSTGRES_USER=riddle
       - POSTGRES_PASSWORD=P@ssw0rdd
       - POSTGRES_DB=riddlehouse
+  wordpress_db:
+    image: mysql:5.7
+    restart : always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: mehdi@1234
+      MYSQL_DATABASE: riddle_wp
+      MYSQL_USER: riddle
+      MYSQL_PASSWORD: P@ssw0rdd
+    volumes:
+      - wordpress_data_volume:/var/lib/mysql
+  wordpress:
+    depends_on:
+      - wordpress_db
+    image: wordpress:latest
+    restart: always
+    ports:
+      - "8010:80"
+    environment:
+      WORDPRESS_DB_HOST: wordpress_db:3306
+      WORDPRESS_DB_USER: riddle
+      WORDPRESS_DB_PASSWORD: P@ssw0rdd
+      WORDPRESS_DB_NAME: riddle_wp
+    volumes:
+      - ./wordpress/:/var/www/html
   nginx:
     build: ./nginx
     volumes:
@@ -59,6 +85,7 @@ services:
 
 volumes:
   qom_postgres_data:
+  wordpress_data_volume:
   ahvaz_postgres_data:
   qom_static_volume:
   qom_media_volume:
