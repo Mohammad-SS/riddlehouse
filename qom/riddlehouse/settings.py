@@ -134,3 +134,7 @@ MEDIA_URL = "media/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 TIME_ZONE = "Asia/Tehran"
+
+# CELERY CONFIGS :
+
+CELERY_BROKER_URL = "redis://redis:6379/1"

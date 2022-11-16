@@ -1,9 +1,15 @@
 version: '3.8'
 
 services:
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
+
   qom:
     build: ./qom
-    command: gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000
+    command: bash -c "python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - ./qom/:/usr/src/app/
       - qom_static_volume:/usr/src/app/static
@@ -14,6 +20,7 @@ services:
       - ./.env
     depends_on:
       - qom_db
+      - redis
   qom_db:
     image: postgres:13.0-alpine
     volumes:
@@ -22,9 +29,25 @@ services:
       - POSTGRES_USER=riddle
       - POSTGRES_PASSWORD=P@ssw0rdd
       - POSTGRES_DB=riddlehouse
+  workers_qom:
+    build: ./qom
+    command: celery -A riddlehouse worker --loglevel=info
+    depends_on:
+      - redis
+      - qom
+    volumes:
+      - ./qom/:/usr/src/app/
+  workers_ahvaz:
+    build: ./ahvaz
+    command: celery -A riddlehouse worker --loglevel=info
+    depends_on:
+      - redis
+      - ahvaz
+    volumes:
+      - ./ahvaz/:/usr/src/app/
   ahvaz:
     build: ./ahvaz
-    command: gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:9000
+    command: bash -c "python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:9000"
     volumes:
       - ./ahvaz/:/usr/src/app/
       - ahvaz_static_volume:/usr/src/app/static
