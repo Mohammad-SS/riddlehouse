@@ -13,7 +13,8 @@ import requests
 import json
 import random
 from persiantools import jdatetime
-from ..tasks import send_sms
+from celery import shared_task
+
 
 def get_setting(setting, default=None):
     setting_slug = setting.value.get("slug", None)
@@ -158,7 +159,7 @@ def verify_payment(authority):
     else:
         order_object, payment_object = place_order(authority, response['data']['ref_id'], response['data']['card_pan'])
         if order_object:
-            send_sms.delay(order_object)
+            send_sms(order_object)
             return {"valid": True, "data": response['data'], "order": order_object, "payment": payment_object}
         else:
             return {"valid": False, "data": "Failed to place order", "payment": None, "order": None}
@@ -193,21 +194,21 @@ def place_order(authority, transaction_number=None, card_pan=None):
     payment.save()
     return order, payment
 
+@shared_task
+def send_sms(order: orders_models.Order):
+    try:
 
-# def send_sms(order: orders_models.Order):
-#     try:
-
-#         admin_sms = send_admin_sms(order)
-#         order.admin_sms_bulk = admin_sms
-#         order.save()
-#     except Exception as e:
-#         print(e)
-#     try:
-#         user_sms = send_user_sms(order)
-#         order.user_sms_bulk = user_sms
-#         order.save()
-#     except Exception as e:
-#         print(e)
+        admin_sms = send_admin_sms(order)
+        order.admin_sms_bulk = admin_sms
+        order.save()
+    except Exception as e:
+        print(e)
+    try:
+        user_sms = send_user_sms(order)
+        order.user_sms_bulk = user_sms
+        order.save()
+    except Exception as e:
+        print(e)
 
 
 def send_admin_sms(order):
