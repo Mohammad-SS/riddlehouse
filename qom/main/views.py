@@ -14,6 +14,11 @@ from django.core.paginator import Paginator
 from riddlehouse.helpers import functions
 from persiantools import jdatetime
 
+from riddlehouse import tasks
+def TESTSMS(request):
+    order = order_models.Order.objects.get(pk=1)
+    tasks.send_sms.delay(order)
+    print("DONE")
 
 # Create your views here.
 
