@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
-
+CELERY_BROKER_URL = "redis://redis:6379/1"
+#CELERY_BROKER_URL = 'redis://redis:6379/1'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -134,7 +135,3 @@ MEDIA_URL = "media/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 TIME_ZONE = "Asia/Tehran"
-
-# CELERY CONFIGS :
-
-CELERY_BROKER_URL = "redis://redis:6379/1"

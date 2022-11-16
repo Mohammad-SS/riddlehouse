@@ -32,6 +32,8 @@ services:
   workers_qom:
     build: ./qom
     command: celery -A riddlehouse worker --loglevel=info
+    env_file:
+      - ./.env
     depends_on:
       - redis
       - qom
