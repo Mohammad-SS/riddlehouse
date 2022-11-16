@@ -1,7 +1,9 @@
 import datetime
+import random
+
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from persiantools import jdatetime
 import game.models
@@ -15,9 +17,14 @@ from riddlehouse.helpers import functions
 from persiantools import jdatetime
 
 
+def TESTSMS(request):
+    functions.send_sms.delay(order=1)
+    print("DONE")
+
+
 # Create your views here.
 
-class PanelRoomsView(LoginRequiredMixin,View):
+class PanelRoomsView(LoginRequiredMixin, View):
     def get(self, request):
         rooms = game_models.Room.objects.all()
         context = {
@@ -65,7 +72,7 @@ class PanelRoomsView(LoginRequiredMixin,View):
         return redirect("main:schedule")
 
 
-class PanelRoomView(LoginRequiredMixin,View):
+class PanelRoomView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, "panel/manage-rooms/create.html", {})
 
@@ -119,7 +126,7 @@ class PanelRoomView(LoginRequiredMixin,View):
         return redirect("main:rooms")
 
 
-class PanelCoupanView(LoginRequiredMixin,View):
+class PanelCoupanView(LoginRequiredMixin, View):
     def get(self, request):
         coupons = order_models.Coupon.objects.all()
         rooms = game_models.Room.objects.all()
@@ -163,7 +170,7 @@ class PanelCoupanView(LoginRequiredMixin,View):
         return redirect("main:coupans")
 
 
-class PanelOrderView(LoginRequiredMixin,View):
+class PanelOrderView(LoginRequiredMixin, View):
     def get(self, request):
         # filters
         page_number = request.GET.get('page', 1)
@@ -197,8 +204,7 @@ class PanelOrderView(LoginRequiredMixin,View):
         }
 
         filters = functions.remove_nones(filters)
-        print()
-        orders = order_models.Order.objects.filter(**filters)
+        orders = order_models.Order.objects.filter(**filters).order_by("-id")
         paginator = Paginator(orders, 15)
         page_obj = paginator.get_page(page_number)
 
@@ -214,10 +220,32 @@ class PanelOrderView(LoginRequiredMixin,View):
 
     def post(self, request):
         data = request.POST
-        print(data)
+        room = data.get("room_id", None)
+        room = get_object_or_404(game_models.Room, pk=room)
+        phone = data.get("phone", "")
+        date = data.get("date", "0/0/0")
+        name = data.get("name", "")
+        hour = data.get("hour", "00:00")
+        date = date.split("/")
+        hour = hour.split(":")
+        reserved_time = jdatetime.JalaliDateTime(year=int(date[0]), month=int(date[1]), day=int(date[2]),
+                                                 hour=int(hour[0]), minute=int(hour[1])).to_gregorian()
+        fields = {
+            "room": room,
+            "customer_name": name,
+            "customer_number": phone,
+            "paid": 0,
+            "transaction_number": "رزرو حضوری",
+            "key": random.randint(1000, 9999),
+            "reserved_time": reserved_time
+        }
+        order_object = order_models.Order(**fields)
+        order_object.save()
+        functions.send_sms.delay(order=order_object.pk)
+        return redirect("main:orders")
 
 
-class PanelScheduleView(LoginRequiredMixin,View):
+class PanelScheduleView(LoginRequiredMixin, View):
 
     def get(self, request):
         exclusions = game_models.Exclusion.objects.all().order_by("-pk")
@@ -228,14 +256,11 @@ class PanelScheduleView(LoginRequiredMixin,View):
         return render(request, "panel/schedule/schedule.html", context)
 
 
-
-
 class LandingView(View):
     def get(self, request):
         rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL)
         last_box = game_models.Room.objects.filter(room_type=enums.RoomType.BOX).last()
         return render(request, 'main/landing.html', {"rooms": rooms, "box": last_box})
-
 
 
 class LoginView(View):
@@ -244,22 +269,20 @@ class LoginView(View):
         if request.user.id:
             return redirect("main:rooms")
         context = {
-            "title" : "ورود به خانه معما",
+            "title": "ورود به خانه معما",
         }
         return render(request, "panel/login.html", context)
 
-
-    def post(self,request):
-        data =request.POST
-        username = data.get("username" , None)
-        password = data.get("password" , None)
-        user = authenticate(request,username=username,password=password)
-        if user is not None :
-            login(request,user)
+    def post(self, request):
+        data = request.POST
+        username = data.get("username", None)
+        password = data.get("password", None)
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
             return redirect("main:rooms")
         else:
             return redirect("main:login")
-
 
 
 class RoomView(View):
@@ -312,7 +335,7 @@ class RoomView(View):
             return redirect("main:room-page", pk=pk)
 
 
-class RemoveCoupon(LoginRequiredMixin,View):
+class RemoveCoupon(LoginRequiredMixin, View):
 
     def post(self, request, pk):
         coupon = order_models.Coupon.objects.get(pk=pk)
@@ -320,7 +343,7 @@ class RemoveCoupon(LoginRequiredMixin,View):
         return redirect("main:coupans")
 
 
-class PanelSettingsView(LoginRequiredMixin,View):
+class PanelSettingsView(LoginRequiredMixin, View):
     def get(self, request):
         _settings = [e for e in enums.DefaultSettings]
         settings = dict()
@@ -347,7 +370,7 @@ class PanelSettingsView(LoginRequiredMixin,View):
         return redirect("main:settings")
 
 
-class PanelRoomEditView(LoginRequiredMixin,View):
+class PanelRoomEditView(LoginRequiredMixin, View):
 
     def get(self, request, pk):
         room = game_models.Room.objects.get(pk=pk)

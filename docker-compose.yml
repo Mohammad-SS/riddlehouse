@@ -9,7 +9,7 @@ services:
 
   qom:
     build: ./qom
-    command: gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000
+    command: /bin/sh -c "python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - ./qom/:/usr/src/app/
       - qom_static_volume:/usr/src/app/static
@@ -47,9 +47,11 @@ services:
       - ahvaz
     volumes:
       - ./ahvaz/:/usr/src/app/
+    env_file:
+      - ./.env
   ahvaz:
     build: ./ahvaz
-    command: gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:9000
+    command: /bin/sh -c "python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:9000"
     volumes:
       - ./ahvaz/:/usr/src/app/
       - ahvaz_static_volume:/usr/src/app/static
@@ -72,7 +74,7 @@ services:
     image: mysql:5.7
     restart : always
     ports:
-      - "3306:3306"
+      - "8007:3306"
     environment:
       MYSQL_ROOT_PASSWORD: mehdi@1234
       MYSQL_DATABASE: riddle_wp
@@ -88,7 +90,7 @@ services:
     ports:
       - "8090:80"
     environment:
-      WORDPRESS_DB_HOST: wordpress_db:3306
+      WORDPRESS_DB_HOST: wordpress_db:8007
       WORDPRESS_DB_USER: riddle
       WORDPRESS_DB_PASSWORD: P@ssw0rdd
       WORDPRESS_DB_NAME: riddle_wp
