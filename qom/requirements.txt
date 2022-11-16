@@ -27,3 +27,4 @@ urllib3==1.26.12
 zeep==4.2.0
 gunicorn==20.1.0
 celery
+redis
