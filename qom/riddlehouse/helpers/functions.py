@@ -138,6 +138,8 @@ def verify_payment(authority):
     amount = payment.amount * 10
     if amount == 0:
         order_object, payment_object = place_order(authority, "رایگان", "بدون پرداخت")
+        if not order_object.user_sms_bulk or not order_object.admin_sms_bulk:
+            send_sms.delay(order=order_object.pk)
         data = {
             "code": 200,
             "ref_id": "رایگان",
@@ -159,7 +161,8 @@ def verify_payment(authority):
     else:
         order_object, payment_object = place_order(authority, response['data']['ref_id'], response['data']['card_pan'])
         if order_object:
-            send_sms(order_object)
+            if not order_object.user_sms_bulk or not order_object.admin_sms_bulk:
+                send_sms.delay(order=order_object.pk)
             return {"valid": True, "data": response['data'], "order": order_object, "payment": payment_object}
         else:
             return {"valid": False, "data": "Failed to place order", "payment": None, "order": None}
@@ -195,7 +198,8 @@ def place_order(authority, transaction_number=None, card_pan=None):
     return order, payment
 
 @shared_task
-def send_sms(order: orders_models.Order):
+def send_sms(order):
+    order = orders_models.Order.objects.get(pk=order)
     try:
 
         admin_sms = send_admin_sms(order)

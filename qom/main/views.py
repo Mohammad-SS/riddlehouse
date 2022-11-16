@@ -15,8 +15,7 @@ from riddlehouse.helpers import functions
 from persiantools import jdatetime
 
 def TESTSMS(request):
-    order = order_models.Order.objects.get(pk=1)
-    functions.send_sms.delay(order)
+    functions.send_sms.delay(order=1)
     print("DONE")
 
 # Create your views here.
