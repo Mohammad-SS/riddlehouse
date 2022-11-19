@@ -251,6 +251,12 @@ class PanelScheduleView(LoginRequiredMixin, View):
         }
         return render(request, "panel/schedule/schedule.html", context)
 
+class PanelRemoveSchedule(LoginRequiredMixin, View):
+
+    def get(self, request , pk):
+        exclusion = game_models.Exclusion.objects.get(pk=pk)
+        exclusion.delete()
+        return redirect("main:schedule")
 
 class LandingView(View):
     def get(self, request):

@@ -15,6 +15,7 @@ urlpatterns = [
 
     path("panel/orders", views.PanelOrderView.as_view(), name='orders'),
     path("panel/schedule", views.PanelScheduleView.as_view(), name='schedule'),
+    path("panel/schedule/<int:pk>/remove" , views.PanelRemoveSchedule.as_view() , name="remove-schedule")
     
     path("panel/settings", views.PanelSettingsView.as_view(), name='settings'),
 
