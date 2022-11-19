@@ -313,7 +313,7 @@ class RoomView(View):
 
         year, month, day = date.split("/")
         reserved_date = jdatetime.JalaliDateTime(int(year), int(month), int(day), int(hour),
-                                                 int(minutes) , tzinfo=pytz.timezone("Asia/Tehran")).to_gregorian()
+                                                 int(minutes)).to_gregorian()
         fields = {
             "amount": data.get("price", None),
             "room_id": pk,

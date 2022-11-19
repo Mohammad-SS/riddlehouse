@@ -74,7 +74,7 @@ services:
     image: mysql:5.7
     restart : always
     ports:
-      - "8007:3306"
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: mehdi@1234
       MYSQL_DATABASE: riddle_wp
@@ -90,7 +90,7 @@ services:
     ports:
       - "8090:80"
     environment:
-      WORDPRESS_DB_HOST: wordpress_db:8007
+      WORDPRESS_DB_HOST: wordpress_db:3306
       WORDPRESS_DB_USER: riddle
       WORDPRESS_DB_PASSWORD: P@ssw0rdd
       WORDPRESS_DB_NAME: riddle_wp

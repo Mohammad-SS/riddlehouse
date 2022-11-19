@@ -137,7 +137,8 @@ def verify_payment(authority):
         return {"valid": False, "data": "No Authority key found", "payment": None, "order": None}
     amount = payment.amount * 10
     if amount == 0:
-        order_object, payment_object = place_order(authority, "رایگان", "بدون پرداخت")
+        order_object, payment_object = place_order(authority, "رایگان - " + authority[0:15] , "بدون پرداخت")
+        print(order_object,payment_object)
         if not order_object.user_sms_bulk or not order_object.admin_sms_bulk:
             send_sms.delay(order=order_object.pk)
         data = {
