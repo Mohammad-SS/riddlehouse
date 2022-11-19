@@ -15,11 +15,7 @@ from django.template.defaultfilters import slugify
 from django.core.paginator import Paginator
 from riddlehouse.helpers import functions
 from persiantools import jdatetime
-
-
-def TESTSMS(request):
-    functions.send_sms.delay(order=1)
-    print("DONE")
+import pytz
 
 
 # Create your views here.
@@ -229,7 +225,7 @@ class PanelOrderView(LoginRequiredMixin, View):
         date = date.split("/")
         hour = hour.split(":")
         reserved_time = jdatetime.JalaliDateTime(year=int(date[0]), month=int(date[1]), day=int(date[2]),
-                                                 hour=int(hour[0]), minute=int(hour[1])).to_gregorian()
+                                                 hour=int(hour[0]), minute=int(hour[1]) , tzinfo=pytz.timezone("Asia/Tehran")).to_gregorian()
         fields = {
             "room": room,
             "customer_name": name,
@@ -317,7 +313,7 @@ class RoomView(View):
 
         year, month, day = date.split("/")
         reserved_date = jdatetime.JalaliDateTime(int(year), int(month), int(day), int(hour),
-                                                 int(minutes)).to_gregorian()
+                                                 int(minutes) , tzinfo=pytz.timezone("Asia/Tehran")).to_gregorian()
         fields = {
             "amount": data.get("price", None),
             "room_id": pk,
