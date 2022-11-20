@@ -137,8 +137,8 @@ def verify_payment(authority):
         return {"valid": False, "data": "No Authority key found", "payment": None, "order": None}
     amount = payment.amount * 10
     if amount == 0:
-        order_object, payment_object = place_order(authority, "رایگان - " + authority[0:15] , "بدون پرداخت")
-        print(order_object,payment_object)
+        order_object, payment_object = place_order(authority, "رایگان - " + authority[0:15], "بدون پرداخت")
+        print(order_object, payment_object)
         if not order_object.user_sms_bulk or not order_object.admin_sms_bulk:
             send_sms.delay(order=order_object.pk)
         data = {
@@ -197,6 +197,7 @@ def place_order(authority, transaction_number=None, card_pan=None):
     payment.is_completed = True
     payment.save()
     return order, payment
+
 
 @shared_task
 def send_sms(order):
@@ -354,3 +355,9 @@ def validate_coupon(room, coupon):
     if coupon.capacity <= coupon.used or coupon.capacity < 0:
         return False
     return True
+
+
+def slugify(name: str):
+    name = name.strip()
+    name = name.replace(" ", "-")
+    return name

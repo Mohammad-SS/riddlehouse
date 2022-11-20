@@ -12,8 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
+
 CELERY_BROKER_URL = "redis://redis:6379/1"
-#CELERY_BROKER_URL = 'redis://redis:6379/1'
+# CELERY_BROKER_URL = 'redis://redis:6379/1'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
     #     INTERNAL APPS :
     "game",
     "main",
@@ -47,6 +50,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "django.contrib.humanize"
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -86,7 +91,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "HOST": os.getenv("RDL_QOM_PSQL_HOST"),
-        "PORT" : 5432,
+        "PORT": 5432,
         "NAME": os.getenv("RDL_PSQL_DB_NAME"),
         "USER": os.getenv("RDL_PSQL_USER"),
         "PASSWORD": os.getenv("RDL_PSQL_PASSWORD"),
@@ -127,7 +132,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = str(BASE_DIR / "static")
 MEDIA_ROOT = os.path.join(BASE_DIR, "medias")
 MEDIA_URL = "media/"
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

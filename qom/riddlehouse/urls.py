@@ -18,8 +18,17 @@ from django.urls import path, include
 from main import urls as main_urls
 from django.conf import settings
 from django.conf.urls.static import static
+from game.sitemaps import RoomSitemap
+from django.contrib.sitemaps.views import sitemap
+from django.views.generic import TemplateView
 
+sitemaps = {
+    "posts": RoomSitemap,
+}
 urlpatterns = [
                   path("admin/", admin.site.urls),
-                  path("", include(main_urls))
+                  path("", include(main_urls)),
+
+                  path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
+                  path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap")
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -225,7 +225,8 @@ class PanelOrderView(LoginRequiredMixin, View):
         date = date.split("/")
         hour = hour.split(":")
         reserved_time = jdatetime.JalaliDateTime(year=int(date[0]), month=int(date[1]), day=int(date[2]),
-                                                 hour=int(hour[0]), minute=int(hour[1]) , tzinfo=pytz.timezone("Asia/Tehran")).to_gregorian()
+                                                 hour=int(hour[0]), minute=int(hour[1]),
+                                                 tzinfo=pytz.timezone("Asia/Tehran")).to_gregorian()
         fields = {
             "room": room,
             "customer_name": name,
@@ -251,18 +252,26 @@ class PanelScheduleView(LoginRequiredMixin, View):
         }
         return render(request, "panel/schedule/schedule.html", context)
 
+
 class PanelRemoveSchedule(LoginRequiredMixin, View):
 
-    def get(self, request , pk):
+    def get(self, request, pk):
         exclusion = game_models.Exclusion.objects.get(pk=pk)
         exclusion.delete()
         return redirect("main:schedule")
+
 
 class LandingView(View):
     def get(self, request):
         rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL)
         last_box = game_models.Room.objects.filter(room_type=enums.RoomType.BOX).last()
-        return render(request, 'main/landing.html', {"rooms": rooms, "box": last_box})
+        context = {
+            "rooms": rooms, "box": last_box ,
+            "title" : "خانه معما استان قم",
+            "meta_description" : "خانه معما، به عنوان نخستین مجموعه ی طراحی و اجرای بازی های فکری گروهی اتاق فرار در استان قم، با طراحی و مدیریت سید مهدی شمس الدینی از پاییز 1396 فعالیت خودش را آغاز کرد.",
+            "meta_keywords" : "خانه معما,اتاق فرار,اتاق فرار قم,اتاق ساواک,فرار از آلکاتراز,فرار از موزه,بازی گروهی قم"
+        }
+        return render(request, 'main/landing.html',context )
 
 
 class LoginView(View):
@@ -288,13 +297,15 @@ class LoginView(View):
 
 
 class RoomView(View):
-    def get(self, request, pk):
+    def get(self, request, slug):
         rooms = game.models.Room.objects.all()
-        room = game_models.Room.objects.get(pk=pk)
+        room = game_models.Room.objects.get(slug=slug)
         now = datetime.datetime.now().strftime("%Y/%m/%d")
         context = {
             "rooms": rooms,
             "room": room,
+            "meta_description": room.description[:155] + "...",
+            "meta_keywords": "خانه معما , اتاق فرار , اسکیپ روم قم ," + room.name,
             "title": room.name,
             "now": now
         }

@@ -2,6 +2,7 @@ from django.db import models
 from riddlehouse.helpers import enums
 from persiantools import jdatetime
 import pytz
+from persiantools import digits
 
 
 class Order(models.Model):
@@ -74,3 +75,7 @@ class Payment(models.Model):
             "reserved": reserved_time,
             "created": created_date
         }
+
+    def save(self, *args, **kwargs):
+        self.customer_mobile = digits.fa_to_en(self.customer_mobile)
+        super(Payment, self).save(*args, **kwargs)

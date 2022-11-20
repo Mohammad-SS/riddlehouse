@@ -34,9 +34,13 @@
 
     {% block links %}{% endblock links %}
 
-    {% block metatags %}{% endblock metatags %}
+    {% block metatags %}
+        <meta name="description" property="og:description" content="{{ meta_description }}">
+        <meta name="keywords" content="{{ meta_keywords }}">
 
-    <title>{% block title %}{% endblock title %}</title>
+    {% endblock metatags %}
+
+    <title>{% block title %}{{ title }}{% endblock title %}</title>
 
     {% block headstyles %}{% endblock headstyles %}
 </head>

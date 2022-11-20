@@ -9,7 +9,7 @@ services:
 
   qom:
     build: ./qom
-    command: /bin/sh -c "python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000"
+    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - ./qom/:/usr/src/app/
       - qom_static_volume:/usr/src/app/static
@@ -51,7 +51,7 @@ services:
       - ./.env
   ahvaz:
     build: ./ahvaz
-    command: /bin/sh -c "python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:9000"
+    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:9000"
     volumes:
       - ./ahvaz/:/usr/src/app/
       - ahvaz_static_volume:/usr/src/app/static
