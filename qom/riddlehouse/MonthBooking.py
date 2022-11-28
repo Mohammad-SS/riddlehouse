@@ -3,7 +3,7 @@ import random
 import pytz
 from django.core.exceptions import ObjectDoesNotExist
 from persiantools.jdatetime import JalaliDate, JalaliDateTime
-
+from . import serializers
 from game import models
 from riddlehouse.helpers import enums
 from riddlehouse.helpers import functions
@@ -22,7 +22,7 @@ class Month():
         self.month_range = JalaliDate.days_in_month(self.month, self.year)
         self.first_day_weekday = JalaliDate(self.year, self.month, 1).isoweekday()
 
-    def create_calander(self, room_id=None):
+    def create_calendar(self, room_id=None):
         calendar = dict()
         week_num = 0
         calendar[0] = dict()
@@ -65,7 +65,8 @@ class Month():
     def check_hour(cls, timestamp, room: models.Room):
         this_hour = datetime.datetime.fromtimestamp(timestamp, pytz.timezone("Asia/Tehran"))
 
-        is_ordered = room.orders.filter(reserved_time__gt=this_hour-datetime.timedelta(minutes=30) , reserved_time__lt=this_hour+datetime.timedelta(minutes=30)).exists()
+        is_ordered = room.orders.filter(reserved_time__gt=this_hour - datetime.timedelta(minutes=30),
+                                        reserved_time__lt=this_hour + datetime.timedelta(minutes=30)).exists()
 
         if is_ordered:
             return False, "RESERVED"
@@ -90,7 +91,8 @@ class Month():
         else:
             return True
 
-    def get_role_hours(self, day, room):
+    @classmethod
+    def get_role_hours(cls, day, room):
         _day = day.to_gregorian()
         date = datetime.date(_day.year, _day.month, _day.day)
         exclusions = room.exclusions.filter(from_date__lte=date, to_date__gte=date)
@@ -99,10 +101,11 @@ class Month():
             return room.default_hours
 
         for exclusion in exclusions:
-            exclusion_hours = self.get_exclution_hours(exclusion, day)
+            exclusion_hours = cls.get_execution_hours(exclusion, day)
         return exclusion_hours
 
-    def get_exclution_hours(self, exclusion, day):
+    @classmethod
+    def get_execution_hours(cls, exclusion, day):
         if exclusion.role == enums.ExclusionsType.DATE_AND_WEEKDAY:
             if day.isoweekday() in exclusion.weekdays:
                 return exclusion.hours
@@ -112,3 +115,66 @@ class Month():
             return exclusion.hours
         else:
             return exclusion.room.default_hours
+
+
+class RoomWeek():
+    week_range = 7
+
+    def __init__(self):
+        self.rooms = models.Room.objects.all()
+        self.today = datetime.date.today()
+        rooms = self.create_rooms_list()
+
+    def create_rooms_list(self):
+        rooms = dict()
+        for room in self.rooms:
+            this_room = {
+                "room_obj": serializers.GameSerializer(room).data,
+                "calendar": self.create_room_calendar(room)
+            }
+            rooms[room.id] = this_room
+        return rooms
+
+    def create_room_calendar(self, room):
+        days = list()
+        for day in range(0, self.week_range):
+            this_day = self.today + datetime.timedelta(days=day)
+            jalali_day = JalaliDate(this_day)
+            this_day = {
+                "date": jalali_day.strftime("%Y/%m/%d"),
+                "weekday": jalali_day.isoweekday(),
+                "hours": self.get_this_day_times(jalali_day, room)
+            }
+            days.append(this_day)
+
+        return days
+
+    def get_this_day_times(self, day, room):
+        hours = dict()
+
+        this_day_hours = Month.get_role_hours(day, room)
+
+        if not day.isoweekday() in room.default_days:
+            return hours
+
+        for hour in this_day_hours:
+            this_hour, this_minutes = hour.split(":")
+            this_timestamp = JalaliDateTime(day.year, day.month, day.day, int(this_hour),
+                                            int(this_minutes)).timestamp()
+            hours[hour] = dict()
+            hours[hour]["timestamp"] = this_timestamp
+            hours[hour]['is_reservable'], hours[hour]['status'] = Month.check_hour(this_timestamp, room)
+            hours[hour]["order"] = self.get_order_object(this_timestamp, room)
+            hours[hour]['rand_id'] = "_{}".format(random.randint(10000, 99999))
+        return hours
+
+    def get_order_object(self, timestamp, room):
+        this_hour = datetime.datetime.fromtimestamp(timestamp, pytz.timezone("Asia/Tehran"))
+
+        order = room.orders.filter(reserved_time__gt=this_hour - datetime.timedelta(minutes=30),
+                                   reserved_time__lt=this_hour + datetime.timedelta(minutes=30))
+
+        if not order.exists():
+            return None
+        else:
+            return serializers.OrderSerializer(order[0]).data
