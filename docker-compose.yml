@@ -9,11 +9,9 @@ services:
 
   qom:
     build: ./qom
-    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000"
+    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./qom/:/usr/src/app/
-      - qom_static_volume:/usr/src/app/static
-      - qom_media_volume:/usr/src/app/medias
     expose:
       - 8000
     env_file:
@@ -54,8 +52,6 @@ services:
     command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:9000"
     volumes:
       - ./ahvaz/:/usr/src/app/
-      - ahvaz_static_volume:/usr/src/app/static
-      - ahvaz_media_volume:/usr/src/app/medias
     expose:
       - 9000
     env_file:
@@ -99,10 +95,10 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - qom_static_volume:/home/qom/static
-      - qom_media_volume:/home/qom/medias
-      - ahvaz_static_volume:/home/ahvaz/static
-      - ahvaz_media_volume:/home/ahvaz/medias
+      - ./qom/static/:/home/qom/static
+      - ./qom/medias/:/home/qom/medias
+      - ./ahvaz/static/:/home/ahvaz/static
+      - ./ahvaz/medias/:/home/ahvaz/medias
     ports:
       - 80:80
     depends_on:
@@ -114,7 +110,3 @@ volumes:
   qom_postgres_data:
   wordpress_data_volume:
   ahvaz_postgres_data:
-  qom_static_volume:
-  qom_media_volume:
-  ahvaz_static_volume:
-  ahvaz_media_volume:

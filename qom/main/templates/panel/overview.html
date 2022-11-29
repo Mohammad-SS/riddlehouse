@@ -1,0 +1,113 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load custom_tags %}
+
+{% block styles %}
+<link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet" />
+
+<link rel="stylesheet" href="{% static 'panel/' %}styles/overview.css">
+<link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
+{% endblock %}
+{% block contentHead %}
+<div class="content-head">
+    <h4>تقویم رزرو</h4>
+</div>
+{% endblock %}
+
+{% block header-scripts %}
+{% comment %} {{room.default_hours}}
+{{room.default_days}} {% endcomment %}
+{% endblock header-scripts %}
+
+{% block dialogs %}
+{% include 'panel/order/order-add-pupop.html' %}
+{% endblock dialogs %}
+
+
+{% block content %}
+{% with data=calendar|overview_handler%}
+<div class="mb-card mb-rtl m-3 p-0">
+    <ul class="nav nav-tabs m-0 p-0 " id="ex1" role="tablist">
+        {% for room in data.rooms %}
+        <li class="nav-item" role="presentation">
+            <a class="nav-link {% if forloop.counter == 1 %}active{% endif %}" id="room-tab-{{room.room_obj.id}}" data-mdb-toggle="tab" href="#room-tabs-{{room.room_obj.id}}" role="tab"
+                aria-controls="room-tabs-{{room.room_obj.id}}" aria-selected="true">{{room.room_obj.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="overview mx-3">
+ 
+    <table class="table text-nowrap text-center mb-3" dir="rtl">
+        <thead>
+            <tr>
+
+                <th scope="col"></th>
+                {% for day in data.dates %}
+                <th scope="col">
+                    {{day.weekday|convert_iso_to_weekday}}<br />
+                    {{day.date}}
+                </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        {% for room in data.rooms %}
+        <tbody class="{% if forloop.counter == 1 %}active{% endif %}" aria-labelledby="room-tab-{{room.room_obj.id}}" id="room-tabs-{{room.room_obj.id}}">
+            {% with rows=room|overview_get_detail  %}
+            {% for row_key, row_value in rows.items %}
+                <tr>
+                    <td>
+                        {% comment %} <span>ساعت</span><br/> {% endcomment %}
+                        <span><i class="far fa-clock"></i>&nbsp; {{row_key}}</span>
+                    </td>
+                    {% for item in row_value %}
+                        {% if item is None %}
+                            <td style="cursor: not-allowed;">
+                                <span class="btn btn-light btn-rounded disabled" >غیر قابل رزرو</span>
+                            </td>
+                        {% elif item.status == 'FREE' and item.is_reservable %} 
+                        <td>
+                            <span
+                            class="btn btn-primary btn-rounded shadow-0" @click='()=>set_reserve_detail({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{item.date}}`, `{{row_key}}`)'>قابل رزرو</span>
+                        </td>
+                        
+                        {% else %}
+                        <td>
+                            <span class="btn btn-danger btn-rounded disabled" 
+                            data-mdb-toggle="tooltip" 
+                            data-mdb-placement="top" 
+                            data-mdb-html="true" 
+                            title='
+                            <div dir="rtl" class="text-start">
+                                <i class="far fa-user"></i>&nbsp;{{item.order.customer_name}} <br/>
+                                <i class="fas fa-mobile-alt"></i>&nbsp;{{item.order.customer_number}} <br/>
+                                <i class="fas fa-dollar-sign"></i>&nbsp;{{item.order.paid}}
+                            </div>
+                            '
+                            >
+                                رزرو شده
+                                
+                            </span>
+                        </td>   
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            {% endwith %}
+        </tbody>
+        {% endfor %}
+    </table>
+
+</div>
+
+{% endwith %}
+{% endblock %}
+
+{% block footer-scripts %}
+<script src="{% static 'modules/vue.js' %}"></script>
+{% comment %}
+<script src="{% static 'modules/jalalidatepicker.min.js' %}"></script> {% endcomment %}
+<script src="{% static 'panel/scripts/overview.js' %}"></script>
+
+{% endblock %}

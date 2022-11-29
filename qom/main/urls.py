@@ -13,6 +13,8 @@ urlpatterns = [
     path("panel/manage-rooms/create", views.PanelRoomView.as_view(), name='createroom'),
     path("panel/manage-rooms/edit/<int:pk>", views.PanelRoomEditView.as_view(), name='editroom'),
 
+    path("panel/overview", views.PanelOverview.as_view(), name='reserve_calendar'),
+    
     path("panel/coupans", views.PanelCoupanView.as_view(), name='coupans'),
     path("panel/coupans/<int:pk>/remove", views.RemoveCoupon.as_view(), name='remove-coupon'),
 

@@ -173,7 +173,7 @@ body {
     background-image: url('./../images/bg-pattern.png');
     font-family: 'iransansweb';
     direction: rtl;
-    color: var(--mb-white);
+    color: #bdbdbd;
     overflow-x: hidden;
 
 }
@@ -321,6 +321,7 @@ body {
         transform: rotate(15deg)
     }
 
+    
     40% {
         -webkit-transform: rotate(-10deg);
         transform: rotate(-10deg)

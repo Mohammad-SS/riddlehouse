@@ -16,6 +16,8 @@ from django.core.paginator import Paginator
 from riddlehouse.helpers import functions
 from persiantools import jdatetime
 import pytz
+from riddlehouse import MonthBooking
+
 
 
 # Create your views here.
@@ -66,6 +68,41 @@ class PanelRoomsView(LoginRequiredMixin, View):
         exclusion.save()
 
         return redirect("main:schedule")
+
+class PanelOverview(LoginRequiredMixin, View):
+    def get(self, request):
+        calendar = MonthBooking.RoomWeek().create_rooms_list()
+        context = {
+            "calendar": calendar,
+        }
+        return render(request, "panel/overview.html", context)
+
+    def post(self, request):
+        data = request.POST
+        room = data.get("room_id", None)
+        room = get_object_or_404(game_models.Room, pk=room)
+        phone = data.get("phone", "")
+        date = data.get("date", "0/0/0")
+        name = data.get("name", "")
+        hour = data.get("hour", "00:00")
+        date = date.split("/")
+        hour = hour.split(":")
+        reserved_time = jdatetime.JalaliDateTime(year=int(date[0]), month=int(date[1]), day=int(date[2]),
+                                                 hour=int(hour[0]), minute=int(hour[1]),
+                                                 tzinfo=pytz.timezone("Asia/Tehran")).to_gregorian()
+        fields = {
+            "room": room,
+            "customer_name": name,
+            "customer_number": phone,
+            "paid": 0,
+            "transaction_number": "رزرو حضوری",
+            "key": random.randint(1000, 9999),
+            "reserved_time": reserved_time
+        }
+        order_object = order_models.Order(**fields)
+        order_object.save()
+        functions.send_sms.delay(order=order_object.pk)
+        return redirect("main:reserve_calendar")
 
 
 class PanelRoomView(LoginRequiredMixin, View):
@@ -204,6 +241,8 @@ class PanelOrderView(LoginRequiredMixin, View):
         paginator = Paginator(orders, 15)
         page_obj = paginator.get_page(page_number)
 
+
+        
         context = {
             "orders": page_obj,
             "rooms": rooms,
@@ -214,32 +253,6 @@ class PanelOrderView(LoginRequiredMixin, View):
 
         return render(request, 'panel/order/orders.html', context)
 
-    def post(self, request):
-        data = request.POST
-        room = data.get("room_id", None)
-        room = get_object_or_404(game_models.Room, pk=room)
-        phone = data.get("phone", "")
-        date = data.get("date", "0/0/0")
-        name = data.get("name", "")
-        hour = data.get("hour", "00:00")
-        date = date.split("/")
-        hour = hour.split(":")
-        reserved_time = jdatetime.JalaliDateTime(year=int(date[0]), month=int(date[1]), day=int(date[2]),
-                                                 hour=int(hour[0]), minute=int(hour[1]),
-                                                 tzinfo=pytz.timezone("Asia/Tehran")).to_gregorian()
-        fields = {
-            "room": room,
-            "customer_name": name,
-            "customer_number": phone,
-            "paid": 0,
-            "transaction_number": "رزرو حضوری",
-            "key": random.randint(1000, 9999),
-            "reserved_time": reserved_time
-        }
-        order_object = order_models.Order(**fields)
-        order_object.save()
-        functions.send_sms.delay(order=order_object.pk)
-        return redirect("main:orders")
 
 
 class PanelScheduleView(LoginRequiredMixin, View):

@@ -374,6 +374,11 @@ body {
     transform: scale(1) !important;
 }
 
+
+/* tooltips */
+.tooltip-inner {
+    text-align: start !important;
+}
 /* weekday selector style */
 
 /* media query */

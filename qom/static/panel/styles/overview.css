@@ -1,0 +1,55 @@
+.overview {
+    background: rgb(230, 230, 230);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1em;
+    overflow: auto;
+    padding: 0em 1em;
+    flex-direction: column;
+}
+
+.overview tbody {
+    display: none;
+}
+
+.overview tbody.active {
+    display: table-row-group;
+}
+
+.overview table {
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0 .5em;
+}
+
+.overview .table> :not(caption)>*>* {
+    padding: 1em .7em;
+}
+
+.overview .table td {
+    background-color: white;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.overview table tbody tr {}
+
+.overview table tbody td:first-child {
+    border-radius: 0em 1em 1em 0em;
+}
+
+.overview table tbody td:last-child {
+    border-radius: 1em 0em 0em 1em;
+}
+
+
+/* .overview .table td:hover {
+    background-color: var(--mdb-table-hover-bg)
+} */
+
+@media screen and (max-width: 1024px) {
+    .mb-panel {
+        overflow-x: auto !important;
+    }
+}

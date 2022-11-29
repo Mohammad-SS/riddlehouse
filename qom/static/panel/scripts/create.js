@@ -202,23 +202,3 @@ var app = new Vue({
         }
     }
 });
-
-
-// lastModified
-// :
-// 1664467588000
-// lastModifiedDate
-// :
-// Thu Sep 29 2022 19:36:28 GMT+0330 (Iran Standard Time) {}
-// name
-// :
-// "ALKATRAZ2.jpg"
-// size
-// :
-// 14285
-// type
-// :
-// "image/jpeg"
-// webkitRelativePath
-// :
-// ""
