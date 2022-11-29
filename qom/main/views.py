@@ -19,7 +19,6 @@ import pytz
 from riddlehouse import MonthBooking
 
 
-
 # Create your views here.
 
 class PanelRoomsView(LoginRequiredMixin, View):
@@ -69,6 +68,7 @@ class PanelRoomsView(LoginRequiredMixin, View):
 
         return redirect("main:schedule")
 
+
 class PanelOverview(LoginRequiredMixin, View):
     def get(self, request):
         calendar = MonthBooking.RoomWeek().create_rooms_list()
@@ -82,7 +82,10 @@ class PanelOverview(LoginRequiredMixin, View):
         room = data.get("room_id", None)
         room = get_object_or_404(game_models.Room, pk=room)
         phone = data.get("phone", "")
+        players_number = data.get("players" , 0)
+        price = data.get("price" , 0)
         date = data.get("date", "0/0/0")
+        description = data.get("description" , "")
         name = data.get("name", "")
         hour = data.get("hour", "00:00")
         date = date.split("/")
@@ -94,7 +97,9 @@ class PanelOverview(LoginRequiredMixin, View):
             "room": room,
             "customer_name": name,
             "customer_number": phone,
-            "paid": 0,
+            "paid" : price ,
+            "description" : description ,
+            "players_number" : players_number ,
             "transaction_number": "رزرو حضوری",
             "key": random.randint(1000, 9999),
             "reserved_time": reserved_time
@@ -241,8 +246,6 @@ class PanelOrderView(LoginRequiredMixin, View):
         paginator = Paginator(orders, 15)
         page_obj = paginator.get_page(page_number)
 
-
-        
         context = {
             "orders": page_obj,
             "rooms": rooms,
@@ -252,7 +255,6 @@ class PanelOrderView(LoginRequiredMixin, View):
         }
 
         return render(request, 'panel/order/orders.html', context)
-
 
 
 class PanelScheduleView(LoginRequiredMixin, View):
@@ -279,12 +281,12 @@ class LandingView(View):
         rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL)
         last_box = game_models.Room.objects.filter(room_type=enums.RoomType.BOX).last()
         context = {
-            "rooms": rooms, "box": last_box ,
-            "title" : "خانه معما استان قم",
-            "meta_description" : "خانه معما، به عنوان نخستین مجموعه ی طراحی و اجرای بازی های فکری گروهی اتاق فرار در استان قم، با طراحی و مدیریت سید مهدی شمس الدینی از پاییز 1396 فعالیت خودش را آغاز کرد.",
-            "meta_keywords" : "خانه معما,اتاق فرار,اتاق فرار قم,اتاق ساواک,فرار از آلکاتراز,فرار از موزه,بازی گروهی قم"
+            "rooms": rooms, "box": last_box,
+            "title": "خانه معما استان قم",
+            "meta_description": "خانه معما، به عنوان نخستین مجموعه ی طراحی و اجرای بازی های فکری گروهی اتاق فرار در استان قم، با طراحی و مدیریت سید مهدی شمس الدینی از پاییز 1396 فعالیت خودش را آغاز کرد.",
+            "meta_keywords": "خانه معما,اتاق فرار,اتاق فرار قم,اتاق ساواک,فرار از آلکاتراز,فرار از موزه,بازی گروهی قم"
         }
-        return render(request, 'main/landing.html',context )
+        return render(request, 'main/landing.html', context)
 
 
 class LoginView(View):

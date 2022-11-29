@@ -18,7 +18,7 @@ class GetMonthCalendar(CsrfExemptMixin, APIView):
         year = request.data.get("year", None)
         if not room_id or not month:
             return Response("room and month is required", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-        calendar = MonthBooking.Month(month, year).create_calander(room_id)
+        calendar = MonthBooking.Month(month, year).create_calendar(room_id)
         if not calendar:
             return Response({"detail": "Room Not Found"}, status=status.HTTP_404_NOT_FOUND)
         return Response(data=calendar)

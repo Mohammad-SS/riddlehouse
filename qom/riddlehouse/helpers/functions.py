@@ -223,8 +223,12 @@ def send_admin_sms(order):
     if order.room.room_type == enums.RoomType.BOX:
         persons = "ندارد"
         time = "-"
+        descriptions = ""
     else:
         persons = order.players_number
+        descriptions = order.description
+        if not descriptions:
+            descriptions = ""
         time = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
                                                       pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
             "%H:%M")
@@ -236,7 +240,7 @@ def send_admin_sms(order):
         "user": order.customer_name,
         "phone": order.customer_number,
         "game": order.room.name,
-        "pers": persons,
+        "pers": str(persons) + str(descriptions),
         "date": date,
         "time": time,
         "key": order.key,

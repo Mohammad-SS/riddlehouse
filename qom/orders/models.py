@@ -11,6 +11,7 @@ class Order(models.Model):
     customer_number = models.CharField(max_length=15)
     transaction_number = models.CharField(max_length=255)
     players_number = models.IntegerField(null=True, blank=True)
+    description = models.TextField(null=True,blank=True)
     paid = models.IntegerField()
     key = models.CharField(max_length=4)
     rest_payment = models.IntegerField(blank=True, null=True)

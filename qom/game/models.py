@@ -25,6 +25,8 @@ class Room(models.Model):
     warnings = models.TextField(blank=True, null=True)
     banner = models.ImageField(upload_to="rooms", blank=True, null=True)
     modified_time = models.DateTimeField(auto_now=True)
+    google_map = models.TextField(blank=True, null=True)
+    balad_link = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name

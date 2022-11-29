@@ -71,7 +71,24 @@
                             <span
                             class="btn btn-primary btn-rounded shadow-0" @click='()=>set_reserve_detail({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{item.date}}`, `{{row_key}}`)'>قابل رزرو</span>
                         </td>
-                        
+                        {% elif item.status == 'PASSED' %} 
+                        <td>
+                            <span class="btn btn-danger btn-rounded disabled" 
+                            data-mdb-toggle="tooltip" 
+                            data-mdb-placement="top" 
+                            data-mdb-html="true" 
+                            title='
+                            <div dir="rtl" class="text-start">
+                                <i class="far fa-user"></i>&nbsp;{{item.order.customer_name}} <br/>
+                                <i class="fas fa-mobile-alt"></i>&nbsp;{{item.order.customer_number}} <br/>
+                                <i class="fas fa-dollar-sign"></i>&nbsp;{{item.order.paid}}
+                            </div>
+                            '
+                            >
+                                غیر قابل رزرو
+                                
+                            </span>
+                        </td>   
                         {% else %}
                         <td>
                             <span class="btn btn-danger btn-rounded disabled" 
