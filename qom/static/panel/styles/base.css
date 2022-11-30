@@ -115,6 +115,23 @@ body {
     font-size: 14px;
 }
 
+
+.bg-light-flet {
+    background-color: rgb(229, 229, 229) !important;
+}
+.bg-primary-flet {
+    background-color: #c6d7ff !important;
+}
+.bg-danger-flet {
+    background-color: #ffc6d4 !important;
+}
+.bg-success-flet {
+    background-color: #ade9c4 !important;
+}
+.bg-warning-flet {
+    background-color: #e9e0ad !important;
+}
+
 .fs-7 {
     font-size: .9rem !important;
 }
@@ -379,7 +396,17 @@ body {
 .tooltip-inner {
     text-align: start !important;
 }
-/* weekday selector style */
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.cursor-ban {
+    cursor: not-allowed !important;
+}
+
+
+
 
 /* media query */
 @media screen and (max-width: 1024px) {}

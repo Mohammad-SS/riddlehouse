@@ -1,5 +1,5 @@
 .overview {
-    background: rgb(230, 230, 230);
+    background: rgb(255, 255, 255);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,9 +28,13 @@
 }
 
 .overview .table td {
-    background-color: white;
     vertical-align: middle;
     text-align: center;
+    border: 1px solid white !important;
+    transition: all .2s;
+}
+.overview .table td:hover {
+    filter: brightness(80%);
 }
 
 .overview table tbody tr {}
@@ -43,13 +47,30 @@
     border-radius: 1em 0em 0em 1em;
 }
 
-
+.md-overview {
+    display: none;
+}
 /* .overview .table td:hover {
     background-color: var(--mdb-table-hover-bg)
 } */
 
 @media screen and (max-width: 1024px) {
-    .mb-panel {
-        overflow-x: auto !important;
+    .md-overview {
+        display: block;
+    }
+
+    .xl-overview {
+        display: none;
     }
 }
+
+
+.md-room-calendar {
+    display: none;
+}
+
+.md-room-calendar.active{
+    display: inherit;
+}
+
+

@@ -45,7 +45,11 @@
     {% block headstyles %}{% endblock headstyles %}
 </head>
 <body>
-
+    {% block banner %}
+        <div class="global-banner w-100 flex-fill d-flex align-items-center justify-content-center">
+            پیام بنر
+        </div>
+    {% endblock banner %}
     {% block body %}
     <div class="mb-content">
 

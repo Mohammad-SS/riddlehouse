@@ -73,6 +73,7 @@ class PanelOverview(LoginRequiredMixin, View):
     def get(self, request):
         calendar = MonthBooking.RoomWeek().create_rooms_list()
         context = {
+            "title": "تقویم",
             "calendar": calendar,
         }
         return render(request, "panel/overview.html", context)
@@ -274,6 +275,12 @@ class PanelRemoveSchedule(LoginRequiredMixin, View):
         exclusion = game_models.Exclusion.objects.get(pk=pk)
         exclusion.delete()
         return redirect("main:schedule")
+
+
+class CitySelectView(View):
+    def get(self, request):
+        return render(request, 'main/city-select.html', {})
+        
 
 
 class LandingView(View):

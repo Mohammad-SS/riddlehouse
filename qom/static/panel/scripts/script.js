@@ -33,15 +33,38 @@ function pagination(params) {
 function collapse() {
 
     let collapsible_list = document.querySelectorAll('[collapse-id-data]')
-    
+ 
     collapsible_list.forEach(item => {
+
+        // auto close other items
+        let auto_close = item.getAttribute('collapse-auto-close')
+        let auto = false
+        if (auto_close === 'true') {auto = true}
+        
+        // bottom space
+        let bottom_space = item.getAttribute('collapse-bottom-space')
+
         item.addEventListener('click' , function() {
             let collapsible_content_id = item.getAttribute('collapse-id-data')
             let collapsible_content = document.querySelector(`[collapse-id="${collapsible_content_id}"]`)
             if (collapsible_content.style.maxHeight) {
                 collapsible_content.style.maxHeight = null;
             } else {
+                if (auto) {
+                    collapsible_list.forEach(i => {
+                        let collapsible_content_id = i.getAttribute('collapse-id-data')
+                        let collapsible_content = document.querySelector(`[collapse-id="${collapsible_content_id}"]`)
+                        if (collapsible_content.style.maxHeight) {
+                            collapsible_content.style.maxHeight = null;
+                        }
+                    })
+                }
                 let child_height = collapsible_content.firstElementChild.getBoundingClientRect().height
+
+                if (bottom_space && Number.isInteger(parseInt(bottom_space))) {
+                    child_height = child_height + parseInt(bottom_space)
+                }
+                
                 collapsible_content.style.maxHeight = child_height + "px";
             }
         })

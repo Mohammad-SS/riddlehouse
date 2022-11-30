@@ -26,6 +26,7 @@ urlpatterns = [
     path("panel/settings", views.PanelSettingsView.as_view(), name='settings'),
 
     path("" ,  views.LandingView.as_view() ,name='main'),
+    path("cities" ,  views.CitySelectView.as_view() ,name='city'),
     path("اتاق-های-فرار/<str:slug>" ,  views.RoomView.as_view() ,name='room-page'),
     path("reserve-completed", views.ReserveCompleted.as_view(), name='reserved-page')
 

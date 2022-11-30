@@ -1,6 +1,6 @@
 {% load static %}
 {% load humanize %}
-<div class="d-flex justify-content-center align-items-start mb-5 mt-3 mx-2 flex-fill">
+<div class="d-flex justify-content-center align-items-start mb-5 mt-3 mx-2 flex-fill flex-column">
     <div class="receipt shadow-5" dir="rtl">
         <div class="receipt-header shadow-3 rounded">
             <div class="receipt-status">
@@ -15,25 +15,37 @@
         </div>
         <div class="receipt-body">
             <p>
-                <span><i class="far fa-credit-card text-danger  me-3 fa-lg"></i></span>
-                <span>مبلغ  : {{payment.amount|intcomma}} تومان </span>
-                <hr class="">
+                <span><i class="far fa-credit-card text-danger me-3 fa-lg"></i></span>
+                <span>مبلغ : {{ payment.amount|intcomma }} تومان</span>
+                <hr class="" />
             </p>
             <p>
                 <span><i class="fas fa-barcode text-primary me-3 fa-lg"></i></span>
-                <span>شماره تراکنش :  - </span>
-                <hr class="">
+                <span>شماره تراکنش : -</span>
+                <hr class="" />
             </p>
             <p>
                 <span><i class="fas fa-money-check text-warning me-3 fa-lg"></i></span>
-                <span>تاریخ رزرو : {{payment.persian_dates.reserved}}</span>
-                <hr class="">
+                <span>تاریخ رزرو : {{ payment.persian_dates.reserved }}</span>
+                <hr class="" />
             </p>
             <p>
                 <span><i class="far fa-calendar-check text-info me-3 fa-lg"></i></span>
-                <span>تاریخ و زمان پرداخت : {{payment.persian_dates.created}}</span>
-
+                <span>تاریخ و زمان پرداخت : {{ payment.persian_dates.created }}</span>
             </p>
+        </div>
+    </div>
+    <div class="shadow-3 position-relative"
+        style="width: 100%; flex: 1 1 0%; margin-top: 0.5em; border-radius: 10px; display: flex; padding: 0.5em;">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51806.720732534166!2d50.97062525!3d35.752769900000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8d95737d4a8719%3A0xfb4f3e9200a104dc!2sEco%20Mall!5e0!3m2!1sen!2s!4v1669784895002!5m2!1sen!2s"
+            allowfullscreen="allowfullscreen" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            style="border: 0px none;" class="w-100 h-100"></iframe>
+        <div class="position-absolute end-0 bottom-0 me-3 mb-3">
+            <button class="btn btn-primary">
+                <img src="{% static 'main/images/neshan-logo.png' %}" width="28px" height="28px" alt="">&nbsp;
+                مسیریابی با نشان
+            </button>
         </div>
     </div>
 </div>
