@@ -27,9 +27,8 @@ class GetMonthCalendar(CsrfExemptMixin, APIView):
 class CheckCoupon(APIView):
 
     def get(self,request):
-        coupon = request.data.get("coupon" , None)
-        room = request.data.get("room" , None)
-
+        coupon = request.query_params.get("coupon" , None)
+        room = request.query_params.get("room" , None)
         if not coupon or not room :
             return Response({"valid" : False , "details" : "کوپن یا اتاق وارد نشده است"} , status=status.HTTP_400_BAD_REQUEST)
 

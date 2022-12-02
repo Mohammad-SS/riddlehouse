@@ -1,10 +1,14 @@
 /* footer style */
+.footer-container {
+    padding: 2em;
+    margin-top: 2em;
+    background-color: var(--mb-black-90);
+    width: 100%;
+}
+
 .footer {
     display: flex;
-    padding: 2em;
     width: 100%;
-    background-color: var(--mb-black-90);
-    margin-top: 2em;
 }
 
 .footer-detail {

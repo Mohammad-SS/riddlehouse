@@ -1,0 +1,99 @@
+.page {
+    width: 100vw;
+    height: 100vh;
+
+    color: #e4e4e4;
+}
+
+.city {
+
+    width: calc(100% - 15em);
+    background: #00000026;
+    margin-bottom: 8em;
+    display: flex;
+
+}
+
+.city .detail {
+    flex: 1;
+    padding: 3em;
+    position: relative;
+}
+
+.city .map {
+    min-width: 30em;
+}
+
+.city.ahvaz {
+    float: left;
+    background-image: url();
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3em;
+    margin-bottom: 6em;
+
+}
+
+.header>div {
+    width: 25em;
+}
+
+.header>h1 {
+    margin-top: 1em;
+}
+
+.header>div>img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.detail .title {
+    width: 6em;
+    height: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    border-radius: 10px;
+    border: 2px solid;
+
+}
+
+.footer {
+    margin-top: 2em;
+}
+
+@media screen and (max-width: 1280px) {
+    .city {
+        width: 100% !important
+    }
+
+}
+
+@media screen and (max-width: 1024px) {
+    .city {
+        flex-direction: column;
+    }
+
+    .city.ahvaz {
+        flex-direction: column-reverse;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .header>div {
+        width: calc(100% - 5em);
+    }
+}

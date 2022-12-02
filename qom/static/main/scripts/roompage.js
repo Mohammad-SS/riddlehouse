@@ -20,6 +20,7 @@ var app = new Vue({
         current_date: get_today_jalali(document.today),
         free_turns: '-',
         reserved_turns: '-',
+        coupan_code: '',
         selected_turn: {
             time: null,
             price: null,
@@ -232,6 +233,19 @@ var app = new Vue({
 
             this.player_numbers.current = value
         }, 
+
+
+        // check_coupan: async function (room, year, month) {
+        //     try {
+        //         let url = new URL(window.location).origin + `/api/check-coupon?room=${this.current_room}&coupon=${this.coupan_code}`
+        //         let response = await axios.get(url)
+                
+        //         return response.data
+
+        //     } catch (error) {
+        //         return false
+        //     }
+        // },
 
 
     },

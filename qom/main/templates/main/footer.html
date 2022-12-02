@@ -1,52 +1,69 @@
 {% load static %}
 <!-- footer -->
-<div class="footer">
-    <div class="footer-detail">
-        <div class="sitemap">
-            <ul>
-                <li class="fw-bold">صفحات</li>
-                <li>درباره ما</li>
-                <li>آلبوم</li>
-                <li>در رسانه</li>
-                <li>بازیها</li>
-            </ul>
+<div class="d-flex flex-column footer-container">
+    <div class="footer">
+        <div class="footer-detail">
+        
+            <div class="sitemap">
+                <ul>
+                    <li class="fw-bold">صفحات</li>
+                    <li>درباره ما</li>
+                    <li>آلبوم</li>
+                    <li>در رسانه</li>
+                    <li>بازیها</li>
+                </ul>
+            </div>
+            <div class="branch">
+                <ul>
+                    <li class="fw-bold">دسترسی سریع</li>
+                    <li>تهران</li>
+                    <li>قم</li>
+                </ul>
+            </div>
         </div>
-        <div class="branch">
+        <span class="mb-expand"></span>
+    
+        <div class="licenses">
             <ul>
-                <li class="fw-bold">دسترسی سریع</li>
-                <li>تهران</li>
-                <li>قم</li>
+                <li class="license-item">
+                    <a href="#">
+                        <img loading="lazy" src="{% static 'main/' %}images/licenses/tejarat-elec.png" alt="نماد تجارت الکترونیک">
+                    </a>
+                    <a href="#">
+                        <img loading="lazy" src="{% static 'main/' %}images/licenses/SANAYE-KHALAGH-190x190.png"
+                            alt="نماد صنایع خلاق">
+                    </a>
+                </li>
+     
+                <li class="license-item">
+                    <a href="#">
+                        <img loading="lazy" src="{% static 'main/' %}images/licenses/qum-park.png" alt="پارک علم و فناوری استان قم">
+                    </a>
+                </li>
+    
             </ul>
-        </div>
+        </div>    
     </div>
-    <span class="mb-expand"></span>
-    <div class="licenses">
-        <ul>
-            <li class="license-item">
-                <a href="#">
-                    <img loading="lazy" src="{% static 'main/' %}images/licenses/tejarat-elec.png" alt="نماد تجارت الکترونیک">
-                </a>
-                <a href="#">
-                    <img loading="lazy" src="{% static 'main/' %}images/licenses/SANAYE-KHALAGH-190x190.png"
-                        alt="نماد صنایع خلاق">
-                </a>
-            </li>
- 
-            <li class="license-item">
-                <a href="#">
-                    <img loading="lazy" src="{% static 'main/' %}images/licenses/qum-park.png" alt="پارک علم و فناوری استان قم">
-                </a>
-            </li>
-
-        </ul>
+    <div class="shadow-5 mt-3  position-relative rounded d-flex flex-fill">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51806.720732534166!2d50.97062525!3d35.752769900000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8d95737d4a8719%3A0xfb4f3e9200a104dc!2sEco%20Mall!5e0!3m2!1sen!2s!4v1669784895002!5m2!1sen!2s"
+            allowfullscreen="allowfullscreen" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            style="border: 0px none;border-radius: 10px;" class="w-100 h-100"></iframe>
+        <div class="position-absolute end-0 bottom-0 me-3 mb-3">
+            <button class="btn btn-primary">
+                <img src="{% static 'main/images/neshan-logo.png' %}" width="14px" height="14px" alt="">
+                مسیریابی با نشان
+            </button>
+        </div>
     </div>
 </div>
+
 
 <!-- footer -->
 
  <!-- copyright -->
  <div
- class="copyright bg-danger p-3 rtl text-center text-white d-flex align-itens-center justify-content-center">
+ class="copyright bg-danger p-3 mt-2 rtl text-center text-white d-flex align-itens-center justify-content-center">
  تمام حقوق سایت متعلق به خانه معما استان قم می باشد | هرگونه کپی برداری پیگرد قانونی خواهد داشت.
 </div>
 <!-- copyright -->
