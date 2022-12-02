@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.1.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-11-14 06:24:45+0000\n"
+"PO-Revision-Date: 2022-11-25 07:20:51+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -47,24 +47,62 @@ msgstr "ادامه"
 msgid "Site Editor"
 msgstr "ویرایشگر سایت"
 
-#: wp-admin/about.php:478
+#: wp-admin/about.php:487
+msgid "https://wordpress.org/plugins/performance-lab/"
+msgstr "https://wordpress.org/plugins/performance-lab/"
+
+#: wp-admin/about.php:211
+msgid "More responsive text with fluid typography"
+msgstr "متن واکنش‌گراتر با تاپیوگرافی سیال"
+
+#: wp-admin/about.php:509
 msgid "Combine it with block locking options for even more advanced control over your blocks."
 msgstr "آن را با گزینه‌های قفل بلوک برای کنترل پیشرفته‌تر بلوک‌هایتان ترکیب نمایید."
 
 #. translators: %s: Link to content locking dev note.
-#: wp-admin/about.php:473
+#: wp-admin/about.php:504
 msgid "Thanks to <a href=\"%s\">content-only editing settings</a>, layouts can be locked within container blocks. In a content-only block, its children are invisible to the List View and entirely uneditable. So you control the layout while your writers can focus on the content."
 msgstr "به لطف <a href=\"%s\">تنظیمات ویرایش محتوا</a>، طرح‌بندی‌ها را می‌توان در بلوک‌های کانتینر قفل نمود. در یک بلوک فقط محتوا، فرزندان آن برای نمای فهرست نامرئی و کاملاً غیرقابل ویرایش هستند. بنابراین شما طرح‌بندی را کنترل می‌نماید در حالی که نویسندگان شما می‌توانند روی محتوا تمرکز نمایند."
 
 #. translators: %s: Link to install Performance Lab plugin if permitted,
 #. otherwise link to plugin on WordPress.org.
-#: wp-admin/about.php:455
+#: wp-admin/about.php:486
 msgid "Be among the first to get the latest improvements by adding the <a href=\"%s\">Performance Lab plugin</a> to your WordPress test site or sandbox."
 msgstr "با افزودن <a href=\"%s\">افزونهٔ آزمایشگاه عملکرد</a> به سایت آزمایشی وردپرس یا جعبه سندباکس خود، از نخستین کسانی باشید که آخرین پیشرفت‌ها را دریافت می‌نمایند."
 
-#: wp-admin/about.php:315
+#: wp-admin/about.php:466
+msgid "Performance highlights"
+msgstr "نکات مهم عملکرد"
+
+#: wp-admin/about.php:427
+msgid "Filters for all your styles"
+msgstr "صافی‌ها برای همهٔ سبک‌های شما"
+
+#: wp-admin/about.php:364
+msgid "Continued evolution of layout options"
+msgstr "ادامهٔ تکامل گزینه‌های طرح‌بندی"
+
+#: wp-admin/about.php:346
 msgid "Updated interface options and features"
 msgstr "گزینه‌های رابط کاربری به روز شده و ویژگی"
+
+#. translators: %s: "General Settings" admin page title, linked to the page if
+#. the user can edit options.
+#: wp-admin/about.php:328
+msgid "The site tagline is empty by default in new sites but can be modified in %s."
+msgstr "شعار سایت به طور پیش‌فرض در سایت‌های جدید خالی است اما می‌تواند در %s ویرایش شود."
+
+#: wp-admin/about.php:322
+msgid "Other notes of interest"
+msgstr "دیگر یادداشت‌های مورد پسند"
+
+#: wp-admin/about.php:283
+msgid "A streamlined style system"
+msgstr "یک سیستم سبک کارآمد"
+
+#: wp-admin/about.php:244
+msgid "Find block themes faster"
+msgstr "یافتن سریع‌تر پوسته‌های بلوک"
 
 #: wp-admin/theme-install.php:204
 msgctxt "themes"
@@ -75,31 +113,31 @@ msgstr "پوسته‌های بلوک"
 msgid "Unable to detect the presence of page cache"
 msgstr "قادر به تشخیص وجود حافظهٔ پنهان برگه نیست"
 
-#: wp-admin/about.php:530
+#: wp-admin/about.php:561
 msgid "https://make.wordpress.org/core/2022/10/12/wordpress-6-1-field-guide/"
 msgstr "https://make.wordpress.org/core/2022/10/12/wordpress-6-1-field-guide/"
 
 #. translators: 1: WordPress Release Notes link, 2: WordPress version number.
-#: wp-admin/about.php:540
+#: wp-admin/about.php:571
 msgid "<a href=\"%1$s\">Read the WordPress %2$s Release Notes</a> for more information on the included enhancements and issues fixed, installation information, developer notes and resources, release contributors, and the list of file changes in this release."
 msgstr "برای اطلاعات بیشتر دربارهٔ پیشرفت‌ها و مشکلات حل شده، اطلاعات نصب، یادداشت‌های توسعه‌دهنده و منابع، همکاری‌کنندگان در انتشار، و فهرست تغییرات پرونده در این نسخه <a href=\"%1$s\">یادداشت‌های انتشار وردپرس %2$s را بخوانید</a>."
 
 #. translators: %s: WordPress Field Guide link.
-#: wp-admin/about.php:529
+#: wp-admin/about.php:560
 msgid "Check out the latest version of the <a href=\"%s\">WordPress Field Guide</a>. It is overflowing with detailed developer notes to help you build with WordPress."
 msgstr "تازه‌ترین نگارش <a href=\"%s\">راهنمای زمینهٔ وردپرس</a> را بررسی نمایید. سرشار از یادداشت‌های دقیق توسعه‌دهنده است که به شما کمک می‌کند با وردپرس بسازید."
 
 #. translators: %s: 6.1 overview video link.
-#: wp-admin/about.php:504
+#: wp-admin/about.php:535
 msgid "See WordPress 6.1 in action! <a href=\"%s\">Watch a brief overview video</a> highlighting some of the major features debuting in WordPress 6.1."
 msgstr "وردپرس ۶.۱ را در عمل مشاهده نمایید! <a href=\"%s\">یک ویدیوی کوتاه ببینید</a> برجسته‌سازی برخی از ویژگی‌های اصلی در وردپرس ۶.۱."
 
 #. translators: %s: Version number.
-#: wp-admin/about.php:495
+#: wp-admin/about.php:526
 msgid "Learn more about WordPress %s"
 msgstr "درباره وردپرس %s بیشتر بدانید"
 
-#: wp-admin/about.php:487
+#: wp-admin/about.php:518
 msgid "Exploring WordPress 6.1 video"
 msgstr "کاوش ویدیوی وردپرس ۶.۱"
 
@@ -231,7 +269,7 @@ msgstr "فعال"
 
 #: wp-admin/includes/class-core-upgrader.php:160
 #: wp-admin/includes/class-wp-upgrader.php:166
-#: wp-admin/includes/update-core.php:1019
+#: wp-admin/includes/update-core.php:1020
 msgid "The update cannot be installed because some files could not be copied. This is usually due to inconsistent file permissions."
 msgstr "به‌روزرسانی نمی‌تواند نصب شود زیرا برخی از پرونده‌ها کپی نمی‌شوند. این معمولاً به دلیل ناسازگاری مجوزهای پرونده است."
 
@@ -1048,7 +1086,7 @@ msgstr "افزودن رمز عبور برنامه جدید"
 msgid "Required to create an Application Password, but not to update the user."
 msgstr "نیازمند ایجاد یک رمز عبور برنامه، ولی بدون به‌روزرسانی کاربر."
 
-#: wp-admin/about.php:558
+#: wp-admin/about.php:589
 msgid "Go to Updates"
 msgstr "رفتن به به‌روز رسانی‌ها"
 
@@ -2142,6 +2180,11 @@ msgstr "جفنگ"
 msgid "Unable to write to %s file."
 msgstr "قادر به نوشتن در پرونده %s نیستیم."
 
+#. translators: %s: The options page name.
+#: wp-admin/options.php:248
+msgid "<strong>Error:</strong> Options page %s not found in the allowed options list."
+msgstr "<strong>خطا:</strong> برگه گزینه‌های %s در لیست مجاز گزینه‌ها پیدا نشد."
+
 #: wp-admin/import.php:65 wp-admin/themes.php:305 wp-admin/users.php:327
 #: wp-admin/includes/network.php:116 wp-admin/includes/network.php:142
 msgid "Error:"
@@ -2213,6 +2256,16 @@ msgstr "آزمایش در دسترس نیست"
 #: wp-admin/includes/class-wp-site-health.php:2964
 msgid "Error: %1$s (%2$s)"
 msgstr "خطا:  %1$s (%2$s)"
+
+#. translators: %s: The server PHP version.
+#: wp-admin/includes/class-wp-site-health.php:796
+msgid "Your site is running on an older version of PHP (%s), which should be updated"
+msgstr "سایت شما نسخه قدیمی PHP (%s) را اجرا می‎کند، که باید به‌روزرسانی شود"
+
+#. translators: %s: The server PHP version.
+#: wp-admin/includes/class-wp-site-health.php:767
+msgid "Your site is running on an older version of PHP (%s)"
+msgstr "سایت شما نسخه قدیمی PHP (%s) را اجرا می‎کند"
 
 #. translators: %s: The current PHP version.
 #: wp-admin/includes/class-wp-site-health.php:732
@@ -2312,7 +2365,7 @@ msgid "The seventh parameter passed to %s should be numeric representing menu po
 msgstr "پارامتر هفتم برای %s باید عدد صحیحی باشد که موقعیت منو را نشان دهد."
 
 #. translators: 1: WordPress version number, 2: The PHP extension name needed.
-#: wp-admin/includes/update-core.php:1114
+#: wp-admin/includes/update-core.php:1115
 msgid "The update cannot be installed because WordPress %1$s requires the %2$s PHP extension."
 msgstr "به‌روزرسانی انجام نشد چون وردپرس %1$s نیازمند %2$s افزودنی php است."
 
@@ -3197,6 +3250,10 @@ msgid "%s recommended improvement"
 msgid_plural "%s recommended improvements"
 msgstr[0] "%s بهبود پیشنهادی"
 
+#: wp-admin/site-health.php:236
+msgid "The site health check shows information about your WordPress configuration and items that may need your attention."
+msgstr "برسی سلامت سایت اطلاعاتی درباره پیکربندی وردپرس شما و موارد نیازمند توجه را نمایش می‌دهد."
+
 #: wp-admin/includes/dashboard.php:68 wp-admin/site-health.php:233
 msgid "Site Health Status"
 msgstr "وضعیت سلامت سایت"
@@ -3305,6 +3362,10 @@ msgstr "REST API با یک نتیجه غیرمنتظره مواجه شد"
 #: wp-admin/includes/class-wp-site-health.php:2090
 msgid "The REST API encountered an error"
 msgstr "REST API با خطایی مواجه شده است"
+
+#: wp-admin/includes/class-wp-site-health.php:2055
+msgid "The REST API is one way that WordPress and other applications communicate with the server. For example, the block editor screen relies on the REST API to display and save your posts and pages."
+msgstr "REST API یک راه وردپرس، و نرم‌افزارهای دیگر، برای ارتباط با سرور است. یک نمونه صفحه ویرایشگر بلوک است، که بر این مورد برای نمایش، و ذخیره، برگه‌ها و نوشته‌های شما تکیه می‌کند."
 
 #: wp-admin/includes/class-wp-site-health.php:2047
 msgid "The REST API is available"
@@ -3706,6 +3767,10 @@ msgstr "یک به‌روزرسانی زمینه خودکار قبلی نتوان
 #: wp-admin/includes/class-wp-site-health-auto-updates.php:191
 msgid "The error code was %s."
 msgstr "کد خطا %s بود."
+
+#: wp-admin/includes/class-wp-site-health-auto-updates.php:171
+msgid "When you've been able to update using the \"Update now\" button on Dashboard > Updates, this error will be cleared for future update attempts."
+msgstr "هنگامی‌که شما قادر به به‌روزرسانی با استفاده از دکمه \"هم‌اکنون به‌روزرسانی نمایید\" در پیشخوان > به‌روزرسانی‌ها بودید، ما این خطا را برای تلاش‌های به‌روزرسانی آینده پاک خواهیم نمود."
 
 #: wp-admin/includes/class-wp-site-health-auto-updates.php:170
 #: wp-admin/includes/class-wp-site-health-auto-updates.php:185
@@ -4320,11 +4385,11 @@ msgctxt "plugin"
 msgid "Cannot Install"
 msgstr "نمی‌تواند نصب شود"
 
-#. translators: %s: WordPress version number.
 #. translators: %s: WordPress version.
-#: wp-admin/about.php:543 wp-admin/includes/update.php:306
-#: wp-admin/index.php:119 wp-admin/install.php:239 wp-admin/update-core.php:94
-#: wp-admin/upgrade.php:81
+#. translators: %s: WordPress version number.
+#: wp-admin/about.php:67 wp-admin/about.php:574
+#: wp-admin/includes/update.php:306 wp-admin/index.php:119
+#: wp-admin/install.php:239 wp-admin/update-core.php:94 wp-admin/upgrade.php:81
 msgid "https://wordpress.org/support/wordpress-version/version-%s/"
 msgstr "https://wordpress.org/support/wordpress-version/version-%s/"
 
@@ -4490,6 +4555,10 @@ msgstr[0] "%s بلوک برای همیشه حذف شدند."
 msgid "%s block updated."
 msgid_plural "%s blocks updated."
 msgstr[0] "%s بلوک به‌روزرسانی شد."
+
+#: wp-admin/setup-config.php:281
+msgid "<strong>Error:</strong> \"Table Prefix\" must not be empty."
+msgstr "<strong>خطا:</strong> \"پیشوند جدول\" نباید خالی باشد."
 
 #. translators: %s: The name of the plugin that generated this meta box.
 #: wp-admin/includes/template.php:1157 wp-admin/includes/template.php:1401
@@ -5983,6 +6052,10 @@ msgstr "صفحهٔ راه‌انداز پوسته به جاواسکریپت نی
 msgid "Sorry, you are not allowed to edit templates for this site."
 msgstr "با عرض پوزش، شما اجازهٔ ویرایش قالب‌های این سایت را ندارید."
 
+#: wp-admin/setup-config.php:320
+msgid "<strong>Error:</strong> \"Table Prefix\" is invalid."
+msgstr "<strong>خطا:</strong> \"پیشوند جدول\" نامعتبر است."
+
 #: wp-admin/plugins.php:226
 msgid "Sorry, you are not allowed to deactivate plugins for this site."
 msgstr "با عرض پوزش، شما اجازهٔ غیر فعال کردن افزونه‌ها برای این سایت را ندارید."
@@ -6672,7 +6745,7 @@ msgid "(Currently set to: %s)"
 msgstr "(تنظیم کنونی: %s)"
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:582
+#: wp-admin/about.php:613
 msgid "<strong>Version %s</strong> addressed one security issue."
 msgstr "<strong>نگارش %s</strong> یک مشکل امنیتی را برطرف کرده است."
 
@@ -6684,15 +6757,15 @@ msgstr "https://fa.gravatar.com/"
 msgid "Profile Picture"
 msgstr "تصویر شناسنامه"
 
-#: wp-admin/about.php:579
+#: wp-admin/about.php:47 wp-admin/about.php:610
 msgid "Maintenance and Security Releases"
 msgstr "نگارش‌های تعمیراتی و امنیتی"
 
-#: wp-admin/about.php:576
+#: wp-admin/about.php:607
 msgid "Security Releases"
 msgstr "انتشارهای امنیتی"
 
-#: wp-admin/about.php:573
+#: wp-admin/about.php:604
 msgid "Maintenance Releases"
 msgstr "نگارش‌های تعمیراتی"
 
@@ -8367,6 +8440,11 @@ msgstr "سایت شما هنگام به‌روزرسانی وردپرس به ن�
 msgid "WordPress %s is also now available."
 msgstr "هم‌اکنون وردپرس %s نیز در دسترس است."
 
+#: wp-admin/includes/update-core.php:1192
+#: wp-admin/includes/update-core.php:1228
+msgid "The update cannot be installed because your site is unable to copy some files. This is usually due to inconsistent file permissions."
+msgstr "به‌روزرسانی نمی‌تواند نصب شود، زیرا سایت شما قادر به کپی برخی پرونده‌ها نخواهیم بود. این معمولاً به دلیل ناسازگاری مجوزهای پرونده است."
+
 #: wp-admin/includes/class-language-pack-upgrader.php:114
 #: wp-admin/update-core.php:803
 msgid "Your translations are all up to date."
@@ -8478,7 +8556,7 @@ msgstr "به‌روزرسانی ترجمه‌ها"
 msgid "Background updates"
 msgstr "به‌روزرسانی‌های پس‌زمینه"
 
-#: wp-admin/includes/update-core.php:1287
+#: wp-admin/includes/update-core.php:1288
 msgid "There is not enough free disk space to complete the update."
 msgstr "فضای دیسک خالی کافی برای کامل کردن به‌روزرسانی، وجود ندارد."
 
@@ -8556,11 +8634,11 @@ msgstr "نام‌کاربری که شما وارد کرده‌اید دارای 
 msgid "Please provide a valid username."
 msgstr "لطفاً یک نام‌کاربری معتبر وارد کنید."
 
-#: wp-admin/includes/update-core.php:1208
+#: wp-admin/includes/update-core.php:1209
 msgid "Copying the required files&#8230;"
 msgstr "در حال کپی پرونده‌های مورد نیاز&#8230;"
 
-#: wp-admin/includes/update-core.php:1122
+#: wp-admin/includes/update-core.php:1123
 msgid "Preparing to install the latest version&#8230;"
 msgstr "در حال آماده‌‌سازی جهت نصب آخرین نگارش&#8230;"
 
@@ -8896,6 +8974,10 @@ msgstr "برای افزودن فهرست تازه، به‌جای اختصاص �
 msgid "To edit a menu currently assigned to a theme location, <strong>click the adjacent &#8217;Edit&#8217; link</strong>"
 msgstr "برای ویرایش فهرست اختصاص داده شده به یک جایگاه، <strong>روی پیوند «ویرایش» همجوار آن کلیک کند</strong>"
 
+#: wp-admin/nav-menus.php:655
+msgid "To assign menus to one or more theme locations, <strong>select a menu from each location&#8217;s dropdown</strong>. When you are finished, <strong>click Save Changes</strong>"
+msgstr "برای اختصاص دادن فهرست‌ها به یک یا چند جایگاه پوسته، <strong>فهرست را از لیست بازشوی هر جایگاه برگزینید.</strong> وقتی کار تمام شد <strong>روی ذخیرهٔ تغییرات کلیک کنید</strong>"
+
 #: wp-admin/nav-menus.php:654
 msgid "This screen is used for globally assigning menus to locations defined by your theme."
 msgstr "این صفحه برای اختصاص فهرست‌ها به جایگاه‌های مشخص‌شده در پوسته استفاده می‌شود."
@@ -8927,6 +9009,10 @@ msgstr "مدیریت فهرست"
 #: wp-admin/nav-menus.php:629
 msgid "You can assign theme locations to individual menus by <strong>selecting the desired settings</strong> at the bottom of the menu editor. To assign menus to all theme locations at once, <strong>visit the Manage Locations tab</strong> at the top of the screen."
 msgstr "می‌توانید با <strong>انتخاب تنظیمات دلخواه</strong> در پایین ویرایشگر فهرست، جایگاه‌هایی را در پوسته به فهرست‌ها اختصاص دهید. برای اختصاص دادن فهرست‌ها به همهٔ جایگاه‌های پوسته، در بالای صفحه <strong>به زبانهٔ ویرایش جایگاه‌ها بروید</strong>."
+
+#: wp-admin/nav-menus.php:627
+msgid "To edit an existing menu, <strong>choose a menu from the dropdown and click Select</strong>"
+msgstr "برای ویرایش فهرست موجود، <strong>از لیست بازشونده یک فهرست را انتخاب کنید و روی «گزینش» کلیک کنید</strong>"
 
 #: wp-admin/nav-menus.php:626
 msgid "The menu management box at the top of the screen is used to control which menu is opened in the editor below."
@@ -9236,7 +9322,7 @@ msgid "Search engine visibility"
 msgstr "نمایش به موتورهای جستجو"
 
 #. translators: 1: WordPress version, 2: URL to About screen.
-#: wp-admin/includes/update-core.php:1521 wp-admin/update-core.php:904
+#: wp-admin/includes/update-core.php:1522 wp-admin/update-core.php:904
 msgid "Welcome to WordPress %1$s. You will be redirected to the About WordPress screen. If not, click <a href=\"%2$s\">here</a>."
 msgstr "به وردپرس فارسی %1$s خوش آمدید. شما به صفحهٔ درباره وردپرس هدایت خواهید شد. در غیراین‌صورت <a href=\"%2$s\">این‌جا را کلیک کنید</a>."
 
@@ -9487,6 +9573,10 @@ msgstr "(لازم)"
 #: wp-admin/link.php:112
 msgid "Edit Link"
 msgstr "ویرایش پیوند"
+
+#: wp-admin/includes/user.php:151
+msgid "<strong>Error:</strong> Please enter a nickname."
+msgstr "<strong>خطا:</strong> لطفا یک لقب وارد کنید."
 
 #: wp-admin/credits.php:58
 msgid "https://wordpress.org/about/"
@@ -9948,45 +10038,46 @@ msgstr "ایمیل یک کاربر موجود در شبکه را برای دعو
 msgid "Show Toolbar when viewing site"
 msgstr "نمایش نوارابزار هنگام مشاهده سایت"
 
+#. translators: %s: HelpHub URL.
 #. translators: %s: Documentation URL.
-#: wp-admin/about.php:605
+#: wp-admin/about.php:64 wp-admin/about.php:636
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "برای اطلاعات بیشتر، <a href=\"%s\">یادداشت‌های انتشار</a> را ببینید."
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:599
+#: wp-admin/about.php:630
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] "<strong>نگارش %1$s</strong> چند مسئله امنیتی و %2$s ایراد دیگر را برطرف کرده است."
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:593
+#: wp-admin/about.php:624
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] "<strong>نگارش %1$s</strong> یک مسئله امنیتی و %2$s ایراد دیگر را برطرف کرده است."
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs.
-#: wp-admin/about.php:587
+#: wp-admin/about.php:52 wp-admin/about.php:618
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] "<strong>نگارش %1$s</strong> %2$s ایراد را برطرف کرده است."
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:584
+#: wp-admin/about.php:615
 msgid "<strong>Version %s</strong> addressed some security issues."
 msgstr "<strong>نگارش %s</strong> یک مسئله امنیتی را برطرف کرده است."
 
-#: wp-admin/about.php:578
+#: wp-admin/about.php:609
 msgid "Maintenance and Security Release"
 msgstr "انتشار امنیتی و تعمیراتی"
 
-#: wp-admin/about.php:575
+#: wp-admin/about.php:606
 msgid "Security Release"
 msgstr "انتشار امنیتی"
 
-#: wp-admin/about.php:572
+#: wp-admin/about.php:603
 msgid "Maintenance Release"
 msgstr "انتشار تعمیراتی"
 
@@ -10000,7 +10091,7 @@ msgid "This screen allows you to choose your permalink structure. You can choose
 msgstr "این صفحه به شما امکان می‌دهد ساختار پیش‌فرض پیوندیکتا را انتخاب کنید. می‌توانید از گزینه‌های موجود یکی را انتخاب کنید یا خودتان یک ساختار دلخواه بسازید."
 
 #. translators: 1: WordPress version, 2: URL to About screen.
-#: wp-admin/includes/update-core.php:1529 wp-admin/update-core.php:912
+#: wp-admin/includes/update-core.php:1530 wp-admin/update-core.php:912
 msgid "Welcome to WordPress %1$s. <a href=\"%2$s\">Learn more</a>."
 msgstr "به وردپرس فارسی %1$s خوش آمدید. <a href=\"%2$s\">بیشتر بدانید</a>."
 
@@ -10268,15 +10359,15 @@ msgid "Because this is a multisite installation, you may add accounts that alrea
 msgstr "به دلیل نصب وردپرس چندسایته، می‌توانید با وارد کردن نام‌کاربری یا ایمیل و تعیین نقش، حساب‌های کاربری موجود در شبکه را به آن بیافزایید. برای دسترسی به گزینه‌های بیشتر هم‌چون تغییر رمز عبور، شما باید مدیر شبکه باشید و در مسیر مدیر شبکه > همه‌ کاربران، از پیوندهایی که هنگام بردن موشواره روی نام کاربران ظاهر می‌شود برای ویرایش آن‌ها استفاده کنید."
 
 #. translators: %s: Version number.
-#: wp-admin/about.php:51
+#: wp-admin/about.php:82
 msgid "Welcome to WordPress %s"
 msgstr "به وردپرس %s خوش آمدید."
 
-#: wp-admin/about.php:561
+#: wp-admin/about.php:592
 msgid "Go to Dashboard &rarr; Home"
 msgstr "رفتن به پیشخوان &larr; خانه"
 
-#: wp-admin/about.php:558
+#: wp-admin/about.php:589
 msgid "Go to Dashboard &rarr; Updates"
 msgstr "رفتن به پیشخوان &larr; به‌روزرسانی‌ها"
 
@@ -10389,6 +10480,10 @@ msgstr "صوت، ویدئو، یا دیگر پرونده‌ها"
 #: wp-admin/includes/media.php:2402
 msgid "Insert media from another website"
 msgstr "قرار دادن پرونده رسانه‌ای از سایتی دیگر"
+
+#: wp-admin/includes/file.php:2306
+msgid "<strong>Error:</strong> Could not connect to the server. Please verify the settings are correct."
+msgstr "<strong>خطا:</strong> خطایی در هنگام اتصال به سرور پیش آمده است. لطفاً درستی تنظیمات را بررسی نمایید."
 
 #: wp-admin/index.php:64
 msgid "<strong>Drag and Drop</strong> &mdash; To rearrange the boxes, drag and drop by clicking on the title bar of the selected box and releasing when you see a gray dotted-line rectangle appear in the location you want to place the box."
@@ -10945,6 +11040,11 @@ msgstr "نیاز به به‌روزرسانی نیست"
 #: wp-admin/upgrade.php:65
 msgid "WordPress &rsaquo; Update"
 msgstr "وردپرس &rsaquo; به‌روزرسانی"
+
+#. translators: %s: WordPress version.
+#: wp-admin/update-core.php:188
+msgid "You are about to install WordPress %s <strong>in English (US)</strong>. There is a chance this update will break your translation. You may prefer to wait for the localized version to be released."
+msgstr "شما می‌خواهید وردپرس %s <strong>انگلیسی</strong> را نصب کنید. این ارتقا ممکن است باعث از بین رفتن ترجمهٔ محیط مدیریت شما شود. شاید بهتر باشد منتظر نگارش فارسی بمانید."
 
 #. translators: 1: Plugin name, 2: Details URL, 3: Additional link attributes,
 #. 4: Version number.
@@ -11895,6 +11995,10 @@ msgstr "مهم:"
 msgid "Update to version %s"
 msgstr "به‌روزرسانی به نگارش %s"
 
+#: wp-admin/setup-config.php:286
+msgid "<strong>Error:</strong> \"Table Prefix\" can only contain numbers, letters, and underscores."
+msgstr "<strong>خطا:</strong> \"پیشوند جدول\" فقط می‌تواند شامل شماره، حروف و خط زیرین باشد."
+
 #: wp-admin/user-edit.php:412
 msgid "Usernames cannot be changed."
 msgstr "شناسه‌ نمی‌تواند عوض شود."
@@ -11988,7 +12092,7 @@ msgid "User already exists. Password inherited."
 msgstr "این شناسه وجود دارد. رمز عبور به ارث برده شده است."
 
 #: wp-admin/includes/class-wp-automatic-updater.php:428
-#: wp-admin/includes/update-core.php:1515 wp-admin/update-core.php:900
+#: wp-admin/includes/update-core.php:1516 wp-admin/update-core.php:900
 msgid "WordPress updated successfully."
 msgstr "وردپرس باموفقیت به‌روز شد."
 
@@ -12017,7 +12121,7 @@ msgstr "به‌روزرسانی‌های وردپرس"
 msgid "Edit menu item"
 msgstr "ویرایش گزینه فهرست"
 
-#: wp-admin/about.php:561 wp-admin/includes/network.php:148
+#: wp-admin/about.php:592 wp-admin/includes/network.php:148
 msgid "Go to Dashboard"
 msgstr "رفتن به پیشخوان"
 
@@ -12828,7 +12932,7 @@ msgstr "هر کسی می‌تواند نام‌نویسی کند"
 msgid "Membership"
 msgstr "عضویت"
 
-#: wp-admin/about.php:298 wp-admin/options-general.php:20
+#: wp-admin/about.php:329 wp-admin/options-general.php:20
 msgid "General Settings"
 msgstr "تنظیمات عمومی"
 
@@ -13156,6 +13260,18 @@ msgstr "کاربر(ها) قبلاً وجود دارند."
 msgid "WordPress &rsaquo; Installation"
 msgstr "وردپرس &rsaquo; راه‌اندازی"
 
+#: wp-admin/includes/user.php:201
+msgid "<strong>Error:</strong> Please enter an email address."
+msgstr "<strong>خطا:</strong> لطفا یک نشانی ایمیل وارد نمایید."
+
+#: wp-admin/includes/user.php:172
+msgid "<strong>Error:</strong> Passwords may not contain the character \"\\\"."
+msgstr "<strong>خطا:</strong> رمز عبور نمی‌تواند حاوی عبارت \"\\\" باشد."
+
+#: wp-admin/includes/user.php:167
+msgid "<strong>Error:</strong> Please enter a password."
+msgstr "<strong>خطا:</strong> رمز عبور خود را بنویسید."
+
 #. translators: Default post slug.
 #: wp-admin/includes/upgrade.php:225 wp-admin/includes/upgrade.php:502
 msgctxt "Default post slug"
@@ -13207,34 +13323,34 @@ msgstr "به‌روزرسانی به %s"
 msgid "You are using a development version (%1$s). Cool! Please <a href=\"%2$s\">stay updated</a>."
 msgstr "شما در حال استفاده از یک نگارش در حال توسعه (%1$s) می‌باشید، ایول! لطفا <a href=\"%2$s\">به‌روز بمانید</a>."
 
-#: wp-admin/includes/update-core.php:1445
+#: wp-admin/includes/update-core.php:1446
 msgid "Upgrading database&#8230;"
 msgstr "در حال ارتقا پایگاه‌داده&#8230;"
 
-#: wp-admin/includes/update-core.php:1003
+#: wp-admin/includes/update-core.php:1004
 msgid "The update could not be unpacked"
 msgstr "به‌روزرسانی نمی‌تواند از حالت بسته (Pack) خارج شود"
 
-#: wp-admin/includes/update-core.php:985
+#: wp-admin/includes/update-core.php:986
 msgid "Verifying the unpacked files&#8230;"
 msgstr "در حال بازبینی پرونده‌هایی که از حالت فشرده خارج شده‌اند&#8230;"
 
 #. translators: 1: WordPress version number, 2: Minimum required MySQL version
 #. number, 3: Current MySQL version number.
-#: wp-admin/includes/update-core.php:1100
+#: wp-admin/includes/update-core.php:1101
 msgid "The update cannot be installed because WordPress %1$s requires MySQL version %2$s or higher. You are running version %3$s."
 msgstr "به‌روزرسانی نمی‌تواند نصب شود زیرا وردپرس %1$s نیازمند MySQL نگارش %2$s یا بالاتر است. شما در حال اجرا بر روی نگارش %3$s می‌باشید."
 
 #. translators: 1: WordPress version number, 2: Minimum required PHP version
 #. number, 3: Current PHP version number.
-#: wp-admin/includes/update-core.php:1089
+#: wp-admin/includes/update-core.php:1090
 msgid "The update cannot be installed because WordPress %1$s requires PHP version %2$s or higher. You are running version %3$s."
 msgstr "به‌روزرسانی نمی‌تواند نصب شود زیرا وردپرس %1$s نیازمند PHP نگارش %2$s یا بالاتر است. شما در حال اجرا بر روی نگارش %3$s می‌باشید."
 
 #. translators: 1: WordPress version number, 2: Minimum required PHP version
 #. number, 3: Minimum required MySQL version number, 4: Current PHP version
 #. number, 5: Current MySQL version number.
-#: wp-admin/includes/update-core.php:1076
+#: wp-admin/includes/update-core.php:1077
 msgid "The update cannot be installed because WordPress %1$s requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s."
 msgstr "به‌روزرسانی نمی‌تواند نصب شود زیرا وردپرس %1$s نیازمند PHP نگارش %2$s یا بالاتر و MySQL نگارش %3$s یا بالاتر است. شما در حال اجرا بر روی PHP نگارش %4$s و MySQL نگارش %5$s هستید."
 
@@ -14174,7 +14290,7 @@ msgid "Empty archive."
 msgstr "بایگانی خالی."
 
 #: wp-admin/includes/file.php:1742 wp-admin/includes/file.php:1872
-#: wp-admin/includes/file.php:1917 wp-admin/includes/update-core.php:1386
+#: wp-admin/includes/file.php:1917 wp-admin/includes/update-core.php:1387
 msgid "Could not copy file."
 msgstr "نمی‌توان پرونده را کپی کرد."
 
@@ -14492,12 +14608,12 @@ msgid "The plugin is at the latest version."
 msgstr "تازه‌ترین نگارش افزونه است."
 
 #: wp-admin/includes/class-wp-upgrader.php:169
-#: wp-admin/includes/update-core.php:1335
+#: wp-admin/includes/update-core.php:1336
 msgid "Disabling Maintenance mode&#8230;"
 msgstr "غیر فعال کردن حالت تعمیر&#8230;"
 
 #: wp-admin/includes/class-wp-upgrader.php:168
-#: wp-admin/includes/update-core.php:1199
+#: wp-admin/includes/update-core.php:1200
 msgid "Enabling Maintenance mode&#8230;"
 msgstr "فعال کردن حالت تعمیر&#8230;"
 

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.1.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-10-24 17:20:36+0000\n"
+"PO-Revision-Date: 2022-11-25 07:23:45+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -299,10 +299,30 @@ msgctxt "block title"
 msgid "List item"
 msgstr "گزینهٔ فهرست"
 
+#: wp-includes/blocks/comments/block.json
+msgctxt "block title"
+msgid "Comments"
+msgstr "دیدگاه‌ها"
+
+#: wp-includes/blocks/comments-pagination-previous/block.json
+msgctxt "block title"
+msgid "Comments Previous Page"
+msgstr "برگهٔ قبلی دیدگاه‌ها"
+
 #: wp-includes/blocks/comments-pagination-numbers/block.json
 msgctxt "block title"
 msgid "Comments Page Numbers"
 msgstr "تعداد برگهٔ دیدگاه‌ها"
+
+#: wp-includes/blocks/comments-pagination-next/block.json
+msgctxt "block title"
+msgid "Comments Next Page"
+msgstr "برگهٔ بعدی دیدگاه‌ها"
+
+#: wp-includes/blocks/categories/block.json
+msgctxt "block title"
+msgid "Categories List"
+msgstr "فهرست دسته‌ها"
 
 #: wp-includes/js/dist/edit-post.js:7261 wp-admin/edit-form-blocks.php:140
 #: wp-admin/includes/class-wp-posts-list-table.php:1836
@@ -310,10 +330,19 @@ msgstr "تعداد برگهٔ دیدگاه‌ها"
 msgid "Default template"
 msgstr "قالب پیشفرض"
 
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:80
+msgid "The slug of the template to get the fallback for"
+msgstr "نامک قالب برای گرفتن بازگشت برای"
+
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Large.
 #: wp-includes/class-wp-theme-json.php:3123
 msgid "%sX-Large"
 msgstr "%sایکس‌لارج"
+
+#. translators: %s: The type of the given cache key.
+#: wp-includes/class-wp-object-cache.php:159
+msgid "Cache key must be integer or non-empty string, %s given."
+msgstr "کلید حافظه پنهان باید یک رشته عدد صحیح یا غیر خالی باشد، %s داده شده است."
 
 #: wp-includes/theme.php:3842
 msgid "Whether a theme uses block-based templates."
@@ -804,6 +833,12 @@ msgstr "ویژه"
 #: wp-includes/script-loader.php:1295
 msgid "Use Site Editor"
 msgstr "استفاده از ویرایشگر سایت"
+
+#. translators: 1: Link to Site Editor documentation on HelpHub, 2: HTML
+#. button.
+#: wp-includes/script-loader.php:1290
+msgid "Hurray! Your theme supports site editing with blocks. <a href=\"%1$s\">Tell me more</a>. %2$s"
+msgstr "هورا! پوستهٔ شما از ویرایش سایت با بلوک‌ها پشتیبانی می‌نماید. <a href=\"%1$s\">بیشتر بدانید</a>. %2$s"
 
 #: wp-includes/script-loader.php:1291 wp-includes/js/dist/edit-site.js:5665
 msgid "https://wordpress.org/support/article/site-editor/"
@@ -1316,6 +1351,14 @@ msgstr "شناسهٔ پوسته"
 msgid "Sorry, you are not allowed to export templates and template parts."
 msgstr "با عرض پوزش، شما مجاز به برون‌بری قالب‌ها و بخش‌های قالب نیستید."
 
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-types-controller.php:578
+msgid "Public facing and editor style handles."
+msgstr "دسته شیوه‌نامه ویرایشگر و چهره عمومی."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-types-controller.php:548
+msgid "Public facing and editor script handles."
+msgstr "دسته اسکریپت ویرایشگر و چهره عمومی. "
+
 #: wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php:282
 msgid "The date when the block was last updated."
 msgstr "تاریخ آخرین به‌روزرسانی بلوک."
@@ -1552,6 +1595,10 @@ msgstr "با این حال، همچنان می‌توانید <a href=\"%s\">ا�
 msgid "This theme doesn't support Customizer."
 msgstr "این پوسته از سفارشی‌ساز پشتیبانی نمی‌کند."
 
+#: wp-includes/comment.php:3604
+msgid "<strong>Error:</strong> Please fill the required fields."
+msgstr "<strong>خطا:</strong> لطفاً زمینه‌های ضروری را پر نمایید."
+
 #: wp-includes/class-wp-block-styles-registry.php:85
 msgid "Block style name must not contain any spaces."
 msgstr "نام شیوه‌نامه بلوک نباید دارای فاصله باشد."
@@ -1673,6 +1720,10 @@ msgstr "نمایش آخرین نوشته‌ها از یک طبقه‌بندی ن
 msgctxt "Template name"
 msgid "Taxonomy"
 msgstr "طبقه‌بندی"
+
+#: wp-includes/block-template-utils.php:150
+msgid "Displays latest posts from a single post category."
+msgstr "آخرین نوشته‌ها را از یک دسته‌ی نوشته نمایش می‌دهد."
 
 #: wp-includes/block-template-utils.php:149
 msgctxt "Template name"
@@ -2692,6 +2743,14 @@ msgstr "<strong>خطا:</strong> نام‌نویسی کاربر در حال حا
 msgid "<strong>Error:</strong> The passwords do not match."
 msgstr "<strong>خطا:</strong> رمزهای عبور هم‌خوانی ندارند."
 
+#: wp-login.php:797
+msgid "<strong>Error:</strong> Your password reset link has expired. Please request a new link below."
+msgstr "<strong>خطا:</strong> پیوند بازیابی رمز عبور شما منقضی شده است. لطفا یک پیوند جدید در زیر درخواست دهید."
+
+#: wp-login.php:795
+msgid "<strong>Error:</strong> Your password reset link appears to be invalid. Please request a new link below."
+msgstr "<strong>خطا:</strong> پیوند بازیابی رمز عبور شما نامعتبر است. لطفا یک پیوند جدید در زیر درخواست دهید."
+
 #. translators: HTML code of the block, not an option that blocks HTML.
 #: wp-includes/widgets/class-wp-widget-block.php:208
 msgid "Block HTML:"
@@ -2705,6 +2764,19 @@ msgstr "یک ابزارک حاوی یک بلوک."
 #: wp-includes/user.php:4144 wp-includes/user.php:4386
 msgid "%1$s or %2$s"
 msgstr "%1$s یا %2$s"
+
+#: wp-includes/user.php:359
+msgid "<strong>Error:</strong> Unknown username. Check again or try your email address."
+msgstr "<strong>خطا:</strong> نام کاربری ناشناخته است. دوباره بررسی کنید یا نشانی ایمیل خود را امتحان کنید."
+
+#: wp-includes/user.php:354
+msgid "<strong>Error:</strong> Unknown email address. Check again or try your username."
+msgstr "<strong>خطا:</strong> آدرس ایمیل ناشناخته است. دوباره بررسی کنید یا نام کاربری خود را امتحان کنید."
+
+#. translators: %s: User name.
+#: wp-includes/user.php:154
+msgid "<strong>Error:</strong> The username <strong>%s</strong> is not registered on this site. If you are unsure of your username, try your email address instead."
+msgstr "<strong>خطا:</strong> نام کاربری <strong>%s</strong> در این سایت ثبت نشده است. اگر از نام کاربری خود مطمئن نیستید، بجای آن نشانی ایمیل خود را امتحان کنید."
 
 #: wp-includes/class-wp-taxonomy.php:647
 msgctxt "navigation link block description"
@@ -4183,7 +4255,7 @@ msgstr "این پوسته با نگارش وردپرس شما کار نمی‌ک
 #: wp-admin/includes/class-wp-plugins-list-table.php:1310
 #: wp-admin/includes/plugin.php:1136 wp-admin/includes/theme.php:901
 #: wp-admin/includes/theme.php:932 wp-admin/includes/theme.php:978
-#: wp-admin/includes/theme.php:1001 wp-admin/includes/update-core.php:1058
+#: wp-admin/includes/theme.php:1001 wp-admin/includes/update-core.php:1059
 #: wp-admin/includes/update.php:757 wp-admin/includes/update.php:784
 #: wp-admin/install.php:245 wp-admin/theme-install.php:336
 #: wp-admin/theme-install.php:359 wp-admin/theme-install.php:526
@@ -4445,6 +4517,14 @@ msgstr "دسته:"
 #: wp-includes/blocks.php:122
 msgid "The asset file for the \"%1$s\" defined in \"%2$s\" block definition is missing."
 msgstr "تعریف پرونده برای \"%1$s\" تعریف شده در بلوک \"%2$s\" وجود ندارد."
+
+#: wp-includes/ms-deprecated.php:413
+msgid "<strong>Error:</strong> There was a problem creating site entry."
+msgstr "<strong>خطا:</strong> مشکلی در ساختن نوشته وجود دارد."
+
+#: wp-includes/ms-deprecated.php:404
+msgid "<strong>Error:</strong> Site URL you&#8217;ve entered is already taken."
+msgstr "<strong>خطا:</strong> نشانی URL سایتی که وارد کردید پیش از این گرفته شده است."
 
 #. translators: %s: Pattern name.
 #: wp-includes/class-wp-block-patterns-registry.php:134
@@ -4956,6 +5036,14 @@ msgstr "نام منحصر به فرد برای شناسایی شیوه‌نام�
 #: wp-includes/rest-api/endpoints/class-wp-rest-block-types-controller.php:588
 msgid "Block style variations."
 msgstr "تغییرات شیوه‌نامه بلوک."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-types-controller.php:568
+msgid "Editor style handles."
+msgstr "دسته شیوه‌نامه ویرایشگر."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-block-types-controller.php:558
+msgid "Public facing script handles."
+msgstr "دسته اسکریپت روکش عمومی."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-block-types-controller.php:538
 msgid "Editor script handles."
@@ -5771,6 +5859,11 @@ msgstr "مرورگر شما نمی‌تواند پرونده‌ها را بار�
 msgid "Allow people to submit comments on new posts."
 msgstr "اجازه دهید دیگران برای نوشته‌های جدید دیدگاه ارسال کنند."
 
+#. translators: %s: Documentation URL.
+#: wp-includes/user.php:3255
+msgid "<strong>Error:</strong> The email could not be sent. Your site may not be correctly configured to send emails. <a href=\"%s\">Get support for resetting your password</a>."
+msgstr "<strong>خطا:</strong> ایمیل نمی‌تواند فرستاده شود. شاید سایت شما برای ارسال ایمیل به درستی پیکربندی نشده است. <a href=\"%s\">دریافت پشتیبانی برای بازنشانی رمز عبور</a>."
+
 #: wp-includes/user.php:3256
 msgid "https://wordpress.org/support/article/resetting-your-password/"
 msgstr "https://wordpress.org/support/article/resetting-your-password/"
@@ -6285,6 +6378,11 @@ msgstr "آیا طبقه‌بندی به صورت عمومی قابل پرس‌و
 #: wp-includes/rest-api/endpoints/class-wp-rest-taxonomies-controller.php:401
 msgid "Whether a taxonomy is intended for use publicly either via the admin interface or by front-end users."
 msgstr "این که آیا طبقه‌بندی برای استفاده عموم یا از طریق رابط مدیر یا کاربران سایت در نظر گرفته شده است."
+
+#: wp-includes/user.php:2847 wp-includes/user.php:3053
+#: wp-includes/user.php:3107
+msgid "<strong>Error:</strong> There is no account with that username or email address."
+msgstr "<strong>خطا:</strong> هیچ حساب کاربری با آن نام کاربری یا نشانی ایمیل وجود ندارد."
 
 #: wp-includes/class-wp.php:311 wp-includes/ms-deprecated.php:275
 #: wp-includes/ms-deprecated.php:294
@@ -7330,6 +7428,10 @@ msgstr ""
 "با احترام،\n"
 "###SITENAME###\n"
 "###SITEURL###"
+
+#: wp-includes/user.php:3651
+msgid "<strong>Error:</strong> The email address is already used."
+msgstr "<strong>خطا:</strong> آدرس ایمیل در حال حاضر استفاده شده است."
 
 #: wp-includes/class-wp-taxonomy.php:640
 msgid "&larr; Go to Categories"
@@ -10415,6 +10517,11 @@ msgstr "ویرایش فهرست انتخاب‌شده"
 msgid "Warning: the link has been inserted but may have errors. Please test it."
 msgstr "هشدار: پیوند وارد شد اما ممکن است خطا داشته باشد. لطفا آن را بررسی کنید."
 
+#: wp-includes/blocks/query-title.php:42
+#: wp-includes/js/dist/block-library.js:43019
+msgid "Search results"
+msgstr "نتایج جستجو"
+
 #: wp-includes/class-wp-editor.php:1362
 msgid "Rich Text Area. Press Control-Option-H for help."
 msgstr "محدودهٔ متنِ حالت‌دار. برای دسترسی به راهنما، دکمه‌های Control-Option-H را بزنید."
@@ -10694,6 +10801,15 @@ msgctxt "user dropdown"
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
 
+#. translators: %s: Email address.
+#: wp-includes/user.php:251
+msgid "<strong>Error:</strong> The password you entered for the email address %s is incorrect."
+msgstr "<strong>خطا:</strong> رمز عبور وارد شده برای ایمیل %s نادرست است."
+
+#: wp-includes/user.php:216
+msgid "<strong>Error:</strong> The email field is empty."
+msgstr "<strong>خطا:</strong> جای ایمیل خالی است."
+
 #: wp-includes/taxonomy.php:576
 msgid "Unregistering a built-in taxonomy is not allowed."
 msgstr "لغو ثبت ردهٔ توکار مجاز نیست."
@@ -10750,6 +10866,10 @@ msgctxt "post password form"
 msgid "Enter"
 msgstr "ورود رمز"
 
+#: wp-includes/pluggable.php:619
+msgid "<strong>Error:</strong> Invalid username, email address or incorrect password."
+msgstr "<strong>خطا:</strong> نام کاربری یا ایمیل نامعتبر، یا رمز عبور اشتباه."
+
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Term name, 4: Taxonomy
 #. singular name.
 #: wp-includes/general-template.php:3152
@@ -10792,6 +10912,22 @@ msgstr "%s ممنوع است"
 #: wp-includes/customize/class-wp-customize-partial.php:226
 msgid "Partial render must echo the content or return the content string (or array), but not both."
 msgstr "رندر جزئی باید محتوا را نمایش دهد یا رشته محتوا (یا آرایه) را بازگرداند، اما نه هردو."
+
+#: wp-includes/comment.php:1284
+msgid "<strong>Error:</strong> Your comment is too long."
+msgstr "<strong>خطا:</strong> دیدگاه شما بسیار طولانی است."
+
+#: wp-includes/comment.php:1280
+msgid "<strong>Error:</strong> Your URL is too long."
+msgstr "<strong>خطا:</strong> نشانی اینترنتی‌تان بسیار طولانی است."
+
+#: wp-includes/comment.php:1276
+msgid "<strong>Error:</strong> Your email address is too long."
+msgstr "<strong>خطا:</strong> ایمیل شما بسیار طولانی است."
+
+#: wp-includes/comment.php:1272
+msgid "<strong>Error:</strong> Your name is too long."
+msgstr "<strong>خطا:</strong> نام شما بسیار طولانی است."
 
 #: wp-includes/comment.php:262
 msgctxt "comment status"
@@ -10856,6 +10992,10 @@ msgstr "برای ویرایش این مورد از شیفت-کلیک استفا�
 msgid "Comment Submission Failure"
 msgstr "خطا در ارسال دیدگاه"
 
+#: wp-includes/user.php:3333 wp-admin/includes/user.php:196
+msgid "<strong>Error:</strong> Sorry, that username is not allowed."
+msgstr "<strong>خطا:</strong> با عرض پوزش، این شناسه مجاز نیست."
+
 #: wp-includes/rest-api/class-wp-rest-request.php:914
 msgid "Invalid parameter."
 msgstr "گزینه نامعتبر."
@@ -10876,6 +11016,11 @@ msgstr "(درحال‌حاضر تنظیم‌شده روی : %s)"
 #: wp-includes/functions.php:5823
 msgid "Please see <a href=\"%s\">Debugging in WordPress</a> for more information."
 msgstr "لطفاً برای اطلاعات بیشتر، <a href=\"%s\">اشکال زدایی در وردپرس</a> را مشاهده کنید."
+
+#. translators: 1: $table_prefix, 2: wp-config.php
+#: wp-includes/load.php:628
+msgid "<strong>Error:</strong> %1$s in %2$s can only contain numbers, letters, and underscores."
+msgstr "<strong>خطا:</strong> %1$s در %2$s فقط می‌تواند شامل اعداد، حروف و زیر خط باشد."
 
 #. translators: %s: WP_User->ID
 #: wp-includes/class-wp-user.php:278 wp-includes/class-wp-user.php:311
@@ -11467,6 +11612,12 @@ msgstr "با عرض پوزش، شما اجازهٔ ویرایش تنظیمات �
 #: wp-includes/class-wp-query.php:1881 wp-includes/class-wp-user-query.php:399
 msgid "%1$s is deprecated. Use %2$s instead."
 msgstr "%1$s تاریخ‌گذشته است. به جای آن از %2$s استفاده نمایید."
+
+#. translators: 1: Post type, 2: Capability name.
+#: wp-includes/capabilities.php:114 wp-includes/capabilities.php:215
+#: wp-includes/capabilities.php:314 wp-includes/capabilities.php:395
+msgid "The post type %1$s is not registered, so it may not be reliable to check the capability %2$s against a post of that type."
+msgstr "نوع نوشتهٔ %1$s ثبت نشده است، در نتیجه نمی‌توان نسبت به صحت نتیجهٔ عمل بررسی میزان %2$s بر اساس نوع نوشته موردنظر اتکا کرد."
 
 #: wp-includes/class-wp-customize-nav-menus.php:1167
 #: wp-includes/class-wp-customize-widgets.php:910
@@ -12777,6 +12928,16 @@ msgstr "اگر شما می‌خواهید محتوا را از نرم‌افزا
 msgid "Keyboard Shortcuts"
 msgstr "میان‌برهای صفحه کلید"
 
+#. translators: %s: Browser cookie documentation URL.
+#: wp-login.php:1250
+msgid "<strong>Error:</strong> Cookies are blocked or not supported by your browser. You must <a href=\"%s\">enable cookies</a> to use WordPress."
+msgstr "<strong>خطا:</strong>کوکی‌ها مسدود شده‌اند یا توسط مرورگر شما پشتیبانی نمی‌شوند. شما باید آن‌ها را <a href=\"%s\">فعال کنید</a>  تا وردپرس بتواند از آن استفاده نماید."
+
+#. translators: 1: Browser cookie documentation URL, 2: Support forums URL.
+#: wp-login.php:1239
+msgid "<strong>Error:</strong> Cookies are blocked due to unexpected output. For help, please see <a href=\"%1$s\">this documentation</a> or try the <a href=\"%2$s\">support forums</a>."
+msgstr "<strong>خطا:</strong> کوکی‌ها به خاطر خروجی غیرمنتظره مسدود شده‌اند. برای راهنمایی، لطفاً <a href=\"%1$s\">این مستندات</a> را ببینید یا <a href=\"%2$s\">انجمن پشتیبانی</a> را امتحان نمایید."
+
 #: wp-includes/media.php:4684
 msgid "Add to Audio Playlist"
 msgstr "افزودن صدا به فهرست پخش صوتی"
@@ -13909,6 +14070,11 @@ msgstr "نشانی ورود (URL)"
 msgid "The web browser on your device cannot be used to upload files. You may be able to use the <a href=\"%s\">native app for your device</a> instead."
 msgstr "مروگر وبِ دستگاه شما نمی‌تواند برای بارگذاری پرونده‌ها استفاده شود. می‌توانید به جای آن از <a href=\"%s\">نرم‌افزار اختصاصی دستگاه خود</a> استفاده نمایید."
 
+#. translators: %s: Admin email address.
+#: wp-includes/user.php:3396
+msgid "<strong>Error:</strong> Could not register you&hellip; please contact the <a href=\"mailto:%s\">site admin</a>!"
+msgstr "<strong>خطا:</strong> امکان نام‌نویسی شما نیست، به <a href=\"mailto:%s\">مدیر سایت</a> نامه بنویسید!"
+
 #: wp-includes/post-template.php:308
 msgid "(more&hellip;)"
 msgstr "(بیشتر&hellip;)"
@@ -14973,6 +15139,10 @@ msgstr "بازخورد"
 msgid "<strong>Error:</strong> Please type your comment text."
 msgstr "<strong>خطا:</strong>: لطفاً دیدگاهتان را بنویسید."
 
+#: wp-includes/comment.php:3606
+msgid "<strong>Error:</strong> Please enter a valid email address."
+msgstr "<strong>خطا:</strong> لطفا نشانی ایمیل معتبری را وارد نمایید."
+
 #: wp-includes/admin-bar.php:174
 msgid "Documentation"
 msgstr "مستندات"
@@ -15444,6 +15614,13 @@ msgstr "%1$s با افتخار نیرو گرفته از %2$s"
 msgid "&#8220;%s&#8221;"
 msgstr "&#8220;%s&#8221;"
 
+#. translators: %s: Number of comments.
+#: wp-includes/blocks/comments-title.php:59
+#: wp-includes/js/dist/block-library.js:11357
+msgid "%s response"
+msgid_plural "%s responses"
+msgstr[0] "%s پاسخ"
+
 #: wp-includes/blocks/comments-title.php:55
 #: wp-includes/js/dist/block-library.js:11353
 msgid "One response"
@@ -15567,6 +15744,10 @@ msgstr "برگه‌ها"
 msgctxt "post type general name"
 msgid "Posts"
 msgstr "نوشته‌ها"
+
+#: wp-includes/user.php:3324 wp-admin/includes/user.php:185
+msgid "<strong>Error:</strong> This username is invalid because it uses illegal characters. Please enter a valid username."
+msgstr "<strong>خطا:</strong> شناسه نادرست است زیرا از حروف غیرمعتبر استفاده شده است. یک شناسه درست بنویسید."
 
 #. translators: %s: Asterisk symbol (*).
 #: wp-includes/general-template.php:5199
@@ -16183,6 +16364,10 @@ msgstr "مشکلی وجود داشت، لطفاً فرم زیر را به درس
 msgid "Email&nbsp;Address:"
 msgstr "نشانی ایمیل:"
 
+#: wp-signup.php:280
+msgid "(Must be at least 4 characters, lowercase letters and numbers only.)"
+msgstr "(حداقل باید شامل ۴ کاراکتر، اعداد و حروف لاتین کوچک باشد)"
+
 #: wp-signup.php:212
 msgid "Privacy:"
 msgstr "حریم خصوصی:"
@@ -16234,6 +16419,10 @@ msgstr "رمز فراموش شده"
 msgid "<strong>Error:</strong> The email address is not correct."
 msgstr "<strong>خطا:</strong> نشانی ایمیل نادرست است."
 
+#: wp-includes/user.php:3339
+msgid "<strong>Error:</strong> Please type your email address."
+msgstr "<strong>خطا:</strong> نشانی ایمیل خود را وارد کنید."
+
 #: wp-includes/user.php:2950 wp-includes/user.php:2954
 #: wp-includes/user.php:2960 wp-includes/user.php:2986
 #: wp-includes/user.php:2995 wp-includes/user.php:2999
@@ -16250,9 +16439,19 @@ msgstr "[%s] نوسازی رمز"
 msgid "Password reset is not allowed for this user"
 msgstr "این نام کاربری اجازهٔ بازسازی رمز عبور را ندارد"
 
+#: wp-includes/user.php:3044
+msgid "<strong>Error:</strong> Please enter a username or email address."
+msgstr "<strong>خطا:</strong> لطفا نام کاربری و نشانی ایمیل خود را بنویسید."
+
 #: wp-login.php:152
 msgid "Powered by WordPress"
 msgstr "با نیروی وردپرس"
+
+#. translators: 1: WordPress version number, 2: Minimum required MySQL version
+#. number.
+#: wp-includes/class-wpdb.php:3727
+msgid "<strong>Error:</strong> WordPress %1$s requires MySQL %2$s or higher"
+msgstr "<strong>خطا:</strong> وردپرس %1$s نیازمند MySQL نگارش %2$s یا بالاتر است"
 
 #. translators: %d: Sidebar number.
 #: wp-includes/widgets.php:182 wp-includes/widgets.php:268
@@ -16266,6 +16465,14 @@ msgstr "لطفاً دوباره وارد شوید."
 #: wp-includes/user.php:506
 msgid "<strong>Error:</strong> Your account has been marked as a spammer."
 msgstr "<strong>خطا:</strong>: حساب کاربری شما به عنوان فرستندهٔ جفنگ نشانه‌گذاری شده است."
+
+#: wp-includes/user.php:141 wp-includes/user.php:220
+msgid "<strong>Error:</strong> The password field is empty."
+msgstr "<strong>خطا:</strong> کادر رمز خالی است."
+
+#: wp-includes/user.php:137
+msgid "<strong>Error:</strong> The username field is empty."
+msgstr "<strong>خطا:</strong> شناسه‌ای نوشته نشده است."
 
 #: wp-includes/class-wp-theme.php:276
 msgid "Stylesheet is missing."
@@ -17916,6 +18123,10 @@ msgstr "پیشخوان"
 #: wp-admin/widgets-form.php:292
 msgid "There are no options for this widget."
 msgstr "گزینه‌ای برای این ابزارک یافت نشد."
+
+#: wp-includes/user.php:3322 wp-admin/includes/user.php:146
+msgid "<strong>Error:</strong> Please enter a username."
+msgstr "<strong>خطا:</strong> لطفاً یک نام کاربری وارد نمایید."
 
 #: wp-includes/class-wp-editor.php:1326 wp-includes/media-template.php:1154
 #: wp-includes/widgets/class-wp-widget-media-image.php:78

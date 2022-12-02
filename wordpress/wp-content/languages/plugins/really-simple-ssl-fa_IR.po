@@ -1,0 +1,494 @@
+# Translation of Plugins - Really Simple SSL - Stable (latest release) in Persian
+# This file is distributed under the same license as the Plugins - Really Simple SSL - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2022-02-23 04:25:13+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/4.0.0-alpha.3\n"
+"Language: fa\n"
+"Project-Id-Version: Plugins - Really Simple SSL - Stable (latest release)\n"
+
+#: class-admin.php:1970
+msgid "Check manually"
+msgstr "بررسی دستی"
+
+#: lets-encrypt/config/fields.php:428
+msgid "Checking host..."
+msgstr "هاست خود را چک کنید"
+
+#: class-site-health.php:77 class-site-health.php:107 class-site-health.php:138
+#: class-site-health.php:178
+msgid "Security"
+msgstr "امنیت"
+
+#: class-admin.php:2161
+msgid "Recommended security headers enabled."
+msgstr "سربرگ های امنیتی توصیه شده فعال شده است."
+
+#: settings/config/config.php:370 settings/build/index.js:4537
+#: settings/build/index.js:4547 settings/build/index.js:4557
+#: settings/src/LetsEncrypt/Installation.js:103
+#: settings/src/LetsEncrypt/Installation.js:108
+#: settings/src/LetsEncrypt/Installation.js:112 settings/build/index.js:4119
+#: settings/build/index.js:4124 settings/build/index.js:4128
+msgid "Download"
+msgstr "بارگیری"
+
+#: lets-encrypt/config/fields.php:29 settings/config/config.php:238
+msgid "Installation"
+msgstr "نصب و راه اندازی"
+
+#: lets-encrypt/config/fields.php:21
+msgid "DNS Verification"
+msgstr "تایید DNS"
+
+#: lets-encrypt/config/fields.php:12
+msgid "General settings"
+msgstr "تنظیمات عمومی"
+
+#: lets-encrypt/config/fields.php:354
+msgid "Plesk username"
+msgstr "نام کاربری پلسک"
+
+#: lets-encrypt/config/fields.php:377
+msgid "Plesk password"
+msgstr "پسورد پلسک"
+
+#: lets-encrypt/config/fields.php:199
+msgid "CPanel username"
+msgstr "نام کاربری سی پنل"
+
+#: lets-encrypt/config/fields.php:217
+msgid "CPanel password"
+msgstr "پسورد سی پنل"
+
+#: lets-encrypt/config/fields.php:128 lets-encrypt/config/notices.php:49
+msgid "Domain"
+msgstr "دامنه"
+
+#: lets-encrypt/config/fields.php:91 lets-encrypt/config/fields.php:94
+msgid "Email address"
+msgstr "نشانی ایمیل"
+
+#: lets-encrypt/integrations/plesk/plesk.php:87
+msgid "Successfully installed SSL"
+msgstr "ssl با موفقیت نصب شد"
+
+#: lets-encrypt/class-letsencrypt-handler.php:1609
+msgid "Error code %s"
+msgstr "کدخطا: %s"
+
+#: lets-encrypt/class-letsencrypt-handler.php:1260
+#: lets-encrypt/class-letsencrypt-handler.php:1264
+msgid "Error code %s."
+msgstr "کدخطا: %s"
+
+#: lets-encrypt/class-letsencrypt-handler.php:1236
+#: lets-encrypt/class-letsencrypt-handler.php:1546
+msgid "no response"
+msgstr "بدون پاسخ"
+
+#: lets-encrypt/class-letsencrypt-handler.php:435
+msgid "Token not received yet."
+msgstr "توکن هنوز دریافت نشده است."
+
+#: lets-encrypt/class-letsencrypt-handler.php:420
+#: lets-encrypt/class-letsencrypt-handler.php:428
+msgid "Token successfully retrieved."
+msgstr "توکن با موفقیت دریافت شد."
+
+#: lets-encrypt/class-letsencrypt-handler.php:383
+msgid "The email address was not set. Please set the email address"
+msgstr "ایمیل شما هنوز ثبت نشده است. لطفا ایمیل خود را ثبت کنید."
+
+#: lets-encrypt/class-letsencrypt-handler.php:731
+msgid "Files not created yet..."
+msgstr "فایل ها هنوز ساخته نشده است."
+
+#: lets-encrypt/cron.php:76
+msgid "Once every week"
+msgstr "هفته ای یکبار"
+
+#: lets-encrypt/cron.php:80 security/cron.php:40
+msgid "Once every day"
+msgstr "هر روز یکبار"
+
+#: lets-encrypt/cron.php:84
+msgid "Once every 5 minutes"
+msgstr "هر 5 دقیقه یکبار"
+
+#: lets-encrypt/class-letsencrypt-handler.php:1719
+msgid "Installation failed."
+msgstr "نصب ناموفق بود."
+
+#: lets-encrypt/class-letsencrypt-handler.php:270
+msgid "(unknown)"
+msgstr "(ناشناخته)"
+
+#: class-admin.php:1814
+msgid "(Unknown)"
+msgstr "(ناشناخته)"
+
+#: class-admin.php:1962
+msgid "Retry"
+msgstr "تلاش دوباره"
+
+#: class-admin.php:1984
+msgid "Re-check"
+msgstr "بررسی مجدد"
+
+#: class-admin.php:1980
+msgid "Your SSL certificate will expire soon."
+msgstr "گواهینامه SSL شما بزودی به اتمام می رسد."
+
+#: class-admin.php:1961 class-admin.php:1969 class-admin.php:1983
+msgid "Install SSL certificate"
+msgstr "نصب گواهی SSL"
+
+#: lets-encrypt/class-letsencrypt-handler.php:280
+msgid "You already have a valid SSL certificate."
+msgstr "شما در حال حاضر دارای گواهی SSL معتبر می باشد."
+
+#: class-site-health.php:31
+msgid "SSL Status Test"
+msgstr "تست وضعیت SSL"
+
+#: class-site-health.php:135
+msgid "Recommended security headers installed"
+msgstr "سربرگ های امنیتی توصیه شده نصب شده است"
+
+#: class-site-health.php:36
+msgid "Security Headers Test"
+msgstr "تست سربرگ امنیتی"
+
+#: class-admin.php:1959
+msgid "No SSL detected"
+msgstr "SSL شناسایی نشده است"
+
+#: class-admin.php:2622
+msgid "Deactivate, keep https"
+msgstr "غیرفعال سازی، https را حفظ کنید"
+
+#: class-admin.php:2623
+msgid "Deactivate, revert to http"
+msgstr "غیرفعال سازی ، به http برگردید"
+
+#: class-site-health.php:222
+msgid "Enable 301 redirect"
+msgstr "تغییر مسیر 301 را فعال کنید"
+
+#: class-site-health.php:192
+msgid "SSL is not enabled."
+msgstr "SSL هنوز فعال نشده است"
+
+#: class-admin.php:2105
+msgid "Your site uses Divi. This can require some additional steps before getting the secure lock."
+msgstr "سایت شما از Divi استفاده می کند. این می تواند قبل ازفعال نمودن SSL  به مراحل بیشتری نیاز داشته باشد."
+
+#: class-admin.php:2091
+msgid "Your site uses Elementor. This can require some additional steps before getting the secure lock."
+msgstr "سایت شما از المنتور استفاده می کند.این می تواند قبل ازفعال نمودن SSL  به مراحل بیشتری نیاز داشته باشد."
+
+#: onboarding/config.php:128 upgrade/upgrade-to-pro.php:138
+#: upgrade/upgrade-to-pro.php:151 upgrade/upgrade-to-pro.php:168
+#: settings/build/index.js:3089 settings/src/Dashboard/OtherPlugins.js:67
+#: settings/build/index.js:2708
+msgid "Install"
+msgstr "نصب"
+
+#: class-admin.php:1761
+msgid "Open"
+msgstr "باز"
+
+#: class-admin.php:1759
+msgid "Completed"
+msgstr "تکمیل شده"
+
+#: upgrade/upgrade-to-pro.php:182 settings/build/index.js:3117
+#: settings/src/Dashboard/OtherPlugins.js:88 settings/build/index.js:2729
+msgid "Installed"
+msgstr "نصب‌شده"
+
+#: class-admin.php:1760 settings/build/index.js:7221
+#: settings/src/Settings/MixedContentScan.js:198 settings/build/index.js:6536
+msgid "Warning"
+msgstr "هشدار"
+
+#: settings/config/config.php:1166
+msgid "Tips & Tricks"
+msgstr "نکته ها و ترفندها"
+
+#: class-site-health.php:201 settings/build/index.js:3407
+#: settings/build/index.js:5412 settings/src/Dashboard/ProgressFooter.js:42
+#: settings/src/Onboarding/Onboarding.js:242 settings/build/index.js:2997
+#: settings/build/index.js:4871
+msgid "Activate SSL"
+msgstr "SSL را فعال کنید"
+
+#: progress/class-progress.php:98
+msgid "SSL is not yet enabled on this site."
+msgstr "SSL هنوز در این سایت فعال نیست."
+
+#: progress/class-progress.php:87
+msgid "SSL configuration finished!"
+msgstr "پیکربندی SSL تمام شد!"
+
+#: progress/class-progress.php:85
+msgid "SSL is activated on your site."
+msgstr "SSL در سایت شما فعال شده است."
+
+#: class-multisite.php:114
+msgid "SSL is enabled networkwide."
+msgstr "SSL در سراسر شبکه فعال است."
+
+#: class-admin.php:2657 class-multisite.php:219 settings/build/index.js:4134
+#: settings/src/Header.js:43 settings/build/index.js:3657
+msgid "Support"
+msgstr "پشتیبانی"
+
+#: settings/config/config.php:23 settings/config/config.php:28
+msgid "General"
+msgstr "عمومی"
+
+#: class-admin.php:1938
+msgid "SSL is not enabled yet."
+msgstr "SSL هنوز فعال نشده است."
+
+#: class-admin.php:1890
+msgid "SSL is now activated. Check if your website is secure by following this article."
+msgstr "SSL اکنون فعال شده است. با پیروی از این مقاله ، امنیت وب سایت خود را بررسی کنید."
+
+#: progress/class-progress.php:92
+msgid "Basic SSL configuration finished! Improve your score with %sReally Simple SSL Pro%s."
+msgstr "پیکربندی اصلی SSL به پایان رسید! نمره خود را با %s نسخه حرفه ای افزونه %s. بهبود بخشید."
+
+#: progress/class-progress.php:85
+msgid "You still have %s task open."
+msgid_plural "You still have %s tasks open."
+msgstr[0] "هنوز فعالیت %s تمام نشده است."
+
+#. Author of the plugin
+msgid "Really Simple Plugins"
+msgstr "افزونه های واقعا ساده"
+
+#: class-admin.php:1594
+msgid "Hi, Really Simple SSL has kept your site secure for some time now, awesome! If you have a moment, please consider leaving a review on WordPress.org to spread the word. We greatly appreciate it! If you have any questions or feedback, leave us a %smessage%s."
+msgstr "سلام ، SSL واقعاً ساده سایت شما را مدتی امن نگه داشته است.اگر وقت دارید، لطفاً برای ما در وردپرس نظر بگذارید تا این متن را منتشر کنید. ما از شما بسیار قدردانی می کنیم! اگر سؤال یا بازخوردی دارید، یک %sپیغام%s برای ما بگذارید."
+
+#: onboarding/config.php:23
+msgid "Check out Really Simple SSL Pro"
+msgstr "واقعاً ساده SSL Pro را بررسی کنید"
+
+#: class-admin.php:1604
+msgid "Don't show again"
+msgstr "دوباره نمایش داده نشود"
+
+#: class-admin.php:2013
+msgid "Error occurred when retrieving the webpage."
+msgstr "هنگام بازیابی صفحه وب خطایی رخ داده است."
+
+#: onboarding/config.php:97
+msgid "Enable"
+msgstr "فعال"
+
+#: class-site-health.php:229
+msgid "The 301 .htaccess redirect is the fastest and most reliable redirect option."
+msgstr "تغییر مسیر 301 .htaccess اغلب سریعترین و مطمئن ترین گزینه تغییر مسیر است."
+
+#: class-site-health.php:226
+msgid "301 .htaccess redirect is not enabled."
+msgstr "301. تغییر مسیر هدایت امکان پذیر نیست."
+
+#: class-site-health.php:183
+msgid "You have set a 301 redirect to SSL. This is important for SEO purposes"
+msgstr "شما 301 تغییر مسیر را به SSL تنظیم کرده اید. این برای اهداف SEO مهم است"
+
+#: class-site-health.php:175
+msgid "301 SSL redirect enabled"
+msgstr "هدایت ۳۰۱ SSL فعال شد"
+
+#: class-admin.php:2057
+msgid "301 redirect to https set: .htaccess redirect."
+msgstr "تنظیم هدایت ۳۰۱ به https: هدایت .htaccess."
+
+#: class-admin.php:1860
+msgid "The 'force-deactivate.php' file has to be renamed to .txt. Otherwise your ssl can be deactivated by anyone on the internet."
+msgstr "پسوند پرونده «force-deactivate.php» باید به txt تغییر نام پیدا کند. در غیر این صورت ssl ممکن است توسط شخصی روی اینترنت غیرفعال شود."
+
+#: class-admin.php:1596
+msgid "Hi, Really Simple SSL has kept your site secure for a month now, awesome! If you have a moment, please consider leaving a review on WordPress.org to spread the word. We greatly appreciate it! If you have any questions or feedback, leave us a %smessage%s."
+msgstr "سلام، شما از یک SSL واقعا ساده برای یک ماه استفاده کرده اید، عالی! اگر یک لحظه دارید، لطفا نظرتان را درباره WordPress.org بگذارید تا کلمه را گسترش دهید. ما خیلی از آن قدردانی میکنیم اگر سؤال یا بازخورد دارید، ما را ترک کنید %sپیغام%s."
+
+#: class-admin.php:1602
+msgid "Leave a review"
+msgstr "یک بررسی را ترک کنید"
+
+#: class-admin.php:1603
+msgid "Maybe later"
+msgstr "شاید بعدا"
+
+#: security/cron.php:36
+msgid "Once every minute"
+msgstr "یک بار هر دقیقه"
+
+#: class-multisite.php:161
+msgid "You run a Multisite installation with subdomains, but your site doesn't have a wildcard certificate."
+msgstr "شما یک نصب چند سایتی با زیردامنه ها را اجرا می کنید، اما سایت شما یک گواهی wildcard ندارد."
+
+#: class-multisite.php:162
+msgid "This leads to issues when activating SSL networkwide since subdomains will be forced over SSL as well while they don't have a valid certificate."
+msgstr "این باعث می شود که هنگام فعال سازی SSL در شبکه از طریق سوپاپ ها مجبور شوند بیش از SSL مجبور شوند، در حالی که آنها یک گواهینامه معتبر ندارند."
+
+#: class-multisite.php:163
+msgid "Activate SSL per site or install a wildcard certificate to fix this."
+msgstr "SSL را برای هر سایتی فعال کنید یا یک گواهی wildcard برای رفع آن نصب کنید."
+
+#: class-admin.php:2621 upgrade/upgrade-to-pro.php:362
+msgid "Cancel"
+msgstr "لغو"
+
+#: class-admin.php:467 settings/build/index.js:4048
+#: settings/build/index.js:6473 settings/src/Dashboard/TaskElement.js:29
+#: settings/src/Settings/Help.js:26 settings/build/index.js:3598
+#: settings/build/index.js:5812
+msgid "More info"
+msgstr "اطلاعات بیشتر"
+
+#: class-admin.php:104
+msgid "Really Simple SSL and Really Simple SSL add-ons do not process any personal identifiable information, so the GDPR does not apply to these plugins or usage of these plugins on your website. You can find our privacy policy <a href=\"%s\" target=\"_blank\">here</a>."
+msgstr "SSL واقعا ساده و افزودنیهای SSL واقعا ساده اطلاعات شخصی قابل شناسایی را پردازش نمی کند، بنابراین GDPR برای این افزونه ها یا استفاده از این افزونه ها در وب سایت شما اعمال نمی شود. شما می توانید سیاست حفظ حریم خصوصی خود را پیدا کنید <a href=\"%s\" target=\"_blank\">here</a>."
+
+#: class-admin.php:2591
+msgid "Are you sure?"
+msgstr "شما مطمئن هستید؟"
+
+#: class-admin.php:2607
+msgid "Deactivating the plugin while keeping SSL will do the following:"
+msgstr "فعال کردن پلاگین در حین نگه داشتن SSL، موارد زیر را انجام خواهد داد:"
+
+#. Author URI of the plugin
+msgid "https://really-simple-plugins.com"
+msgstr "https://really-simple-plugins.com"
+
+#: onboarding/config.php:23
+msgid "You can also let the automatic scan of the pro version handle this for you, and get premium support, increased security with HSTS and more!"
+msgstr "شما همچنین می توانید اسکن اتوماتیک نسخه حرفه ای این را برای شما بگذارید و با پشتیبانی از حق بیمه، افزایش امنیت با HSTS و بیشتر!"
+
+#: onboarding/config.php:163
+msgid "You may need to login in again."
+msgstr "ممکن است لازم باشد دوباره وارد سیستم شوید."
+
+#: class-site-health.php:234
+msgid "Enable 301 .htaccess redirect"
+msgstr "فعال کردن تغییر مسیر 301 توسط htaccess"
+
+#: class-admin.php:2042
+msgid "No 301 redirect is set. Enable the WordPress 301 redirect in the settings to get a 301 permanent redirect."
+msgstr "شماره 301 تغییر مسیر تنظیم شده است. فعال کردن وردپرس 301 تغییر مسیر در تنظیمات برای دریافت 301 تغییر مسیر دائمی."
+
+#: class-admin.php:2038
+msgid "301 redirect to https set."
+msgstr "تغییر مسیر 301 به https تنظیم شده است."
+
+#: class-multisite.php:147
+msgid "View settings page"
+msgstr "صفحه تنظیمات را مشاهده کنید"
+
+#: settings/config/config.php:33
+msgid "Premium Support"
+msgstr "پشتیبانی نسخه حرفه ای"
+
+#: lets-encrypt/functions.php:354 lets-encrypt/functions.php:355
+#: settings/build/index.js:2991 settings/build/index.js:7902
+#: settings/src/Dashboard/GridBlock.js:93
+#: settings/src/Settings/SettingsGroup.js:93 settings/build/index.js:2626
+#: settings/build/index.js:7173
+msgid "Instructions"
+msgstr "دستورالعمل ها"
+
+#: class-admin.php:1934
+msgid "SSL is enabled on your site."
+msgstr "SSL در سایت شما فعال است."
+
+#: onboarding/config.php:29
+msgid "Almost ready to migrate to SSL!"
+msgstr "تقریبا آماده مهاجرت به SSL!"
+
+#: onboarding/config.php:159
+msgid "Images, stylesheets or scripts from a domain without an SSL certificate: remove them or move to your own server."
+msgstr "تصاویر، شیوه نامه ها یا اسکریپتها از یک دامنه بدون گواهینامه SSL: آنها را حذف یا به سرور خود منتقل کنید."
+
+#: class-admin.php:20 class-cache.php:10 class-certificate.php:10
+#: class-front-end.php:15 class-site-health.php:8
+#: lets-encrypt/class-letsencrypt-handler.php:30
+#: onboarding/class-onboarding.php:18 security/firewall-manager.php:8
+msgid "%s is a singleton class and you cannot create a second instance."
+msgstr "%s یک کلاس تک تک است و نمیتوانید نمونه دوم را ایجاد کنید."
+
+#: class-admin.php:1823
+msgid "Your wp-config.php has to be edited, but is not writable."
+msgstr "wp-config.php شما باید ویرایش شود، اما قابل نوشتن نیست."
+
+#: settings/templates/tips-tricks-footer.php:3 settings/build/index.js:4130
+#: settings/src/Header.js:39 settings/build/index.js:3653
+msgid "Documentation"
+msgstr "مستندات"
+
+#. Plugin URI of the plugin
+msgid "https://really-simple-ssl.com"
+msgstr "https://really-simple-ssl.com"
+
+#. Plugin Name of the plugin
+msgid "Really Simple SSL"
+msgstr "SSL واقعاً ساده"
+
+#: settings/config/config.php:388
+msgid "Stop editing the .htaccess file"
+msgstr "توقف ویرایش فایل .htaccess"
+
+#: class-site-health.php:205
+msgid "No SSL detected."
+msgstr "SSL شناسایی نشده است."
+
+#: class-admin.php:1975
+msgid "An SSL certificate was detected on your site."
+msgstr "یک گواهینامه SSL در سایت شما شناسایی شد."
+
+#: class-admin.php:1707 class-admin.php:2649 class-admin.php:2652
+#: class-multisite.php:87 class-multisite.php:216 settings/config/config.php:17
+#: settings/build/index.js:3566
+#: settings/src/Dashboard/SecurityFeaturesBlock/SecurityFeaturesFooter.js:14
+#: settings/build/index.js:3112
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: settings/config/config.php:315
+msgid "Mixed content fixer"
+msgstr "ترکیب محتوای ثابت"
+
+#: settings/settings.php:86
+msgid "SSL"
+msgstr "SSL"
+
+#: class-multisite.php:133
+msgid "Activate networkwide to fix this."
+msgstr "برای حل این مشکل، شبکه را فعال کنید."
+
+#: class-multisite.php:132
+msgid "Because the $_SERVER[\"HTTPS\"] variable is not set, your website may experience redirect loops."
+msgstr "از انجایی که متغییر $_SERVER[\"HTTPS\"] تنظیم نشده است ، وب سایت شما ممکن است ممکن وب سایت  وب سایت شما ممکن است حلقه های تغییر مسیر را تجربه کند."
+
+#: settings/settings.php:85
+msgid "SSL settings"
+msgstr "تنظیمات SSL"
+
+#: class-admin.php:1861
+msgid "Check again"
+msgstr "دوباره بررسی کنید"
+
+#: class-multisite.php:131
+msgid "You run a Multisite installation with subfolders, which prevents this plugin from fixing your missing server variable in the wp-config.php."
+msgstr "شما راه اندازی چند سایتی با پوشه های زیر را اجرا می کنید، که مانع این پلاگین از تعمیر متغیر سرور خالی خود در wp-config.php می شود."

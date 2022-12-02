@@ -1,0 +1,65 @@
+
+---Downloaded files---
+The import files for: Studio were successfully downloaded!
+Initial max execution time = 600
+Files info:
+Site URL = http://localhost/wordpress
+Data file = C:\xampp\htdocs\wordpress/wp-content/uploads/2019/04/demo-content-import-file_2019-04-26__22-16-41.xml
+Widget file = C:\xampp\htdocs\wordpress/wp-content/uploads/2019/04/demo-widgets-import-file_2019-04-26__22-16-41.json
+Customizer file = not defined!
+Redux files:
+not defined!
+
+------
+New AJAX call!
+[ERROR] Failed to import "pr2" (Media)
+[ERROR] Failed to import "pr1" (Media)
+
+
+------
+New AJAX call!
+[ERROR] Failed to import "pr2" (Media)
+[ERROR] Failed to import "pr1" (Media)
+
+
+------
+New AJAX call!
+[ERROR] Failed to import "pr2" (Media)
+[ERROR] Failed to import "pr1" (Media)
+
+
+------
+New AJAX call!
+[ERROR] Failed to import "pr2" (Media)
+[ERROR] Failed to import "pr1" (Media)
+
+
+------
+New AJAX call!
+[ERROR] Failed to import "pr2" (Media)
+[ERROR] Failed to import "pr1" (Media)
+
+
+------
+New AJAX call!
+[ERROR] Failed to import "pr2" (Media)
+[ERROR] Failed to import "pr1" (Media)
+
+
+------
+New AJAX call!
+[ERROR] Failed to import "pr2" (Media)
+[ERROR] Failed to import "pr1" (Media)
+
+
+------
+New AJAX call!
+[ERROR] Failed to import "pr2" (Media)
+[ERROR] Failed to import "pr1" (Media)
+
+
+------
+New AJAX call!
+[ERROR] Failed to import "pr2" (Media)
+[ERROR] Failed to import "pr1" (Media)
+
