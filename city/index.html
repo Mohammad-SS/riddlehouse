@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mahdi Bagherzade">
+
+
+    <!-- Material Design Bootstrap 5 -->
+    <!-- MDB -->
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.rtl.min.css" rel="stylesheet" />
+    <!-- Material Design Bootstrap 5 -->
+
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <!-- Link Swiper's CSS -->
+
+
+    <!-- styles -->
+    <link rel="stylesheet" href="./src/styles/base.css">
+    <link rel="stylesheet" href="./src/styles/cities.css">
+
+    <title>خانه معما - انتخاب شعبه</title>
+    <!-- styles -->
+
+</head>
+
+<body>
+    <div class="page">
+        <div class="header">
+            <div>
+                <img loading="lazy" width="100%" src="./src/images/riddle-logo.png" alt="">
+            </div>
+            <h1 class="fw-bold">خانه معما</h1>
+        </div>
+        <div class="city-names">
+            <h4 class="city-btn qum-btn">
+                <a href="https://qom.azimim.ir" class="d-flex flex-fill justify-content-center align-items-center">قم</a>
+            </h4>
+            <h4 class="city-btn ahvaz-btn">
+                <a href="https://ahvaz.azimim.ir" class="d-flex flex-fill justify-content-center align-items-center">اهواز</a>
+            </h4>
+        </div>
+        <div class="cities">
+            <div class="city qum">
+
+                <!-- <div class="city-detail d-flex flex-column">
+                <h2></h2>
+                <button class="btn btn-light">
+                    ورود به سایت قم
+                </button>
+            </div> -->
+            </div>
+            <div class="city ahvaz">
+                <!-- <div class="city-detail d-flex flex-column">
+                <h2></h2>
+                <button class="btn btn-light">
+                    ورود به سایت اهواز
+                </button>
+            </div> -->
+            </div>
+        </div>
+
+        <div class="position-absolute bottom-0 w-100 d-flex justify-content-center" style="margin-bottom: 3em;">
+            <button class="btn btn-light  btn-lg shadow-0">
+                تمام حقوق سایت متعلق به خانه معما استان قم می باشد | هرگونه کپی برداری پیگرد قانونی خواهد داشت.
+
+            </button>
+        </div>
+
+    </div>
+
+</body>
+
+
+<script>
+
+    let btn_list = document.querySelectorAll('.city-btn')
+    console.log(btn_list);
+    btn_list.forEach(item => {
+        let class_list = Array.from(item.classList)
+        item.addEventListener('mouseover', () => {
+            console.log(class_list);
+            if (class_list.includes('qum-btn')) {
+                document.querySelector('.qum').classList.add('hoverd')
+            }
+            else if (class_list.includes('ahvaz-btn')) {
+                document.querySelector('.ahvaz').classList.add('hoverd')
+            }
+        })
+
+
+        item.addEventListener('mouseout', () => {
+            console.log(class_list);
+            if (class_list.includes('qum-btn')) {
+                document.querySelector('.qum').classList.remove('hoverd')
+            }
+            else if (class_list.includes('ahvaz-btn')) {
+                document.querySelector('.ahvaz').classList.remove('hoverd')
+            }
+        })
+
+
+
+    })
+
+</script>
+
+</html>

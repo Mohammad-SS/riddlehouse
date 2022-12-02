@@ -9,7 +9,7 @@ services:
 
   qom:
     build: ./qom
-    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - ./qom/:/usr/src/app/
     expose:
@@ -95,19 +95,22 @@ services:
   certbot:
     image: certbot/certbot
     volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
   nginx:
     build: ./nginx
     restart: always
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     volumes:
       - ./qom/static/:/home/qom/static
       - ./qom/medias/:/home/qom/medias
       - ./ahvaz/static/:/home/ahvaz/static
       - ./ahvaz/medias/:/home/ahvaz/medias
       - ./city/:/home/select_city
-      - ./certbot/www:/var/www/cerbot
-      - ./certbot/conf:/etc/letsencrypt
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
     ports:
       - 80:80
       - 443:443
