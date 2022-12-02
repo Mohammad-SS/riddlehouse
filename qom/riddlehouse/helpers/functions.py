@@ -261,10 +261,11 @@ def send_admin_sms(order):
 
 
 def get_surprise_input_date(order: orders_models.Order):
-    date = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
-                                                  pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
+    # date = jdatetime.JalaliDateTime.fromtimestamp().replace(locale="fa")
+    # date = pytz.timezone("Asia/Tehran").localize(date).strftime("%A %Y/%m/%d")
+    # date =
+    date = jdatetime.JalaliDateTime(pytz.timezone("Asia/Tehran").localize(order.reserved_time)).replace("fa").strftime(
         "%A %Y/%m/%d")
-
     input_data = {
         "user": order.customer_name,
         "date": date,
@@ -274,12 +275,15 @@ def get_surprise_input_date(order: orders_models.Order):
 
 
 def get_room_input_data(order):
-    date = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
-                                                  pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
-        "%A %Y/%m/%d")
-    time = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
-                                                  pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
-        "%H:%M")
+    # date = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
+    #                                               pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
+    #     "%A %Y/%m/%d")
+    reserved_date_time = jdatetime.JalaliDateTime(pytz.timezone("Asia/Tehran").localize(order.reserved_time)).replace("fa")
+    date = reserved_date_time.strftime("%A %Y/%m/%d")
+    time = reserved_date_time.strftime("%H:%M")
+    # time = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
+    #                                               pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
+    #     "%H:%M")
     input_data = {
         "user": order.customer_name,
         "game": order.room.name,

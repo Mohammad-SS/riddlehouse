@@ -92,8 +92,8 @@ class PanelOverview(LoginRequiredMixin, View):
         date = date.split("/")
         hour = hour.split(":")
         reserved_time = jdatetime.JalaliDateTime(year=int(date[0]), month=int(date[1]), day=int(date[2]),
-                                                 hour=int(hour[0]), minute=int(hour[1]),
-                                                 tzinfo=pytz.timezone("Asia/Tehran")).to_gregorian()
+                                                 hour=int(hour[0]), minute=int(hour[1])).to_gregorian()
+        reserved_time = pytz.timezone("Asia/Tehran").localize(reserved_time)
         fields = {
             "room": room,
             "customer_name": name,
@@ -333,9 +333,9 @@ class RoomView(View):
         }
         return render(request, 'main/reserveroom.html', context)
 
-    def post(self, request, pk):
+    def post(self, request, slug):
         data = request.POST
-        room = game_models.Room.objects.get(pk=pk)
+        room = game_models.Room.objects.get(slug=slug)
 
         date = data.get("date", None)
         turn = data.get("turn", None)
@@ -353,9 +353,10 @@ class RoomView(View):
         year, month, day = date.split("/")
         reserved_date = jdatetime.JalaliDateTime(int(year), int(month), int(day), int(hour),
                                                  int(minutes)).to_gregorian()
+        reserved_date = pytz.timezone("Asia/Tehran").localize(reserved_date)
         fields = {
             "amount": data.get("price", None),
-            "room_id": pk,
+            "room_id": room.pk,
             "customer_name": data.get('name', None),
             "package": package,
             "mobile": data.get('phone', None),
@@ -367,7 +368,7 @@ class RoomView(View):
         if payment.get("valid", None):
             return redirect(payment.get("url"))
         else:
-            return redirect("main:room-page", pk=pk)
+            return redirect("main:room-page", slug=slug)
 
 
 class RemoveCoupon(LoginRequiredMixin, View):

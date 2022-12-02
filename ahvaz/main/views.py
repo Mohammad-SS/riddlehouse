@@ -16,12 +16,6 @@ from django.core.paginator import Paginator
 from riddlehouse.helpers import functions
 from persiantools import jdatetime
 
-
-def TESTSMS(request):
-    functions.send_sms.delay(order=1)
-    print("DONE")
-
-
 # Create your views here.
 
 class PanelRoomsView(LoginRequiredMixin, View):
