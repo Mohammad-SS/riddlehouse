@@ -69,6 +69,14 @@
                     <span>تنظیمات</span>
                 </li>
             </a>
+        <a href="{% url 'main:template-settings' %}">
+                <li class="mb-menu-item ripple {% if title == 'تنظیمات قالب' %}
+                active
+                {% endif %} ">
+                    <i class="fa fa-clone mb-menu-icon"></i>
+                    <span>تنظیمات قالب</span>
+                </li>
+            </a>
             <a href="#">
                 <li class="mb-menu-item ripple">
                     <i class="fas fa-sign-out-alt mb-menu-icon"></i>

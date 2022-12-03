@@ -487,3 +487,17 @@ class ReserveCompleted(View):
             "rooms": rooms,
         }
         return render(request, "main/reserveroom.html", context)
+
+
+class TemplateSettingsView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'panel/template_settings.html', {"title" : "تنظیمات قالب"})
+
+    def post(self, request):
+        data = request.POST.copy()
+        data.pop("csrfmiddlewaretoken")
+        for key, setting in data.items():
+            name = key.lower()
+            functions.set_context(name, setting)
+
+        return redirect("main:template-settings")

@@ -278,7 +278,8 @@ def get_room_input_data(order):
     # date = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
     #                                               pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
     #     "%A %Y/%m/%d")
-    reserved_date_time = jdatetime.JalaliDateTime(pytz.timezone("Asia/Tehran").localize(order.reserved_time)).replace("fa")
+    reserved_date_time = jdatetime.JalaliDateTime(pytz.timezone("Asia/Tehran").localize(order.reserved_time)).replace(
+        "fa")
     date = reserved_date_time.strftime("%A %Y/%m/%d")
     time = reserved_date_time.strftime("%H:%M")
     # time = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
@@ -369,3 +370,10 @@ def slugify(name: str):
     name = name.strip()
     name = name.replace(" ", "-")
     return name
+
+
+def set_context(slug, value):
+    context_object, created = main_models.Context.objects.get_or_create(slug=slug, defaults={"value": value})
+    if not created:
+        context_object = main_models.Context.objects.filter(slug=slug)
+        context_object.update(value=value)

@@ -56,9 +56,10 @@ class DefaultSettings(Enum):
                           "default": "https://api.zarinpal.com/pg/v4/payment/request.json"}
     ZARINPAL_VERIFY_URL = {"slug": "zarinpal_verify_url",
                            "default": "https://api.zarinpal.com/pg/v4/payment/verify.json"}
-    ZARINPAL_CALLBACK_URL = {"slug": "zarinpal_callback", "default": "http://127.0.0.1:8000" + "/reserve-completed"}
+    ZARINPAL_CALLBACK_URL = {"slug": "zarinpal_callback", "default": "https://riddlehouse.ir" + "/reserve-completed"}
+
 
 
 class ExclusionsType(models.TextChoices):
-    DATE = "D" , "بر اساس تاریخ"
-    DATE_AND_WEEKDAY = "DW" , "بر اساس روز هفته و تاریخ"
+    DATE = "D", "بر اساس تاریخ"
+    DATE_AND_WEEKDAY = "DW", "بر اساس روز هفته و تاریخ"

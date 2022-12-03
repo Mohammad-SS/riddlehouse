@@ -1,8 +1,7 @@
 from django import template
-
-from riddlehouse.helpers import enums
-
+from riddlehouse.helpers import functions, enums
 import itertools
+from main import models as main_models
 
 register = template.Library()
 
@@ -37,16 +36,16 @@ def convert_iso_to_weekday(day_number):
         return "جمعه"
 
 
-def overview_handler(value:dict):
+def overview_handler(value: dict):
     _list = list()
     for k, v in value.items():
         _list.append(v)
-    
+
     result = {
         "rooms": _list,
-        "dates": [{"weekday":item.get('weekday'), "date":item.get('date')} for item in _list[0].get('calendar')]
+        "dates": [{"weekday": item.get('weekday'), "date": item.get('date')} for item in _list[0].get('calendar')]
     }
-    
+
     return result
 
 
@@ -64,10 +63,29 @@ def overview_get_detail(value):
             detail.append(hour_obj)
         room_data.update({hour: detail})
     return room_data
-        
-        
+
+
+def load_landing_context(part: str, offset: str = "main", tag="", from_settings=False):
+    if from_settings:
+        try:
+            setting = enums.DefaultSettings[f"{part}"]
+            return functions.get_setting(setting, "")
+        except Exception:
+            return ""
+    try:
+        if not tag == "":
+            tag = "_" + tag
+        slug = f"{part}_{offset}{tag}"
+        print(slug)
+        context = main_models.Context.objects.get(slug=slug)
+        return context.value
+    except Exception:
+        return ""
+
 
 register.filter('pagination_handle_pages', pagination_handle_pages)
 register.filter('convert_iso_to_weekday', convert_iso_to_weekday)
 register.filter('overview_handler', overview_handler)
 register.filter('overview_get_detail', overview_get_detail)
+
+register.simple_tag(load_landing_context, name="get_context")

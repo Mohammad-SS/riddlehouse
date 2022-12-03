@@ -10,3 +10,10 @@ class Setting(models.Model):
 
     def __str__(self):
         return self.name
+
+class Context(models.Model):
+    slug = models.CharField(max_length=255, unique=True)
+    value = models.TextField(default="")
+
+    def __str__(self):
+        return self.slug

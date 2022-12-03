@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load custom_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -46,9 +47,11 @@
 </head>
 <body>
     {% block banner %}
+        <a href="{% get_context part='banner' tag="link" %}">
         <div class="global-banner w-100 flex-fill d-flex align-items-center justify-content-center">
-            پیام بنر
+            {% get_context part='banner' tag="text" %}
         </div>
+        </a>
     {% endblock banner %}
     {% block body %}
     <div class="mb-content">

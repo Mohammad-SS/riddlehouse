@@ -1,0 +1,159 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load custom_tags %}
+{% block styles %}
+<link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'panel/' %}styles/settings.css">
+<link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
+{% endblock %}
+{% block contentHead %}
+<div class="content-head">
+  <h4>شخصی سازی قالب</h4>
+</div>
+{% endblock %}
+
+{% block header-scripts %}
+<script src="{% static 'modules/tinymce.min.js' %}"></script>
+<script>
+  tinymce.init({
+    height: "300",
+    language: 'fa',
+    statusbar: false,
+    selector: '#aboutus',
+    plugins: [
+      'lists', 'link', 'image', 'preview', 'table', 'insertdatetime', 'media', 'codesample', 'emoticons', 'directionality'
+    ],
+
+    menubar: false,
+    toolbar1: 'ormatpainter casechange blocks | table tabledelete | link  numlist bullist | codesample emoticons code insertdatetime preview',
+    toolbar2: 'bold italic forecolor backcolor removeformat | ltr rtl | alignleft aligncenter alignright alignjustify | hr',
+
+  });
+</script>
+{% endblock header-scripts %}
+
+{% block dialogs %}
+{% include 'panel/coupan/coupan-add-pupop.html' %}
+{% endblock dialogs %}
+
+{% block content %}
+<form method="post" action="" ref='room_create_form' class="container mb-rtl settings-container ">
+  {% csrf_token %}
+  <div class="row">
+
+    <div class="col-lg-6 col-12">
+      <span class="col-12 badge badge-basic mb-2 fs-6">
+        تنظیمات اسلاید اول اسلایدر
+      </span>
+
+      <div class="row">
+          <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input name="slider_1_title" value="{% get_context part="slider" offset="1" tag="title" %}" type="text" class="form-control" >
+        </div>
+          <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input name="slider_1_subtitle" value="{% get_context part="slider" offset="1" tag="subtitle" %}" type="text" class="form-control">
+        </div>
+        <div class="col-12 custom-input-group mb-3">
+          <textarea name="slider_1_text" type="text" class="form-control" style="resize: none;" rows="5">{% get_context part="slider" offset="1" tag="text" %}</textarea>
+        </div>
+      </div>
+    </div>
+      <div class="col-lg-6 col-12">
+      <span class="col-12 badge badge-basic mb-2 fs-6">
+        تنظیمات اسلاید دوم اسلایدر
+      </span>
+
+      <div class="row">
+          <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input name="slider_2_title" value="{% get_context part="slider" offset="2" tag="title" %}" type="text" class="form-control" >
+        </div>
+          <div class="col-lg-6 col-12 custom-input-group mb-3">
+          <input name="slider_2_subtitle" value="{% get_context part="slider" offset="2" tag="subtitle" %}" type="text" class="form-control">
+        </div>
+        <div class="col-12 custom-input-group mb-3">
+          <textarea name="slider_2_text" type="text" class="form-control" style="resize: none;" rows="5">{% get_context part="slider" offset="2" tag="text" %}</textarea>
+        </div>
+      </div>
+    </div>
+      <div class="col-lg-6 col-12">
+      <span class="col-12 badge badge-basic mb-2 fs-6">
+        تنظیمات بخش توضیحات
+      </span>
+
+      <div class="row">
+          <div class="col-12 custom-input-group mb-3">
+          <textarea name="description_main" type="text" class="form-control" style="resize: none;" rows="7">{% get_context part="description" %}</textarea>
+        </div>
+      </div>
+    </div>
+      <div class="col-lg-6 col-12">
+      <span class="col-12 badge badge-basic mb-2 fs-6">
+        تنظیمات مکعب اول
+      </span>
+
+      <div class="row">
+          <div class="col-lg-12 col-12 custom-input-group mb-3">
+          <input name="description_1_title" value="{% get_context part="description" offset="1" tag="title" %}" type="text" class="form-control" >
+        </div>
+          <div class="col-12 custom-input-group mb-3">
+          <textarea name="description_1_text" type="text" class="form-control" style="resize: none;" rows="5">{% get_context part="description" offset="1" tag="text" %}</textarea>
+        </div>
+      </div>
+    </div>
+      <div class="col-lg-6 col-12">
+      <span class="col-12 badge badge-basic mb-2 fs-6">
+        تنظیمات مکعب دوم
+      </span>
+
+      <div class="row">
+          <div class="col-lg-12 col-12 custom-input-group mb-3">
+          <input name="description_2_title" value="{% get_context part="description" offset="2" tag="title" %}" type="text" class="form-control" >
+        </div>
+          <div class="col-12 custom-input-group mb-3">
+          <textarea name="description_2_text" type="text" class="form-control" style="resize: none;" rows="5">{% get_context part="description" offset="2" tag="text" %}</textarea>
+        </div>
+      </div>
+    </div>
+      <div class="col-lg-6 col-12">
+      <span class="col-12 badge badge-basic mb-2 fs-6">
+        تنظیمات مکعب سوم
+      </span>
+
+      <div class="row">
+          <div class="col-lg-12 col-12 custom-input-group mb-3">
+          <input name="description_3_title" value="{% get_context part="description" offset="3" tag="title" %}" type="text" class="form-control" >
+        </div>
+          <div class="col-12 custom-input-group mb-3">
+          <textarea name="description_3_text" type="text" class="form-control" style="resize: none;" rows="5">{% get_context part="description" offset="3" tag="text" %}</textarea>
+        </div>
+      </div>
+    </div>
+      <div class="col-lg-6 col-12">
+      <span class="col-12 badge badge-basic mb-2 fs-6">
+        تنظیمات مکعب چهارم
+      </span>
+
+      <div class="row">
+          <div class="col-lg-12 col-12 custom-input-group mb-3">
+          <input name="description_4_title" value="{% get_context part="description" offset="4" tag="title" %}" type="text" class="form-control" >
+        </div>
+          <div class="col-12 custom-input-group mb-3">
+          <textarea name="description_4_text" type="text" class="form-control" style="resize: none;" rows="5">{% get_context part="description" offset="4" tag="text" %}</textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary me-2">ثبت</button>
+    </div>
+  </div>
+</form>
+{% endblock %}
+
+
+{% block footer-scripts %}
+<script src="{% static 'modules/vue.js' %}"></script>
+<script src="{% static 'panel/scripts/settings.js' %}"></script>
+
+{% endblock %}

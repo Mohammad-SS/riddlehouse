@@ -24,6 +24,7 @@ urlpatterns = [
     path("panel/schedule/<int:pk>/remove" , views.PanelRemoveSchedule.as_view() , name="remove-schedule"),
     
     path("panel/settings", views.PanelSettingsView.as_view(), name='settings'),
+    path("panel/template", views.TemplateSettingsView.as_view(), name='template-settings'),
 
     path("" ,  views.LandingView.as_view() ,name='main'),
     path("cities" ,  views.CitySelectView.as_view() ,name='city'),
