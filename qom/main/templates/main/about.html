@@ -35,11 +35,7 @@
                     <p>تلفن : <a href="tel:{% get_context part='MOBILE_PHONE' from_settings=True %}">{% get_context part="MOBILE_PHONE" from_settings=True %}</a>
                     </p>
                 </div>
-                <div class="contact-us-item mt-3" id="address ">
-                    <i class="me-3 fas fs-4 fa-at"></i>
-                    <span>ایمیل : <a
-                            href="mailto:{% get_context part='EMAIL_ADDRESS' from_settings=True %}">{% get_context part="EMAIL_ADDRESS" from_settings=True %}</a></span>
-                </div>
+
             </div>
 
             <div class="newsletter-container">
@@ -62,8 +58,7 @@
                            class="icon ripple" id="whatsapp"></a>
                         <a aria-label="contact with instagram" href="{% get_context part='INSTAGRAM_USER' from_settings=True %}"
                            class="icon ripple" id="instagram"></a>
-                        <a aria-label="contact with email" href="mailto:{% get_context part='EMAIL_ADDRESS' from_settings=True %}"
-                           class="icon ripple" id="email"></a>
+
                     </div>
                 </div>
             </div>
