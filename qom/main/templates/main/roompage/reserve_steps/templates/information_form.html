@@ -12,6 +12,7 @@
     <input name='package' type="hidden" v-model='package.id'>
     <input name='package_price' type="hidden" v-model='package.price'>
     <input name='price' type="hidden" v-model.lazy='total_price.num'>
+    <input name='pre_price' type="hidden" value='{{room.pre_price}}'>
     {% comment %} <input name='price_with_coupon' type="hidden" v-model='price_with_coupon'> {% endcomment %}
 
     <!-- from unvisible data -->
@@ -100,10 +101,15 @@
         </div>
         <hr>
         <div>
+            <p><b>پیش پرداخت :</b> {{room.pre_price}} تومان</p>
             <p><b>مبلغ کل :</b> [[total_price.str]] تومان</p>
-            <p><b>مبلع با احتساب کد تخفیف :</b> - </p>
+            {% comment %} <p><b>مبلع با احتساب کد تخفیف :</b> - </p> {% endcomment %}
         </div>
         <hr>
+        <div>
+            <p><b>مبلغ قابل پرداخت :</b> {{room.pre_price}} تومان</p>
+        </div>
+
         <span class="mb-expand"></span>
         <button type="submit" class="btn btn-success btn-lg fs-6">
             پرداخت و ثبت اطلاعات

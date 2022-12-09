@@ -48,98 +48,135 @@
       </span>
 
       <div class="row">
-          <div class="col-lg-6 col-12 custom-input-group mb-3">
-          <input name="slider_1_title" value="{% get_context part="slider" offset="1" tag="title" %}" type="text" class="form-control" >
+        <div class="col-lg-6 col-12 mb-3">
+          <label for="slider_1_title" class="form-label ">عنوان فیلد</label>
+          <input name="slider_1_title" id='slider_1_title' value="{% get_context part=" slider" offset="1" tag="title" %}" type="text"
+            class="form-control">
         </div>
-          <div class="col-lg-6 col-12 custom-input-group mb-3">
-          <input name="slider_1_subtitle" value="{% get_context part="slider" offset="1" tag="subtitle" %}" type="text" class="form-control">
+        <div class="col-lg-6 col-12 mb-3">
+          <label for="slider_1_subtitle" class="form-label ">عنوان فیلد</label>
+
+          <input name="slider_1_subtitle" id='slider_1_subtitle' value="{% get_context part=" slider" offset="1" tag="subtitle" %}" type="text"
+            class="form-control">
         </div>
-        <div class="col-12 custom-input-group mb-3">
-          <textarea name="slider_1_text" type="text" class="form-control" style="resize: none;" rows="5">{% get_context part="slider" offset="1" tag="text" %}</textarea>
+        <div class="col-12 mb-3">
+          <label for="slider_1_text" class="form-label ">عنوان فیلد</label>
+          <textarea name="slider_1_text" id="slider_1_text" type="text" class="form-control" style="resize: none;"
+            rows="5">{% get_context part="slider" offset="1" tag="text" %}</textarea>
         </div>
       </div>
     </div>
-      <div class="col-lg-6 col-12">
+    <div class="col-lg-6 col-12">
       <span class="col-12 badge badge-basic mb-2 fs-6">
         تنظیمات اسلاید دوم اسلایدر
       </span>
 
       <div class="row">
-          <div class="col-lg-6 col-12 custom-input-group mb-3">
-          <input name="slider_2_title" value="{% get_context part="slider" offset="2" tag="title" %}" type="text" class="form-control" >
+        <div class="col-lg-6 col-12 mb-3">
+          <label for="slider_2_title" class="form-label ">عنوان فیلد</label>
+
+          <input name="slider_2_title" id='slider_2_title' value="{% get_context part=" slider" offset="2" tag="title" %}" type="text"
+            class="form-control">
         </div>
-          <div class="col-lg-6 col-12 custom-input-group mb-3">
-          <input name="slider_2_subtitle" value="{% get_context part="slider" offset="2" tag="subtitle" %}" type="text" class="form-control">
+        <div class="col-lg-6 col-12 mb-3">
+          <label for="slider_2_subtitle" class="form-label ">عنوان فیلد</label>
+
+          <input name="slider_2_subtitle" id='slider_2_subtitle' value="{% get_context part=" slider" offset="2" tag="subtitle" %}" type="text"
+            class="form-control">
         </div>
-        <div class="col-12 custom-input-group mb-3">
-          <textarea name="slider_2_text" type="text" class="form-control" style="resize: none;" rows="5">{% get_context part="slider" offset="2" tag="text" %}</textarea>
+        <div class="col-12 mb-3">
+          <label for="slider_2_text" class="form-label ">عنوان فیلد</label>
+          <textarea name="slider_2_text" id="slider_2_text" type="text" class="form-control" style="resize: none;"
+            rows="5">{% get_context part="slider" offset="2" tag="text" %}</textarea>
         </div>
       </div>
     </div>
-      <div class="col-lg-6 col-12">
+    <div class="col-lg-6 col-12">
       <span class="col-12 badge badge-basic mb-2 fs-6">
         تنظیمات بخش توضیحات
       </span>
 
       <div class="row">
-          <div class="col-12 custom-input-group mb-3">
-          <textarea name="description_main" type="text" class="form-control" style="resize: none;" rows="7">{% get_context part="description" %}</textarea>
+        <div class="col-12 mb-3">
+          <label for="description_main" class="form-label ">عنوان فیلد</label>
+          <textarea name="description_main" id="description_main" type="text" class="form-control" style="resize: none;"
+            rows="7">{% get_context part="description" %}</textarea>
         </div>
       </div>
     </div>
-      <div class="col-lg-6 col-12">
+    <div class="col-lg-6 col-12">
       <span class="col-12 badge badge-basic mb-2 fs-6">
         تنظیمات مکعب اول
       </span>
 
       <div class="row">
-          <div class="col-lg-12 col-12 custom-input-group mb-3">
-          <input name="description_1_title" value="{% get_context part="description" offset="1" tag="title" %}" type="text" class="form-control" >
+        <div class="col-lg-12 col-12 mb-3">
+          <label for="description_1_title" class="form-label ">عنوان مکعب اول</label>
+
+          <input name="description_1_title" id='description_1_title' value="{% get_context part=" description" offset="1" tag="title" %}"
+            type="text" class="form-control">
         </div>
-          <div class="col-12 custom-input-group mb-3">
-          <textarea name="description_1_text" type="text" class="form-control" style="resize: none;" rows="5">{% get_context part="description" offset="1" tag="text" %}</textarea>
+        <div class="col-12 mb-3">
+          <label for="description_1_text" class="form-label ">متن مکعب</label>
+          <textarea name="description_1_text" id="description_1_text" type="text" class="form-control" style="resize: none;"
+            rows="5">{% get_context part="description" offset="1" tag="text" %}</textarea>
         </div>
       </div>
     </div>
-      <div class="col-lg-6 col-12">
+    <div class="col-lg-6 col-12">
       <span class="col-12 badge badge-basic mb-2 fs-6">
         تنظیمات مکعب دوم
       </span>
 
       <div class="row">
-          <div class="col-lg-12 col-12 custom-input-group mb-3">
-          <input name="description_2_title" value="{% get_context part="description" offset="2" tag="title" %}" type="text" class="form-control" >
+        <div class="col-lg-12 col-12 mb-3">
+          <label for="description_2_title" class="form-label ">عنوان مکعب دوم</label>
+
+          <input name="description_2_title" id='description_2_title' value="{% get_context part=" description" offset="2" tag="title" %}"
+            type="text" class="form-control">
         </div>
-          <div class="col-12 custom-input-group mb-3">
-          <textarea name="description_2_text" type="text" class="form-control" style="resize: none;" rows="5">{% get_context part="description" offset="2" tag="text" %}</textarea>
+        <div class="col-12 mb-3">
+          <label for="description_2_text" class="form-label ">متن مکعب</label>
+          <textarea name="description_2_text" id="description_2_text" type="text" class="form-control" style="resize: none;"
+            rows="5">{% get_context part="description" offset="2" tag="text" %}</textarea>
         </div>
       </div>
     </div>
-      <div class="col-lg-6 col-12">
+    <div class="col-lg-6 col-12">
       <span class="col-12 badge badge-basic mb-2 fs-6">
         تنظیمات مکعب سوم
       </span>
 
       <div class="row">
-          <div class="col-lg-12 col-12 custom-input-group mb-3">
-          <input name="description_3_title" value="{% get_context part="description" offset="3" tag="title" %}" type="text" class="form-control" >
+        <div class="col-lg-12 col-12 mb-3">
+          <label for="description_3_title" class="form-label ">عنوان مکعب سوم</label>
+
+          <input name="description_3_title" id='description_3_title' value="{% get_context part=" description" offset="3" tag="title" %}"
+            type="text" class="form-control">
         </div>
-          <div class="col-12 custom-input-group mb-3">
-          <textarea name="description_3_text" type="text" class="form-control" style="resize: none;" rows="5">{% get_context part="description" offset="3" tag="text" %}</textarea>
+        <div class="col-12 mb-3">
+          <label for="description_3_text" class="form-label ">متن مکعب</label>
+          <textarea name="description_3_text" id="description_3_text" type="text" class="form-control" style="resize: none;"
+            rows="5">{% get_context part="description" offset="3" tag="text" %}</textarea>
         </div>
       </div>
     </div>
-      <div class="col-lg-6 col-12">
+    <div class="col-lg-6 col-12">
       <span class="col-12 badge badge-basic mb-2 fs-6">
         تنظیمات مکعب چهارم
       </span>
 
       <div class="row">
-          <div class="col-lg-12 col-12 custom-input-group mb-3">
-          <input name="description_4_title" value="{% get_context part="description" offset="4" tag="title" %}" type="text" class="form-control" >
+        <div class="col-lg-12 col-12 mb-3">
+          <label for="description_4_title" class="form-label ">عنوان مکعب چهارم</label>
+
+          <input name="description_4_title" id='description_4_title' value="{% get_context part=" description" offset="4" tag="title" %}"
+            type="text" class="form-control">
         </div>
-          <div class="col-12 custom-input-group mb-3">
-          <textarea name="description_4_text" type="text" class="form-control" style="resize: none;" rows="5">{% get_context part="description" offset="4" tag="text" %}</textarea>
+        <div class="col-12 mb-3">
+          <label for="description_4_text" class="form-label ">متن مکعب</label>
+          <textarea name="description_4_text" id="description_4_text" type="text" class="form-control" style="resize: none;"
+            rows="5">{% get_context part="description" offset="4" tag="text" %}</textarea>
         </div>
       </div>
     </div>

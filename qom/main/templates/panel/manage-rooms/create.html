@@ -72,9 +72,13 @@
     <div class="row">
       <div class="col-lg-6 col-12">
           <div class="row">
-            <div class="mb-3 col-12">
+            <div class="mb-3 col-lg-6 col-12">
               {% comment %} <label for="name" class="form-label d-md-none d-block">نام اتاق</label> {% endcomment %}
               <input name="name" type="text" class="form-control" id="name" placeholder="نام اتاق">
+            </div>
+            <div class="mb-3 col-lg-6 col-12">
+              {% comment %} <label for="name" class="form-label d-md-none d-block">نام اتاق</label> {% endcomment %}
+              <input name="pre_price" type="number" class="form-control" id="pre_price" placeholder="مبلغ پیش پرداخت">
             </div>
             <div class="mb-3 col-4">
               {% comment %} <label for="difficulty" class="form-label d-md-block d-md-none d-block">سختی بازی</label> {% endcomment %}
@@ -228,6 +232,7 @@
         </div>
       </div>
     </div>
+    
     <div class="row mt-4">
       <div class="col-md-6 col-12 mb-md-0 mb-4">
         <p>هشدار ها</p>
@@ -239,9 +244,14 @@
       </div>
     </div>
       <div class="row mt-4">
-      <div class="col-md-12 col-12 mb-md-0 mb-4">
+      <div class="col-lg-6 col-12 mb-md-0 mb-4">
         <p>توضیحات</p>
         <input name="descriptions" type="text" id="description">
+      </div>
+      <div class="col-lg-6 col-12 mb-md-0 mb-4 d-flex flex-column">
+        <p>نقشه و مکان اتاق</p>
+        <input name="balad_link" type="url" class="form-control" id="balad_link" placeholder="لینک بَلَد">
+        <textarea placeholder="نقشه گوگل (تگ iframe)" name="google_map"  id="google_map" class="mt-2 border p-3 h-100 rounded-3" style="resize: none;"></textarea>
       </div>
     </div>
     <div class="row">
