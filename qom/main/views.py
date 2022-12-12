@@ -331,7 +331,7 @@ class LoginView(View):
 
 class RoomView(View):
     def get(self, request, slug):
-        rooms = game.models.Room.objects.all()
+        rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL)
         room = game_models.Room.objects.get(slug=slug)
         now = datetime.datetime.now().strftime("%Y/%m/%d")
         try:

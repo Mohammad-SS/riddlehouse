@@ -47,9 +47,9 @@
 </head>
 <body>
     {% block banner %}
-        <a href="{% get_context part='banner' tag="link" %}">
+        <a href="{% get_context part='topbanner' tag="link" %}">
         <div class="global-banner w-100 flex-fill d-flex align-items-center justify-content-center">
-            {% get_context part='banner' tag="text" %}
+            {% get_context part='topbanner' tag="text" %}
         </div>
         </a>
     {% endblock banner %}
