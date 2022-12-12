@@ -3,7 +3,11 @@
 <!-- Descripton -->
 <section class="description mb-shadow">
     <p class="detail">
-                {% get_context part="description" %}
+        {% autoescape off %}
+                        {% get_context part="description" %}
+
+        {% endautoescape %}
+
     </p>
     <div class="swiper cube-tip-box">
         <div class="swiper-wrapper">
