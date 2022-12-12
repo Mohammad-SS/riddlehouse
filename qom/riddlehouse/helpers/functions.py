@@ -84,8 +84,7 @@ def start_payment(**kwargs):
     description = kwargs.get("description", "پرداخت خانه معما")
     data = {
         "merchant_id": merchant,
-        # "amount": amount * 10,
-        "amount": 1000,
+        "amount": amount * 10,
         "callback_url": callback_url,
         "description": description,
     }
@@ -148,7 +147,6 @@ def verify_payment(authority):
             "card_hash": "رایگان",
         }
         return {"valid": True, "data": data, "order": order_object, "payment": payment_object}
-    amount = 1000
     url = get_setting(enums.DefaultSettings.ZARINPAL_VERIFY_URL)
     data = {
         "merchant_id": merchant,

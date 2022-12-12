@@ -17,19 +17,21 @@
     <div class="room-scenario">
         <strong>سناریو</strong>
         <p>
+            {% autoescape off %}
+
+
             {{ room.description }}
         </p>
         {% if room.warnings %}
             <br>
             <strong>توجه</strong>
             <p>
-                {% autoescape off %}
                     {{ room.warnings }}
-                {% endautoescape %}
 
             </p>
         {% endif %}
 
+            {% endautoescape %}
 
     </div>
 </div>
