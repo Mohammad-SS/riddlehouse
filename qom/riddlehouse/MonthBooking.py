@@ -70,7 +70,7 @@ class Month():
         if is_ordered:
             return False, "RESERVED"
 
-        if datetime.datetime.now(pytz.timezone("Asia/Tehran")) + datetime.timedelta(hours=2) > this_hour:
+        if datetime.datetime.now(pytz.timezone("Asia/Tehran")) + datetime.timedelta(minutes=30) > this_hour:
             return False, "PASSED"
 
         return True, "FREE"
