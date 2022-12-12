@@ -170,6 +170,7 @@ class PanelRoomView(LoginRequiredMixin, View):
             "balad_link": data.get("balad_link", ""),
             "box_packages_prices": box_packages_prices,
         }
+        fields = functions.remove_empties(fields)
         room = game_models.Room(**fields)
         room.banner = picture
         room.save()
@@ -333,10 +334,14 @@ class RoomView(View):
         rooms = game.models.Room.objects.all()
         room = game_models.Room.objects.get(slug=slug)
         now = datetime.datetime.now().strftime("%Y/%m/%d")
+        try:
+            meta_description = room.description[:155] + "..."
+        except Exception:
+            meta_description = "اولین اتاق فرار استان قم"
         context = {
             "rooms": rooms,
             "room": room,
-            "meta_description": room.description[:155] + "...",
+            "meta_description": meta_description,
             "meta_keywords": "خانه معما , اتاق فرار , اسکیپ روم قم ," + room.name,
             "title": room.name,
             "now": now
@@ -354,20 +359,23 @@ class RoomView(View):
             if not date or not turn:
                 return False
             hour, minutes = turn.split(":")
+            rest_payment = room.price_per_unit * int(data.get('persons', room.min_players)) - int(
+                data.get("pre_pay", room.pre_pay))
+            amount = data.get("pre_pay" , 0)
         else:
             if not package:
                 return False
             hour = 12
             minutes = 0
+            rest_payment = 0
+            amount = data.get("package_price" , 0)
 
         year, month, day = date.split("/")
         reserved_date = jdatetime.JalaliDateTime(int(year), int(month), int(day), int(hour),
                                                  int(minutes)).to_gregorian()
         reserved_date = pytz.timezone("Asia/Tehran").localize(reserved_date)
-        rest_payment = room.price_per_unit * int(data.get('persons', room.min_players)) - int(
-            data.get("pre_pay", room.pre_pay))
         fields = {
-            "amount": data.get("pre_pay", None),
+            "amount": amount,
             "rest_payment": rest_payment,
             "room_id": room.pk,
             "customer_name": data.get('name', None),
