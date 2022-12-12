@@ -84,8 +84,8 @@ def start_payment(**kwargs):
     description = kwargs.get("description", "پرداخت خانه معما")
     data = {
         "merchant_id": merchant,
-        "amount": amount * 10,
-        # "amount": 1000,
+        # "amount": amount * 10,
+        "amount": 1000,
         "callback_url": callback_url,
         "description": description,
     }
@@ -117,6 +117,7 @@ def create_payment_object(**kwargs):
         "customer_name": kwargs.get('customer_name', None),
         "customer_mobile": kwargs.get('mobile', None),
         "authority_key": kwargs.get('authority', None),
+        "rest_payment" : kwargs.get("rest_payment" , 0) ,
         "players_number": kwargs.get('players_number', None),
         "package": package,
         "amount": kwargs.get('amount', None),
@@ -138,7 +139,6 @@ def verify_payment(authority):
     amount = payment.amount * 10
     if amount == 0:
         order_object, payment_object = place_order(authority, "رایگان - " + authority[0:15], "بدون پرداخت")
-        print(order_object, payment_object)
         if not order_object.user_sms_bulk or not order_object.admin_sms_bulk:
             send_sms.delay(order=order_object.pk)
         data = {
@@ -148,7 +148,7 @@ def verify_payment(authority):
             "card_hash": "رایگان",
         }
         return {"valid": True, "data": data, "order": order_object, "payment": payment_object}
-    # amount = 1000
+    amount = 1000
     url = get_setting(enums.DefaultSettings.ZARINPAL_VERIFY_URL)
     data = {
         "merchant_id": merchant,
@@ -186,6 +186,7 @@ def place_order(authority, transaction_number=None, card_pan=None):
         "customer_number": payment.customer_mobile,
         "transaction_number": transaction_number,
         "players_number": payment.players_number,
+        "rest_payment": payment.rest_payment ,
         "paid": payment.amount,
         "key": key,
         "package": payment.package,
@@ -218,7 +219,9 @@ def send_sms(order):
 
 
 def send_admin_sms(order):
-    to_numbers = get_setting(enums.DefaultSettings.MAX_SMS_ADMIN_NUMBER)
+    to_numbers = order.room.admin_phones
+    if to_numbers == "" or not to_numbers:
+        to_numbers = get_setting(enums.DefaultSettings.MAX_SMS_ADMIN_NUMBER)
 
     if order.room.room_type == enums.RoomType.BOX:
         persons = "ندارد"
@@ -275,16 +278,12 @@ def get_surprise_input_date(order: orders_models.Order):
 
 
 def get_room_input_data(order):
-    # date = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
-    #                                               pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
-    #     "%A %Y/%m/%d")
-    reserved_date_time = jdatetime.JalaliDateTime(pytz.timezone("Asia/Tehran").localize(order.reserved_time)).replace(
-        "fa")
-    date = reserved_date_time.strftime("%A %Y/%m/%d")
-    time = reserved_date_time.strftime("%H:%M")
-    # time = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
-    #                                               pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
-    #     "%H:%M")
+    date = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
+                                                  pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
+        "%A %Y/%m/%d")
+    time = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
+                                                  pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
+        "%H:%M")
     input_data = {
         "user": order.customer_name,
         "game": order.room.name,

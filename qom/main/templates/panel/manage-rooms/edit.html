@@ -20,15 +20,20 @@
 <script src="{% static 'modules/tinymce.min.js' %}"></script>
 <script>
     document.room_obj = {}
-    let weekdays = {{ room.default_days }}
-    let default_hours = {{ room.default_hours }}
-    let room_type = "{{room.room_type}}"
-    let box_packages = {{room.box_packages_prices}}
+    let weekdays = {{ room.default_days }} ;
+    let default_hours = {{ room.default_hours }};
+    let room_type = "{{room.room_type}}";
+    let box_packages
+    {% if room.box_packages_prices %}
+        box_packages = {{room.box_packages_prices}} ;
+            {% else %}
+        box_packages = "" ;
+    {% endif %}
 
     document.room_obj.weekdays = weekdays
-    document.room_obj.default_hours = default_hours 
-    document.room_obj.room_type = room_type 
-    document.room_obj.box_packages = box_packages 
+    document.room_obj.default_hours = default_hours
+    document.room_obj.room_type = room_type
+    document.room_obj.box_packages = box_packages
 
 
 
@@ -98,17 +103,22 @@
     <div class="row">
         <div class="col-lg-6 col-12">
             <div class="row">
-                <div class="mb-3 col-lg-6 col-12">
+                <div class="mb-3 col-lg-4 col-12">
                      <label for="name" class="form-label">نام اتاق</label>
-                
+
                     <input name="name" type="text" class="form-control" id="name" placeholder="نام اتاق"
                         value="{{room.name}}">
                 </div>
-                <div class="mb-3 col-lg-6 col-12">
+                <div class="mb-3 col-lg-4 col-12">
                      <label for="pre_price" class="form-label">مبلغ پیش پرداخت</label>
-                
-                    <input name="pre_price" type="text" class="form-control" id="pre_price" placeholder="مبلغ پیش پرداخت"
-                        value="{{room.pre_price}}">
+
+                    <input name="pre_pay" type="text" class="form-control" id="pre_price" placeholder="مبلغ پیش پرداخت"
+                        value="{{room.pre_pay}}">
+                </div>
+                <div class="mb-3 col-lg-4 col-12">
+                     <label for="pre_price" class="form-label">مدت زمان بازی</label>
+
+                    <input name="duration" type="text" class="form-control" id="game_duration" placeholder="طول زمان بازی" value="{{ room.game_duration }}">
                 </div>
                 <div class="mb-3 col-4">
                    <label for="difficulty" class="form-label ">سختی
@@ -118,7 +128,7 @@
                 </div>
                 <div class="mb-3 col-4">
                     <label for="min-player" class="form-label ">حداقل
-                        بازیکن</label> 
+                        بازیکن</label>
                     <input name="min_players" type="number" class="form-control" id="min-player"
                         placeholder="حداقل بازیکن" value="{{room.min_players}}">
                 </div>
@@ -161,7 +171,7 @@
                     <i class="far fa-images"></i>&nbsp;
                     انتخاب یا تغییر تصویر
                 </label>
-                
+
                 <div :class='get_banner_src ? "banner-animate-block" : ""' class="banner-d-none banner-img">
                     <img :src="get_banner_src" alt="">
                 </div>
@@ -191,7 +201,7 @@
                         placeholder="قیمت هر نفر" value="{{room.price_per_unit}}">
                 </div>
             </div>
-            <div class="row mb-3" v-if='packages.length > 0'>
+            <div class="row mb-3" v-if='packages.length > 0 && room_mode == "box"'>
                 <div class="col-12 d-flex mt-1" v-for='(package, index) in packages'>
                     <input type="hidden" name='price' :value="[[package.price]]">
                     <div class="d-flex align-items-center flex-fill packages-container shadow-2 fs-6">
@@ -297,8 +307,10 @@
         </div>
         <div class="col-lg-6 col-12 mb-md-0 mb-4 d-flex flex-column">
             <p>نقشه و مکان اتاق</p>
-            <input name="balad_link" type="url" class="form-control" id="balad_link" placeholder="لینک بَلَد" value="{{room.balad_link}}">
+            <input name="balad_link" type="text" class="form-control" id="balad_link" placeholder="لینک نشان" value="{{room.balad_link}}">
             <textarea placeholder="نقشه گوگل (تگ iframe)" name="google_map"  id="google_map" class="mt-2 border p-3 h-100 rounded-3" style="resize: none;">{{room.google_map}}</textarea>
+            <input name="admin_phones" type="text" class="form-control" id="admin_phones" placeholder="شماره تلفن های پشتیبان ( با , جدا کنید )" value="{{room.admin_phones}}">
+
           </div>
     </div>
     <div class="row">

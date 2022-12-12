@@ -28,7 +28,7 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_QOM_ALLOWED_HOSTS").split(" ")
-CSRF_TRUSTED_ORIGINS = ['https://qom.azimim.ir',"https://qom.riddlehouse.ir"]
+CSRF_TRUSTED_ORIGINS = ['https://qom.azimim.ir',"https://qom.riddlehouse.ir" , "http://127.0.0.1:8000"]
 
 LOGIN_URL = "main:panel"
 # Application definition

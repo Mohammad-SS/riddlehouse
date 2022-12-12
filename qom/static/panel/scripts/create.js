@@ -13,6 +13,7 @@ var app = new Vue({
 
     mounted: function () {
         if (document.room_obj) {
+            console.log(document.room_obj)
             // set weekdays
             let weekdays = document.room_obj.weekdays
             if (weekdays && weekdays.length > 0) {

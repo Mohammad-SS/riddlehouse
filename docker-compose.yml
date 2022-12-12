@@ -9,7 +9,8 @@ services:
 
   qom:
     build: ./qom
-    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000"
+#    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000"
+    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./qom/:/usr/src/app/
     expose:
@@ -69,8 +70,8 @@ services:
   wordpress_db:
     image: mysql:5.7
     restart : always
-    ports:
-      - "3306:3306"
+#    ports:
+#      - "3309:3306"
     environment:
       MYSQL_ROOT_PASSWORD: mehdi@1234
       MYSQL_DATABASE: riddle_wp
@@ -113,6 +114,7 @@ services:
       - ./data/certbot/www:/var/www/certbot
     ports:
       - 80:80
+      - 8000:8000
       - 443:443
     depends_on:
       - qom

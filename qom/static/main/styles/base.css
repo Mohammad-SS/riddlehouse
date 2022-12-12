@@ -198,7 +198,9 @@ body {
     margin: 0 auto !important;
     display: flex;
     flex-direction: column;
-    background-image: url('./../images/bg-pattern.png');
+    background-image: url('./../images/backdark.webp');
+    background-size: cover;
+    background-attachment: fixed;
     font-family: 'yekan';
     direction: rtl;
     color: #bdbdbd;

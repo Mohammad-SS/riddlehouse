@@ -55,6 +55,7 @@ class Payment(models.Model):
     is_completed = models.BooleanField(default=False)
     customer_name = models.CharField(max_length=255)
     customer_mobile = models.CharField(max_length=15)
+    rest_payment = models.IntegerField(null=True,blank=True)
     authority_key = models.CharField(max_length=255)
     players_number = models.IntegerField(null=True, blank=True)
     package = models.IntegerField(null=True, blank=True)
