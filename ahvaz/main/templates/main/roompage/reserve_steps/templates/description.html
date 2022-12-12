@@ -2,7 +2,7 @@
 {% load humanize %}
 <div v-show="step == 1">
     <h1 class="room-name">
-        فرار غافلگیرانه
+        {{room.name }}
         <span class="mb-expand"></span>
         <div class="md-price">
             {% if room.price_per_unit %}

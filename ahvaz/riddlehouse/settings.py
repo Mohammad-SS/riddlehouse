@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_AHVAZ_ALLOWED_HOSTS").split(" ")
-CSRF_TRUSTED_ORIGINS = ['http://ahvaz.azimim.ir']
+CSRF_TRUSTED_ORIGINS = ['https://ahvaz.azimim.ir', "https://ahvaz.riddlehouse.ir"]
 
 LOGIN_URL = "main:panel"
 # Application definition
@@ -85,7 +85,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "HOST": os.getenv("RDL_AHVAZ_PSQL_HOST"),
-        "PORT" : 5432,
+        "PORT": 5432,
         "NAME": os.getenv("RDL_PSQL_DB_NAME"),
         "USER": os.getenv("RDL_PSQL_USER"),
         "PASSWORD": os.getenv("RDL_PSQL_PASSWORD"),
@@ -126,7 +126,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = str(BASE_DIR / "static")
 MEDIA_ROOT = os.path.join(BASE_DIR, "medias")
 MEDIA_URL = "media/"
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
