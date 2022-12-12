@@ -20,7 +20,7 @@
     height: "300",
     language: 'fa',
     statusbar: false,
-    selector: '#aboutus',
+    selector: '.descriptions',
     plugins: [
       'lists', 'link', 'image', 'preview', 'table', 'insertdatetime', 'media', 'codesample', 'emoticons', 'directionality'
     ],
@@ -49,19 +49,19 @@
 
       <div class="row">
         <div class="col-lg-6 col-12 mb-3">
-          <label for="slider_1_title" class="form-label ">عنوان فیلد</label>
-          <input name="slider_1_title" id='slider_1_title' value="{% get_context part=" slider" offset="1" tag="title" %}" type="text"
+          <label for="slider_1_title" class="form-label ">تیتر اسلایدر</label>
+          <input name="slider_1_title" id='slider_1_title' value="{% get_context part="slider" offset="1" tag="title" %}" type="text"
             class="form-control">
         </div>
         <div class="col-lg-6 col-12 mb-3">
-          <label for="slider_1_subtitle" class="form-label ">عنوان فیلد</label>
+          <label for="slider_1_subtitle" class="form-label ">زیر تیتر اسلایدر</label>
 
-          <input name="slider_1_subtitle" id='slider_1_subtitle' value="{% get_context part=" slider" offset="1" tag="subtitle" %}" type="text"
+          <input name="slider_1_subtitle" id='slider_1_subtitle' value="{% get_context part="slider" offset="1" tag="subtitle" %}" type="text"
             class="form-control">
         </div>
         <div class="col-12 mb-3">
-          <label for="slider_1_text" class="form-label ">عنوان فیلد</label>
-          <textarea name="slider_1_text" id="slider_1_text" type="text" class="form-control" style="resize: none;"
+          <label for="slider_1_text" class="form-label ">توضیحات</label>
+          <textarea name="slider_1_text" id="slider_1_text" type="text" class="form-control descriptions" style="resize: none;"
             rows="5">{% get_context part="slider" offset="1" tag="text" %}</textarea>
         </div>
       </div>
@@ -73,20 +73,20 @@
 
       <div class="row">
         <div class="col-lg-6 col-12 mb-3">
-          <label for="slider_2_title" class="form-label ">عنوان فیلد</label>
+          <label for="slider_2_title" class="form-label ">تیتر</label>
 
-          <input name="slider_2_title" id='slider_2_title' value="{% get_context part=" slider" offset="2" tag="title" %}" type="text"
+          <input name="slider_2_title" id='slider_2_title' value="{% get_context part="slider" offset="2" tag="title" %}" type="text"
             class="form-control">
         </div>
         <div class="col-lg-6 col-12 mb-3">
-          <label for="slider_2_subtitle" class="form-label ">عنوان فیلد</label>
+          <label for="slider_2_subtitle" class="form-label ">زیر تیتر</label>
 
-          <input name="slider_2_subtitle" id='slider_2_subtitle' value="{% get_context part=" slider" offset="2" tag="subtitle" %}" type="text"
+          <input name="slider_2_subtitle" id='slider_2_subtitle' value="{% get_context part="slider" offset="2" tag="subtitle" %}" type="text"
             class="form-control">
         </div>
         <div class="col-12 mb-3">
-          <label for="slider_2_text" class="form-label ">عنوان فیلد</label>
-          <textarea name="slider_2_text" id="slider_2_text" type="text" class="form-control" style="resize: none;"
+          <label for="slider_2_text" class="form-label ">توضیحات</label>
+          <textarea name="slider_2_text" id="slider_2_text" type="text" class="form-control descriptions" style="resize: none;"
             rows="5">{% get_context part="slider" offset="2" tag="text" %}</textarea>
         </div>
       </div>
@@ -98,8 +98,8 @@
 
       <div class="row">
         <div class="col-12 mb-3">
-          <label for="description_main" class="form-label ">عنوان فیلد</label>
-          <textarea name="description_main" id="description_main" type="text" class="form-control" style="resize: none;"
+          <label for="description_main" class="form-label ">توضیحات</label>
+          <textarea name="description_main" id="description_main" type="text" class="form-control descriptions" style="resize: none;"
             rows="7">{% get_context part="description" %}</textarea>
         </div>
       </div>
