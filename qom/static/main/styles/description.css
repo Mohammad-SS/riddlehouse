@@ -17,9 +17,6 @@
     text-align: justify;
     padding: 1em 3em 1em 2em;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 2em;
     flex-direction: column;
 }
 

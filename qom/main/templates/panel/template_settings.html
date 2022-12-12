@@ -113,7 +113,7 @@
         <div class="col-lg-12 col-12 mb-3">
           <label for="description_1_title" class="form-label ">عنوان مکعب اول</label>
 
-          <input name="description_1_title" id='description_1_title' value="{% get_context part=" description" offset="1" tag="title" %}"
+          <input name="description_1_title" id='description_1_title' value="{% get_context part="description" offset="1" tag="title" %}"
             type="text" class="form-control">
         </div>
         <div class="col-12 mb-3">
@@ -132,7 +132,7 @@
         <div class="col-lg-12 col-12 mb-3">
           <label for="description_2_title" class="form-label ">عنوان مکعب دوم</label>
 
-          <input name="description_2_title" id='description_2_title' value="{% get_context part=" description" offset="2" tag="title" %}"
+          <input name="description_2_title" id='description_2_title' value="{% get_context part="description" offset="2" tag="title" %}"
             type="text" class="form-control">
         </div>
         <div class="col-12 mb-3">
@@ -151,7 +151,7 @@
         <div class="col-lg-12 col-12 mb-3">
           <label for="description_3_title" class="form-label ">عنوان مکعب سوم</label>
 
-          <input name="description_3_title" id='description_3_title' value="{% get_context part=" description" offset="3" tag="title" %}"
+          <input name="description_3_title" id='description_3_title' value="{% get_context part="description" offset="3" tag="title" %}"
             type="text" class="form-control">
         </div>
         <div class="col-12 mb-3">
@@ -170,13 +170,32 @@
         <div class="col-lg-12 col-12 mb-3">
           <label for="description_4_title" class="form-label ">عنوان مکعب چهارم</label>
 
-          <input name="description_4_title" id='description_4_title' value="{% get_context part=" description" offset="4" tag="title" %}"
+          <input name="description_4_title" id='description_4_title' value="{% get_context part="description" offset="4" tag="title" %}"
             type="text" class="form-control">
         </div>
         <div class="col-12 mb-3">
           <label for="description_4_text" class="form-label ">متن مکعب</label>
           <textarea name="description_4_text" id="description_4_text" type="text" class="form-control" style="resize: none;"
             rows="5">{% get_context part="description" offset="4" tag="text" %}</textarea>
+        </div>
+      </div>
+    </div>
+      <div class="col-lg-6 col-12">
+      <span class="col-12 badge badge-basic mb-2 fs-6">
+        تنظیمات بنر فوق العاده
+      </span>
+
+      <div class="row">
+        <div class="col-lg-12 col-12 mb-3">
+          <label for="description_4_title" class="form-label ">متن بنر</label>
+
+          <input name="topbanner_text" id='description_4_title' value="{% get_contextpart="topbanner" tag="text" %}"
+            type="text" class="form-control">
+        </div>
+        <div class="col-12 mb-3">
+          <label for="description_4_text" class="form-label ">لینک بنر</label>
+          <textarea name="topbanner_link" id="description_4_text" type="text" class="form-control" style="resize: none;"
+            rows="5">{% get_context part="topbanner" tag="link" %}</textarea>
         </div>
       </div>
     </div>
