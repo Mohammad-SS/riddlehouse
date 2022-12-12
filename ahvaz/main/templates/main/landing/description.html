@@ -1,21 +1,13 @@
 {% load static %}
+{% load custom_tags %}
 <!-- Descripton -->
 <section class="description mb-shadow">
-    <p class="detail">
-        اسکیپ روم یا اتاق فرار یک بازی جهانی است که از سال 2007 از کشور ژاپن شروع شد . این بازی شبیه بازی های
-        مجازی
-        ولی واقعی اتفاق می افتد و خود افراد به عنوان کاراکتر یک بازی نقش آفرینی میکنند . هر اتاق با توجه به
-        سناریو
-        بخصوص خود یک بازه زمانی در اختیار شما قرار میدهد که با توجه به آن باید به هدف نهایی دست پیدا کنید و همه
-        چیز
-        به صورت حقیقی اتفاق می افتد . خانه معما مفتخر است برای اولین بار در ایران این بازی را کاملا بومی سازی
-        کرده و
-        با اهداف فرهنگ سازی و ارتقاء سطح دانش جوانان و خانواده های عزیز همراه با تفریح و لذت در ساعات حضور در
-        این
-        مجموعه با نظارت و حمایت سازمان فرهنگی ورزشی شهرداری استان قم ، در پارک علم و فناوری به عنوان فناور به
-        ثبت
-        رسانده .
-    </p>
+    <div class="detail">
+        {% autoescape off %}
+                        {% get_context part="description" %}
+        {% endautoescape %}
+
+    </div>
     <div class="swiper cube-tip-box">
         <div class="swiper-wrapper">
             <div class="tip-card swiper-slide">
@@ -24,16 +16,13 @@
                         <img loading="lazy" src="{% static 'main/' %}images/icons/genres.svg" alt="">
                     </div>
                     <div class="tip-card-title">
-                        ژانر ها
+                        {% get_context part="description" offset="1" tag="title" %}
                     </div>
                 </div>
                 <div class="tip-card-body">
                     <div r class="tip-card-text">
                         <p>
-                            بازی‌های ما ژانرهای مختلفی داره...از ژانر اتاق فرار ترسناک تا پلیسی و جنایی و
-                            دلهره‌آور و کلی ژانر هیجان‌انگیز دیگه! تیم ما به عنوان اولین و بزرگترین مجموعه اتاق
-                            فرار در ایران تاکنون بیش‌از ۲۵ اتاق فرار متفاوت در استان‌های مختلف ایران طراحی کرده
-                            است. اتاق فرارهای ما در دو دسته کلاسیک و ویژه قرار می‌گیرند.
+                            {% get_context part="description" offset="1" tag="text" %}
                         </p>
                     </div>
                 </div>
@@ -45,16 +34,13 @@
                         <img loading="lazy" src="{% static 'main/' %}images/icons/gamepad.svg" alt="">
                     </div>
                     <div class="tip-card-title">
-                        نحوه بازی
+                        {% get_context part="description" offset="2" tag="title" %}
                     </div>
                 </div>
                 <div class="tip-card-body">
                     <div r class="tip-card-text">
                         <p>
-                            شما به همراه دوستانتون وارد یه اتاق میشید که تم و داستان مشخصی داره! شما باید معمای
-                            مربوط به بازی رو حل کنید و نهایتا بتونید در زمان محدود (حدودا ۱ ساعت) از اتاق خارج
-                            بشید! هرگاه بیش از حد در معمایی گیر کردین مدیر بازی به شما کمک می‌کنه. در حل معماها
-                            اصلا نیازی به فشار و زور نیست!
+                            {% get_context part="description" offset="2" tag="text" %}
                         </p>
                     </div>
                 </div>
@@ -66,16 +52,13 @@
                         <img loading="lazy" src="{% static 'main/' %}images/icons/team.svg" alt="">
                     </div>
                     <div class="tip-card-title">
-                        تیم شما
+                        {% get_context part="description" offset="3" tag="title" %}
                     </div>
                 </div>
                 <div class="tip-card-body">
                     <div r class="tip-card-text">
                         <p>
-                            این بازی هر کسی رو که از حل معما و ماجراجویی لذت می بره، سر حال میاره. به تنهایی هیچ
-                            شانسی ندارید: با دوستان یا خانواده، باید یک تیم تشکیل بدید! قراره همه ی حواستون به
-                            چالش کشیده بشه. هر چی بیشتر با هم هماهنگ باشید سریع تر پیش میرین . از پسش بر میاین؟
-                            خواهیم دید.
+                            {% get_context part="description" offset="3" tag="text" %}
                         </p>
                     </div>
                 </div>
@@ -87,16 +70,13 @@
                         <img loading="lazy" src="{% static 'main/' %}images/icons/idea.webp" alt="">
                     </div>
                     <div class="tip-card-title">
-                        ایده بازی
+                       {% get_context part="description" offset="4" tag="title" %}
                     </div>
                 </div>
                 <div class="tip-card-body">
                     <div r class="tip-card-text">
                         <p>
-                            اگه از حل معما و ماجراجویی لذت می برید، این بازی رو از دست ندهید. یک ساعت از موبایل
-                            و تبلت فاصله بگیرید و درگیرِ یک سناریو جذاب شوید! با بسته شدنِ در میگید: حالا چه
-                            طوری بیام بیرون؟ به نظر ساده میاد ولی اینجور نیست! کلی نقشه و معما که شما رو میبره
-                            به عمقِ یه داستان واقعی.
+                            {% get_context part="description" offset="4" tag="text" %}
                         </p>
                     </div>
                 </div>
@@ -113,16 +93,13 @@
                     <img loading="lazy" src="{% static 'main/' %}images/icons/genres.svg" alt="ژانر">
                 </div>
                 <div class="tip-card-title">
-                    ژانر ها
+                    {% get_context part="description" offset="1" tag="title" %}
                 </div>
             </div>
             <div class="tip-card-body">
                 <div r class="tip-card-text">
                     <p>
-                        بازی‌های ما ژانرهای مختلفی داره...از ژانر اتاق فرار ترسناک تا پلیسی و جنایی و دلهره‌آور
-                        و کلی ژانر هیجان‌انگیز دیگه! تیم ما به عنوان اولین و بزرگترین مجموعه اتاق فرار در ایران
-                        تاکنون بیش‌از ۲۵ اتاق فرار متفاوت در استان‌های مختلف ایران طراحی کرده است. اتاق فرارهای
-                        ما در دو دسته کلاسیک و ویژه قرار می‌گیرند.
+                        {% get_context part="description" offset="1" tag="text" %}
                     </p>
                 </div>
             </div>
@@ -134,16 +111,13 @@
                     <img loading="lazy" src="{% static 'main/' %}images/icons/gamepad.svg" alt="نحوه بازی">
                 </div>
                 <div class="tip-card-title">
-                    نحوه بازی
+                    {% get_context part="description" offset="2" tag="title" %}
                 </div>
             </div>
             <div class="tip-card-body">
                 <div r class="tip-card-text">
                     <p>
-                        شما به همراه دوستانتون وارد یه اتاق میشید که تم و داستان مشخصی داره! شما باید معمای
-                        مربوط به بازی رو حل کنید و نهایتا بتونید در زمان محدود (حدودا ۱ ساعت) از اتاق خارج بشید!
-                        هرگاه بیش از حد در معمایی گیر کردین مدیر بازی به شما کمک می‌کنه. در حل معماها اصلا نیازی
-                        به فشار و زور نیست!
+                        {% get_context part="description" offset="2" tag="text" %}
                     </p>
                 </div>
             </div>
@@ -155,16 +129,13 @@
                     <img loading="lazy" src="{% static 'main/' %}images/icons/team.svg" alt="تیم شما">
                 </div>
                 <div class="tip-card-title">
-                    تیم شما
+                    {% get_context part="description" offset="3" tag="title" %}
                 </div>
             </div>
             <div class="tip-card-body">
                 <div r class="tip-card-text">
                     <p>
-                        این بازی هر کسی رو که از حل معما و ماجراجویی لذت می بره، سر حال میاره. به تنهایی هیچ
-                        شانسی ندارید: با دوستان یا خانواده، باید یک تیم تشکیل بدید! قراره همه ی حواستون به چالش
-                        کشیده بشه. هر چی بیشتر با هم هماهنگ باشید سریع تر پیش میرین . از پسش بر میاین؟ خواهیم
-                        دید.
+                        {% get_context part="description" offset="3" tag="text" %}
                     </p>
                 </div>
             </div>
@@ -176,16 +147,14 @@
                     <img loading="lazy" src="{% static 'main/' %}images/icons/idea.webp" alt="ایده بازی">
                 </div>
                 <div class="tip-card-title">
+                    {% get_context part="description" offset="4" tag="title" %}
                     ایده بازی
                 </div>
             </div>
             <div class="tip-card-body">
                 <div r class="tip-card-text">
                     <p>
-                        اگه از حل معما و ماجراجویی لذت می برید، این بازی رو از دست ندهید. یک ساعت از موبایل و
-                        تبلت فاصله بگیرید و درگیرِ یک سناریو جذاب شوید! با بسته شدنِ در میگید: حالا چه طوری بیام
-                        بیرون؟ به نظر ساده میاد ولی اینجور نیست! کلی نقشه و معما که شما رو میبره به عمقِ یه
-                        داستان واقعی.
+                        {% get_context part="description" offset="4" tag="text" %}
                     </p>
                 </div>
             </div>

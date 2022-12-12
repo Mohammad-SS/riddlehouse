@@ -1,28 +1,47 @@
 from django.db import models
 from django.contrib.postgres import fields as postgres_fields
+from django.urls import reverse
 from persiantools import jdatetime
-
+from riddlehouse.helpers import functions
+from django.template.defaultfilters import slugify
 from riddlehouse.helpers import enums
+from unidecode import unidecode
 
 
 class Room(models.Model):
     name = models.CharField(max_length=255)
     difficulty = models.CharField(blank=True, null=True, max_length=3)
+    slug = models.CharField(max_length=63, default="", blank=True, null=True)
     min_players = models.IntegerField(blank=True, null=True)
     max_players = models.IntegerField(blank=True, null=True)
     conditions = models.TextField(blank=True, null=True)
     game_duration = models.CharField(max_length=255, blank=True, null=True)
     price_per_unit = models.IntegerField(blank=True, null=True)
+    pre_pay = models.IntegerField(blank=True,null=True)
     default_hours = postgres_fields.ArrayField(models.CharField(max_length=12, blank=True))
-    default_days = postgres_fields.ArrayField(models.IntegerField(choices=enums.WeekDays.choices))
+    default_days = postgres_fields.ArrayField(models.IntegerField(blank=True))
     room_type = models.CharField(max_length=7, choices=enums.RoomType.choices, default=enums.RoomType.REAL)
     box_packages_prices = postgres_fields.ArrayField(models.IntegerField(), blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     warnings = models.TextField(blank=True, null=True)
     banner = models.ImageField(upload_to="rooms", blank=True, null=True)
+    modified_time = models.DateTimeField(auto_now=True)
+    admin_phones = models.CharField(default="" , max_length=127 , blank=True,null=True)
+    google_map = models.TextField(blank=True, null=True)
+    balad_link = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        print(self.slug, self.name, slugify(self.name), self.id)
+        if not self.id:
+            self.slug = functions.slugify(self.name)
+
+        super(Room, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("main:room-page", args=[self.slug])
 
 
 class Exclusion(models.Model):

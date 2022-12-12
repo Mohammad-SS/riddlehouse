@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="{% static 'panel/' %}styles/filters.css">
 <link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
 {% endblock %}
+
+
 {% block contentHead %}
 <div class="content-head">
     <h4>مدیریت سفارش ها</h4>
@@ -16,19 +18,15 @@
 {% endblock %}
 
 
-{% block dialogs %}
-{% include 'panel/order/order-add-pupop.html' %}
-{% endblock dialogs %}
-
 
 {% block content %}
 <div class="orders mt-3 px-3">
-    <div class="mb-card mb-3" dir="rtl">
+    {% comment %} <div class="mb-card mb-3" dir="rtl">
 
         <button class="btn btn-success" @click='order_add_pupop = true'>
             + ثبت نوبت حضوری
         </button>
-    </div>
+    </div> {% endcomment %}
     <div class="mb-filter filter-options mb-rtl mb-card mb-2">
         <div class="mb-filter-item">
             <span class="ms-3">اتاق</span>

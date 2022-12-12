@@ -1,6 +1,6 @@
 /* surprise-box-detail */
 
-@keyframes surprise-box-image  {
+/* @keyframes surprise-box-image  {
     0% {
         box-shadow: 0px 0px 20px red;
     }
@@ -14,7 +14,7 @@
     }
 }
 
-
+ */
 
 .surprise-box-detail {
     text-align: center;

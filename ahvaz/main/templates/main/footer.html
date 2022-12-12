@@ -1,52 +1,81 @@
 {% load static %}
+{% load custom_tags %}
 <!-- footer -->
-<div class="footer">
-    <div class="footer-detail">
-        <div class="sitemap">
-            <ul>
-                <li class="fw-bold">صفحات</li>
-                <li>درباره ما</li>
-                <li>آلبوم</li>
-                <li>در رسانه</li>
-                <li>بازیها</li>
-            </ul>
+<div class="d-flex flex-column footer-container">
+    <div class="footer">
+        <div class="footer-detail">
+
+            <div class="sitemap">
+                <ul>
+                    <li class="fw-bold">منو</li>
+                    <a href="https://blog.riddlehouse.ir/">
+                        <li>بلاگ</li>
+                    </a>
+                    <a href="https://blog.riddlehouse.ir/category/%d8%b1%d8%b3%d8%a7%d9%86%d9%87/">
+                        <li>در رسانه</li>
+                    </a>
+                    <a href="#rooms">
+                        <li>بازیها</li>
+                    </a>
+                </ul>
+            </div>
+            <div class="branch">
+                <ul>
+                    <li class="fw-bold">دسترسی سریع</li>
+                    <a href="https://qom.riddlehouse.ir">
+                        <li>قم</li>
+                    </a>
+                    <a href="https://ahvaz.riddlehouse.ir">
+                        <li>اهواز</li>
+                    </a>
+                </ul>
+            </div>
         </div>
-        <div class="branch">
+        <span class="mb-expand"></span>
+
+        <div class="licenses">
             <ul>
-                <li class="fw-bold">دسترسی سریع</li>
-                <li>تهران</li>
-                <li>قم</li>
+                <li class="license-item">
+                    <a referrerpolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=224498&amp;Code=MilGFnMPPmr5OmgQc7oe"><img referrerpolicy="origin" src="https://Trustseal.eNamad.ir/logo.aspx?id=224498&amp;Code=MilGFnMPPmr5OmgQc7oe" alt="" style="cursor:pointer" id="MilGFnMPPmr5OmgQc7oe"></a>
+
+                    <a href="#">
+                        <img loading="lazy" src="{% static 'main/' %}images/licenses/SANAYE-KHALAGH-190x190.png"
+                             alt="نماد صنایع خلاق">
+                    </a>
+                </li>
+
+                <li class="license-item">
+                    <a href="#">
+                        <img loading="lazy" src="{% static 'main/' %}images/licenses/qum-park.png"
+                             alt="پارک علم و فناوری استان قم">
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>
-    <span class="mb-expand"></span>
-    <div class="licenses">
-        <ul>
-            <li class="license-item">
-                <a href="#">
-                    <img loading="lazy" src="{% static 'main/' %}images/licenses/tejarat-elec.png" alt="نماد تجارت الکترونیک">
-                </a>
-                <a href="#">
-                    <img loading="lazy" src="{% static 'main/' %}images/licenses/SANAYE-KHALAGH-190x190.png"
-                        alt="نماد صنایع خلاق">
-                </a>
-            </li>
- 
-            <li class="license-item">
-                <a href="#">
-                    <img loading="lazy" src="{% static 'main/' %}images/licenses/qum-park.png" alt="پارک علم و فناوری استان قم">
-                </a>
-            </li>
-
-        </ul>
+    <div class="shadow-5 mt-3  position-relative rounded d-flex flex-fill">
+        <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d205.16403905494548!2d50.87477923799304!3d34.638925147256536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe22b953f3400dd4b!2sRiddle%20House!5e0!3m2!1sen!2s!4v1670077181700!5m2!1sen!2s"
+                allowfullscreen="allowfullscreen" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                style="border: 0px none;border-radius: 10px;" class="w-100 h-100"></iframe>
+        <div class="position-absolute end-0 bottom-0 me-3 mb-3">
+            <a href="https://nshn.ir/5d_bs-FjPxQzCT">
+                <button class="btn btn-primary">
+                    <img src="{% static 'main/images/neshan-logo.png' %}" width="14px" height="14px" alt="">
+                    مسیریابی با نشان
+                </button>
+            </a>
+        </div>
     </div>
 </div>
 
+
 <!-- footer -->
 
- <!-- copyright -->
- <div
- class="copyright bg-danger p-3 rtl text-center text-white d-flex align-itens-center justify-content-center">
- تمام حقوق سایت متعلق به خانه معما استان قم می باشد | هرگونه کپی برداری پیگرد قانونی خواهد داشت.
+<!-- copyright -->
+<div
+        class="copyright bg-danger p-3 mt-2 rtl text-center text-white d-flex align-itens-center justify-content-center">
+    تمام حقوق سایت متعلق به خانه معما استان قم می باشد | هرگونه کپی برداری پیگرد قانونی خواهد داشت.
 </div>
 <!-- copyright -->

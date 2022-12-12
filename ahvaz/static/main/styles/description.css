@@ -17,10 +17,7 @@
     text-align: justify;
     padding: 1em 3em 1em 2em;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: 1;
-    line-height: 2em;
+    flex-direction: column;
 }
 
 .cube-tip-box {

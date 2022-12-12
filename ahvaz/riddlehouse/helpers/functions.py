@@ -85,7 +85,6 @@ def start_payment(**kwargs):
     data = {
         "merchant_id": merchant,
         "amount": amount * 10,
-        # "amount": 1000,
         "callback_url": callback_url,
         "description": description,
     }
@@ -117,6 +116,7 @@ def create_payment_object(**kwargs):
         "customer_name": kwargs.get('customer_name', None),
         "customer_mobile": kwargs.get('mobile', None),
         "authority_key": kwargs.get('authority', None),
+        "rest_payment" : kwargs.get("rest_payment" , 0) ,
         "players_number": kwargs.get('players_number', None),
         "package": package,
         "amount": kwargs.get('amount', None),
@@ -137,7 +137,7 @@ def verify_payment(authority):
         return {"valid": False, "data": "No Authority key found", "payment": None, "order": None}
     amount = payment.amount * 10
     if amount == 0:
-        order_object, payment_object = place_order(authority, "رایگان", "بدون پرداخت")
+        order_object, payment_object = place_order(authority, "رایگان - " + authority[0:15], "بدون پرداخت")
         if not order_object.user_sms_bulk or not order_object.admin_sms_bulk:
             send_sms.delay(order=order_object.pk)
         data = {
@@ -147,7 +147,6 @@ def verify_payment(authority):
             "card_hash": "رایگان",
         }
         return {"valid": True, "data": data, "order": order_object, "payment": payment_object}
-    # amount = 1000
     url = get_setting(enums.DefaultSettings.ZARINPAL_VERIFY_URL)
     data = {
         "merchant_id": merchant,
@@ -185,6 +184,7 @@ def place_order(authority, transaction_number=None, card_pan=None):
         "customer_number": payment.customer_mobile,
         "transaction_number": transaction_number,
         "players_number": payment.players_number,
+        "rest_payment": payment.rest_payment ,
         "paid": payment.amount,
         "key": key,
         "package": payment.package,
@@ -196,6 +196,7 @@ def place_order(authority, transaction_number=None, card_pan=None):
     payment.is_completed = True
     payment.save()
     return order, payment
+
 
 @shared_task
 def send_sms(order):
@@ -216,13 +217,19 @@ def send_sms(order):
 
 
 def send_admin_sms(order):
-    to_numbers = get_setting(enums.DefaultSettings.MAX_SMS_ADMIN_NUMBER)
+    to_numbers = order.room.admin_phones
+    if to_numbers == "" or not to_numbers:
+        to_numbers = get_setting(enums.DefaultSettings.MAX_SMS_ADMIN_NUMBER)
 
     if order.room.room_type == enums.RoomType.BOX:
         persons = "ندارد"
         time = "-"
+        descriptions = ""
     else:
         persons = order.players_number
+        descriptions = order.description
+        if not descriptions:
+            descriptions = ""
         time = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
                                                       pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
             "%H:%M")
@@ -234,7 +241,7 @@ def send_admin_sms(order):
         "user": order.customer_name,
         "phone": order.customer_number,
         "game": order.room.name,
-        "pers": persons,
+        "pers": str(persons) + str(descriptions),
         "date": date,
         "time": time,
         "key": order.key,
@@ -255,10 +262,11 @@ def send_admin_sms(order):
 
 
 def get_surprise_input_date(order: orders_models.Order):
-    date = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
-                                                  pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
+    # date = jdatetime.JalaliDateTime.fromtimestamp().replace(locale="fa")
+    # date = pytz.timezone("Asia/Tehran").localize(date).strftime("%A %Y/%m/%d")
+    # date =
+    date = jdatetime.JalaliDateTime(pytz.timezone("Asia/Tehran").localize(order.reserved_time)).replace("fa").strftime(
         "%A %Y/%m/%d")
-
     input_data = {
         "user": order.customer_name,
         "date": date,
@@ -353,3 +361,16 @@ def validate_coupon(room, coupon):
     if coupon.capacity <= coupon.used or coupon.capacity < 0:
         return False
     return True
+
+
+def slugify(name: str):
+    name = name.strip()
+    name = name.replace(" ", "-")
+    return name
+
+
+def set_context(slug, value):
+    context_object, created = main_models.Context.objects.get_or_create(slug=slug, defaults={"value": value})
+    if not created:
+        context_object = main_models.Context.objects.filter(slug=slug)
+        context_object.update(value=value)

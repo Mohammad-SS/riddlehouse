@@ -2,6 +2,7 @@ from django.db import models
 from riddlehouse.helpers import enums
 from persiantools import jdatetime
 import pytz
+from persiantools import digits
 
 
 class Order(models.Model):
@@ -10,6 +11,7 @@ class Order(models.Model):
     customer_number = models.CharField(max_length=15)
     transaction_number = models.CharField(max_length=255)
     players_number = models.IntegerField(null=True, blank=True)
+    description = models.TextField(null=True,blank=True)
     paid = models.IntegerField()
     key = models.CharField(max_length=4)
     rest_payment = models.IntegerField(blank=True, null=True)
@@ -53,6 +55,7 @@ class Payment(models.Model):
     is_completed = models.BooleanField(default=False)
     customer_name = models.CharField(max_length=255)
     customer_mobile = models.CharField(max_length=15)
+    rest_payment = models.IntegerField(null=True,blank=True)
     authority_key = models.CharField(max_length=255)
     players_number = models.IntegerField(null=True, blank=True)
     package = models.IntegerField(null=True, blank=True)
@@ -74,3 +77,7 @@ class Payment(models.Model):
             "reserved": reserved_time,
             "created": created_date
         }
+
+    def save(self, *args, **kwargs):
+        self.customer_mobile = digits.fa_to_en(self.customer_mobile)
+        super(Payment, self).save(*args, **kwargs)

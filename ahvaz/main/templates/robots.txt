@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /panel/
+
+Sitemap: http://qom.riddlehouse.ir/sitemap.xml

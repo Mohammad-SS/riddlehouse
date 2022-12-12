@@ -28,6 +28,14 @@
                     <span>مدیریت بازی ها</span>
                 </li>
             </a>
+            <a href="{% url 'main:reserve_calendar' %}">
+                <li class="mb-menu-item ripple {% if title == 'تقویم' %}
+                active
+                {% endif %} ">
+                    <i class="far fa-calendar-alt mb-menu-icon"></i>
+                    <span>تقویم رزرو</span>
+                </li>
+            </a>
             <a href="{% url 'main:schedule' %}">
                 <li class="mb-menu-item ripple {% if title == 'زمان بندی ها' %}
                 active
@@ -59,6 +67,14 @@
                 {% endif %} ">
                     <i class="fas fa-cog mb-menu-icon"></i>
                     <span>تنظیمات</span>
+                </li>
+            </a>
+        <a href="{% url 'main:template-settings' %}">
+                <li class="mb-menu-item ripple {% if title == 'تنظیمات قالب' %}
+                active
+                {% endif %} ">
+                    <i class="fa fa-clone mb-menu-icon"></i>
+                    <span>تنظیمات قالب</span>
                 </li>
             </a>
             <a href="#">

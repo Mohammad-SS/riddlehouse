@@ -19,21 +19,21 @@
 
 <script>
     tinymce.init({
-      height : "300",  
+      height : "300",
       language: 'fa',
         statusbar: false,
         selector: '#description',
         plugins: [
             'lists', 'link', 'image', 'preview', 'table', 'insertdatetime', 'media', 'codesample', 'emoticons', 'directionality'
         ],
-        
+
         menubar: false,
         toolbar1: 'ormatpainter casechange blocks | table tabledelete | link  numlist bullist | codesample emoticons code insertdatetime preview',
         toolbar2: 'bold italic forecolor backcolor removeformat | ltr rtl | alignleft aligncenter alignright alignjustify | hr',
 
     });
     tinymce.init({
-      height : "300",  
+      height : "300",
       language: 'fa',
         statusbar: false,
         selector: '#warnings',
@@ -47,7 +47,7 @@
 
     });
     tinymce.init({
-      height : "300",  
+      height : "300",
       language: 'fa',
         statusbar: false,
         selector: '#conditions',
@@ -72,9 +72,16 @@
     <div class="row">
       <div class="col-lg-6 col-12">
           <div class="row">
-            <div class="mb-3 col-12">
+            <div class="mb-3 col-lg-4 col-12">
               {% comment %} <label for="name" class="form-label d-md-none d-block">نام اتاق</label> {% endcomment %}
               <input name="name" type="text" class="form-control" id="name" placeholder="نام اتاق">
+            </div>
+            <div class="mb-3 col-lg-4 col-12">
+              {% comment %} <label for="name" class="form-label d-md-none d-block">نام اتاق</label> {% endcomment %}
+              <input name="pre_pay" type="number" class="form-control" id="pre_price" placeholder="مبلغ پیش پرداخت">
+            </div>
+              <div class="mb-3 col-lg-4 col-12">
+              <input name="duration" type="text" class="form-control" id="name" placeholder="طول زمان بازی">
             </div>
             <div class="mb-3 col-4">
               {% comment %} <label for="difficulty" class="form-label d-md-block d-md-none d-block">سختی بازی</label> {% endcomment %}
@@ -89,14 +96,14 @@
               <input name="max_players" type="number" class="form-control" id="max-player" placeholder="حداکثر بازیکن">
             </div>
           </div>
-      </div>  
+      </div>
       <div class="banner-section col-lg-6 col-12 mb-3">
         <input type="file" accept="image/png,image/jpeg,image/jpg" class="form-control d-none" name='banner' id="banner" @change='handle_banner' />
           <div class="form-control banner-label">
             <div class="banner-detail" dir="ltr">
               <p :class='get_banner_name ? "banner-animate-block" : ""' class="banner-d-none fw-bold mb-1">
                 <i class="fas fa-upload"></i>&nbsp;
-                [[get_banner_name]] 
+                [[get_banner_name]]
               </p>
               <p :class='get_banner_size ? "banner-animate-block" : ""' class="banner-d-none m-0">
                 <span class="badge badge-secondary">
@@ -125,9 +132,9 @@
           </div>
       </div>
     </div>
-      
+
     <div class="row">
-      
+
       <div class="col-lg-6 col-12 mb-md-0 mb-4">
         <div class="col-12 mb-2 badge badge-basic fs-6 py-2">
           نوع اتاق و قیمت ها
@@ -210,7 +217,7 @@
                     <i v-else class="fas fa-check text-success"></i>
                   </span>
                   <span @click='tag_remove_all = false' v-show='tag_remove_all' class="btn text-danger btn-link fs-6"><i class="fas fa-times"></i></span>
-                  
+
                 </div>
               </div>
               <div v-if='tags.length > 0' class="d-flex justify-content-center flex-wrap mt-2">
@@ -223,11 +230,12 @@
                 </span>
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>
     </div>
+
     <div class="row mt-4">
       <div class="col-md-6 col-12 mb-md-0 mb-4">
         <p>هشدار ها</p>
@@ -239,9 +247,16 @@
       </div>
     </div>
       <div class="row mt-4">
-      <div class="col-md-12 col-12 mb-md-0 mb-4">
+      <div class="col-lg-6 col-12 mb-md-0 mb-4">
         <p>توضیحات</p>
         <input name="descriptions" type="text" id="description">
+      </div>
+      <div class="col-lg-6 col-12 mb-md-0 mb-4 d-flex flex-column">
+        <p>نقشه و مکان اتاق</p>
+        <input name="balad_link" type="url" class="form-control" id="balad_link" placeholder="لینک بَلَد">
+        <textarea placeholder="نقشه گوگل (تگ iframe)" name="google_map"  id="google_map" class="mt-2 border p-3 h-100 rounded-3" style="resize: none;"></textarea>
+          <input name="admin_phones" type="text" class="form-control" id="admin_phones" placeholder="شماره تلفن های پشتیبان ( با , جدا کنید )" value="{{room.admin_phones}}">
+
       </div>
     </div>
     <div class="row">

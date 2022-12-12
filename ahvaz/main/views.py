@@ -15,6 +15,9 @@ from django.template.defaultfilters import slugify
 from django.core.paginator import Paginator
 from riddlehouse.helpers import functions
 from persiantools import jdatetime
+import pytz
+from riddlehouse import MonthBooking
+
 
 # Create your views here.
 
@@ -66,6 +69,48 @@ class PanelRoomsView(LoginRequiredMixin, View):
         return redirect("main:schedule")
 
 
+class PanelOverview(LoginRequiredMixin, View):
+    def get(self, request):
+        calendar = MonthBooking.RoomWeek().create_rooms_list()
+        context = {
+            "title": "تقویم",
+            "calendar": calendar,
+        }
+        return render(request, "panel/overview.html", context)
+
+    def post(self, request):
+        data = request.POST
+        room = data.get("room_id", None)
+        room = get_object_or_404(game_models.Room, pk=room)
+        phone = data.get("phone", "")
+        players_number = data.get("players", 0)
+        price = data.get("price", 0)
+        date = data.get("date", "0/0/0")
+        description = data.get("descriptions", "")
+        name = data.get("name", "")
+        hour = data.get("hour", "00:00")
+        date = date.split("/")
+        hour = hour.split(":")
+        reserved_time = jdatetime.JalaliDateTime(year=int(date[0]), month=int(date[1]), day=int(date[2]),
+                                                 hour=int(hour[0]), minute=int(hour[1])).to_gregorian()
+        reserved_time = pytz.timezone("Asia/Tehran").localize(reserved_time)
+        fields = {
+            "room": room,
+            "customer_name": name,
+            "customer_number": phone,
+            "paid": price,
+            "description": description,
+            "players_number": players_number,
+            "transaction_number": "رزرو حضوری",
+            "key": random.randint(1000, 9999),
+            "reserved_time": reserved_time
+        }
+        order_object = order_models.Order(**fields)
+        order_object.save()
+        functions.send_sms.delay(order=order_object.pk)
+        return redirect("main:reserve_calendar")
+
+
 class PanelRoomView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, "panel/manage-rooms/create.html", {})
@@ -85,7 +130,7 @@ class PanelRoomView(LoginRequiredMixin, View):
             this_type = enums.RoomType.REAL
             price = data.get("price", None)
             price = int(price)
-            box_packages_prices = None
+            box_packages_prices = [0, 0]
         else:
             this_type = None
             box_packages_prices = None
@@ -95,16 +140,24 @@ class PanelRoomView(LoginRequiredMixin, View):
         min_players = data.get("min_players", None)
         max_players = data.get("max_players", None)
         weekdays = data.getlist("weekday", None)
+        game_duration = data.get("duration", "")
+        admin_phones = data.get("admin_phones", None)
+        if not admin_phones:
+            admin_phones = functions.get_setting(enums.DefaultSettings.MAX_SMS_ADMIN_NUMBER)
         hours = data.getlist("hours", None)
         hours.sort(key=lambda x: int(x.split(":")[0]))
         warnings = data.get("warnings", None)
         descriptions = data.get("descriptions", None)
+        pre_pay = data.get("pre_pay", None)
         conditions = data.get("conditions", None)
         fields = {
+            "slug": functions.slugify(name),
             "name": name,
             "difficulty": difficulty,
             "price_per_unit": price,
+            "pre_pay": pre_pay,
             "default_hours": hours,
+            "game_duration": game_duration,
             "warnings": warnings,
             "min_players": min_players,
             "max_players": max_players,
@@ -112,8 +165,12 @@ class PanelRoomView(LoginRequiredMixin, View):
             "conditions": conditions,
             "default_days": weekdays,
             "room_type": this_type,
+            "admin_phones": admin_phones,
+            "google_map": data.get("google_map", ""),
+            "balad_link": data.get("balad_link", ""),
             "box_packages_prices": box_packages_prices,
         }
+        fields = functions.remove_empties(fields)
         room = game_models.Room(**fields)
         room.banner = picture
         room.save()
@@ -212,32 +269,6 @@ class PanelOrderView(LoginRequiredMixin, View):
 
         return render(request, 'panel/order/orders.html', context)
 
-    def post(self, request):
-        data = request.POST
-        room = data.get("room_id", None)
-        room = get_object_or_404(game_models.Room, pk=room)
-        phone = data.get("phone", "")
-        date = data.get("date", "0/0/0")
-        name = data.get("name", "")
-        hour = data.get("hour", "00:00")
-        date = date.split("/")
-        hour = hour.split(":")
-        reserved_time = jdatetime.JalaliDateTime(year=int(date[0]), month=int(date[1]), day=int(date[2]),
-                                                 hour=int(hour[0]), minute=int(hour[1])).to_gregorian()
-        fields = {
-            "room": room,
-            "customer_name": name,
-            "customer_number": phone,
-            "paid": 0,
-            "transaction_number": "رزرو حضوری",
-            "key": random.randint(1000, 9999),
-            "reserved_time": reserved_time
-        }
-        order_object = order_models.Order(**fields)
-        order_object.save()
-        functions.send_sms.delay(order=order_object.pk)
-        return redirect("main:orders")
-
 
 class PanelScheduleView(LoginRequiredMixin, View):
 
@@ -250,11 +281,30 @@ class PanelScheduleView(LoginRequiredMixin, View):
         return render(request, "panel/schedule/schedule.html", context)
 
 
+class PanelRemoveSchedule(LoginRequiredMixin, View):
+
+    def get(self, request, pk):
+        exclusion = game_models.Exclusion.objects.get(pk=pk)
+        exclusion.delete()
+        return redirect("main:schedule")
+
+
+class CitySelectView(View):
+    def get(self, request):
+        return render(request, 'main/city-select.html', {})
+
+
 class LandingView(View):
     def get(self, request):
         rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL)
         last_box = game_models.Room.objects.filter(room_type=enums.RoomType.BOX).last()
-        return render(request, 'main/landing.html', {"rooms": rooms, "box": last_box})
+        context = {
+            "rooms": rooms, "box": last_box,
+            "title": "خانه معما استان قم",
+            "meta_description": "خانه معما، به عنوان نخستین مجموعه ی طراحی و اجرای بازی های فکری گروهی اتاق فرار در استان قم، با طراحی و مدیریت سید مهدی شمس الدینی از پاییز 1396 فعالیت خودش را آغاز کرد.",
+            "meta_keywords": "خانه معما,اتاق فرار,اتاق فرار قم,اتاق ساواک,فرار از آلکاتراز,فرار از موزه,بازی گروهی قم"
+        }
+        return render(request, 'main/landing.html', context)
 
 
 class LoginView(View):
@@ -280,21 +330,27 @@ class LoginView(View):
 
 
 class RoomView(View):
-    def get(self, request, pk):
-        rooms = game.models.Room.objects.all()
-        room = game_models.Room.objects.get(pk=pk)
+    def get(self, request, slug):
+        rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL)
+        room = game_models.Room.objects.get(slug=slug)
         now = datetime.datetime.now().strftime("%Y/%m/%d")
+        try:
+            meta_description = room.description[:155] + "..."
+        except Exception:
+            meta_description = "اولین اتاق فرار استان قم"
         context = {
             "rooms": rooms,
             "room": room,
+            "meta_description": meta_description,
+            "meta_keywords": "خانه معما , اتاق فرار , اسکیپ روم قم ," + room.name,
             "title": room.name,
             "now": now
         }
         return render(request, 'main/reserveroom.html', context)
 
-    def post(self, request, pk):
+    def post(self, request, slug):
         data = request.POST
-        room = game_models.Room.objects.get(pk=pk)
+        room = game_models.Room.objects.get(slug=slug)
 
         date = data.get("date", None)
         turn = data.get("turn", None)
@@ -303,18 +359,25 @@ class RoomView(View):
             if not date or not turn:
                 return False
             hour, minutes = turn.split(":")
+            rest_payment = room.price_per_unit * int(data.get('persons', room.min_players)) - int(
+                data.get("pre_pay", room.pre_pay))
+            amount = data.get("pre_pay" , 0)
         else:
             if not package:
                 return False
             hour = 12
             minutes = 0
+            rest_payment = 0
+            amount = data.get("package_price" , 0)
 
         year, month, day = date.split("/")
         reserved_date = jdatetime.JalaliDateTime(int(year), int(month), int(day), int(hour),
                                                  int(minutes)).to_gregorian()
+        reserved_date = pytz.timezone("Asia/Tehran").localize(reserved_date)
         fields = {
-            "amount": data.get("price", None),
-            "room_id": pk,
+            "amount": amount,
+            "rest_payment": rest_payment,
+            "room_id": room.pk,
             "customer_name": data.get('name', None),
             "package": package,
             "mobile": data.get('phone', None),
@@ -326,7 +389,7 @@ class RoomView(View):
         if payment.get("valid", None):
             return redirect(payment.get("url"))
         else:
-            return redirect("main:room-page", pk=pk)
+            return redirect("main:room-page", slug=slug)
 
 
 class RemoveCoupon(LoginRequiredMixin, View):
@@ -368,6 +431,7 @@ class PanelRoomEditView(LoginRequiredMixin, View):
 
     def get(self, request, pk):
         room = game_models.Room.objects.get(pk=pk)
+
         context = {
             "room": room,
             "title": "ویرایش اتاق",
@@ -397,25 +461,35 @@ class PanelRoomEditView(LoginRequiredMixin, View):
             price = None
         name = data.get("name", None)
         difficulty = data.get("difficulty", None)
+        admin_phones = data.get("admin_phones", None)
+        if not admin_phones:
+            admin_phones = functions.get_setting(enums.DefaultSettings.MAX_SMS_ADMIN_NUMBER)
         min_players = data.get("min_players", None)
         max_players = data.get("max_players", None)
         weekdays = data.getlist("weekday", None)
         hours = data.getlist("hours", None)
         hours.sort(key=lambda x: int(x.split(":")[0]))
-        warnings = data.get("warnings", None)
-        descriptions = data.get("descriptions", None)
-        conditions = data.get("conditions", None)
+        warnings = data.get("warnings", "")
+        descriptions = data.get("descriptions", "")
+        pre_pay = data.get("pre_pay", "")
+        game_duration = data.get("duration", "")
+        conditions = data.get("conditions", "")
         fields = {
             "name": name,
             "difficulty": difficulty,
             "price_per_unit": price,
             "default_hours": hours,
             "warnings": warnings,
+            "pre_pay": pre_pay,
             "min_players": min_players,
             "max_players": max_players,
             "description": descriptions,
             "conditions": conditions,
+            "admin_phones": admin_phones,
             "default_days": weekdays,
+            "game_duration": game_duration,
+            "google_map": data.get("google_map", ""),
+            "balad_link": data.get("balad_link", ""),
             "room_type": this_type,
             "box_packages_prices": box_packages_prices,
         }
@@ -445,3 +519,17 @@ class ReserveCompleted(View):
             "rooms": rooms,
         }
         return render(request, "main/reserveroom.html", context)
+
+
+class TemplateSettingsView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'panel/template_settings.html', {"title": "تنظیمات قالب"})
+
+    def post(self, request):
+        data = request.POST.copy()
+        data.pop("csrfmiddlewaretoken")
+        for key, setting in data.items():
+            name = key.lower()
+            functions.set_context(name, setting)
+
+        return redirect("main:template-settings")

@@ -13,20 +13,20 @@
 
 {% block content %}
 
+<div class="position-fixed h-100">
+
+</div>
 {% include 'main/landing/slider.html' %}
 {% include 'main/landing/description.html' %}
-{% if box %}
+{% include 'main/rooms.html' %}
+    {% if box %}
 {% include 'main/landing/surprisebox.html' %}
 {% endif %}
-{% include 'main/rooms.html' %}
 {% include 'main/about.html' %}
 {% include 'main/footer.html' %}
 
 {% endblock content %}
 
 {% block scripts %}
-
-{% comment %}
-<script src="https://unpkg.com/jalali-moment/dist/jalali-moment.browser.js"></script> {% endcomment %}
 <script defer src="{% static 'main/' %}scripts/landing.js"></script>
 {% endblock scripts %}

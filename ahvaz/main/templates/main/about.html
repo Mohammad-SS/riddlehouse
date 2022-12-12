@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 <!-- about -->
 <div class="informations" id="about-us">
     <section class="section information-container">
@@ -10,12 +11,7 @@
         </div>
         <div class="section-body information about-us-info" data-aos="fade-up">
             <p class="about-us">
-                خانه معما، به عنوان نخستین مجموعه ی طراحی و اجرای بازی های فکری گروهی اتاق فرار در استان قم، با
-                طراحی و مدیریت سید مهدی شمس الدینی از پاییز 1396 فعالیت خودش را آغاز کرد.
-                لذا با هدف افزایش سطح فرهنگ سازی و ارتقا سطح دانش جوانان و خانواده های عزیز همراه با تفریح و لذت
-                در ساعات حضور در این مجموعه، تیم خانه معما امید دارد گامی بلند در جهت رضایت و خشنودی شما
-                همشهریان عزیز با حمایت و نظارت سازمان فرهنگی ورزشی شهرداری و پارک علم و فناوری استان قم برداشته
-                باشد.
+                {% get_context part="ABOUT_US" from_settings=True %}
             </p>
 
         </div>
@@ -31,42 +27,38 @@
             <div class="contact-us">
                 <div class="contact-us-item" id="address">
                     <i class="me-3 fas fs-4 fa-map-marked-alt"></i>
-                    <p>آدرس : قم، چهار راه بیمارستان، به سمت قرآن و عترت، پاساژ موبایل آسیا، طبقه منفی یک
+                    <p>{% get_context part="LOCATION_ADDRESS" from_settings=True %}
                     </p>
                 </div>
                 <div class="contact-us-item mt-3" id="address">
                     <i class="me-3 fas fs-4 fa-phone-square"></i>
-                    <p>تلفن : <a href="tel:+989100123402">09100123402</a>
+                    <p>تلفن : <a href="tel:{% get_context part='MOBILE_PHONE' from_settings=True %}">{% get_context part="MOBILE_PHONE" from_settings=True %}</a>
                     </p>
                 </div>
-                <div class="contact-us-item mt-3" id="address ">
-                    <i class="me-3 fas fs-4 fa-at"></i>
-                    <span>ایمیل : <a
-                            href="mailto:Riddlehouse.qom@gmail.com">Riddlehouse.qom@gmail.com</a></span>
-                </div>
+
             </div>
+
             <div class="newsletter-container">
                 <div class="newsletter" data-aos="swing">
-                    <div class="newsletter-body">
-                        <p class="mb-3"><i class="fas fa-bullhorn fs-4"
-                                style="transform: scaleX(-1);"></i>&nbsp;&nbsp;خبر
-                            نامه</p>
-                        <div class="d-flex">
-                            <input type="email" placeholder="ایمیل خود را وارد کنید">
-                            <button aria-label="newsletter-send-btn" class="btn btn-primary shadow-0 me-1">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
-                    </div>
+{#                    <div class="newsletter-body">#}
+{#                        <p class="mb-3"><i class="fas fa-bullhorn fs-4"#}
+{#                                           style="transform: scaleX(-1);"></i>&nbsp;&nbsp;خبر#}
+{#                            نامه</p>#}
+{#                        <div class="d-flex">#}
+{#                            <input type="email" placeholder="ایمیل خود را وارد کنید">#}
+{#                            <button aria-label="newsletter-send-btn" class="btn btn-primary shadow-0 me-1">#}
+{#                                <i class="fas fa-paper-plane"></i>#}
+{#                            </button>#}
+{#                        </div>#}
+{#                    </div>#}
                     <div class="newsletter-footer mt-3">
-                        <a aria-label="contact with telegram" href="https://t.me/riddlehouse"
-                            class="icon ripple" id="telegram"></a>
-                        <a aria-label="contact with whatsapp" href="https://wa.me/989100123402"
-                            class="icon ripple" id="whatsapp"></a>
-                        <a aria-label="contact with instagram" href="https://instagram.com/riddlehouse"
-                            class="icon ripple" id="instagram"></a>
-                        <a aria-label="contact with email" href="mailto:Riddlehouse.qom@gmail.com"
-                            class="icon ripple" id="email"></a>
+                        <a aria-label="contact with telegram" href="{% get_context part='TELEGRAM_ID' from_settings=True %}"
+                           class="icon ripple" id="telegram"></a>
+                        <a aria-label="contact with whatsapp" href="{% get_context part='WHATSAPP_NUMBER' from_settings=True %}"
+                           class="icon ripple" id="whatsapp"></a>
+                        <a aria-label="contact with instagram" href="{% get_context part='INSTAGRAM_USER' from_settings=True %}"
+                           class="icon ripple" id="instagram"></a>
+
                     </div>
                 </div>
             </div>

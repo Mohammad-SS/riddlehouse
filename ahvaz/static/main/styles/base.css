@@ -1,3 +1,19 @@
+@keyframes zogh-zogh  {
+    0% {
+       background-color:  rgb(255, 68, 68);
+    }
+    
+    50% {
+       background-color:  rgb(78, 78, 255);
+    }
+    
+    100% {
+       background-color:  rgb(255, 68, 68);
+    }
+}
+
+
+ 
 @font-face {
     font-family: iransansweb;
     src: url(./../fonts/IRANSansWeb_FaNum.ttf);
@@ -17,7 +33,19 @@
     font-weight: lighter;
 }
 
-
+@font-face {
+	font-family: 'Yekan';
+	src:	url('./../fonts/Yekan.eot'); /* IE9 Compat Modes */
+	src:	url('./../fonts/Yekan.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+			url('./../fonts/Yekan.woff2') format('woff2'), /* Modern Browsers */
+			url('./../fonts/Yekan.woff') format('woff'), /* Modern Browsers */
+			url('./../fonts/Yekan.otf') format('opentype'), /* Open Type Font */	
+			url('./../fonts/Yekan.ttf') format('truetype'); /* Safari, Android, iOS */
+	font-weight: normal;
+	font-style: normal;
+	text-rendering: optimizeLegibility;
+	font-display: auto;
+}
 @keyframes loading {
     0% {
         transform: rotate(0deg);
@@ -143,7 +171,7 @@
 
 * {
     list-style: none;
-    font-size: 14px;
+    font-size: 15px;
     padding: 0;
     margin: 0;
     text-decoration: none !important;
@@ -170,10 +198,12 @@ body {
     margin: 0 auto !important;
     display: flex;
     flex-direction: column;
-    background-image: url('./../images/bg-pattern.png');
-    font-family: 'iransansweb';
+    background-image: url('./../images/backdark.webp');
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'yekan';
     direction: rtl;
-    color: var(--mb-white);
+    color: #bdbdbd;
     overflow-x: hidden;
 
 }
@@ -282,7 +312,12 @@ body {
 }
 
 
-
+.global-banner {
+    height: 3em;
+  
+    background-color: var(--mb-original-red);
+    animation: zogh-zogh infinite 3s;
+}
 
 /* section style */
 
@@ -321,6 +356,7 @@ body {
         transform: rotate(15deg)
     }
 
+    
     40% {
         -webkit-transform: rotate(-10deg);
         transform: rotate(-10deg)

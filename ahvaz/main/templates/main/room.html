@@ -2,8 +2,10 @@
 {% load humanize %}
 <div class="room-container" data-aos="fade-up">
     <div class="room-image">
+        {% if room.banner %}
         <img loading="lazy" class="mb-shadow" src="{{ room.banner.url }}"
-             alt="خانه معما | اتاق فرار | {{ room.name }}">
+        alt="خانه معما | اتاق فرار | {{ room.name }}">
+        {% endif %}
     </div>
     <div class="room-detail-container">
         <div class="room-detail" data-aos="zoom-in" data-aos-offset="130">
@@ -45,7 +47,7 @@
                 </div>
             </div>
             <div class="room-actions">
-                <a href="{% url 'main:room-page' pk=room.pk %}">
+                <a href="{% url 'main:room-page' slug=room.slug %}">
                     <button class="btn btn-success shadow-0" style="width: 10em;">رزرو</button>
                 </a>
             </div>

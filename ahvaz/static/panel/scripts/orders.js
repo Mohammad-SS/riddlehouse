@@ -1,3 +1,4 @@
+
 var app = new Vue({
     delimiters: ["[[", "]]"],
     el: '#app',
@@ -9,7 +10,8 @@ var app = new Vue({
         room: null,
         min_date: null,
         max_date: null,
-        filter_mode: null
+        filter_mode: null,
+        hour_list: []
     },
 
     
@@ -94,6 +96,12 @@ var app = new Vue({
             } else {    
                 window.location = location.protocol + '//' + location.host + location.pathname
             }
+        },
+
+
+        choose_room: function(e) {
+            let hour_list = e.target.options[e.target.selectedIndex].getAttribute('default_hours').split(',') 
+            this.hour_list = hour_list
         }
     },
 
@@ -106,4 +114,12 @@ var app = new Vue({
     }
 });
 
-jalaliDatepicker.startWatch();
+
+
+let jalali_options = {
+    minDate: 'attr',
+    maxDate: 'attr',
+}
+
+jalaliDatepicker.startWatch(jalali_options);
+

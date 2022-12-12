@@ -15,3 +15,52 @@ span.order-status {
 .orders table td {
     position: relative;
 }
+
+.hour_selector > div {
+    margin: .1em;
+}
+
+/* weekday selector style */
+.hour_selector {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.hour_selector label {
+    position: relative;
+    width: 6em;
+}
+
+.hour_selector label span {
+    min-width: fit-content;
+    min-width: 6em;
+}
+
+.hour_selector label::before {
+    content: "\2714";
+    width: 1.2em;
+    height: 1.2em;
+    background: white;
+    display: flex;
+    position: absolute;
+    border-radius: 2em;
+    left: 0.3em;
+    bottom: 0.3em;
+    z-index: 5;
+    color: var(--mdb-success);
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0);
+    transition: all .1s;
+}
+
+.hour_selector input:checked+label {
+    background-color: var(--mdb-success) !important;
+}
+
+.hour_selector input:checked+label::before {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
