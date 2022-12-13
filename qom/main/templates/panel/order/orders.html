@@ -88,9 +88,9 @@
         <tbody>
             {% for order in orders %}
             <tr>
-                <td colspan="2" class="border-0 p-0 px-2 m-0"  collapse-id-data='collapse_{{order.id}}'>
+                <td colspan="2" class="border-0 p-0 px-2 m-0 d-flex">
                     <span class="order-status bg-success"></span>
-                    <div class="d-flex w-100 flex-wrap">
+                    <div class="d-flex flex-wrap flex-fill" collapse-id-data='collapse_{{order.id}}'>
                         
                         <span class="pt-3 px-3 align-items-center d-flex flex-wrap">
                             {% comment %} <i class="fa-lg fas fa-cube"></i></i>&nbsp;&nbsp; {% endcomment %}
@@ -107,8 +107,12 @@
                             <span class="mb-min-w-max  fw-bold">موبایل :&nbsp;</span>
                             <span>{{ order.customer_number }}</span>
                         </span>
-                       
+                        <span class="mb-expand"></span>    
                     </div>
+                    <form action="" method="">
+                        <input type="hidden" name="delete" value="">
+                        <button  style="min-width: 7em;height: 3em;border-radius: 0em 0em 0.6em 0.6em !important;" class="btn me-4 p-2 text-white bg-danger rounded-bottom">حذف سفارش</button>
+                    </form>
                 </td>
             </tr>
             <tr collapse-id-data='collapse_{{order.id}}'>
