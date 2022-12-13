@@ -159,6 +159,18 @@ var app = new Vue({
 
         replace_room_data: function (e) {
             console.log("HERE replace_room_data");
+        }, 
+
+        handle_create_submit: function(e) {
+            e.preventDefault();
+            e.target.disabled = true;
+            this.$refs.room_create_form.submit()
+        },
+
+        handle_edit_submit: function(e) {
+            e.preventDefault();
+            e.target.disabled = true;
+            this.$refs.room_edit_form.submit()
         }
 
 

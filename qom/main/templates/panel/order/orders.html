@@ -18,6 +18,11 @@
 {% endblock %}
 
 
+{% block dialogs %}
+{% include 'panel/order/order-remove-pupop.html' %}
+{% endblock dialogs %}
+
+
 
 {% block content %}
 <div class="orders mt-3 px-3">
@@ -33,7 +38,7 @@
             <select class="form-select" v-model="room">
                 <option class="mb-rtl" selected disabled value=null>انتخاب کنید</option>
                 {% for room in rooms %}
-                    <option class="mb-rtl" value="{{ room.id }}">{{ room.name }}</option>
+                <option class="mb-rtl" value="{{ room.id }}">{{ room.name }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -57,15 +62,16 @@
         </div>
         <div class="mb-filter-item radio-select">
             <div class="form-check">
-                <input class="form-check-input" type="radio" v-model='filter_mode' value="reserve" id="reserve"/>
+                <input class="form-check-input" type="radio" v-model='filter_mode' value="reserve" id="reserve" />
                 <label class="form-check-label" for="reserve"> تاریخ رزرو </label>
-              </div>
-              
-              <!-- Default checked radio -->
-              <div class="form-check">
-                <input class="form-check-input" type="radio" v-model='filter_mode' value="payment" id="payment" checked/>
+            </div>
+
+            <!-- Default checked radio -->
+            <div class="form-check">
+                <input class="form-check-input" type="radio" v-model='filter_mode' value="payment" id="payment"
+                    checked />
                 <label class="form-check-label" for="payment"> تاریخ پرداخت </label>
-              </div>
+            </div>
         </div>
 
         <div class="mb-filter-item mb-filter-item-actions">
@@ -75,7 +81,6 @@
             </button>
             <button id="close-filter" class="btn btn-danger me-1" @click="clear_filters" v-if='!clear_filter_btn'>
                 <i class="fas fa-times"></i>
-
             </button>
         </div>
     </div>
@@ -90,8 +95,8 @@
             <tr>
                 <td colspan="2" class="border-0 p-0 px-2 m-0 d-flex">
                     <span class="order-status bg-success"></span>
-                    <div class="d-flex flex-wrap flex-fill" collapse-id-data='collapse_{{order.id}}'>
-                        
+                    <div class="d-flex flex-wrap flex-fill" collapse-id-data='collapse_{{order.id}}' collapse-auto-close='true' >
+
                         <span class="pt-3 px-3 align-items-center d-flex flex-wrap">
                             {% comment %} <i class="fa-lg fas fa-cube"></i></i>&nbsp;&nbsp; {% endcomment %}
                             <span class="mb-min-w-max  fw-bold">نام اتاق :&nbsp;</span>
@@ -99,28 +104,34 @@
                         </span>
                         <span class="pt-3 px-3 align-items-center d-flex">
                             {% comment %} <i class="fa-lg fas fa-user-ninja"></i>&nbsp;&nbsp; {% endcomment %}
-                           <span class="mb-min-w-max  fw-bold"> نام مشتری :&nbsp;</span>
-                           <span> {{ order.customer_name }}</span>
+                            <span class="mb-min-w-max  fw-bold"> نام مشتری :&nbsp;</span>
+                            <span> {{ order.customer_name }}</span>
                         </span>
                         <span class="pt-3 px-3 align-items-center d-flex">
                             {% comment %} <i class="fa-lg fas fa-mobile-alt"></i>&nbsp;&nbsp; {% endcomment %}
                             <span class="mb-min-w-max  fw-bold">موبایل :&nbsp;</span>
                             <span>{{ order.customer_number }}</span>
                         </span>
-                        <span class="mb-expand"></span>    
+                        <span class="pt-3 px-3 align-items-center d-flex">
+                            {% comment %} <i class="fa-lg fas fa-mobile-alt"></i>&nbsp;&nbsp; {% endcomment %}
+                            <span class="mb-min-w-max  fw-bold">رزرو :&nbsp;</span>
+                            <span class=" fw-bold text-dark">{{ order.persian_dates.reserved }}</span>
+                        </span>
+                        <span class="mb-expand"></span>
                     </div>
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="delete" value="{{ order.id }}">
-                        <button  style="min-width: 7em;height: 3em;border-radius: 0em 0em 0.6em 0.6em !important;" class="btn me-4 p-2 text-white bg-danger rounded-bottom">حذف سفارش</button>
-                    </form>
+                    <button type="button" @click='() => handle_remove_pupop(`{{order.id}}`, `{{order.room.name}}`, `{{order.persian_dates.reserved}}`, `{{order.persian_dates.created}}`, `{{order.customer_name}}`, `{{order.customer_number}}`)'
+                        style="min-width: 3em;height: 3em;border-radius: 0em 0em 0.6em 0.6em !important;"
+                        class="btn me-3 p-2 text-white bg-danger rounded-bottom">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
                 </td>
             </tr>
-            <tr collapse-id-data='collapse_{{order.id}}'>
+            <tr collapse-id-data='collapse_{{order.id}}' collapse-auto-close='true' >
                 <td>
                     <span class="order-status bg-success"></span>
+
                     <p class="fw-normal mb-1">
-                        
+
                         <span class="badge badge-success">
                             <i class="fas fa-hand-holding-usd"></i>&nbsp;
                             مبلغ: {{ order.paid|intcomma }} تومان
@@ -133,30 +144,37 @@
                             <i class="fas fa-users"></i>&nbsp;
                             تعداد نفرات : {{ order.players_number }}نفر
                         </span>
-                        <span class="badge badge-warning">
+                        {% comment %} <span class="badge badge-warning">
                             <i class="fas fa-calendar-alt"></i>&nbsp;
                             رزرو : {{ order.persian_dates.reserved }}
-                        </span>
+                        </span> {% endcomment %}
                     </p>
-         
+
                 </td>
             </tr>
             <tr>
                 <td colspan="5" class="m-0 p-0">
                     <div collapse-id='collapse_{{order.id}}'>
                         <div style='min-height:5em;' class='px-3 py-2 d-flex align-items-center flex-wrap'>
-                            
+
                             <span class="p-3 align-items-center d-flex">
                                 <i class="fas fa-qrcode text-info"></i>&nbsp;
                                 شماره تراکنش : {{ order.transaction_number }}
                             </span>
                             <span class="p-3 align-items-center d-flex">
                                 <i class="fas fa-cut text-warning"></i>&nbsp;
-                                کد تخفیف  : {{ order.used_coupon }} </span>
+                                کد تخفیف : {{ order.used_coupon }} </span>
                             <span class="p-3 align-items-center d-flex">
                                 <i class="fas fa-key text-danger"></i>&nbsp;
                                 کلید : {{ order.key }}
                             </span>
+                            <br>
+                            {% if order.description %}
+                            <span class="p-3 align-items-center d-flex w-100 rounded">
+                                <i class="fas fa-angle-double-left"></i>&nbsp;
+                                توضیحات : {{order.description}}
+                            </span>
+                            {% endif %}
                         </div>
                     </div>
                 </td>
@@ -171,25 +189,25 @@
         <ul class="mb-pagination-items pagination">
 
             {% if orders.number > 3 %}
-                <li class="page-item mb-pagination-item" g-page-number='1'>
-                    <span class="page-link">صفحه اول</span>
-                </li>
-                &nbsp;|&nbsp;
+            <li class="page-item mb-pagination-item" g-page-number='1'>
+                <span class="page-link">صفحه اول</span>
+            </li>
+            &nbsp;|&nbsp;
             {% endif %}
 
             {% for page in orders.paginator.page_range|pagination_handle_pages:orders.number %}
-                <li class="page-item mb-pagination-item 
+            <li class="page-item mb-pagination-item 
                     {% if page == orders.number %}active{% endif %}" g-page-number="{{ page }}">
-                    <span class="page-link">{{page}}</span>
-                </li>
-                &nbsp;
+                <span class="page-link">{{page}}</span>
+            </li>
+            &nbsp;
             {% endfor %}
 
             {% if orders.number < orders.paginator.num_pages|add:'-2' %} &nbsp;|&nbsp; <li
                 class="page-item mb-pagination-item" g-page-number='{{orders.paginator.num_pages}}'>
                 <span class="page-link">صفحه اخر</span>
                 </li>
-            {% endif %}
+                {% endif %}
 
 
         </ul>

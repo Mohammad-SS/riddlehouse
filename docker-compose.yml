@@ -11,7 +11,7 @@ services:
   qom:
     build: ./qom
     command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000"
-#    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    # command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./qom/:/usr/src/app/
     expose:

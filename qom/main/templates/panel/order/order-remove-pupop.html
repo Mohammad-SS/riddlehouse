@@ -1,0 +1,43 @@
+<div class="gdialog-back" :class="order_remove_pupop ? 'gdialog-show' : 'gdialog-hide'"
+  @click="order_remove_pupop=false">
+</div>
+<div class="gdialog-content mb-rtl col-md-2"
+  :class="order_remove_pupop ? 'gdialog-show gdialog-motion' : 'gdialog-hide gdialog-motion-off'"
+  style="max-width: 90% !important; width: 30em;" dir="rtl">
+
+  <div class="gdialog-head">
+    <span class="gdialog-title fs-5">
+      حذف سفارش
+    </span>
+    <span class="mb-expand"></span>
+    <span class="gdialog-close-icon ripple" @click='order_remove_pupop=false'>
+      <i data-feather="x" width="20px" height="20px"></i>
+    </span>
+  </div>
+
+  <div class="gdialog-body">
+    <div class="px-md-2">
+      <form action="" method="post" class="gltr" ref='order_remove_form'>
+        {% csrf_token %}
+
+        <div class="row">
+          <p>
+            ایا از حذف سفارش مطمئن هستید؟
+          </p>
+          <p class="d-flex flex-column py-2 rounded" style="background: #f7f7f7;box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.26) !important;">
+            <span><b>نام اتاق:</b> [[order_remove_obj.room_name]]</span>
+            <span><b>نام مشتری:</b> [[order_remove_obj.customer_name]]</span>
+            <span><b>موبایل:</b> [[order_remove_obj.customer_number]]</span>
+            <span><b>تاریخ پرداخت:</b> [[order_remove_obj.payment_date]]</span>
+            <span><b>تاریخ رزرو:</b> [[order_remove_obj.reserve_date]]</span>
+          </p>
+          <div class="col-12 mt-4 d-flex flex-fill justify-content-end">
+            <input type="hidden" name="delete" :value="order_remove_obj.order_id">
+            <button class="btn btn-danger btn-sm me-1" @click='order_remove_loading = true' :disabled='order_remove_loading'>حذف</button>
+            <span @click='order_remove_pupop=false' class="btn btn-primary btn-sm">انصراف</span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

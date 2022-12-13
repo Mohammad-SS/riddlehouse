@@ -3,8 +3,16 @@ var app = new Vue({
     delimiters: ["[[", "]]"],
     el: '#app',
     data: {
-        order_add_pupop: false,
-        order_add_loading: false,
+        order_remove_pupop: false,
+        order_remove_loading: false,
+        order_remove_obj: {
+            order_id : null,
+            room_name : null,
+            reserve_date : null,
+            payment_date : null,
+            customer_name : null,
+            customer_number : null,
+        },
         selected_rooms: [],
         time: '00:00',
         room: null,
@@ -98,11 +106,18 @@ var app = new Vue({
             }
         },
 
-
-        choose_room: function(e) {
-            let hour_list = e.target.options[e.target.selectedIndex].getAttribute('default_hours').split(',') 
-            this.hour_list = hour_list
+        handle_remove_pupop: function(order_id, room_name, reserve_date, payment_date, customer_name, customer_number) {
+            this.order_remove_obj = {
+                order_id,
+                room_name,
+                reserve_date,
+                payment_date,
+                customer_name,
+                customer_number,
+            }
+            this.order_remove_pupop = true
         }
+
     },
 
     computed: {

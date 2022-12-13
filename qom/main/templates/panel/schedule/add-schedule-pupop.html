@@ -107,7 +107,7 @@
                   </div>
                 <div class="row mt-3">
                     <div class="col-12 mt-4 d-flex flex-fill justify-content-end">
-                        <button class="btn btn-primary btn-sm me-1">ثبت</button>
+                        <button class="btn btn-primary btn-sm me-1"  @click='add_schedule_loading = true' :disabled='add_schedule_loading'>ثبت</button>
                         <span @click='add_schedule_pupop=false' class="btn btn-danger btn-sm">انصراف</span>
                     </div>
                 </div>

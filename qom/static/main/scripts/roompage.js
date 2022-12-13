@@ -235,6 +235,14 @@ var app = new Vue({
         }, 
 
 
+        handle_information_submit: function (e) {
+            e.preventDefault();
+            let form = this.$refs.information_form
+            if (form.checkValidity()) {
+                e.target.disabled = true;
+                form.submit()
+            }
+        }
         // check_coupan: async function (room, year, month) {
         //     try {
         //         let url = new URL(window.location).origin + `/api/check-coupon?room=${this.current_room}&coupon=${this.coupan_code}`
