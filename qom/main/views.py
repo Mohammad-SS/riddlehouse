@@ -222,6 +222,15 @@ class PanelCoupanView(LoginRequiredMixin, View):
 
 
 class PanelOrderView(LoginRequiredMixin, View):
+
+    def post(self, request):
+        order_id = request.POST.get("delete", None)
+        try:
+            order_models.Order.objects.get(id=order_id).delete()
+        except Exception:
+            pass
+        return redirect("main:orders")
+
     def get(self, request):
         # filters
         page_number = request.GET.get('page', 1)
@@ -300,7 +309,7 @@ class LandingView(View):
         last_box = game_models.Room.objects.filter(room_type=enums.RoomType.BOX).last()
         context = {
             "rooms": rooms, "box": last_box,
-            "title": "خانه معما استان قم",
+            "title": "خانه معما",
             "meta_description": "خانه معما، به عنوان نخستین مجموعه ی طراحی و اجرای بازی های فکری گروهی اتاق فرار در استان قم، با طراحی و مدیریت سید مهدی شمس الدینی از پاییز 1396 فعالیت خودش را آغاز کرد.",
             "meta_keywords": "خانه معما,اتاق فرار,اتاق فرار قم,اتاق ساواک,فرار از آلکاتراز,فرار از موزه,بازی گروهی قم"
         }
@@ -361,14 +370,14 @@ class RoomView(View):
             hour, minutes = turn.split(":")
             rest_payment = room.price_per_unit * int(data.get('persons', room.min_players)) - int(
                 data.get("pre_pay", room.pre_pay))
-            amount = data.get("pre_pay" , 0)
+            amount = data.get("pre_pay", 0)
         else:
             if not package:
                 return False
             hour = 12
             minutes = 0
             rest_payment = 0
-            amount = data.get("package_price" , 0)
+            amount = data.get("package_price", 0)
 
         year, month, day = date.split("/")
         reserved_date = jdatetime.JalaliDateTime(int(year), int(month), int(day), int(hour),
@@ -385,6 +394,36 @@ class RoomView(View):
             "coupon": data.get('coupon', None),
             "reserved_time": reserved_date,
         }
+        # is ordered or in payment time :
+        is_ordered, is_in_payment = functions.check_hour_in_use(room.id, reserved_date)
+
+        if is_ordered or is_in_payment:
+            rooms = game_models.Room.objects.all()
+            now = datetime.datetime.now().strftime("%Y/%m/%d")
+
+            try:
+                meta_description = room.description[:155] + "..."
+            except Exception:
+                meta_description = "اولین اتاق فرار استان قم"
+
+            if is_in_payment:
+                error = 1
+            elif is_ordered:
+                error = 2
+            else:
+                error = 3
+
+            context = {
+                "error": error,
+                "rooms": rooms,
+                "room": room,
+                "meta_description": meta_description,
+                "meta_keywords": "خانه معما , اتاق فرار , اسکیپ روم قم ," + room.name,
+                "title": room.name,
+                "now": now
+            }
+            return render(request, "main/reserveroom.html", context)
+
         payment = functions.start_payment(**fields)
         if payment.get("valid", None):
             return redirect(payment.get("url"))
@@ -409,7 +448,6 @@ class PanelSettingsView(LoginRequiredMixin, View):
             settings[setting.name]["slug"] = setting.value['slug']
             settings[setting.name]["name"] = setting.name
             settings[setting.name]["value"] = functions.get_setting(setting)
-        print(settings)
         context = {
             "title": "تنظیمات",
             "settings": settings

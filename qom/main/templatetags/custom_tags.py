@@ -76,7 +76,6 @@ def load_landing_context(part: str, offset: str = "main", tag="", from_settings=
         if not tag == "":
             tag = "_" + tag
         slug = f"{part}_{offset}{tag}"
-        print(slug)
         context = main_models.Context.objects.get(slug=slug)
         return context.value
     except Exception:

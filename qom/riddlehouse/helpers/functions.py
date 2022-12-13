@@ -1,3 +1,4 @@
+import datetime
 import uuid
 import string
 import random
@@ -80,8 +81,10 @@ def start_payment(**kwargs):
         payment_obj = create_payment_object(**kwargs)
         return {"valid": True,
                 "url": callback_url + "?Authority=" + kwargs['authority'] + "&Status=" + "OK"}
-
-    description = kwargs.get("description", "پرداخت خانه معما")
+    #         "customer_name": kwargs.get('customer_name', None),
+    #         "customer_mobile": kwargs.get('mobile', None),
+    description = f"پرداخت به نام {kwargs.get('customer_name' , '' )} با شماره تلفن  {kwargs.get('mobile' , '')}"
+    print(description)
     data = {
         "merchant_id": merchant,
         "amount": amount * 10,
@@ -116,7 +119,7 @@ def create_payment_object(**kwargs):
         "customer_name": kwargs.get('customer_name', None),
         "customer_mobile": kwargs.get('mobile', None),
         "authority_key": kwargs.get('authority', None),
-        "rest_payment" : kwargs.get("rest_payment" , 0) ,
+        "rest_payment": kwargs.get("rest_payment", 0),
         "players_number": kwargs.get('players_number', None),
         "package": package,
         "amount": kwargs.get('amount', None),
@@ -184,7 +187,7 @@ def place_order(authority, transaction_number=None, card_pan=None):
         "customer_number": payment.customer_mobile,
         "transaction_number": transaction_number,
         "players_number": payment.players_number,
-        "rest_payment": payment.rest_payment ,
+        "rest_payment": payment.rest_payment,
         "paid": payment.amount,
         "key": key,
         "package": payment.package,
@@ -374,3 +377,11 @@ def set_context(slug, value):
     if not created:
         context_object = main_models.Context.objects.filter(slug=slug)
         context_object.update(value=value)
+
+
+def check_hour_in_use(room_id, time):
+    orders = orders_models.Order.objects.filter(room_id=room_id, reserved_time=time)
+    now = datetime.datetime.now()
+    payments = orders_models.Payment.objects.filter(room_id=room_id, reserved_time=time,
+                                                    created_date__gte=now - datetime.timedelta(minutes=10))
+    return orders.exists(), payments.exists()

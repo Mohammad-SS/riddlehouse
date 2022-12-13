@@ -34,7 +34,6 @@ class Room(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        print(self.slug, self.name, slugify(self.name), self.id)
         if not self.id:
             self.slug = functions.slugify(self.name)
 
