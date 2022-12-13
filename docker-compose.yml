@@ -3,14 +3,15 @@ version: '3.8'
 services:
   redis:
     image: redis
+    restart: always
     ports:
       - "6379:6379"
     command: redis-server --save 60 1 --loglevel warning
 
   qom:
     build: ./qom
-#    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000"
-    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000"
+#    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./qom/:/usr/src/app/
     expose:
@@ -30,6 +31,7 @@ services:
       - POSTGRES_DB=riddlehouse
   workers_qom:
     build: ./qom
+    restart: always
     command: celery -A riddlehouse worker --loglevel=info
     env_file:
       - ./.env

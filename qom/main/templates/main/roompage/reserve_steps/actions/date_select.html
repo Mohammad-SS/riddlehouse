@@ -12,7 +12,7 @@
 
         <div class="mb-status mb-status-success d-flex flex-column align-items-start ms-5">
             <span class="fw-bold">مبلغ پیش پرداخت</span>
-            <span class="mt-2">نفری  {{ room.price_per_unit }}تومان [[picked]]</span>
+            <span class="mt-2">{{ room.pre_pay|intcomma }}تومان [[picked]]</span>
         </div>
 
     </div>

@@ -50,6 +50,7 @@ server {
     
     location / {
         root /home/select_city ;
+	
     }
 }
 
