@@ -111,6 +111,7 @@ class PanelOverview(LoginRequiredMixin, View):
             time = time.split(":")
             date_time = jdatetime.JalaliDateTime(year=int(date[0]), month=int(date[1]), day=int(date[2]),
                                                  hour=int(time[0]), minute=int(time[1])).to_gregorian()
+            date_time = pytz.timezone("Asia/Tehran").localize(date_time)
             game_models.OneTimeExclusion.objects.filter(room_id=room_id, date_time=date_time).delete()
             return redirect("main:reserve_calendar")
 
