@@ -135,4 +135,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 TIME_ZONE = "Asia/Tehran"
 
 # CELERY CONFIGS :
-CELERY_BROKER_URL = "redis://redis:6379/2"
+CELERY_BROKER_URL = os.environ.get("REDIS_CONF" , "redis://redis:6379")+"/2"
