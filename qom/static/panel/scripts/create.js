@@ -162,15 +162,21 @@ var app = new Vue({
         }, 
 
         handle_create_submit: function(e) {
-            e.preventDefault();
-            e.target.disabled = true;
-            this.$refs.room_create_form.submit()
+             e.preventDefault();
+            let form = this.$refs.room_create_form
+            if (form.checkValidity()) {
+                e.target.disabled = true;
+                form.submit()
+            }
         },
 
         handle_edit_submit: function(e) {
-            e.preventDefault();
-            e.target.disabled = true;
-            this.$refs.room_edit_form.submit()
+             e.preventDefault();
+            let form = this.$refs.room_edit_form
+            if (form.checkValidity()) {
+                e.target.disabled = true;
+                form.submit()
+            }
         }
 
 

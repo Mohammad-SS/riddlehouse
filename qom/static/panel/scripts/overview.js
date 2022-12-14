@@ -24,6 +24,16 @@ var app = new Vue({
                 name
             }
             this.order_add_pupop = true
+        },
+
+        handle_order_submit: function(e) {
+            e.preventDefault();
+            let form = this.$refs.order_add_form
+            if (form.checkValidity()) {
+                e.target.disabled = true;
+                form.submit()
+            }
+
         }
     },
 
