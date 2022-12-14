@@ -98,6 +98,18 @@ class PanelOverview(LoginRequiredMixin, View):
             print(date_time)
             game_models.OneTimeExclusion(room_id=room_id, date_time=date_time, closed=True).save()
             return redirect("main:reserve_calendar")
+        if data.get("action", "reserve") == "open":
+            room_id = data.get("room", None)
+            date = data.get("date", None)
+            time = data.get("time", None)
+            if not room_id or not date or not time:
+                return None
+            date = date.split("/")
+            time = time.split(":")
+            date_time = jdatetime.JalaliDateTime(year=int(date[0]), month=int(date[1]), day=int(date[2]),
+                                                 hour=int(time[0]), minute=int(time[1])).to_gregorian()
+            game_models.OneTimeExclusion.objects.filter(room_id=room_id, date_time=date_time).delete()
+            return redirect("main:reserve_calendar")
 
         room = data.get("room_id", None)
         room = get_object_or_404(game_models.Room, pk=room)

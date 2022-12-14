@@ -65,7 +65,8 @@ class Month():
     def check_hour(cls, timestamp, room: models.Room):
         this_hour = datetime.datetime.fromtimestamp(timestamp, pytz.timezone("Asia/Tehran"))
 
-        is_ordered = room.orders.filter(reserved_time__gte=this_hour - datetime.timedelta(minutes=30),reserved_time__lte=this_hour + datetime.timedelta(minutes=30)).exists()
+        is_ordered = room.orders.filter(reserved_time__gte=this_hour - datetime.timedelta(minutes=30),
+                                        reserved_time__lte=this_hour + datetime.timedelta(minutes=30)).exists()
 
         if is_ordered:
             return False, "RESERVED"
@@ -77,7 +78,7 @@ class Month():
         if ote.exists():
             ote = ote[0]
             if ote.closed:
-                return False , "CLOSED"
+                return False, "CLOSED"
         return True, "FREE"
 
     def is_day_selectable(self, day, room):
@@ -103,9 +104,8 @@ class Month():
 
         if not exclusions.exists():
             return room.default_hours
-
-        for exclusion in exclusions:
-            exclusion_hours = cls.get_execution_hours(exclusion, day)
+        exclusion = exclusions.last()
+        exclusion_hours = cls.get_execution_hours(exclusion, day)
         return exclusion_hours
 
     @classmethod
