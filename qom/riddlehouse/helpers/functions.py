@@ -83,7 +83,7 @@ def start_payment(**kwargs):
                 "url": callback_url + "?Authority=" + kwargs['authority'] + "&Status=" + "OK"}
     #         "customer_name": kwargs.get('customer_name', None),
     #         "customer_mobile": kwargs.get('mobile', None),
-    description = f"پرداخت به نام {kwargs.get('customer_name' , '' )} با شماره تلفن  {kwargs.get('mobile' , '')}"
+    description = f"پرداخت به نام {kwargs.get('customer_name', '')} با شماره تلفن  {kwargs.get('mobile', '')}"
     print(description)
     data = {
         "merchant_id": merchant,
@@ -138,6 +138,10 @@ def verify_payment(authority):
     except exceptions.ObjectDoesNotExist as e:
         print(e)
         return {"valid": False, "data": "No Authority key found", "payment": None, "order": None}
+    ordered_before = orders_models.Payment.objects.filter(reserved_time=payment.reserved_time, room=payment.room)
+    if ordered_before.exists():
+        print(ordered_before)
+        return {"valid": False, "ordered_before": True, "room": payment.room}
     amount = payment.amount * 10
     if amount == 0:
         order_object, payment_object = place_order(authority, "رایگان - " + authority[0:15], "بدون پرداخت")

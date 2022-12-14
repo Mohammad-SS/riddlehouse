@@ -17,7 +17,7 @@ class Room(models.Model):
     conditions = models.TextField(blank=True, null=True)
     game_duration = models.CharField(max_length=255, blank=True, null=True)
     price_per_unit = models.IntegerField(blank=True, null=True)
-    pre_pay = models.IntegerField(blank=True,null=True)
+    pre_pay = models.IntegerField(blank=True, null=True)
     default_hours = postgres_fields.ArrayField(models.CharField(max_length=12, blank=True))
     default_days = postgres_fields.ArrayField(models.IntegerField(blank=True))
     room_type = models.CharField(max_length=7, choices=enums.RoomType.choices, default=enums.RoomType.REAL)
@@ -26,7 +26,7 @@ class Room(models.Model):
     warnings = models.TextField(blank=True, null=True)
     banner = models.ImageField(upload_to="rooms", blank=True, null=True)
     modified_time = models.DateTimeField(auto_now=True)
-    admin_phones = models.CharField(default="" , max_length=127 , blank=True,null=True)
+    admin_phones = models.CharField(default="", max_length=127, blank=True, null=True)
     google_map = models.TextField(blank=True, null=True)
     balad_link = models.TextField(blank=True, null=True)
 
@@ -70,4 +70,26 @@ class Exclusion(models.Model):
             "from": from_date,
             "created": created_date,
             "to": to_date
+        }
+
+
+class OneTimeExclusion(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="otes")
+    date_time = models.DateTimeField(blank=True,null=True)
+    closed = models.BooleanField(blank=True,null=True)
+    create_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.room.name} - ({self.date_time})"
+
+    @property
+    def persian_dates(self):
+        date_time = jdatetime.JalaliDate(self.date_time).replace(locale="fa").strftime(
+            "%Y/%m/%d %H/%M")
+        created_date = jdatetime.JalaliDate(self.create_date).replace(locale="fa").strftime(
+            "%Y/%m/%d %A")
+
+        return {
+            "date_time": date_time,
+            "created": created_date,
         }

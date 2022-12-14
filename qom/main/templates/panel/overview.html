@@ -73,7 +73,8 @@
                         <i class="fas fa-ban fs-lg text-light"></i>
                         <span class="overview-item-tooltip text-primary fs-7">
                             <button disabled class="btn btn-link rounded-pill bg-primary-flet text-primary"  @click='()=>set_reserve_detail({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{item.date}}`, `{{row_key}}`)'>رزرو</button>
-                            <form action="">
+                            <form action="" method="post">
+                                {% csrf_token %}
                                 <input type="hidden" name="room" value="{{room.room_obj.id}}">
                                 <input type="hidden" name="date" value="{{item.date}}">
                                 <input type="hidden" name="time" value="{{row_key}}">
@@ -86,7 +87,8 @@
                     <td class="bg-primary-flet user-select-none hover-overlay">
                         <span class="overview-item-tooltip text-primary fs-7">
                             <button class="btn btn-link rounded-pill bg-primary-flet text-primary"  @click='()=>set_reserve_detail({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{item.date}}`, `{{row_key}}`)'>رزرو</button>
-                            <form action="">
+                            <form action="" method="post">
+                                {% csrf_token %}
                                 <input type="hidden" name="room" value="{{room.room_obj.id}}">
                                 <input type="hidden" name="date" value="{{item.date}}">
                                 <input type="hidden" name="time" value="{{row_key}}">
@@ -220,7 +222,8 @@
                                 class="btn btn-sm btn-outline-primary d-flex justify-content-center align-items-center">
                                 رزرو
                             </span>
-                            <form action="">
+                            <form action="" method="post">
+                            {% csrf_token %}
                                 <input type="hidden" name="room" value="{{room.room_obj.id}}">
                                 <input type="hidden" name="date" value="{{item.date}}">
                                 <input type="hidden" name="time" value="{{row_key}}">

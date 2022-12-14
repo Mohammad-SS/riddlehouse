@@ -53,7 +53,7 @@
                     </div>
 
                     <div class="col-12 mt-4 d-flex flex-fill justify-content-end">
-                        <button class="btn btn-primary btn-sm me-1" @click='order_add_loading = true' :disabled='order_add_loading'>ثبت</button>
+                        <button type="submit" class="btn btn-primary btn-sm me-1" @click='handle_order_submit' :disabled='order_add_loading'>ثبت</button>
                         <span @click='order_add_pupop=false' class="btn btn-danger btn-sm">انصراف</span>
                     </div>
                 </div>

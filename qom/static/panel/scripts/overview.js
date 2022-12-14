@@ -1,4 +1,3 @@
-
 var app = new Vue({
     delimiters: ["[[", "]]"],
     el: '#app',
@@ -16,7 +15,7 @@ var app = new Vue({
 
     methods: {
 
-        set_reserve_detail: function(id, name, date, hour) {
+        set_reserve_detail: function (id, name, date, hour) {
             this.date = date
             this.time = hour
             this.room = {
@@ -26,18 +25,18 @@ var app = new Vue({
             this.order_add_pupop = true
         },
 
-        handle_order_submit: function(e) {
+        handle_order_submit: function (e) {
             e.preventDefault();
             let form = this.$refs.order_add_form
             if (form.checkValidity()) {
-                e.target.disabled = true;
+                this.order_add_loading = true
                 form.submit()
+            } else {
+                this.order_add_loading = false
             }
 
         }
     },
 
-    computed: {
-
-    }
+    computed: {}
 });

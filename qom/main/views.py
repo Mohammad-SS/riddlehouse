@@ -72,6 +72,7 @@ class PanelRoomsView(LoginRequiredMixin, View):
 class PanelOverview(LoginRequiredMixin, View):
     def get(self, request):
         calendar = MonthBooking.RoomWeek().create_rooms_list()
+
         context = {
             "title": "تقویم",
             "calendar": calendar,
@@ -80,6 +81,22 @@ class PanelOverview(LoginRequiredMixin, View):
 
     def post(self, request):
         data = request.POST
+        if data.get("action", "reserve") == "close":
+            print(data)
+            room_id = data.get("room", None)
+            date = data.get("date", None)
+            time = data.get("time", None)
+            if not room_id or not date or not time:
+                return None
+            date = date.split("/")
+            time = time.split(":")
+            print(date, time)
+            date_time = jdatetime.JalaliDateTime(year=int(date[0]), month=int(date[1]), day=int(date[2]),
+                                                 hour=int(time[0]), minute=int(time[1])).to_gregorian()
+            print(date_time)
+            game_models.OneTimeExclusion(room_id=room_id, date_time=date_time, closed=True).save()
+            return redirect("main:reserve_calendar")
+
         room = data.get("room_id", None)
         room = get_object_or_404(game_models.Room, pk=room)
         phone = data.get("phone", "")
@@ -283,8 +300,11 @@ class PanelScheduleView(LoginRequiredMixin, View):
 
     def get(self, request):
         exclusions = game_models.Exclusion.objects.all().order_by("-pk")
+        otes = game_models.OneTimeExclusion.objects.all().order_by("-pk")
+
         context = {
             "exclusions": exclusions,
+            "otes": otes,
             "title": "زمان بندی ها"
         }
         return render(request, "panel/schedule/schedule.html", context)
@@ -543,6 +563,15 @@ class ReserveCompleted(View):
     def get(self, request):
         rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL)
         order_status = functions.verify_payment(request.GET.get("Authority"))
+        if order_status.get("ordered_before", False):
+            now = datetime.datetime.now().strftime("%Y/%m/%d")
+            context = {
+                "error": 2,
+                "rooms": rooms,
+                "room": order_status.get("room", None),
+                "now": now
+            }
+            return render(request, "main/reserveroom.html", context)
         try:
             room = order_status.get("payment", None).room
         except Exception:

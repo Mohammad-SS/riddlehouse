@@ -73,6 +73,11 @@ class Month():
         if datetime.datetime.now(pytz.timezone("Asia/Tehran")) + datetime.timedelta(minutes=30) > this_hour:
             return False, "PASSED"
 
+        ote = room.otes.filter(date_time=this_hour).order_by("-id")
+        if ote.exists():
+            ote = ote[0]
+            if ote.closed:
+                return False , "CLOSED"
         return True, "FREE"
 
     def is_day_selectable(self, day, room):
