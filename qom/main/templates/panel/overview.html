@@ -71,17 +71,7 @@
                     {% if item is None %}
                     <td style="cursor: not-allowed;" class="bg-light-flet">
                         <i class="fas fa-ban fs-lg text-light"></i>
-                        <span class="overview-item-tooltip text-primary fs-7">
-                            <button disabled class="btn btn-link rounded-pill bg-primary-flet text-primary"  @click='()=>set_reserve_detail({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{item.date}}`, `{{row_key}}`)'>رزرو</button>
-                            <form action="" method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="room" value="{{room.room_obj.id}}">
-                                <input type="hidden" name="date" value="{{item.date}}">
-                                <input type="hidden" name="time" value="{{row_key}}">
-                                <input type="hidden" name="action" value="open">
-                                <button class="btn btn-link rounded-pill bg-danger-flet text-danger" @click='()=>deactive_reserve_day({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{item.date}}`, `{{row_key}}`)'>بازکردن</button>
-                            </form>
-                        </span>
+
                     </td>
                     {% elif item.status == 'FREE' and item.is_reservable %}
                     <td class="bg-primary-flet user-select-none hover-overlay">
