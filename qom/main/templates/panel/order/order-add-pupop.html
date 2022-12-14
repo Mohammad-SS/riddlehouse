@@ -18,7 +18,7 @@
         <div class="px-md-2">
             <form method="post" action="" class="gltr" ref='order_add_form'>
                 {% csrf_token %}
-
+                <input type="hidden" name="action" value="reserve">
                 <div class="row">
                     <span class="badge badge-secondary mb-3">اطلاعات رزرو</span>
                     <p>

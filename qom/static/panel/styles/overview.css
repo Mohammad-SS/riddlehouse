@@ -32,9 +32,11 @@
     text-align: center;
     border: 1px solid white !important;
     transition: all .2s;
+    position: relative;
 }
+
 .overview .table td:hover {
-    filter: brightness(80%);
+    /* filter: brightness(80%); */
 }
 
 .overview table tbody tr {}
@@ -50,6 +52,7 @@
 .md-overview {
     display: none;
 }
+
 /* .overview .table td:hover {
     background-color: var(--mdb-table-hover-bg)
 } */
@@ -69,8 +72,50 @@
     display: none;
 }
 
-.md-room-calendar.active{
+.md-room-calendar.active {
     display: inherit;
 }
 
 
+.overview-item-tooltip {
+    position: absolute;
+    top: -2em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(255, 255, 255) !important;
+    padding: 0.25em .5em;
+    z-index: 9999;
+    border-radius: 3em;
+    box-shadow: 0px 0px 4px #5c8dff;
+    opacity: 0;
+    visibility: hidden;
+    transition: .2s;
+    display: flex;
+    align-items: center;
+    height: 3em;
+}
+
+.overview-item-tooltip button {
+    width: 6em !important;
+    margin: .1em 0.2em;
+    padding: .5em 0em;
+}
+
+.overview .table td:hover>.overview-item-tooltip {
+    top: -2.5em;
+    opacity: 1;
+    visibility: visible;
+}
+
+.overview-item-tooltip::before {
+    content: '';
+    width: 0.7em;
+    height: 0.7em;
+    background-color: white;
+    display: flex;
+    position: absolute;
+    bottom: -.25em;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    box-shadow: 0.13em 2px 3px #8dafff;
+}
