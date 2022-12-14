@@ -225,7 +225,7 @@
                                 <input type="hidden" name="date" value="{{item.date}}">
                                 <input type="hidden" name="time" value="{{row_key}}">
                                 <input type="hidden" name="action" value="close">
-                                <button class="btn btn-sm btn-outline-danger d-flex justify-content-center align-items-center ms-1" @click='()=>deactive_reserve_day({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{item.date}}`, `{{row_key}}`)'>بستن</button>
+                                <button class="btn btn-sm btn-outline-danger d-flex justify-content-center align-items-center ms-1" @click='()=>deactive_reserve_day({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{data.date}}`, `{{hour}}`)'>بستن</button>
                             </form>
                             {% elif data.status == 'PASSED' %}
                             <span class="btn btn-sm btn-outline-warning d-flex justify-content-center align-items-center">
