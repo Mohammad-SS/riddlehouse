@@ -83,6 +83,7 @@ class PanelOverview(LoginRequiredMixin, View):
 
     def post(self, request):
         data = request.POST
+        print(data)
         if data.get("action", "reserve") == "close":
             print(data)
             room_id = data.get("room", None)
