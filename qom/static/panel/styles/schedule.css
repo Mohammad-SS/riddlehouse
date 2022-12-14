@@ -17,13 +17,14 @@
 }
 
 .schedule-exclusions {
-  max-height: fit-content !important;
+  height: fit-content !important;
 }
 
-@media screen and (max-width: 1280px)  {
+@media screen and (max-width: 1280px) {
   .schedule-container {
     flex-direction: column-reverse !important;
   }
+
   .schedule-time {
     margin: 0 !important;
     margin-top: 1em !important;

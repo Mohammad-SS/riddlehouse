@@ -13,6 +13,10 @@
 </div>
 {% endblock %}
 
+{% block dialogs %}
+{% include 'panel/schedule/remove-schedule-pupop.html' %}
+{% endblock dialogs %}
+
 {% block content %}
 <div class="d-flex px-3 mt-3 schedule-container ">
     {% if otes %}
@@ -67,17 +71,17 @@
                 {% for exclusion in exclusions %}
                 <tr class="schedule-item">
                     <td class="position-relative d-flex align-items-center justify-content-between">
-                        <div class="d-flex flex-fill align-items-center"  collapse-id-data='collapse_{{ exclusion.pk }}'>
+                        <div class="d-flex flex-fill align-items-center"  collapse-id-data='collapse_{{ exclusion.pk }}' collapse-auto-close='true'>
                             <div class="">
                                 <p class="fw-bold mb-1">{{ exclusion.room.name }}</p>
                                 <p class="text-muted mb-0">تاریخ ایجاد : {{ exclusion.persian_dates.created }}</p>
                                 <p class="text-muted mb-0">نوع : {{ exclusion.get_role_display }}</p>
                             </div>
                         </div>
-                        <a class="btn me-3 p-2 btn-link text-danger" href="{% url 'main:remove-schedule' pk=exclusion.pk %}">
+                        <button  class="btn me-3 p-2 btn-link text-danger" @click="()=> handle_remove_schedule(`{% url 'main:remove-schedule' pk=exclusion.pk %}`)">
                         <i class="far fa-trash-alt"></i>&nbsp;
                         حذف
-                        </a>
+                        </button>
                     </td>
                 </tr>
                 <tr>
@@ -130,4 +134,6 @@
 {% block footer-scripts %}
 <script src="{% static 'modules/vue.js' %}"></script>
 <script src="{% static 'modules/jalalidatepicker.min.js' %}"></script>
+<script src="{% static 'panel/scripts/schedule.js' %}"></script>
+
 {% endblock %}
