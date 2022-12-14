@@ -4,6 +4,8 @@ import random
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
+from django.utils.http import urlencode
 from django.views import View
 from persiantools import jdatetime
 import game.models
@@ -361,6 +363,7 @@ class LoginView(View):
 class RoomView(View):
     def get(self, request, slug):
         rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL)
+        error = request.GET.get("error", None)
         room = game_models.Room.objects.get(slug=slug)
         now = datetime.datetime.now().strftime("%Y/%m/%d")
         try:
@@ -368,6 +371,7 @@ class RoomView(View):
         except Exception:
             meta_description = "اولین اتاق فرار استان قم"
         context = {
+            "error": error,
             "rooms": rooms,
             "room": room,
             "meta_description": meta_description,
@@ -565,13 +569,11 @@ class ReserveCompleted(View):
         order_status = functions.verify_payment(request.GET.get("Authority"))
         if order_status.get("ordered_before", False):
             now = datetime.datetime.now().strftime("%Y/%m/%d")
-            context = {
-                "error": 2,
-                "rooms": rooms,
-                "room": order_status.get("room", None),
-                "now": now
-            }
-            return render(request, "main/reserveroom.html", context)
+            room = order_status.get("room", None)
+            redirect_url = reverse("main:room-page", kwargs={"slug": room.slug})
+            parameters = urlencode({"error": 3})
+
+            return redirect(f"{redirect_url}?{parameters}")
         try:
             room = order_status.get("payment", None).room
         except Exception:

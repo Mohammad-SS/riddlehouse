@@ -14,14 +14,19 @@
         </div>
     </h1>
     {% if error %}
-        {% if error == 1 %}
+        {% if error == 1 or error == "1" %}
             <h6 style="color: #760000;margin-top: 25px;padding: 10px;background-color: #5737a157;border-radius: 15px;">
                 متاسفانه یک نفر در حال پرداخت این سانس میباشد. لطفا 10 دقیقه دیگر دوباره
                 تلاش کنید</h6>
-        {% elif error == 2 %}
+        {% elif error == 2 or error == "2" %}
             <h6 style="color: #760000;margin-top: 25px;padding: 10px;background-color: #5737a157;border-radius: 15px;">
                 متاسفانه یک نفر سریعتر از شما این سانس را رزرو کرد ! لطفا یک سانس دیگر را
                 انتخاب کنید !</h6>
+        {% elif error == "3" or error == "3" %}
+            <h6 style="color: #760000;margin-top: 25px;padding: 10px;background-color: #5737a157;border-radius: 15px;">
+                متاسفانه سانسی که انتخاب کرده بودید ، توسط کاربر دیگری رزرو شد . در صورتی که وجه از حساب شما کم شده باشد
+                تا حداکثر 72 ساعت به حساب شما بازخواهد گشت.
+            </h6>
         {% else %}
             <h6 style="color: #760000;margin-top: 25px;padding: 10px;background-color: #5737a157;border-radius: 15px;">
                 مشکلی در زمان پرداخت پیش آمد . لطفا دوباره امتحان کنید</h6>
