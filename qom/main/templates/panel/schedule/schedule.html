@@ -30,19 +30,20 @@
             </thead>
             <tbody>
                 {% for item in otes %}
+                    {% with datetime=item.persian_dates  %}
                     <tr>
                         <td class="d-flex justify-content-between align-items-center">
                             <div>
                                 <p class="p-0 m-0 fw-bold">{{item.room.name}}</p>
-                                <p class="p-0 m-0">تاریخ: {{item.persian_dates.date.display}}</p>
-                                <p class="p-0 m-0">ساعت: {{item.persian_dates.time}}</p>
+                                <p class="p-0 m-0">تاریخ: {{datetime.date.display}}</p>
+                                <p class="p-0 m-0">ساعت: {{datetime.time}}</p>
                             </div>
                             <div>
                                 <form action="{% url 'main:reserve_calendar' %}" method="post">
                                     {% csrf_token %}
                                     <input type="hidden" name="room" value="{{item.room.id}}">
-                                    <input type="hidden" name="date" value="{{item.persian_dates.date.value}}">
-                                    <input type="hidden" name="time" value="{{item.persian_dates.time}}">
+                                    <input type="hidden" name="date" value="{{datetime.date.value}}">
+                                    <input type="hidden" name="time" value="{{datetime.time}}">
                                     <input type="hidden" name="action" value="open">
                                     <button class="btn btn-link text-primary">
                                         <i class="fas fa-unlock-alt"></i>&nbsp;
@@ -53,6 +54,7 @@
                         </td>
                         
                     </tr>
+                    {% endwith %}
                 {% endfor %}
             </tbody>
             
