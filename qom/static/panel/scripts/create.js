@@ -7,7 +7,9 @@ var app = new Vue({
         time: '00:00',
         room_mode: 'real',
         packages: [],
-        banner: false
+        banner: false,
+        edit_submit_loading: false,
+        create_submit_loading: false,
 
     },
 
@@ -165,17 +167,22 @@ var app = new Vue({
              e.preventDefault();
             let form = this.$refs.room_create_form
             if (form.checkValidity()) {
-                e.target.disabled = true;
+                this.create_submit_loading = true;
                 form.submit()
+            } else {
+                this.create_submit_loading = false
             }
         },
-
+        
+        
         handle_edit_submit: function(e) {
              e.preventDefault();
             let form = this.$refs.room_edit_form
             if (form.checkValidity()) {
-                e.target.disabled = true;
+                this.edit_submit_loading = true;
                 form.submit()
+            } else {
+                this.edit_submit_loading = false;
             }
         }
 

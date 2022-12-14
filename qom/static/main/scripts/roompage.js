@@ -4,6 +4,7 @@ var app = new Vue({
 
     delimiters: ["[[", "]]"],
     data: {
+        submit_loading: false,
         current_room: null,
         step: 1,
         accept_ruls: false,
@@ -239,8 +240,10 @@ var app = new Vue({
             e.preventDefault();
             let form = this.$refs.information_form
             if (form.checkValidity()) {
-                e.target.disabled = true;
+                this.submit_loading = true;
                 form.submit()
+            } else {
+                this.submit_loading = false
             }
         }
         // check_coupan: async function (room, year, month) {
