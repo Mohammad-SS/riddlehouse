@@ -1,0 +1,36 @@
+<div class="gdialog-back" :class="room_remove_pupop ? 'gdialog-show' : 'gdialog-hide'"
+  @click="room_remove_pupop=false">
+</div>
+<div class="gdialog-content mb-rtl col-md-2"
+  :class="room_remove_pupop ? 'gdialog-show gdialog-motion' : 'gdialog-hide gdialog-motion-off'"
+  style="max-width: 90% !important; width: 30em;" dir="rtl">
+
+  <div class="gdialog-head">
+    <span class="gdialog-title fs-5">
+      حذف اتاق
+    </span>
+    <span class="mb-expand"></span>
+    <span class="gdialog-close-icon ripple" @click='room_remove_pupop=false'>
+      <i data-feather="x" width="20px" height="20px"></i>
+    </span>
+  </div>
+
+  <div class="gdialog-body">
+    <div class="px-md-2">
+      <form action="" method="post" class="gltr" ref='room_remove_form'>
+        {% csrf_token %}
+
+        <div class="row">
+          <p>
+            ایا از حذف اتاق <b>' [[room_remove_obj.room_name]] '</b> مطمئن هستید؟
+          </p>
+          <div class="col-12 mt-4 d-flex flex-fill justify-content-end">
+            <input type="hidden" name="delete" :value="room_remove_obj.room_id">
+            <button class="btn btn-danger btn-sm me-1" @click='room_remove_loading = true' :disabled='room_remove_loading'>حذف</button>
+            <span @click='room_remove_pupop=false' class="btn btn-primary btn-sm">انصراف</span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

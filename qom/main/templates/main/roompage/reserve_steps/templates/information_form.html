@@ -2,7 +2,7 @@
 {% load humanize %}
 
 
-<form action="" method="post" v-show='step == 4' class="reserve-form p-2">
+<form action="" method="post" v-show='step == 4' class="reserve-form p-2" ref='information_form'>
 {% csrf_token %}
     <!-- from unvisible data -->
     <input name='rols' type="checkbox" class="d-none" v-model='accept_ruls'>
@@ -112,7 +112,7 @@
         </div>
 
         <span class="mb-expand"></span>
-        <button type="submit" class="btn btn-success btn-lg fs-6">
+        <button type="submit" class="btn btn-success btn-lg fs-6" @click='handle_information_submit'>
             پرداخت و ثبت اطلاعات
         </button>
     </div>

@@ -20,6 +20,7 @@
 
 {% block dialogs %}
 {% include 'panel/schedule/add-schedule-pupop.html' %}
+{% include 'panel/manage-rooms/room-remove-pupop.html' %}
 {% endblock dialogs %}
 
 {% block content %}
@@ -67,12 +68,12 @@
                             <p class="m-0"><span
                                     class="badge badge-success  mb-1">{{ room.get_room_type_display }}</span></p>
                             {% if room.room_type == "REAL" %}
-                                <p class="m-0"><span class="badge badge-danger ">نفری {{ room.price_per_unit|intcomma }} تومان </span>
+                                <p class="m-0"><span class="badge badge-primary ">نفری {{ room.price_per_unit|intcomma }} تومان </span>
                                 </p>
                             {% else %}
                                 {% for price in room.box_packages_prices %}
                                     <p class="m-0"><span
-                                            class="badge badge-danger ">پکیج {{ forloop.counter }} : {{ price|intcomma }} تومان </span>
+                                            class="badge badge-primary ">پکیج {{ forloop.counter }} : {{ price|intcomma }} تومان </span>
                                     </p>
                                 {% endfor %}
 
@@ -86,16 +87,19 @@
                     <td colspan="2" class="text-center">
                         <div>
 
-                            <a class="btn btn-link btn-sm btn-rounded" href="{% url 'main:room-page' slug=room.slug %}">
+                            <a class="px-3 btn btn-link btn-sm btn-rounded" href="{% url 'main:room-page' slug=room.slug %}">
                                 مشاهده
                             </a>
 
-                            <a type="button" class="me-2 btn btn-link text-success btn-sm btn-rounded" href="{% url 'main:editroom' pk=room.pk %}">ویرایش
+                            <a type="button" class="px-3 btn btn-link text-success btn-sm btn-rounded" href="{% url 'main:editroom' pk=room.pk %}">ویرایش
                             </a>
                             {% if room.room_type == "REAL" %}
-                            <button  @click='()=>show_schedule_pupop({{room.id}} ,{{room.default_days}}, {{room.default_hours}})' type="button" class="me-2 btn btn-link text-warning btn-sm btn-rounded">زمانبندی
+                            <button  @click='()=>show_schedule_pupop({{room.id}} ,{{room.default_days}}, {{room.default_hours}})' type="button" class="px-3 btn btn-link text-warning btn-sm btn-rounded">زمانبندی
                             </button>
                             {% endif %}
+
+                            <button @click='()=> handle_remove_room(`{{room.id}}`, `{{room.name}}`)' type="button" class="px-3 btn btn-link text-danger btn-sm btn-rounded">حذف
+                            </button>
 
                         </div>
                     </td>

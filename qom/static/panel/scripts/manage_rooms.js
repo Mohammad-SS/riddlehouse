@@ -4,6 +4,12 @@ var app = new Vue({
     data: {
         add_schedule_pupop: false,
         add_schedule_loading: false,
+        room_remove_pupop: false,
+        room_remove_loading: false,
+        room_remove_obj : {
+            room_id: null,
+            room_name: null
+        },
         tags: [],
         tag_remove_all: false,
         time: '00:00',
@@ -70,6 +76,14 @@ var app = new Vue({
             this.tags = hours
             this.schedule_room_days = days
             this.add_schedule_pupop = true
+        },
+
+        handle_remove_room: function(room_id, room_name) {
+            this.room_remove_obj = {
+                room_id,
+                room_name
+            }
+            this.room_remove_pupop = true
         }
     },
 });

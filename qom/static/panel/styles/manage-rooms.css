@@ -68,6 +68,19 @@
     }
 }
 
+
+@media screen and (max-width: 380px) {
+
+    .manage-rooms table tr.sm-room-actions td>div {
+        justify-content: space-between;
+    }
+
+    .manage-rooms table tr.sm-room-actions td>div>.btn {
+        padding-left: .5rem !important;
+        padding-right: .5rem !important;
+    }
+}
+
 /* 
 .manage-rooms table {
     background: transparent;
