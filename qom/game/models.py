@@ -1,3 +1,4 @@
+import pytz
 from django.db import models
 from django.contrib.postgres import fields as postgres_fields
 from django.urls import reverse
@@ -75,8 +76,8 @@ class Exclusion(models.Model):
 
 class OneTimeExclusion(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="otes")
-    date_time = models.DateTimeField(blank=True,null=True)
-    closed = models.BooleanField(blank=True,null=True)
+    date_time = models.DateTimeField(blank=True, null=True)
+    closed = models.BooleanField(blank=True, null=True)
     create_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
@@ -85,16 +86,18 @@ class OneTimeExclusion(models.Model):
     @property
     def persian_dates(self):
         date = {
-            "value": jdatetime.JalaliDateTime(self.date_time, locale='en').strftime("%Y/%m/%d"),
-            "display" : jdatetime.JalaliDateTime(self.date_time, locale="fa").strftime("%c")
+            "value": jdatetime.JalaliDateTime(self.date_time, locale='en',
+                                              tzinfo=pytz.timezone("Asia/Tehran")).strftime("%Y/%m/%d"),
+            "display": jdatetime.JalaliDateTime(self.date_time, locale="fa",
+                                                tzinfo=pytz.timezone("Asia/Tehran")).strftime("%c")
         }
         time = self.date_time.time().strftime("%H:%M") if self.date_time is not None else None
         created_date = jdatetime.JalaliDateTime(self.create_date, locale='en').strftime(
             "%Y/%m/%d %A")
 
-        print('-'*50)
+        print('-' * 50)
         print(date, time)
-        print('-'*50)
+        print('-' * 50)
         return {
             "date": date,
             "time": time,
