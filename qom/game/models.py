@@ -85,11 +85,11 @@ class OneTimeExclusion(models.Model):
     @property
     def persian_dates(self):
         date = {
-            "value": jdatetime.JalaliDate(self.date_time, locale='en').strftime("%Y/%m/%d"),
-            "display" : jdatetime.JalaliDate(self.date_time, locale="fa").strftime("%c")
+            "value": jdatetime.JalaliDateTime(self.date_time, locale='en').strftime("%Y/%m/%d"),
+            "display" : jdatetime.JalaliDateTime(self.date_time, locale="fa").strftime("%c")
         }
         time = self.date_time.time().strftime("%H:%M") if self.date_time is not None else None
-        created_date = jdatetime.JalaliDate(self.create_date, locale='en').strftime(
+        created_date = jdatetime.JalaliDateTime(self.create_date, locale='en').strftime(
             "%Y/%m/%d %A")
 
         print('-'*50)
