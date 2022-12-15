@@ -92,6 +92,10 @@
                     <td class="bg-warning-flet cursor-ban">
                         <i class="fas fa-ban fs-lg text-warning"></i>
                     </td>
+                        {% elif item.status == 'CLOSED' %}
+                    <td class="bg-warning-flet cursor-ban">
+                        <i class="fas fa-ban fs-lg text-info"></i>
+                    </td>
                     {% else %}
                     <td class="bg-danger-flet" data-mdb-toggle="tooltip" data-mdb-placement="top" data-mdb-html="true"
                         title='
