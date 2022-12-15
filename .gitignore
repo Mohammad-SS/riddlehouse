@@ -1,4 +1,7 @@
 ### Python template
+# Wordpress files
+wp-content
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
