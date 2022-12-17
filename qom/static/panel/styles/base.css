@@ -122,6 +122,9 @@ body {
 .bg-primary-flet {
     background-color: #c6d7ff !important;
 }
+.bg-info-flet {
+    background-color: #c6f8ff !important;
+}
 .bg-danger-flet {
     background-color: #ffc6d4 !important;
 }
@@ -129,7 +132,7 @@ body {
     background-color: #ade9c4 !important;
 }
 .bg-warning-flet {
-    background-color: #e9e0ad !important;
+    background-color: #fff1a5 !important;
 }
 
 .fs-7 {

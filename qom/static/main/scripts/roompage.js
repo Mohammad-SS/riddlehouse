@@ -17,7 +17,7 @@ var app = new Vue({
         reservable_time_list: [],
         calendar: null,
         default_calendar: null,
-        today_date : document.today,
+        today_date: document.today,
         current_date: get_today_jalali(document.today),
         free_turns: '-',
         reserved_turns: '-',
@@ -233,16 +233,61 @@ var app = new Vue({
             }
 
             this.player_numbers.current = value
-        }, 
+        },
 
+        check_mobile: function (value) {
+            value = value.replaceAll(/\s+/g, "");
+            value = value.replaceAll(/\+/g, "");
+            value = value.replaceAll(/^(09|989|9)/g, "09")
+            var result = value.match(/^(09)[0-9]\d{8}$/g)
+            return result
+        },
+
+        show_toast: function(text) {
+            Toastify({
+                text: text,
+                duration: 3000,
+                newWindow: true,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                    background: "var(--mb-original-red)",
+                },
+                onClick: function () { } // Callback after click
+            }).showToast();
+        },
 
         handle_information_submit: function (e) {
             e.preventDefault();
+            this.submit_loading = true
             let form = this.$refs.information_form
+            let inputs = this.$refs.information_form.querySelectorAll("#phone,#name,#persons")
+
             if (form.checkValidity()) {
-                this.submit_loading = true;
+
+                let name = this.$refs.information_form.querySelector("#name")
+                let phone = this.$refs.information_form.querySelector("#phone")
+                let persons = this.$refs.information_form.querySelector("#persons")
+
+                if (!name.value && !phone.value && !persons.value) {
+                    this.show_toast("لطفا اطلاعات فرم را با دقت بیشتری تکمیل کنید")
+                    this.submit_loading = false
+                    return
+                }
+                if (!this.check_mobile(phone.value)) {
+
+                    console.log(phone.value)
+                    this.show_toast("لطفا شماره موبایل را تصحیح کنید")
+                    this.submit_loading = false
+                    return
+                }
+
                 form.submit()
+
             } else {
+                this.show_toast("لطفا اطلاعات فرم را با دقت بیشتری تکمیل کنید")
                 this.submit_loading = false
             }
         }
@@ -250,7 +295,7 @@ var app = new Vue({
         //     try {
         //         let url = new URL(window.location).origin + `/api/check-coupon?room=${this.current_room}&coupon=${this.coupan_code}`
         //         let response = await axios.get(url)
-                
+
         //         return response.data
 
         //     } catch (error) {

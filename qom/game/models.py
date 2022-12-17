@@ -90,7 +90,7 @@ class OneTimeExclusion(models.Model):
             "%Y/%m/%d %A %H:%M")
         date = {
             "value": jdatetime.JalaliDateTime.fromtimestamp(self.date_time.timestamp()).replace(locale="en").strftime("%Y/%m/%d"),
-            "display": jdatetime.JalaliDateTime.fromtimestamp(self.date_time.timestamp()).replace(locale="fa").strftime("%c")
+            "display": jdatetime.JalaliDateTime.fromtimestamp(self.date_time.timestamp()).replace(locale="fa").strftime("%A %d %B %Y")
         }
         time = jdatetime.JalaliDateTime.fromtimestamp(self.date_time.timestamp()).replace(locale="en").strftime("%H:%M")
         created_date = jdatetime.JalaliDateTime(self.create_date, locale='en',tzinfo=pytz.timezone("Asia/Tehran")).strftime(

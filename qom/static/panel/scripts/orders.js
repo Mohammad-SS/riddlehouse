@@ -6,12 +6,12 @@ var app = new Vue({
         order_remove_pupop: false,
         order_remove_loading: false,
         order_remove_obj: {
-            order_id : null,
-            room_name : null,
-            reserve_date : null,
-            payment_date : null,
-            customer_name : null,
-            customer_number : null,
+            order_id: null,
+            room_name: null,
+            reserve_date: null,
+            payment_date: null,
+            customer_name: null,
+            customer_number: null,
         },
         selected_rooms: [],
         time: '00:00',
@@ -22,7 +22,7 @@ var app = new Vue({
         hour_list: []
     },
 
-    
+
     mounted: function (e) {
 
         const queryString = window.location.search;
@@ -93,7 +93,7 @@ var app = new Vue({
         clear_filters: function (e) {
             const params = new URLSearchParams(window.location.search)
             const params_keys = Array.from(params).map(param => param[0])
-            
+
             let includes_params = ["room", "min_date", "max_date", 'filter_mode'].filter(item => params_keys.includes(item))
 
             if (!Boolean(includes_params.length)) {
@@ -101,12 +101,12 @@ var app = new Vue({
                 this.max_date = null
                 this.room = null
                 this.filter_mode = null
-            } else {    
+            } else {
                 window.location = location.protocol + '//' + location.host + location.pathname
             }
         },
 
-        handle_remove_pupop: function(order_id, room_name, reserve_date, payment_date, customer_name, customer_number) {
+        handle_remove_pupop: function (order_id, room_name, reserve_date, payment_date, customer_name, customer_number) {
             this.order_remove_obj = {
                 order_id,
                 room_name,
@@ -116,6 +116,19 @@ var app = new Vue({
                 customer_number,
             }
             this.order_remove_pupop = true
+        },
+
+
+
+        handle_order_remove_btn: function (e) {
+            e.preventDefault();
+            let form = this.$refs.order_remove_form
+            if (form.checkValidity()) {
+                this.order_remove_loading = true;
+                form.submit()
+            } else {
+                this.order_remove_loading = false;
+            }
         }
 
     },

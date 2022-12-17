@@ -33,7 +33,7 @@
           </p>
           <div class="col-12 mt-4 d-flex flex-fill justify-content-end">
             <input type="hidden" name="delete" :value="order_remove_obj.order_id">
-            <button class="btn btn-danger btn-sm me-1" @click='order_remove_loading = true' :disabled='order_remove_loading'>حذف</button>
+            <button class="btn btn-danger btn-sm me-1" @click='handle_order_remove_btn' :disabled='order_remove_loading'>حذف</button>
             <span @click='order_remove_pupop=false' class="btn btn-primary btn-sm">انصراف</span>
           </div>
         </div>

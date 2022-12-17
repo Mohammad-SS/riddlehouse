@@ -93,7 +93,7 @@
                         <i class="fas fa-ban fs-lg text-warning"></i>
                     </td>
                         {% elif item.status == 'CLOSED' %}
-                    <td class="bg-primary-flet cursor-ban">
+                    <td class="bg-info-flet cursor-ban">
                         <i class="fas fa-ban fs-lg text-info"></i>
                     </td>
                     {% else %}
@@ -123,6 +123,9 @@
                 </div>
                 <div class="bg-light-flet mx-2 rounded fs-7 px-3 py-2">
                     غیرقابل رزرو
+                </div>
+                <div class="bg-info-flet mx-2 rounded fs-7 px-3 py-2">
+                    بسته شده
                 </div>
                 <div class="bg-danger-flet mx-2 rounded fs-7 px-3 py-2">
                     رزرو شده
@@ -189,6 +192,8 @@
                                 bg-primary-flet
                             {% elif data.status == 'PASSED' %}
                                 bg-warning-flet
+                            {% elif data.status == 'CLOSED' %}
+                                bg-info-flet
                             {% else %}
                                 bg-danger-flet
                             {% endif %}" 
@@ -220,13 +225,18 @@
                             {% csrf_token %}
                                 <input type="hidden" name="room" value="{{room.room_obj.id}}">
                                 <input type="hidden" name="date" value="{{item.date}}">
-                                <input type="hidden" name="time" value="{{row_key}}">
+                                <input type="hidden" name="time" value="{{hour}}">
                                 <input type="hidden" name="action" value="close">
                                 <button class="btn btn-sm btn-outline-danger d-flex justify-content-center align-items-center ms-1" @click='()=>deactive_reserve_day({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{data.date}}`, `{{hour}}`)'>بستن</button>
                             </form>
                             {% elif data.status == 'PASSED' %}
                             <span class="btn btn-sm btn-outline-warning d-flex justify-content-center align-items-center">
                                 اتمام زمان رزرو
+                            </span>
+                            {% elif data.status == 'CLOSED' %}
+                            <span class="btn btn-sm btn-outline-info text-info d-flex justify-content-center align-items-center cursor-ban">
+                                <i class="fas fa-ban fs-lg text-info"></i>&nbsp;
+                                بسته شده
                             </span>
                             {% else %}
                             <span
