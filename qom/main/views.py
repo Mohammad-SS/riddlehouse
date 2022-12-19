@@ -316,7 +316,7 @@ class PanelScheduleView(LoginRequiredMixin, View):
 
     def get(self, request):
         exclusions = game_models.Exclusion.objects.all().order_by("-pk")
-        otes = game_models.OneTimeExclusion.objects.filter(date_time__gte=datetime.datetime.now()) .order_by("-pk")
+        otes = game_models.OneTimeExclusion.objects.filter(date_time__gte=datetime.date.today()) .order_by("-pk")
 
         context = {
             "exclusions": exclusions,
