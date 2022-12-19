@@ -82,6 +82,36 @@ def load_landing_context(part: str, offset: str = "main", tag="", from_settings=
         return ""
 
 
+def exclude_hours(exclusion):
+    default_hours = exclusion.room.default_hours
+    default_days = exclusion.room.default_days
+    minus_hours = []
+    minus_days = []
+    additional_hours = []
+    additional_days = []
+
+    for hour in exclusion.hours:
+        if hour not in default_hours:
+            additional_hours.append(hour)
+    for day in exclusion.weekdays:
+        if day not in default_days:
+            additional_days.append(day)
+    for hour in default_hours:
+        if hour not in exclusion.hours:
+            minus_hours.append(hour)
+    for day in default_days:
+        if day not in exclusion.weekdays:
+            minus_days.append(day)
+
+    return {
+        "min_days": minus_days,
+        "min_hours": minus_hours,
+        "add_days": additional_days,
+        "add_hours": additional_hours
+    }
+
+
+register.filter('exclude_hours', exclude_hours)
 register.filter('pagination_handle_pages', pagination_handle_pages)
 register.filter('convert_iso_to_weekday', convert_iso_to_weekday)
 register.filter('overview_handler', overview_handler)

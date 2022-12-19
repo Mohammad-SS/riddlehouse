@@ -2,140 +2,166 @@
 {% load static %}
 {% load custom_tags %}
 {% block styles %}
-<link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet" />
-<link href="{% static 'modules/jalalidatepicker.min.css' %}" rel="stylesheet" />
-<link rel="stylesheet" href="{% static 'panel/' %}styles/schedule.css">
-<link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
+    <link href="{% static 'modules/mdb.rtl.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'modules/jalalidatepicker.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'panel/' %}styles/schedule.css">
+    <link rel="stylesheet" href="{% static 'panel/' %}styles/dialog.css">
 {% endblock %}
 {% block contentHead %}
-<div class="content-head">
-    <h4>زمانبندی بازی ها</h4>
-</div>
+    <div class="content-head">
+        <h4>زمانبندی بازی ها</h4>
+    </div>
 {% endblock %}
 
 {% block dialogs %}
-{% include 'panel/schedule/remove-schedule-pupop.html' %}
+    {% include 'panel/schedule/remove-schedule-pupop.html' %}
 {% endblock dialogs %}
 
 {% block content %}
-<div class="d-flex px-3 mt-3 schedule-container ">
-    {% if otes %}
-    <div class=" schedule-time bg-white flex-fill rounded shadow-3 p-2" style="margin-right: 1em;min-width: 25em;height: fit-content;">
+    <div class="d-flex px-3 mt-3 schedule-container ">
+        {% if otes %}
+            <div class=" schedule-time bg-white flex-fill rounded shadow-3 p-2"
+                 style="margin-right: 1em;min-width: 25em;height: fit-content;">
 
-        <table class="table align-middle mb-0 bg-white mb-rtl">
-            <thead class="bg-light">
-                <tr>
-                    <th class="text-center">تایم های بسته شده</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in otes %}
-                    {% with datetime=item.persian_dates  %}
+                <table class="table align-middle mb-0 bg-white mb-rtl">
+                    <thead class="bg-light">
                     <tr>
-                        <td class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="p-0 m-0 fw-bold">{{item.room.name}}</p>
-                                <p class="p-0 m-0">تاریخ: {{datetime.date.display}}</p>
-                                <p class="p-0 m-0">ساعت: {{datetime.time}}</p>
-                            </div>
-                            <div>
-                                <form action="{% url 'main:reserve_calendar' %}" method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="room" value="{{item.room.id}}">
-                                    <input type="hidden" name="date" value="{{datetime.date.value}}">
-                                    <input type="hidden" name="time" value="{{datetime.time}}">
-                                    <input type="hidden" name="action" value="open">
-                                    <button class="btn btn-link text-primary">
-                                        <i class="fas fa-unlock-alt"></i>&nbsp;
-                                        بازکردن
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                        
+                        <th class="text-center">تایم های بسته شده</th>
                     </tr>
-                    {% endwith %}
-                {% endfor %}
-            </tbody>
-            
-        </table>
-    </div>
-    {% endif %}
-    {% if exclusions %}
-    <div class="schedule-exclusions bg-white flex-fill schedule rounded shadow-3 p-2 ">
-        <table class="table align-middle mb-0 bg-white" dir="rtl">
-            <thead class="bg-light">
-                <tr>
-                    <th>مشخصات</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for exclusion in exclusions %}
-                <tr class="schedule-item">
-                    <td class="position-relative d-flex align-items-center justify-content-between">
-                        <div class="d-flex flex-fill align-items-center"  collapse-id-data='collapse_{{ exclusion.pk }}' collapse-auto-close='true'>
-                            <div class="">
-                                <p class="fw-bold mb-1">{{ exclusion.room.name }}</p>
-                                <p class="text-muted mb-0">تاریخ ایجاد : {{ exclusion.persian_dates.created }}</p>
-                                <p class="text-muted mb-0">نوع : {{ exclusion.get_role_display }}</p>
-                            </div>
-                        </div>
-                        <button  class="btn me-3 p-2 btn-link text-danger" @click="()=> handle_remove_schedule(`{% url 'main:remove-schedule' pk=exclusion.pk %}`)">
-                        <i class="far fa-trash-alt"></i>&nbsp;
-                        حذف
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="5" class="m-0 p-0">
-                        <div collapse-id='collapse_{{ exclusion.pk }}'>
-                            <div style='min-height:5em;' class='px-3 py-2 d-flex align-items-center flex-wrap'>
+                    </thead>
+                    <tbody>
+                    {% for item in otes %}
+                        {% with datetime=item.persian_dates %}
+                            <tr>
+                                <td class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <p class="p-0 m-0 fw-bold">{{ item.room.name }}</p>
+                                        <p class="p-0 m-0">تاریخ: {{ datetime.date.display }}</p>
+                                        <p class="p-0 m-0">ساعت: {{ datetime.time }}</p>
+                                    </div>
+                                    <div>
+                                        <form action="{% url 'main:reserve_calendar' %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="room" value="{{ item.room.id }}">
+                                            <input type="hidden" name="date" value="{{ datetime.date.value }}">
+                                            <input type="hidden" name="time" value="{{ datetime.time }}">
+                                            <input type="hidden" name="action" value="open">
+                                            <button class="btn btn-link text-primary">
+                                                <i class="fas fa-unlock-alt"></i>&nbsp;
+                                                بازکردن
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        {% endwith %}
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        {% endif %}
+        {% if exclusions %}
+            <div class="schedule-exclusions bg-white flex-fill schedule rounded shadow-3 p-2 ">
+                <table class="table align-middle mb-0 bg-white" dir="rtl">
+                    <thead class="bg-light">
+                    <tr>
+                        <th>مشخصات</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for exclusion in exclusions %}
+                        <tr class="schedule-item">
+                            <td class="position-relative d-flex align-items-center justify-content-between">
+                                <div class="d-flex flex-fill align-items-center"
+                                     collapse-id-data='collapse_{{ exclusion.pk }}' collapse-auto-close='true'>
+                                    <div class="">
+                                        <p class="fw-bold mb-1">{{ exclusion.room.name }}</p>
+                                        <p class="text-muted mb-0">تاریخ ایجاد
+                                            : {{ exclusion.persian_dates.created }}</p>
+                                        <p class="text-muted mb-0">نوع : {{ exclusion.get_role_display }}</p>
+                                    </div>
+                                </div>
+                                <button class="btn me-3 p-2 btn-link text-danger"
+                                        @click="()=> handle_remove_schedule(`{% url 'main:remove-schedule' pk=exclusion.pk %}`)">
+                                    <i class="far fa-trash-alt"></i>&nbsp;
+                                    حذف
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="m-0 p-0">
+                                <div collapse-id='collapse_{{ exclusion.pk }}'>
+                                    <div style='min-height:5em;' class='px-3 py-2 d-flex align-items-center flex-wrap'>
                                 <span class="p-3 d-flex">
                                     <i class="far fa-calendar text-primary"></i>&nbsp;
                                     <span class="px-2"> از تاریخ : {{ exclusion.persian_dates.from }} - تا تاریخ : {{ exclusion.persian_dates.to }}</span>
                                 </span>
-                                {% if exclusion.role == "DW" %}
-                                <span class="p-3 d-flex">
+                                        {% if exclusion.role == "DW" %}
+                                            <span class="p-3 d-flex">
                                     <i class="far fa-calendar-alt text-secondary"></i>&nbsp;
                                     روزهای هفته :
                                     <span class="px-2">
                                         {% for weekday in exclusion.weekdays %}
-                                        {{ weekday|convert_iso_to_weekday }} -
+                                            {{ weekday|convert_iso_to_weekday }} -
                                         {% endfor %}
                                     </span>
 
                                 </span>
-                                {% endif %}
+                                        {% endif %}
 
-                                <span class="p-3 d-flex">
+                                        <span class="p-3 d-flex">
                                     <i class="far fa-clock text-warning"></i>&nbsp;
                                     <span class="px-2">
                                         ساعات :
-                                    {% for hour in exclusion.hours %}
-                                    {{ hour }} -
-                                    {% endfor %}
+                                        {% for hour in exclusion.hours %}
+                                            {{ hour }} -
+                                        {% endfor %}
                                     </span>
 
                                 </span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
+                                        <span class="p-3 d-flex">
+                                    <i class="far fa-clock text-danger"></i>&nbsp;
+                                    <span class="px-2">
+                                        تغییرات :
+                                        {% with excluded_hours=exclusion|exclude_hours %}
+
+                                            {% if excluded_hours.min_hours %}
+                                                ساعت های حذف شده :
+                                                {% for hour in excluded_hours.min_hours %}
+                                                    {{ hour }} -
+                                                {% endfor %}
+                                            {% endif %}
+                                            {% if excluded_hours.add_hours %}
+                                                ساعت های اضافه شده :
+                                                {% for hour in excluded_hours.add_hours %}
+                                                    {{ hour }} -
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endwith %}
+                                    </span>
+
+                                </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
 
 
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
     </div>
-    {% endif %}
-</div>
 
 {% endblock %}
 
 
 {% block footer-scripts %}
-<script src="{% static 'modules/vue.js' %}"></script>
-<script src="{% static 'modules/jalalidatepicker.min.js' %}"></script>
-<script src="{% static 'panel/scripts/schedule.js' %}"></script>
+    <script src="{% static 'modules/vue.js' %}"></script>
+    <script src="{% static 'modules/jalalidatepicker.min.js' %}"></script>
+    <script src="{% static 'panel/scripts/schedule.js' %}"></script>
 
 {% endblock %}
