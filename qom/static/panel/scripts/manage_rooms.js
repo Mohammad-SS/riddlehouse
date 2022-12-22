@@ -6,7 +6,7 @@ var app = new Vue({
         add_schedule_loading: false,
         room_remove_pupop: false,
         room_remove_loading: false,
-        room_remove_obj : {
+        room_remove_obj: {
             room_id: null,
             room_name: null
         },
@@ -55,12 +55,12 @@ var app = new Vue({
             this.tags = this.tags.filter(t => t !== tag)
         },
 
-        
+
         reset_time_picker: function (e) {
             this.$refs.timepicker.value = '0'
         },
 
-        handle_tag_remove_all: function() {
+        handle_tag_remove_all: function () {
             if (this.tag_remove_all) {
                 this.tags = []
                 this.tag_remove_all = false
@@ -71,19 +71,31 @@ var app = new Vue({
             }
         },
 
-        show_schedule_pupop: function(id, days, hours) {
+        show_schedule_pupop: function (id, days, hours) {
             this.schedule_room_id = id,
-            this.tags = hours
+                this.tags = hours
             this.schedule_room_days = days
             this.add_schedule_pupop = true
         },
 
-        handle_remove_room: function(room_id, room_name) {
+        handle_remove_room: function (room_id, room_name) {
             this.room_remove_obj = {
                 room_id,
                 room_name
             }
             this.room_remove_pupop = true
+        },
+
+        handle_submit_schedule: function (e) {
+            e.preventDefault();
+            let form = this.$refs.schedule_submit_form
+            if (form.checkValidity()) {
+                this.add_schedule_loading = true;
+                form.submit()
+            } else {
+                console.log('here');
+                this.add_schedule_loading = false;
+            }
         }
     },
 });

@@ -23,17 +23,17 @@
             فرم اطلاعات شخصی
         </span>
         <div class="form-outline mb-4">
-            <input name="name" type="text" id="name" class="form-control form-control-lg" required />
+            <input required name="name" type="text" id="name" class="form-control form-control-lg" required />
             <label class="form-label" for="name">نام و نام خانوادگی</label>
         </div>
         <div class="form-outline mb-4">
-            <input name="phone" type="text" id="phone" class="form-control form-control-lg" required />
+            <input required name="phone" type="text" id="phone" class="form-control form-control-lg" required />
             <label class="form-label" for="phone">شماره موبایل</label>
         </div>
         <div class="col-12">
             <div class="form-outline mb-4">
                 {% if room.room_type == "REAL" %}
-                <input name="persons" type="number" ref='players' min="{{room.min_players}}" max="{{room.max_players}}"
+                <input required name="persons" type="number" ref='players' min="{{room.min_players}}" max="{{room.max_players}}"
                     id="persons" class="form-control form-control-lg" @change='handle_players' />
                 <label class="form-label" for="persons">تعداد
                     نفرات</label>

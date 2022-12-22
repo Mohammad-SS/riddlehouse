@@ -36,10 +36,10 @@
                       </select>
                     </div>
                     <div v-show='schedule_mode == 1 || schedule_mode == 3' class="col-6 mb-3">
-                        <input name="from_date" data-jdp class="form-control" placeholder="از تاریخ" >
+                        <input required name="from_date" data-jdp class="form-control" placeholder="از تاریخ" >
                     </div>
                     <div v-show='schedule_mode == 1 || schedule_mode == 3' class="col-6 mb-3">
-                      <input name="to_date" data-jdp class="form-control" placeholder="تا تاریخ" >
+                      <input required name="to_date" data-jdp class="form-control" placeholder="تا تاریخ" >
                     </div>
                     <div  v-show='schedule_mode == 2 || schedule_mode == 3' class="mb-3 col-12 weekday-selector">
                       <input class="d-none" type="checkbox" name='weekday' id='d-1' :checked='schedule_room_days.includes(1)' value="1">

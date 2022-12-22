@@ -243,7 +243,7 @@ var app = new Vue({
             return result
         },
 
-        show_toast: function(text) {
+        show_toast: function (text) {
             Toastify({
                 text: text,
                 duration: 3000,
@@ -259,6 +259,26 @@ var app = new Vue({
             }).showToast();
         },
 
+        numberToEn: function (number) {
+            number = `${number}`
+
+            let schema = {
+                "۰" : 0,
+                "۱" : 1,
+                "۲" : 2,
+                "۳" : 3,
+                "۴" : 4,
+                "۵" : 5,
+                "۶" : 6,
+                "۷" : 7,
+                "۸" : 8,
+                "۹" : 9,
+            }
+
+            let numbers_array = Array.from(number)
+            numbers_array = numbers_array.map(number => schema[number]) 
+            return numbers_array.join('');
+        },
         handle_information_submit: function (e) {
             e.preventDefault();
             this.submit_loading = true
@@ -270,17 +290,16 @@ var app = new Vue({
                 let name = this.$refs.information_form.querySelector("#name")
                 let phone = this.$refs.information_form.querySelector("#phone")
                 let persons = this.$refs.information_form.querySelector("#persons")
-
+                
                 if (!name.value && !phone.value && !persons.value) {
                     this.show_toast("لطفا اطلاعات فرم را با دقت بیشتری تکمیل کنید")
                     this.submit_loading = false
                     return
                 }
-                if (!this.check_mobile(phone.value)) {
-
-                    console.log(phone.value)
+                if (!this.check_mobile(this.numberToEn(`${phone.value}`))) {
                     this.show_toast("لطفا شماره موبایل را تصحیح کنید")
                     this.submit_loading = false
+                    phone.value = this.numberToEn(`${phone.value}`)
                     return
                 }
 

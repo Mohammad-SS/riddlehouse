@@ -176,7 +176,7 @@ var app = new Vue({
         
         
         handle_edit_submit: function(e) {
-             e.preventDefault();
+            e.preventDefault();
             let form = this.$refs.room_edit_form
             if (form.checkValidity()) {
                 this.edit_submit_loading = true;
