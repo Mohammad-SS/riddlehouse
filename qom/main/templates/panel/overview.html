@@ -207,7 +207,11 @@
                             <div dir="rtl" class="text-start">
                                 <i class="far fa-user"></i>&nbsp;{{data.order.customer_name}} <br/>
                                 <i class="fas fa-mobile-alt"></i>&nbsp;{{data.order.customer_number}} <br/>
-                                <i class="fas fa-dollar-sign"></i>&nbsp;{{data.order.paid}}
+                                <i class="fas fa-dollar-sign"></i>&nbsp;{{item.order.paid}} <br/>
+                                <i class="fas fa-sticky-note"></i>&nbsp;{{item.order.description|default_if_none:"--"}} <br/>
+                                <i class="fas fa-user-friends"></i>&nbsp;{{item.order.players_number}} نفر
+                                        </div>
+
                             </div>
                             '
                             {% endif %}
