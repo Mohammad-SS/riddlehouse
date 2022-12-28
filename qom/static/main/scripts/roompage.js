@@ -262,7 +262,8 @@ var app = new Vue({
         numberToEn: function (number) {
             number = `${number}`
 
-            let schema = {
+ 
+	let schema = {
                 "۰" : 0,
                 "۱" : 1,
                 "۲" : 2,
@@ -273,6 +274,16 @@ var app = new Vue({
                 "۷" : 7,
                 "۸" : 8,
                 "۹" : 9,
+                "0" : 0,
+                "1" : 1,
+                "2" : 2,
+                "3" : 3,
+                "4" : 4,
+                "5" : 5,
+                "6" : 6,
+                "7" : 7,
+                "8" : 8,
+                "9" : 9,
             }
 
             let numbers_array = Array.from(number)
