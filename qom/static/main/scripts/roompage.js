@@ -236,9 +236,9 @@ var app = new Vue({
         },
 
         check_mobile: function (value) {
-            value = value.replaceAll(/\s+/g, "");
-            value = value.replaceAll(/\+/g, "");
-            value = value.replaceAll(/^(09|989|9)/g, "09")
+            value = value.replace(/\s+/g, "");
+            value = value.replace(/\+/g, "");
+            value = value.replace(/^(09|989|9)/g, "09")
             var result = value.match(/^(09)[0-9]\d{8}$/g)
             return result
         },

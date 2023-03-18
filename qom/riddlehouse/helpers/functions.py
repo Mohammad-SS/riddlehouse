@@ -138,7 +138,9 @@ def verify_payment(authority):
     except exceptions.ObjectDoesNotExist as e:
         print(e)
         return {"valid": False, "data": "No Authority key found", "payment": None, "order": None}
-    ordered_before = orders_models.Order.objects.filter(reserved_time=payment.reserved_time, room=payment.room)
+    #ordered_before = orders_models.Order.objects.filter(reserved_time=payment.reserved_time, room=payment.room)
+    ordered_before = orders_models.Order.objects.filter(reserved_time=payment.reserved_time, room=payment.room).exclude(customer_number=payment.customer_mobile)
+
     if ordered_before.exists():
         print(ordered_before)
         return {"valid": False, "ordered_before": True, "room": payment.room}
