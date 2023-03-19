@@ -285,11 +285,9 @@ def get_surprise_input_date(order: orders_models.Order):
 
 
 def get_room_input_data(order):
-    date = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
-                                                  pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
+    date = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp()).replace(locale="fa").strftime(
         "%A %Y/%m/%d")
-    time = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
-                                                  pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
+    time = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp()).replace(locale="fa").strftime(
         "%H:%M")
     input_data = {
         "user": order.customer_name,
