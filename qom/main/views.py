@@ -126,7 +126,7 @@ class PanelOverview(LoginRequiredMixin, View):
         hour = hour.split(":")
         reserved_time = jdatetime.JalaliDateTime(year=int(date[0]), month=int(date[1]), day=int(date[2]),
                                                  hour=int(hour[0]), minute=int(hour[1])).to_gregorian()
-        reserved_time = pytz.timezone("Asia/Tehran").localize(reserved_time)
+        # reserved_time = pytz.timezone("Asia/Tehran").localize(reserved_time)
         fields = {
             "room": room,
             "customer_name": name,
@@ -420,7 +420,7 @@ class RoomView(View):
         year, month, day = date.split("/")
         reserved_date = jdatetime.JalaliDateTime(int(year), int(month), int(day), int(hour),
                                                  int(minutes)).to_gregorian()
-        reserved_date = pytz.timezone("Asia/Tehran").localize(reserved_date)
+        # reserved_date = pytz.timezone("Asia/Tehran").localize(reserved_date)
         fields = {
             "amount": amount,
             "rest_payment": rest_payment,
