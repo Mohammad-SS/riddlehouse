@@ -40,35 +40,35 @@ services:
       - qom
     volumes:
       - ./qom/:/usr/src/app/
-  workers_ahvaz:
-    build: ./ahvaz
-    command: celery -A riddlehouse worker --loglevel=info
-    depends_on:
-      - redis
-      - ahvaz
-    volumes:
-      - ./ahvaz/:/usr/src/app/
-    env_file:
-      - ./.env
-  ahvaz:
-    build: ./ahvaz
-    command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:9000"
-    volumes:
-      - ./ahvaz/:/usr/src/app/
-    expose:
-      - 9000
-    env_file:
-      - ./.env
-    depends_on:
-      - ahvaz_db
-  ahvaz_db:
-    image: postgres:13.0-alpine
-    volumes:
-      - ahvaz_postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=riddle
-      - POSTGRES_PASSWORD=P@ssw0rdd
-      - POSTGRES_DB=riddlehouse
+  # workers_ahvaz:
+  #   build: ./ahvaz
+  #   command: celery -A riddlehouse worker --loglevel=info
+  #   depends_on:
+  #     - redis
+  #     - ahvaz
+  #   volumes:
+  #     - ./ahvaz/:/usr/src/app/
+  #   env_file:
+  #     - ./.env
+  # ahvaz:
+  #   build: ./ahvaz
+  #   command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:9000"
+  #   volumes:
+  #     - ./ahvaz/:/usr/src/app/
+  #   expose:
+  #     - 9000
+  #   env_file:
+  #     - ./.env
+  #   depends_on:
+  #     - ahvaz_db
+  # ahvaz_db:
+  #   image: postgres:13.0-alpine
+  #   volumes:
+  #     - ahvaz_postgres_data:/var/lib/postgresql/data/
+  #   environment:
+  #     - POSTGRES_USER=riddle
+  #     - POSTGRES_PASSWORD=P@ssw0rdd
+  #     - POSTGRES_DB=riddlehouse
   wordpress_db:
     image: mysql:5.7
     restart : always
@@ -109,8 +109,6 @@ services:
     volumes:
       - ./qom/static/:/home/qom/static
       - ./qom/medias/:/home/qom/medias
-      - ./ahvaz/static/:/home/ahvaz/static
-      - ./ahvaz/medias/:/home/ahvaz/medias
       - ./city/:/home/select_city
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
@@ -120,10 +118,8 @@ services:
       - 443:443
     depends_on:
       - qom
-      - ahvaz
       - wordpress
 
 volumes:
   qom_postgres_data:
   wordpress_data_volume:
-  ahvaz_postgres_data:
