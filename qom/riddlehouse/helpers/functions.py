@@ -239,11 +239,9 @@ def send_admin_sms(order):
         descriptions = order.description
         if not descriptions:
             descriptions = ""
-        time = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
-                                                      pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
+        time = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp()).replace(locale="fa").strftime(
             "%H:%M")
-    date = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),
-                                                  pytz.timezone("Asia/Tehran")).replace(locale="fa").strftime(
+    date = jdatetime.JalaliDateTime.fromtimestamp(order.reserved_time.timestamp(),).replace(locale="fa").strftime(
         "%A %Y/%m/%d")
 
     input_data = {
