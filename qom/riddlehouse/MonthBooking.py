@@ -63,7 +63,7 @@ class Month():
 
     @classmethod
     def check_hour(cls, timestamp, room: models.Room):
-        this_hour = datetime.datetime.fromtimestamp(timestamp, pytz.timezone("Asia/Tehran"))
+        this_hour = datetime.datetime.fromtimestamp(timestamp)
 
         is_ordered = room.orders.filter(reserved_time__gte=this_hour - datetime.timedelta(minutes=30),
                                         reserved_time__lte=this_hour + datetime.timedelta(minutes=30)).exists()
@@ -71,7 +71,7 @@ class Month():
         if is_ordered:
             return False, "RESERVED"
 
-        if datetime.datetime.now(pytz.timezone("Asia/Tehran")) + datetime.timedelta(minutes=30) > this_hour:
+        if datetime.datetime.now() + datetime.timedelta(minutes=30) > this_hour:
             return False, "PASSED"
 
         ote = room.otes.filter(date_time=this_hour).order_by("-id")
