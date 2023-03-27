@@ -71,7 +71,7 @@ class Month():
         if is_ordered:
             return False, "RESERVED"
 
-        if datetime.datetime.now() + datetime.timedelta(minutes=30) > this_hour:
+        if datetime.datetime.now(pytz.timezone("Asia/Tehran")) + datetime.timedelta(minutes=30) > this_hour:
             return False, "PASSED"
 
         ote = room.otes.filter(date_time=this_hour).order_by("-id")
