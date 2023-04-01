@@ -173,7 +173,7 @@ class RoomWeek():
         return hours
 
     def get_order_object(self, timestamp, room):
-        this_hour = datetime.datetime.fromtimestamp(timestamp, pytz.timezone("Asia/Tehran"))
+        this_hour = datetime.datetime.fromtimestamp(timestamp)
 
         order = room.orders.filter(reserved_time__gt=this_hour - datetime.timedelta(minutes=30),
                                    reserved_time__lt=this_hour + datetime.timedelta(minutes=30))
