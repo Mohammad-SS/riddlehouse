@@ -462,6 +462,7 @@ label.selected-time .status-icon {
     min-height: 5em;
     justify-content: center;
     align-items: center;
+    margin: 4em 0;
 }
 
 .reserve-form input {

@@ -83,6 +83,9 @@ function create_reserve_calendar(date) {
                 week_day_item.innerText = day_number
                 let remaining_count = Object.values(day_detail.times).filter(item => item.status == 'FREE').length
                 let reserved_count = Object.values(day_detail.times).filter(item => item.status == 'RESERVED').length
+                    if (remaining_count == 0) {
+                    week_day_item.classList.add('full')
+                }
                 day_remaining_turn_el.innerText = remaining_count
                 week_day_item.appendChild(day_remaining_turn_el)
 

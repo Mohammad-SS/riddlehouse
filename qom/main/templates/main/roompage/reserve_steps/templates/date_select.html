@@ -26,8 +26,12 @@
     </div>
     <div class="reserve-time-section mt-3">
         <div>
-
-            <span class="empty_reserve_list" v-if='is_reservable_time_list_empty'>لطفا تاریخ رزرو را انتخاب کنید</span>
+            <span class="empty_reserve_list" v-if='!selected_date'>لطفا تاریخ رزرو را انتخاب کنید</span>
+            <span v-if="selected_date && reservable_time_list.length < 1 " style="text-align: center;font-weight: bold;display: flex;align-items: center;justify-content: center;margin: 4em;width: 100%;">
+                تمام سانس های این بازی، برای این تاریخ پر می باشد
+                <br>
+                لطفا روز های دیگر را بررسی کنید
+            </span>  
             <label v-else v-for='item in reservable_time_list' :id='item.rand_id'
                    @click='() => {select_time(item, {{room.price_per_unit}})}'>
                 <span class="status-icon"></span>
@@ -38,7 +42,7 @@
                     {% endif %}
 
                 </div>
-            </label>
+            </label>    
 
         </div>
     </div>

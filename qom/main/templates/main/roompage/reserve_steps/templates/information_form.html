@@ -112,7 +112,7 @@
         </div>
 
         <span class="mb-expand"></span>
-        <button type="submit" class="btn btn-success btn-lg fs-6" @click='handle_information_submit' :disabled='submit_loading'>
+        <button type="submit" class="btn btn-success btn-lg fs-6" @click='(e) => {handle_information_submit(e, {{room.min_players}}, {{room.max_players}})}' :disabled='submit_loading'>
             پرداخت و ثبت اطلاعات
         </button>
     </div>

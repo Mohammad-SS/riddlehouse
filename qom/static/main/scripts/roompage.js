@@ -115,6 +115,10 @@ var app = new Vue({
             document.getElementById(`package_${_package}`).classList.add('selected-time')
         },
 
+        remove_selected: function () {
+            document.querySelectorAll('.selected-time').forEach(el => el.classList.remove('selected-time'))
+        },
+
         get_calendar: async function (room, year, month) {
             try {
                 let url = new URL(window.location).origin + `/api/calendar`
@@ -197,6 +201,11 @@ var app = new Vue({
 
 
         select_reserve_day: function (detail, selected_date, remaining_count, reserved_count) {
+            if (this.selected_date != detail.date) {
+                this.selected_turn.time = null
+                this.selected_turn.price = null
+                this.remove_selected()
+            }
             this.datepicker = false
             this.reservable_time_list = []
             this.reserve_date = selected_date
@@ -290,36 +299,65 @@ var app = new Vue({
             numbers_array = numbers_array.map(number => schema[number]) 
             return numbers_array.join('');
         },
-        handle_information_submit: function (e) {
+        handle_information_submit: function (e, min_player, max_player) {
             e.preventDefault();
+            let min= parseInt(min_player)
+            let max= parseInt(max_player)
             this.submit_loading = true
             let form = this.$refs.information_form
             let inputs = this.$refs.information_form.querySelectorAll("#phone,#name,#persons")
 
+
+
+            let name = this.$refs.information_form.querySelector("#name")
+            let phone = this.$refs.information_form.querySelector("#phone")
+            let persons = this.$refs.information_form.querySelector("#persons")
+            
+            if (!name.value) {
+                this.show_toast("نام و نام خانودگی نمیتواند خالی باشد")
+                this.submit_loading = false
+                return
+            }
+            if (!phone.value) {
+                this.show_toast("وارد کردن شماره موبایل الزامی است")
+                this.submit_loading = false
+                return
+            }
+            if (!persons.value) {
+                this.show_toast("لطفا اطلاعات فرم را با دقت بیشتری تکمیل کنید")
+                this.submit_loading = false
+                return
+            }
+            
+            if (parseInt(persons.value) < min) {
+                console.log('here')
+                this.show_toast(`تعداد نفرات وارد شده نمیتواند کمتر از ${min} نفر باشد`)
+                this.submit_loading = false
+                return
+            }
+            if (parseInt(persons.value) > max) {
+                console.log('here1')
+                this.show_toast(`تعداد نفرات وارد شده نمیتواند بیشتر از ${max} نفر باشد`)
+                this.submit_loading = false
+                return
+            }
+
+            if (!this.check_mobile(this.numberToEn(`${phone.value}`))) {
+                this.show_toast("لطفا شماره موبایل را تصحیح کنید")
+                this.submit_loading = false
+                phone.value = this.numberToEn(`${phone.value}`)
+                return
+            }
+
             if (form.checkValidity()) {
-
-                let name = this.$refs.information_form.querySelector("#name")
-                let phone = this.$refs.information_form.querySelector("#phone")
-                let persons = this.$refs.information_form.querySelector("#persons")
-                
-                if (!name.value && !phone.value && !persons.value) {
-                    this.show_toast("لطفا اطلاعات فرم را با دقت بیشتری تکمیل کنید")
-                    this.submit_loading = false
-                    return
-                }
-                if (!this.check_mobile(this.numberToEn(`${phone.value}`))) {
-                    this.show_toast("لطفا شماره موبایل را تصحیح کنید")
-                    this.submit_loading = false
-                    phone.value = this.numberToEn(`${phone.value}`)
-                    return
-                }
-
                 form.submit()
-
             } else {
                 this.show_toast("لطفا اطلاعات فرم را با دقت بیشتری تکمیل کنید")
                 this.submit_loading = false
+                return
             }
+            
+            
         }
         // check_coupan: async function (room, year, month) {
         //     try {

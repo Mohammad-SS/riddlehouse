@@ -71,8 +71,9 @@ class Month():
         if is_ordered:
             return False, "RESERVED"
 
-        if datetime.datetime.now() - datetime.timedelta(minutes=30) > this_hour:
-            print(this_hour.strftime("H:i"))
+        if datetime.datetime.now() + datetime.timedelta(minutes=45) > this_hour:
+            # print(datetime.datetime.now() , datetime.datetime.now() - datetime.timedelta(minutes=45) , this_hour )
+            # print(this_hour.strftime("H:i"))
             return False, "PASSED"
 
         ote = room.otes.filter(date_time=this_hour).order_by("-id")
