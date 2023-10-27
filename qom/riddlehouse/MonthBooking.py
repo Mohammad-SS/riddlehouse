@@ -7,7 +7,7 @@ from . import serializers
 from game import models
 from riddlehouse.helpers import enums
 from riddlehouse.helpers import functions
-
+from django.db.models import Q
 
 class Month():
     month_range = 30
@@ -155,6 +155,30 @@ class RoomWeek():
 
         return days
 
+    def check_vip(self, timestamp, room):
+        dt = datetime.datetime.fromtimestamp(timestamp)
+        # Get the weekday (0 = Monday, 6 = Sunday)
+        weekday = dt.weekday() + 1
+
+        # Get the date in the format YYYY-MM-DD
+        date = dt.strftime('%Y-%m-%d')
+
+        # Get the time in the format HH:MM:SS
+        time = dt.strftime('%H:%M')
+
+        vip_sans = models.VipSans.objects.filter(
+            Q(room=room) & (
+                Q(from_date__lte=dt.date(), to_date__gte=dt.date()) | Q(weekdays__contains=[weekday])
+            )
+        )
+
+
+        print("--------------------------------------")
+        print(vip_sans)
+        print("--------------------------------------")
+        
+        pass
+
     def get_this_day_times(self, day, room):
         hours = dict()
 
@@ -162,11 +186,13 @@ class RoomWeek():
 
         if not day.isoweekday() in room.default_days:
             return hours
+        
 
         for hour in this_day_hours:
             this_hour, this_minutes = hour.split(":")
             this_timestamp = JalaliDateTime(day.year, day.month, day.day, int(this_hour),
                                             int(this_minutes)).timestamp()
+            is_vip = self.check_vip(this_timestamp, room)
             hours[hour] = dict()
             hours[hour]["timestamp"] = this_timestamp
             hours[hour]['is_reservable'], hours[hour]['status'] = Month.check_hour(this_timestamp, room)
