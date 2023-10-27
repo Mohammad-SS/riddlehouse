@@ -8,6 +8,7 @@ from riddlehouse.helpers import functions
 from braces.views import CsrfExemptMixin
 from game import models as game_models
 from orders import models as order_models
+import json
 
 class GetMonthCalendar(CsrfExemptMixin, APIView):
     authentication_classes = []
@@ -22,7 +23,7 @@ class GetMonthCalendar(CsrfExemptMixin, APIView):
         if not calendar:
             return Response({"detail": "Room Not Found"}, status=status.HTTP_404_NOT_FOUND)
         
-        print(calendar)
+        print(json.dumps(calendar))
         return Response(data=calendar)
 
 
