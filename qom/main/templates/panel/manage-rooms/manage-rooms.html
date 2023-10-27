@@ -45,8 +45,7 @@
             {% for room in rooms %}
                 <tr class="sm-room-name" id='{{room.id}}' :data='{{room.default_hours}}'>
                     <td colspan="2" class="shadow-5 border-0 text-center">
-                        <span class="fw-bold">{{ room.name }}</span>
-                        {% if room.is_archive %} {% if room.is_archive %} checked {% endif %} {% endif %}
+                        <span class="fw-bold">{{ room.name }} {% if room.is_archive %} <span style="" class="badge badge-danger">( آرشیو شده )</span> {% endif %} </span>
                     </td>
                 </tr>
                 <tr>
@@ -60,7 +59,7 @@
                             {% endif %}
 
                             <div class="room-name me-3">
-                                <span class="fw-bold">{{ room.name }}</span>
+                                <span class="fw-bold">{{ room.name }} {% if room.is_archive %} <span style="" class="badge badge-danger">( آرشیو شده )</span> {% endif %} </span>
                             </div>
                         </div>
                     </td>
