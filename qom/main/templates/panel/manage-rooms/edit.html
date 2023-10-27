@@ -8,7 +8,7 @@
 {% endblock %}
 {% block contentHead %}
 <div class="content-head">
-    <h4>ویرایش ' {{room.name}} '</h4>
+    <h4>ویرایش ' {{room.name}} ' {% if room.is_archive %} <span style="" class="badge badge-danger">( آرشیو شده )</span> {% endif %}</h4>
 
 </div>
 {% endblock %}
