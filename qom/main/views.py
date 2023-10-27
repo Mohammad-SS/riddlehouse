@@ -378,7 +378,11 @@ class RoomView(View):
     def get(self, request, slug):
         rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL, is_archive=False)
         error = request.GET.get("error", None)
-        room = game_models.Room.objects.get(slug=slug)
+        room_filter = {"slug": slug}
+        if not request.user.is_authenticated:
+            room_filter.update({"is_archive": False})
+        room = get_object_or_404(game_models.Room, **room_filter)
+        # room = game_models.Room.objects.get(slug=slug)
         now = datetime.datetime.now().strftime("%Y/%m/%d")
         try:
             meta_description = room.description[:155] + "..."
@@ -397,7 +401,10 @@ class RoomView(View):
 
     def post(self, request, slug):
         data = request.POST
-        room = game_models.Room.objects.get(slug=slug)
+        room_filter = {"slug": slug}
+        if not request.user.is_authenticated:
+            room_filter.update({"is_archive": False})
+        room = get_object_or_404(game_models.Room, slug=slug, is_archive=False)
 
         date = data.get("date", None)
         turn = data.get("turn", None)
