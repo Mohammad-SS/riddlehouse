@@ -46,6 +46,7 @@
                 <tr class="sm-room-name" id='{{room.id}}' :data='{{room.default_hours}}'>
                     <td colspan="2" class="shadow-5 border-0 text-center">
                         <span class="fw-bold">{{ room.name }}</span>
+                        {% if room.is_archive %} {% if room.is_archive %} checked {% endif %} {% endif %}
                     </td>
                 </tr>
                 <tr>
