@@ -31,7 +31,10 @@ def check_vip(timestamp, room):
     # print(vip_sans)
     # print("--------------------------------------")
     
-    return vip_sans.exists()
+    if vip_sans.exists():
+        return vip_sans.last()
+    
+    return False
 
 class Month():
     month_range = 30
@@ -82,7 +85,9 @@ class Month():
             
             is_vip = check_vip(this_timestamp, room)
             hours[hour] = dict()
-            hours[hour]["is_vip"] = is_vip
+            hours[hour]["is_vip"] = True if is_vip else False
+            hours[hour]["price_per_unit"] = is_vip.price_per_unit if is_vip else room.price_per_unit
+            hours[hour]["pre_pay"] = is_vip.pre_pay if is_vip else room.pre_pay
             hours[hour]["timestamp"] = this_timestamp
             hours[hour]['is_reservable'], hours[hour]['status'] = self.check_hour(this_timestamp, room)
             hours[hour]['rand_id'] = "_{}".format(random.randint(10000, 99999))
