@@ -30,7 +30,7 @@ class Room(models.Model):
     admin_phones = models.CharField(default="", max_length=127, blank=True, null=True)
     google_map = models.TextField(blank=True, null=True)
     balad_link = models.TextField(blank=True, null=True)
-
+    is_archive = models.BooleanField(default=False)
     def __str__(self):
         return self.name
 
