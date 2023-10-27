@@ -119,7 +119,8 @@ class VipSans(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     price_per_unit = models.IntegerField(blank=True, null=True)
     pre_pay = models.IntegerField(blank=True, null=True)
-    dates = postgres_fields.ArrayField(models.DateField(), blank=True, null=True)
+    from_date = models.DateField(blank=True, null=True)
+    to_date = models.DateField(blank=True, null=True)
     weekdays = postgres_fields.ArrayField(models.IntegerField(choices=enums.WeekDays.choices, blank=True, null=True),
                                           blank=True, null=True)
     
