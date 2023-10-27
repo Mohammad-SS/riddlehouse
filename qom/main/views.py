@@ -1,5 +1,5 @@
 import datetime
-import random
+import random, json
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -19,6 +19,7 @@ from riddlehouse.helpers import functions
 from persiantools import jdatetime
 import pytz
 from riddlehouse import MonthBooking
+
 
 
 # Create your views here.
@@ -74,7 +75,10 @@ class PanelRoomsView(LoginRequiredMixin, View):
 class PanelOverview(LoginRequiredMixin, View):
     def get(self, request):
         calendar = MonthBooking.RoomWeek().create_rooms_list()
-        print(calendar)
+        pritable = [item.get('calendar') for item in calendar]
+        with open("data.json", 'a+', encoding="utf-8") as file:
+            file.write(json.dumps(pritable))
+            file.close()
         context = {
             "title": "تقویم",
             "calendar": calendar,
