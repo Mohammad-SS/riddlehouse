@@ -25,7 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get("DEBUG", default=0))
+# DEBUG = int(os.environ.get("DEBUG", default=0))
+DEBUG = 0
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_QOM_ALLOWED_HOSTS").split(" ")
 CSRF_TRUSTED_ORIGINS = ['https://qom.azimim.ir',"https://qom.riddlehouse.ir" , "http://127.0.0.1:8000"]
