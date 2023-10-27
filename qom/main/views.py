@@ -76,7 +76,7 @@ class PanelOverview(LoginRequiredMixin, View):
     def get(self, request):
         calendar = MonthBooking.RoomWeek().create_rooms_list()
         pritable = [value.get('calendar') for key,value in calendar.items()]
-        print(json.dumps(pritable))
+      
         # with open("data.json", 'a+', encoding="utf-8") as file:
         #     file.write(json.dumps(pritable))
         #     file.close()
