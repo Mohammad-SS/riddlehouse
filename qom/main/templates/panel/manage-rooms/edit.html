@@ -101,7 +101,7 @@
 <form method="post" action="" enctype="multipart/form-data" ref='room_edit_form' class="container mb-rtl mt-5">
     {% csrf_token %}
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 d-flex justify-content-end">
             <div class="form-check form-switch">
               <input class="form-check-input" name="is_archive" type="checkbox" {% if room.is_archive %} checked {% endif %} role="switch" id="flexSwitchCheckDefault" />
               <label class="form-check-label" for="flexSwitchCheckDefault">ارشیو کردن</label>
