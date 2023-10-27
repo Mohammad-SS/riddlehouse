@@ -80,7 +80,7 @@ class Month():
             this_timestamp = JalaliDateTime(self.year, self.month, day, int(this_hour),
                                             int(this_minutes)).timestamp()
             
-            is_vip = self.check_vip(this_timestamp, room)
+            is_vip = check_vip(this_timestamp, room)
             hours[hour] = dict()
             hours[hour]["is_vip"] = is_vip
             hours[hour]["timestamp"] = this_timestamp
