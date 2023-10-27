@@ -102,9 +102,9 @@
     {% csrf_token %}
     <div class="row">
         <div class="col-12 d-flex justify-content-end">
-            <div class="form-check form-switch">
-              <input class="form-check-input" name="is_archive" type="checkbox" {% if room.is_archive %} checked {% endif %} id="flexSwitchCheckDefault" />
-              <label class="form-check-label" for="flexSwitchCheckDefault">ارشیو کردن</label>
+            <div class="form-check">
+              <input class="form-check-input" name="is_archive" type="checkbox" {% if room.is_archive %} checked {% endif %} id="archive" />
+              <label class="form-check-label" for="archive">ارشیو کردن</label>
             </div>
         </div>
         <div class="col-lg-6 col-12">
