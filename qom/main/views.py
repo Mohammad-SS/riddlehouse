@@ -341,8 +341,8 @@ class CitySelectView(View):
 
 class LandingView(View):
     def get(self, request):
-        rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL)
-        last_box = game_models.Room.objects.filter(room_type=enums.RoomType.BOX).last()
+        rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL, is_archive=False)
+        last_box = game_models.Room.objects.filter(room_type=enums.RoomType.BOX, is_archive=False).last()
         context = {
             "rooms": rooms, "box": last_box,
             "title": "خانه معما",
@@ -376,7 +376,7 @@ class LoginView(View):
 
 class RoomView(View):
     def get(self, request, slug):
-        rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL)
+        rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL, is_archive=False)
         error = request.GET.get("error", None)
         room = game_models.Room.objects.get(slug=slug)
         now = datetime.datetime.now().strftime("%Y/%m/%d")
