@@ -27,13 +27,18 @@ def check_vip(timestamp, room):
     )
 
 
+
     # print("--------------------------------------")
     # print(vip_sans)
     # print("--------------------------------------")
     
     if vip_sans.exists():
+        weekdays_filters = [item for item in vip_sans if item.weekdays is not None and weekday in item.weekdays]
+        if bool(weekdays_filters):
+            return weekdays_filters[-1]
+        
         return vip_sans.last()
-    
+
     return False
 
 class Month():
