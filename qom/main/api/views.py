@@ -21,6 +21,8 @@ class GetMonthCalendar(CsrfExemptMixin, APIView):
         calendar = MonthBooking.Month(month, year).create_calendar(room_id)
         if not calendar:
             return Response({"detail": "Room Not Found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        print(calendar)
         return Response(data=calendar)
 
 
