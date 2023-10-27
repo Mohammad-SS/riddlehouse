@@ -74,7 +74,7 @@ class PanelRoomsView(LoginRequiredMixin, View):
 class PanelOverview(LoginRequiredMixin, View):
     def get(self, request):
         calendar = MonthBooking.RoomWeek().create_rooms_list()
-
+        print(calendar)
         context = {
             "title": "تقویم",
             "calendar": calendar,
@@ -83,9 +83,9 @@ class PanelOverview(LoginRequiredMixin, View):
 
     def post(self, request):
         data = request.POST
-        print(data)
+    
         if data.get("action", "reserve") == "close":
-            print(data)
+        
             room_id = data.get("room", None)
             date = data.get("date", None)
             time = data.get("time", None)
