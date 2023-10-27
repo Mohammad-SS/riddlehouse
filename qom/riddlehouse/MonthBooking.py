@@ -9,6 +9,30 @@ from riddlehouse.helpers import enums
 from riddlehouse.helpers import functions
 from django.db.models import Q
 
+def check_vip(timestamp, room):
+    dt = datetime.datetime.fromtimestamp(timestamp)
+    # Get the weekday (0 = Monday, 6 = Sunday)
+    weekday = dt.weekday() + 1
+
+    # Get the date in the format YYYY-MM-DD
+    date = dt.strftime('%Y-%m-%d')
+
+    # Get the time in the format HH:MM:SS
+    time = dt.strftime('%H:%M')
+
+    vip_sans = models.VipSans.objects.filter(
+        Q(room=room) & (
+            Q(from_date__lte=dt.date(), to_date__gte=dt.date()) | Q(weekdays__contains=[weekday])
+        )
+    )
+
+
+    print("--------------------------------------")
+    print(vip_sans)
+    print("--------------------------------------")
+    
+    return vip_sans.exists()
+
 class Month():
     month_range = 30
 
@@ -55,7 +79,10 @@ class Month():
             this_hour, this_minutes = hour.split(":")
             this_timestamp = JalaliDateTime(self.year, self.month, day, int(this_hour),
                                             int(this_minutes)).timestamp()
+            
+            is_vip = self.check_vip(this_timestamp, room)
             hours[hour] = dict()
+            hours[hour]["is_vip"] = is_vip
             hours[hour]["timestamp"] = this_timestamp
             hours[hour]['is_reservable'], hours[hour]['status'] = self.check_hour(this_timestamp, room)
             hours[hour]['rand_id'] = "_{}".format(random.randint(10000, 99999))
