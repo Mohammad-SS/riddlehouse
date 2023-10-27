@@ -517,7 +517,7 @@ class PanelRoomEditView(LoginRequiredMixin, View):
     def post(self, request, pk):
         room = game_models.Room.objects.filter(pk=pk)
         data = request.POST
-        is_archive = room.get('is_archive', False)
+        is_archive = data.get('is_archive', False)
         is_archive = True if is_archive == 'on' else False
         room_type = data.get("room_type", None)
         picture = request.FILES.get("banner", None)
