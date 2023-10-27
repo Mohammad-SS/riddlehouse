@@ -76,9 +76,10 @@ class PanelOverview(LoginRequiredMixin, View):
     def get(self, request):
         calendar = MonthBooking.RoomWeek().create_rooms_list()
         pritable = [item.get('calendar') for item in calendar]
-        with open("data.json", 'a+', encoding="utf-8") as file:
-            file.write(json.dumps(pritable))
-            file.close()
+        print(pritable)
+        # with open("data.json", 'a+', encoding="utf-8") as file:
+        #     file.write(json.dumps(pritable))
+        #     file.close()
         context = {
             "title": "تقویم",
             "calendar": calendar,
