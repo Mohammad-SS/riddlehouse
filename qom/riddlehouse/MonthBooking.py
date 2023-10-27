@@ -177,7 +177,7 @@ class RoomWeek():
         print(vip_sans)
         print("--------------------------------------")
         
-        pass
+        return vip_sans.exists()
 
     def get_this_day_times(self, day, room):
         hours = dict()
@@ -194,6 +194,7 @@ class RoomWeek():
                                             int(this_minutes)).timestamp()
             is_vip = self.check_vip(this_timestamp, room)
             hours[hour] = dict()
+            hours[hour]["is_vip"] = is_vip
             hours[hour]["timestamp"] = this_timestamp
             hours[hour]['is_reservable'], hours[hour]['status'] = Month.check_hour(this_timestamp, room)
             hours[hour]["order"] = self.get_order_object(this_timestamp, room)
