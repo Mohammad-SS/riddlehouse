@@ -19,7 +19,7 @@ from riddlehouse.helpers import functions
 from persiantools import jdatetime
 import pytz
 from riddlehouse import MonthBooking
-
+from pprint import pprint
 
 
 # Create your views here.
@@ -76,7 +76,7 @@ class PanelOverview(LoginRequiredMixin, View):
     def get(self, request):
         calendar = MonthBooking.RoomWeek().create_rooms_list()
         pritable = [value.get('calendar') for key,value in calendar.items()]
-        print(pritable)
+        pprint(pritable)
         # with open("data.json", 'a+', encoding="utf-8") as file:
         #     file.write(json.dumps(pritable))
         #     file.close()
