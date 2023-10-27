@@ -7,7 +7,8 @@ from riddlehouse.helpers import functions
 from django.template.defaultfilters import slugify
 from riddlehouse.helpers import enums
 from unidecode import unidecode
-
+from django.utils.timezone import datetime
+import calendar
 
 class Room(models.Model):
     name = models.CharField(max_length=255)
@@ -104,3 +105,27 @@ class OneTimeExclusion(models.Model):
             "time": time,
             "created": created_date,
         }
+
+
+# Function to generate choices for days in the current month
+def get_current_month_day_choices():
+    now = datetime.now()
+    _, last_day = calendar.monthrange(now.year, now.month)
+    choices = [(str(day), str(day)) for day in range(1, last_day + 1)]
+    return choices
+
+
+class VipSans(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    price_per_unit = models.IntegerField(blank=True, null=True)
+    pre_pay = models.IntegerField(blank=True, null=True)
+    dates = postgres_fields.ArrayField(models.DateField(), blank=True, null=True)
+    weekdays = postgres_fields.ArrayField(models.IntegerField(choices=enums.WeekDays.choices, blank=True, null=True),
+                                          blank=True, null=True)
+    
+
+class OneTimeVipSans(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    date_time = models.DateTimeField(blank=True, null=True)
+    price_per_unit = models.IntegerField(blank=True, null=True)
+    pre_pay = models.IntegerField(blank=True, null=True)
