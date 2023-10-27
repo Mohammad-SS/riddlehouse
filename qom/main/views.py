@@ -517,6 +517,8 @@ class PanelRoomEditView(LoginRequiredMixin, View):
     def post(self, request, pk):
         room = game_models.Room.objects.filter(pk=pk)
         data = request.POST
+        is_archive = room.get('is_archive', False)
+        is_archive = True if is_archive == 'on' else False
         room_type = data.get("room_type", None)
         picture = request.FILES.get("banner", None)
         if room_type == "box":
@@ -568,6 +570,7 @@ class PanelRoomEditView(LoginRequiredMixin, View):
             "balad_link": data.get("balad_link", ""),
             "room_type": this_type,
             "box_packages_prices": box_packages_prices,
+            "is_archive": is_archive
         }
         fields = functions.remove_empties(fields)
         room.update(**fields)
