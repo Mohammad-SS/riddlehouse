@@ -2,7 +2,7 @@ import datetime
 import random
 import pytz
 from django.core.exceptions import ObjectDoesNotExist
-from persiantools.jdatetime import JalaliDate, JalaliDateTime
+from persiantools.jdatetime import JalaliDate, JalaliDateTime, WEEKDAY_NAMES_FA
 from . import serializers
 from game import models
 from riddlehouse.helpers import enums
@@ -20,26 +20,20 @@ def check_vip(timestamp, room):
     # Get the time in the format HH:MM:SS
     time = dt.strftime('%H:%M')
 
-    vip_sans = models.VipSans.objects.filter(
-        Q(room=room) & (
-            Q(from_date__lte=dt.date(), to_date__gte=dt.date()) | Q(weekdays__contains=[weekday])
-        )
-    )
+    jalali = JalaliDateTime.to_jalali(year=dt.year, month=dt.month, day=dt.day)
 
-
-
-    # print("--------------------------------------")
-    # print(vip_sans)
-    # print("--------------------------------------")
-    
+    vip_sans = models.VipSans.objects.filter(room=room, weekdays__contains=[jalali.weekday()])
     if vip_sans.exists():
-        weekdays_filters = [item for item in vip_sans if item.weekdays is not None and weekday in item.weekdays]
-        if bool(weekdays_filters):
-            return weekdays_filters[-1]
-        
         return vip_sans.last()
+    
+    vip_sans = models.VipSans.objects.filter(room=room, from_date__lte=dt.date(), to_date__gte=dt.date())
+    if vip_sans.exists():
+        return vip_sans.last()
+    
 
     return False
+    
+
 
 class Month():
     month_range = 30
