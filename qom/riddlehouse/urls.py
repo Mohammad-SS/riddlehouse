@@ -21,12 +21,19 @@ from django.conf.urls.static import static
 from game.sitemaps import RoomSitemap
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
+from .helpers.functions import send_sms
+
+
+def test_sms_view(request):
+    send_sms.delay(3438)
+    return "OK"
 
 sitemaps = {
     "posts": RoomSitemap,
 }
 urlpatterns = [
                   path("admin/", admin.site.urls),
+                  path("test_this_shit" , test_sms_view),
                   path("", include(main_urls)),
 
                   path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),

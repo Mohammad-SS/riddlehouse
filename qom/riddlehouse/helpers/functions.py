@@ -264,6 +264,7 @@ def send_admin_sms(order):
         if not url:
             return False
         request = requests.get(url, data)
+        print(request.text)
         response = json.loads(request.text)
     return response
 

@@ -27,7 +27,7 @@ services:
       - qom_postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=riddle
-      - POSTGRES_PASSWORD=P@ssw0rdd
+      - POSTGRES_PASSWORD=HEWMG!BEI@fJFc$ZA18AQ
       - POSTGRES_DB=riddlehouse
   workers_qom:
     build: ./qom
@@ -95,12 +95,12 @@ services:
       WORDPRESS_DB_NAME: riddle_wp
     volumes:
       - ./wordpress/:/var/www/html
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+  #certbot:
+   # image: certbot/certbot
+    #volumes:
+     # - ./data/certbot/conf:/etc/letsencrypt
+      #- ./data/certbot/www:/var/www/certbot
+    #entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   nginx:
     build: ./nginx
