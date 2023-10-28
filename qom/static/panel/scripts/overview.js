@@ -39,7 +39,7 @@ var app = new Vue({
                 id,
                 name
             }
-            this.order_add_pupop = true
+            this.is_vip = true
         },
 
         handle_order_submit: function (e) {
