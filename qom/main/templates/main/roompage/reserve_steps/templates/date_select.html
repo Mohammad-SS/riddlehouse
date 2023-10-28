@@ -37,7 +37,7 @@
                 <span class="status-icon"></span>
                 <div class="reserve-time-detail">
                     <span class="time fw-bold">ساعت [[item.time]]</span>
-                    <span class="price ">مبلغ هر نفر : [[item.price_per_unit]] | پیش پرداخت : [[item.pre_pay]]</span>
+                    <span class="price badge badge-success text-black bg-transparent">پیش پرداخت: [[item.pre_pay]] | هر نفر: [[item.price_per_unit]] </span>
                 </div>
                 <div v-if='item.is_vip' style="
                     width: auto;
@@ -45,8 +45,8 @@
                     flex: 1;
                     justify-content: flex-end;">
                     <span style="
-                    font-size: 2em;
-                    opacity: .5;">⭐</span>
+                    font-size: 1.7em;
+                    opacity: .5;">💎</span>
                 </div>
             </label>    
 
