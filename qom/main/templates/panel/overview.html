@@ -77,7 +77,7 @@
                     {% elif item.status == 'FREE' and item.is_reservable %}
                     <td class="bg-primary-flet user-select-none hover-overlay">
                         <span class="overview-item-tooltip text-primary fs-7">
-                            <button class="bg-success-flet btn btn-link rounded-pill text-success" @click='()=>set_vip_detail({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{item.date}}`, `{{row_key}}`, {{item.is_vip}}, {{item.price_per_unit}}, {{item.pre_pay}})'>vip</button>
+                            {% comment %} <button class="bg-success-flet btn btn-link rounded-pill text-success" @click='()=>set_vip_detail({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{item.date}}`, `{{row_key}}`, {{item.is_vip}}, {{item.price_per_unit}}, {{item.pre_pay}})'>vip</button> {% endcomment %}
                             <button class="btn btn-link rounded-pill bg-primary-flet text-primary" @click='()=>set_reserve_detail({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{item.date}}`, `{{row_key}}`)'>رزرو</button>
                             <form action="" method="post">
                                 {% csrf_token %}
@@ -88,7 +88,8 @@
                                 <button class="btn btn-link rounded-pill bg-danger-flet text-danger" @click='()=>deactive_reserve_day({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{item.date}}`, `{{row_key}}`)'>بستن</button>
                             </form>
                         </span>
-                        <span class="text-primary fs-7">رزرو {% if item.is_vip %} <i class="fas fa-ribbon"></i> {% endif %}</span>
+                        {% comment %} <span class="text-primary fs-7">رزرو {% if item.is_vip %} <i class="fas fa-ribbon"></i> {% endif %}</span> {% endcomment %}
+                        <span class="text-primary fs-7">رزرو</span>
                     </td>
                     {% elif item.status == 'PASSED' %}
                     <td class="bg-warning-flet cursor-ban">
