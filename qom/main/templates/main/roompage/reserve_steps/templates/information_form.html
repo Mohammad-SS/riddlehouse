@@ -13,7 +13,7 @@
     <input name='package_price' type="hidden" v-model='package.price'>
     <input name='price' type="hidden" v-model.lazy='total_price.num'>
     <input name='pre_pay' type="hidden" value='{{room.pre_pay}}'>
-    <input name='is_vip' type="hidden" v-model='selected_turn.is_vip'>
+    <input v-if='selected_turn.is_vip' name='is_vip' type="hidden" v-model='selected_turn.is_vip'>
     {% comment %} <input name='price_with_coupon' type="hidden" v-model='price_with_coupon'> {% endcomment %}
 
     <!-- from unvisible data -->
