@@ -53,12 +53,15 @@ class PanelRoomsView(LoginRequiredMixin, View):
 
         if not mode:
             pass
+
+
         weekday = []
-        if int(mode) == 1:
-            mode = enums.ExclusionsType.DATE
-        elif int(mode) == 3:
-            mode = enums.ExclusionsType.DATE_AND_WEEKDAY
-            weekday = data.getlist("weekday", [])
+        if mode:
+            if int(mode) == 1:
+                mode = enums.ExclusionsType.DATE
+            elif int(mode) == 3:
+                mode = enums.ExclusionsType.DATE_AND_WEEKDAY
+                weekday = data.getlist("weekday", [])
 
         fields = {
             "room": room,
