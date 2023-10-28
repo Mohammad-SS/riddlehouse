@@ -31,6 +31,16 @@ var app = new Vue({
             }
         }
     },
+    watch: {
+        add_vip_schedule_pupop(new_value, old_value) {
+            if (!new_value) {
+                this.schedule_mode = 1
+                this.tags = []
+                this.schedule_room_id = null
+                this.schedule_room_days = []
+            }
+        }
+    },
 
     methods: {
         two_digits: (num) => num.toLocaleString('en-US', {
