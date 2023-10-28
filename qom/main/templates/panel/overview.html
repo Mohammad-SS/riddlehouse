@@ -88,7 +88,7 @@
                                 <button class="btn btn-link rounded-pill bg-danger-flet text-danger" @click='()=>deactive_reserve_day({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{item.date}}`, `{{row_key}}`)'>بستن</button>
                             </form>
                         </span>
-                        <span class="text-primary fs-7">رزرو</span>
+                        <span class="text-primary fs-7">رزرو {% if item.is_vip %} <i class="fas fa-ribbon"></i> {% endif %}</span>
                     </td>
                     {% elif item.status == 'PASSED' %}
                     <td class="bg-warning-flet cursor-ban">
