@@ -16,7 +16,6 @@
 
     <div class="gdialog-body">
         <div class="px-md-2">
-            [[vip]]
             <form method="post" action="" class="gltr" ref='vip_form'>
                 {% csrf_token %}
                 <input type="hidden" name="action" value="reserve">
@@ -37,15 +36,16 @@
                     
                     <span class="badge badge-info mb-3">مشخصات مشتری</span>
                     <div class="col-12 mb-2">
-                        <input style="direction:rtl !important;" required name="price_per_unit" type='number' class="form-control" placeholder="قیمت هر نفر" >
+                        <input style="direction:rtl !important;" v-mode='vip.price_per_unit' required name="price_per_unit" type='number' class="form-control" placeholder="قیمت هر نفر" >
                     </div>
                     <div class="col-12">
-                        <input style="direction:rtl !important;" required name="pre_pay" type='number' class="form-control" placeholder="مبلغ پیش پرداخت" >
+                        <input style="direction:rtl !important;" v-mode='vip.pre_pay' required name="pre_pay" type='number' class="form-control" placeholder="مبلغ پیش پرداخت" >
                     </div>
 
 
                     <div class="col-12 mt-4 d-flex flex-fill justify-content-end">
-                        <button type="submit" class="btn btn-primary btn-sm me-1" @click='handle_vip_submit' :disabled='vip_loading'>ثبت</button>
+                        <button v-if='!vip.is_vip' type="submit" class="btn btn-primary btn-sm me-1" @click='handle_vip_submit' :disabled='vip_loading'>ثبت</button>
+                        <button v-if='vip.is_vip' type="submit" class="btn btn-primary btn-sm me-1" @click='handle_vip_submit' :disabled='vip_loading'>حذف</button>
                         <span @click='vip_pupop=false' class="btn btn-danger btn-sm">انصراف</span>
                     </div>
                 </div>
