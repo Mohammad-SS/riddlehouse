@@ -17,7 +17,8 @@ var app = new Vue({
         time: '00:00',
         schedule_mode: 1,
         schedule_room_id: null,
-        schedule_room_days: []
+        schedule_room_days: [],
+        schedule_vip_room_days: []
     },
 
 
@@ -37,7 +38,7 @@ var app = new Vue({
                 this.schedule_mode = 1
                 this.tags = []
                 this.schedule_room_id = null
-                this.schedule_room_days = []
+                this.schedule_vip_room_days = []
             }
         }
     },
@@ -101,7 +102,7 @@ var app = new Vue({
         show_vip_schedule_pupop: function (id, days, hours) {
             this.schedule_room_id = id,
                 this.tags = hours
-            this.schedule_room_days = days
+            this.schedule_vip_room_days = days
             this.add_vip_schedule_pupop = true
         },
 
@@ -119,6 +120,7 @@ var app = new Vue({
         handle_submit_vip_schedule: function (e) {
             e.preventDefault();
             let form = this.$refs.vip_schedule_submit_form
+            console.log(form)
             if (form.checkValidity()) {
                 this.add_vip_schedule_loading = true;
                 form.submit()
