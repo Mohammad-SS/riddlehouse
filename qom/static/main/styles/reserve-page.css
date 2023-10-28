@@ -442,7 +442,7 @@ label.selected-time {
 }
 
 label.selected-time .status-icon {
-    background: url(./../images/icons/vip.svg) !important;
+    background: url(./../images/icons/reserving.svg) !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
 }

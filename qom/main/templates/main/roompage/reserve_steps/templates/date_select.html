@@ -37,10 +37,16 @@
                 <span class="status-icon"></span>
                 <div class="reserve-time-detail">
                     <span class="time fw-bold">ساعت [[item.time]]</span>
-                    {% if room.price_per_unit %}
-                        <span class="price ">[[item.price_per_unit]]</span>
-                    {% endif %}
-
+                    <span class="price ">مبلغ هر نفر : [[item.price_per_unit]] | پیش پرداخت : [[item.pre_pay]]</span>
+                </div>
+                <div v-if='item.is_vip' style="
+                    width: auto;
+                    display: flex;
+                    flex: 1;
+                    justify-content: flex-end;">
+                    <span style="
+                    font-size: 2em;
+                    opacity: .5;">⭐</span>
                 </div>
             </label>    
 
