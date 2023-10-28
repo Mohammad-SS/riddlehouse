@@ -66,8 +66,8 @@ class PanelRoomsView(LoginRequiredMixin, View):
         fields = {
             "room": room,
             "role": mode,
-            "from_date": from_date,
-            "to_date": to_date,
+            "from_date": from_date if bool(from_date) else None,
+            "to_date": to_date if bool(to_date) else None,
             "weekdays": [int(day) for day in weekday],
             "hours": hours,
         }
