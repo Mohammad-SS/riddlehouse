@@ -37,6 +37,7 @@ class PanelRoomsView(LoginRequiredMixin, View):
         data = request.POST
         mode = data.get("mode", None)
         room = data.get("room", None)
+        vip_setter = data.get("vip_set", None)
         hours = data.getlist("hours", [])
         if not room:
             pass
@@ -66,9 +67,16 @@ class PanelRoomsView(LoginRequiredMixin, View):
             "weekdays": [int(day) for day in weekday],
             "hours": hours,
         }
-        exclusion = game_models.Exclusion(**fields)
-        exclusion.save()
 
+        if vip_setter is not None:
+            fields.pop('role')
+            vip_sans = game_models.VipSans(**fields)
+            vip_sans.save()
+        else:
+            exclusion = game_models.Exclusion(**fields)
+            exclusion.save()
+
+        
         return redirect("main:schedule")
 
 
