@@ -115,6 +115,17 @@ var app = new Vue({
                 console.log('here');
                 this.add_schedule_loading = false;
             }
+        },
+        handle_submit_vip_schedule: function (e) {
+            e.preventDefault();
+            let form = this.$refs.vip_schedule_submit_form
+            if (form.checkValidity()) {
+                this.add_vip_schedule_loading = true;
+                form.submit()
+            } else {
+                console.log('here');
+                this.add_vip_schedule_loading = false;
+            }
         }
     },
 });

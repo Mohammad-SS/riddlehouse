@@ -18,7 +18,7 @@
 
     <div class="gdialog-body">
         <div class="px-md-2">
-            <form method="post" action="" class="gltr" ref='schedule_submit_form'>
+            <form method="post" action="" class="gltr" ref='vip_schedule_submit_form'>
                 {% csrf_token %}
                 <input type="hidden" name='room' :value='schedule_room_id'>
                 <input type="hidden" name='vip_set' value=true>
@@ -108,7 +108,7 @@
                   </div>
                 <div class="row mt-3">
                     <div class="col-12 mt-4 d-flex flex-fill justify-content-end">
-                        <button class="btn btn-primary btn-sm me-1"  @click='handle_submit_schedule' :disabled='add_vip_schedule_loading'>ثبت</button>
+                        <button class="btn btn-primary btn-sm me-1"  @click='handle_submit_vip_schedule' :disabled='add_vip_schedule_loading'>ثبت</button>
                         <span @click='add_vip_schedule_pupop=false' class="btn btn-danger btn-sm">انصراف</span>
                     </div>
                 </div>
