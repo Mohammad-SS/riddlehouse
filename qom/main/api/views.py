@@ -23,7 +23,7 @@ class GetMonthCalendar(CsrfExemptMixin, APIView):
         if not calendar:
             return Response({"detail": "Room Not Found"}, status=status.HTTP_404_NOT_FOUND)
         
-        print(json.dumps(calendar))
+       
         return Response(data=calendar)
 
 
