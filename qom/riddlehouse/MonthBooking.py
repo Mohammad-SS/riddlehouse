@@ -24,9 +24,6 @@ def check_vip(timestamp, room):
 
 
     vip_sans = models.VipSans.objects.filter(room=room, weekdays__contains=[jalali.weekday()])
-    print(jalali.weekday())
-    print(vip_sans)
-
     if vip_sans.exists():
         return vip_sans.last()
     
@@ -87,6 +84,7 @@ class Month():
                                             int(this_minutes)).timestamp()
             
             is_vip = check_vip(this_timestamp, room)
+            print(is_vip)
             hours[hour] = dict()
             hours[hour]["is_vip"] = True if is_vip else False
             hours[hour]["price_per_unit"] = is_vip.price_per_unit if is_vip else room.price_per_unit
