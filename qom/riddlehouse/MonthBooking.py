@@ -12,7 +12,7 @@ from django.db.models import Q
 def check_vip(timestamp, room):
     dt = datetime.datetime.fromtimestamp(timestamp)
     # Get the weekday (0 = Monday, 6 = Sunday)
-    weekday = dt.weekday() + 1
+    weekday = dt.weekday()
 
     # Get the date in the format YYYY-MM-DD
     date = dt.strftime('%Y-%m-%d')
@@ -23,13 +23,14 @@ def check_vip(timestamp, room):
     jalali = JalaliDateTime.fromtimestamp(timestamp, pytz.timezone("Asia/Tehran"))
 
 
-    vip_sans = models.VipSans.objects.filter(room=room, weekdays__contains=[jalali.weekday()])
+    vip_sans = models.VipSans.objects.filter(room=room, weekdays__contains=[jalali.weekday() + 1])
+    
     if vip_sans.exists():
         return vip_sans.last()
     
-    # vip_sans = models.VipSans.objects.filter(room=room, from_date__lte=dt.date(), to_date__gte=dt.date())
-    # if vip_sans.exists():
-    #     return vip_sans.last()
+    vip_sans = models.VipSans.objects.filter(room=room, from_date__lte=dt.date(), to_date__gte=dt.date())
+    if vip_sans.exists():
+        return vip_sans.last()
     
 
     return False
@@ -84,7 +85,6 @@ class Month():
                                             int(this_minutes)).timestamp()
             
             is_vip = check_vip(this_timestamp, room)
-            print(is_vip)
             hours[hour] = dict()
             hours[hour]["is_vip"] = True if is_vip else False
             hours[hour]["price_per_unit"] = is_vip.price_per_unit if is_vip else room.price_per_unit
