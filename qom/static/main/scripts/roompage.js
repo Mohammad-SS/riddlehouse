@@ -102,8 +102,13 @@ var app = new Vue({
         select_time: function (item, price) {
             this.selected_turn.time = item.time
             this.selected_turn.price = price
-            document.querySelectorAll('.selected-time').forEach(el => el.classList.remove('selected-time'))
-            document.getElementById(item.rand_id).classList.add('selected-time')
+            if (item.is_vip) {
+                document.querySelectorAll('.selected-time-vip').forEach(el => el.classList.remove('selected-time-vip'))
+                document.getElementById(item.rand_id).classList.add('selected-time-vip')
+            } else {
+                document.querySelectorAll('.selected-time').forEach(el => el.classList.remove('selected-time'))
+                document.getElementById(item.rand_id).classList.add('selected-time')
+            }
         },
 
         select_package(_package, price) {
