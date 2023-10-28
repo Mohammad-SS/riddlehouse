@@ -24,6 +24,9 @@ def check_vip(timestamp, room):
 
 
     vip_sans = models.VipSans.objects.filter(room=room, weekdays__contains=[jalali.weekday()])
+    print(jalali.weekday())
+    print(vip_sans)
+
     if vip_sans.exists():
         return vip_sans.last()
     
