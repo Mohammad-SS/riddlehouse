@@ -32,12 +32,17 @@ var app = new Vue({
             this.order_add_pupop = true
         },
 
-        set_vip_detail: function (id, name, date, hour) {
+        set_vip_detail: function (id, name, date, hour, is_vip, unit_price, pre_pay) {
             this.date = date
             this.time = hour
             this.room = {
                 id,
                 name
+            },
+            this.vip ={
+                is_vip: is_vip,
+                price_per_unit: unit_price,
+                pre_pay: pre_pay
             }
             this.vip_pupop = true
         },

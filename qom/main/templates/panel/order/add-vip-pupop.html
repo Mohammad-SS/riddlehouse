@@ -6,7 +6,7 @@
 
     <div class="gdialog-head">
         <span class="gdialog-title fs-5">
-            ثبت سفارش حضوری
+            مدیریت VIP
         </span>
         <span class="mb-expand"></span>
         <span class="gdialog-close-icon ripple" @click='vip_pupop=false'>
@@ -16,6 +16,7 @@
 
     <div class="gdialog-body">
         <div class="px-md-2">
+            [[vip]]
             <form method="post" action="" class="gltr" ref='vip_form'>
                 {% csrf_token %}
                 <input type="hidden" name="action" value="reserve">
