@@ -102,13 +102,15 @@
         </div>
         <hr>
         <div>
-            <p><b>پیش پرداخت :</b> {{room.pre_pay}} تومان</p>
+            {% comment %} <p><b>پیش پرداخت :</b> {{room.pre_pay}} تومان</p> {% endcomment %}
+            <p><b>پیش پرداخت :</b> [[selected_date.pre_pay]] تومان</p>
             <p><b>مبلغ کل :</b> [[total_price.str]] تومان</p>
             {% comment %} <p><b>مبلع با احتساب کد تخفیف :</b> - </p> {% endcomment %}
         </div>
         <hr>
         <div>
-            <p><b>مبلغ قابل پرداخت :</b> {{room.pre_pay}} تومان</p>
+            {% comment %} <p><b>مبلغ قابل پرداخت :</b> {{room.pre_pay}} تومان</p> {% endcomment %}
+            <p><b>مبلغ قابل پرداخت :</b> [[selected_date.pre_pay]] تومان</p>
         </div>
 
         <span class="mb-expand"></span>
