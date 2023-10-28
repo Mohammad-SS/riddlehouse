@@ -22,6 +22,7 @@
 
 {% block dialogs %}
 {% include 'panel/order/order-add-pupop.html' %}
+{% include 'panel/order/add-vip-pupop.html' %}
 {% endblock dialogs %}
 
 
@@ -76,6 +77,7 @@
                     {% elif item.status == 'FREE' and item.is_reservable %}
                     <td class="bg-primary-flet user-select-none hover-overlay">
                         <span class="overview-item-tooltip text-primary fs-7">
+                            <button class="bg-success-flet btn btn-link rounded-pill text-success">vip</button>
                             <button class="btn btn-link rounded-pill bg-primary-flet text-primary"  @click='()=>set_reserve_detail({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{item.date}}`, `{{row_key}}`)'>رزرو</button>
                             <form action="" method="post">
                                 {% csrf_token %}

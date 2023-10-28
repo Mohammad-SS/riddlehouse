@@ -1,0 +1,54 @@
+<div class="gdialog-back" :class="vip_pupop ? 'gdialog-show' : 'gdialog-hide'" @click="vip_pupop=false">
+</div>
+<div class="gdialog-content mb-rtl col-md-2"
+    :class="vip_pupop ? 'gdialog-show gdialog-motion' : 'gdialog-hide gdialog-motion-off'"
+    style="max-width: 90% !important; width: 30em;" dir="rtl">
+
+    <div class="gdialog-head">
+        <span class="gdialog-title fs-5">
+            ثبت سفارش حضوری
+        </span>
+        <span class="mb-expand"></span>
+        <span class="gdialog-close-icon ripple" @click='vip_pupop=false'>
+            <i data-feather="x" width="20px" height="20px"></i>
+        </span>
+    </div>
+
+    <div class="gdialog-body">
+        <div class="px-md-2">
+            <form method="post" action="" class="gltr" ref='vip_form'>
+                {% csrf_token %}
+                <input type="hidden" name="action" value="reserve">
+                <div class="row">
+                    <span class="badge badge-secondary mb-3">اطلاعات vip</span>
+                    <p>
+                        <input type="hidden" name="room_id" v-model="room.id">
+                        نام اتاق: [[room.name]]
+                    </p>
+                    <p>
+                        <input type="hidden" name="date" v-model="date">
+                        تاریخ: [[date]]
+                    </p>
+                    <p>
+                        <input type="hidden" name="hour" v-model="time">
+                        ساعت: [[time]]
+                    </p>
+                    
+                    <span class="badge badge-info mb-3">مشخصات مشتری</span>
+                    <div class="col-12 mb-2">
+                        <input style="direction:rtl !important;" required name="price_per_unit" type='number' class="form-control" placeholder="قیمت هر نفر" >
+                    </div>
+                    <div class="col-12">
+                        <input style="direction:rtl !important;" required name="pre_pay" type='number' class="form-control" placeholder="مبلغ پیش پرداخت" >
+                    </div>
+
+
+                    <div class="col-12 mt-4 d-flex flex-fill justify-content-end">
+                        <button type="submit" class="btn btn-primary btn-sm me-1" @click='handle_vip_submit' :disabled='vip_loading'>ثبت</button>
+                        <span @click='vip_pupop=false' class="btn btn-danger btn-sm">انصراف</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
