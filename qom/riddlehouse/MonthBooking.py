@@ -225,9 +225,9 @@ class RoomWeek():
             this_hour, this_minutes = hour.split(":")
             this_timestamp = JalaliDateTime(day.year, day.month, day.day, int(this_hour),
                                             int(this_minutes)).timestamp()
-            is_vip = self.check_vip(this_timestamp, room)
+            # is_vip = self.check_vip(this_timestamp, room)
             hours[hour] = dict()
-            hours[hour]["is_vip"] = is_vip
+            # hours[hour]["is_vip"] = is_vip
             hours[hour]["timestamp"] = this_timestamp
             hours[hour]['is_reservable'], hours[hour]['status'] = Month.check_hour(this_timestamp, room)
             hours[hour]["order"] = self.get_order_object(this_timestamp, room)
