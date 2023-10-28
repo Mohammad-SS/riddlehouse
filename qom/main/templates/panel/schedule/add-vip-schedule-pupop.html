@@ -39,14 +39,14 @@
                         </option>
                       </select>
                     </div>
-                    <div v-show='schedule_mode == 1 || schedule_mode == 3' class="col-6 mb-3">
+                    <div class="col-6 mb-3">
                         <input required name="from_date" data-jdp class="form-control" placeholder="از تاریخ" >
                     </div>
-                    <div v-show='schedule_mode == 1 || schedule_mode == 3' class="col-6 mb-3">
+                    <div class="col-6 mb-3">
                       <input required name="to_date" data-jdp class="form-control" placeholder="تا تاریخ" >
                     </div>
                     [[schedule_vip_room_days]]
-                    <div  v-show='schedule_mode == 2 || schedule_mode == 3' class="mb-3 col-12 weekday-selector">
+                    <div class="mb-3 col-12 weekday-selector">
                       <input class="d-none" type="checkbox" name='weekday' id='d-1' :checked='schedule_vip_room_days.includes(1)' value="1">
                       <label for="d-1" class="ripple btn btn-basic rounded shadow-2">
                         <span>شنبه</span>
@@ -108,7 +108,16 @@
                         </div>
                       </div>
                     </div>
-                    
+                    <span class="badge badge-primary mb-3">
+                        قیمت ها
+                    </span>
+                    <div class="col-12 mb-3">
+                        <input required name="price_per_unit" class="form-control" placeholder="قیمت هر نفر" >
+                    </div>
+                    <div class="col-12 mb-3">
+                        <input required name="pre_price" class="form-control" placeholder="مبلع پیش پرداخت" >
+                    </div>
+
                   </div>
                 <div class="row mt-3">
                     <div class="col-12 mt-4 d-flex flex-fill justify-content-end">
