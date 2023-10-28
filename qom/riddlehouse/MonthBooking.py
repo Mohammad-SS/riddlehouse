@@ -20,7 +20,8 @@ def check_vip(timestamp, room):
     # Get the time in the format HH:MM:SS
     time = dt.strftime('%H:%M')
 
-    jalali = JalaliDateTime.to_jalali(year=dt.year, month=dt.month, day=dt.day)
+    jalali = JalaliDateTime.fromtimestamp(timestamp, pytz.timezone("Asia/Tehran"))
+
 
     vip_sans = models.VipSans.objects.filter(room=room, weekdays__contains=[jalali.weekday()])
     if vip_sans.exists():
