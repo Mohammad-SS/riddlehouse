@@ -25,7 +25,8 @@ var app = new Vue({
         selected_turn: {
             time: null,
             price: null,
-            pre_pay: null
+            pre_pay: null,
+            is_vip: null
         },
         package: {
             id: null,
