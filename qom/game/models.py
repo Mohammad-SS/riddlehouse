@@ -124,6 +124,10 @@ class VipSans(models.Model):
     weekdays = postgres_fields.ArrayField(models.IntegerField(choices=enums.WeekDays.choices, blank=True, null=True),
                                           blank=True, null=True)
     
+    hours = postgres_fields.ArrayField(models.CharField(max_length=12, blank=True), blank=True, null=True)
+
+    
+    
 
 class OneTimeVipSans(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
