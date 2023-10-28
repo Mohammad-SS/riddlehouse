@@ -3,7 +3,9 @@ var app = new Vue({
     el: '#app',
     data: {
         add_schedule_pupop: false,
+        add_vip_schedule_pupop: false,
         add_schedule_loading: false,
+        add_vip_schedule_loading: false,
         room_remove_pupop: false,
         room_remove_loading: false,
         room_remove_obj: {
@@ -84,6 +86,13 @@ var app = new Vue({
                 room_name
             }
             this.room_remove_pupop = true
+        },
+
+        show_vip_schedule_pupop: function (id, days, hours) {
+            this.schedule_room_id = id,
+                this.tags = hours
+            this.schedule_room_days = days
+            this.add_vip_schedule_pupop = true
         },
 
         handle_submit_schedule: function (e) {
