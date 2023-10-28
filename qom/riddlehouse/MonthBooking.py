@@ -30,9 +30,9 @@ def check_vip(timestamp, room):
     if vip_sans.exists():
         return vip_sans.last()
     
-    vip_sans = models.VipSans.objects.filter(room=room, from_date__lte=dt.date(), to_date__gte=dt.date())
-    if vip_sans.exists():
-        return vip_sans.last()
+    # vip_sans = models.VipSans.objects.filter(room=room, from_date__lte=dt.date(), to_date__gte=dt.date())
+    # if vip_sans.exists():
+    #     return vip_sans.last()
     
 
     return False
