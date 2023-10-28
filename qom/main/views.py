@@ -442,7 +442,13 @@ class RoomView(View):
             hour, minutes = turn.split(":")
             rest_payment = room.price_per_unit * int(data.get('persons', room.min_players)) - int(
                 data.get("pre_pay", room.pre_pay))
-            amount = data.get("pre_pay", 0)
+            
+            is_vip = data.get('is_vip', False)
+            if is_vip:
+                amount = game_models.VipSans.objects.get(pk=is_vip, room=room).pre_pay
+            else:
+                amount = data.get("pre_pay", 0)
+            
         else:
             if not package:
                 return False

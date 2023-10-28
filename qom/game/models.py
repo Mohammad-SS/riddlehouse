@@ -116,7 +116,7 @@ def get_current_month_day_choices():
 
 
 class VipSans(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='vipsans')
     price_per_unit = models.IntegerField(blank=True, null=True)
     pre_pay = models.IntegerField(blank=True, null=True)
     from_date = models.DateField(blank=True, null=True)

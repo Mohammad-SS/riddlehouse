@@ -99,7 +99,7 @@ class Month():
             
             is_vip = check_vip(this_timestamp, room)
             hours[hour] = dict()
-            hours[hour]["is_vip"] = True if is_vip else False
+            hours[hour]["is_vip"] = is_vip.pk if is_vip else False
             hours[hour]["price_per_unit"] = is_vip.price_per_unit if is_vip else room.price_per_unit
             hours[hour]["pre_pay"] = is_vip.pre_pay if is_vip else room.pre_pay
             hours[hour]["timestamp"] = this_timestamp

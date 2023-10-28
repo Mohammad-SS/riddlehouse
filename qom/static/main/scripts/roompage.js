@@ -104,6 +104,7 @@ var app = new Vue({
             this.selected_turn.time = item.time
             this.selected_turn.price = price
             this.selected_turn.pre_pay = item.pre_pay
+            this.selected_turn.is_vip = item.is_vip
             document.querySelectorAll('.selected-time').forEach(el => el.classList.remove('selected-time'))
             document.getElementById(item.rand_id).classList.add('selected-time')
         },
