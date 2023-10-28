@@ -100,15 +100,15 @@ var app = new Vue({
             this.datepicker = false
         },
 
-        select_time: function (item, price, pre_pay) {
+        select_time: function (item, price) {
             this.selected_turn.time = item.time
             this.selected_turn.price = price
-            this.selected_turn.pre_pay = pre_pay
+            this.selected_turn.pre_pay = item.pre_pay
             document.querySelectorAll('.selected-time').forEach(el => el.classList.remove('selected-time'))
             document.getElementById(item.rand_id).classList.add('selected-time')
         },
 
-        select_package(_package, price, pre_pay) {
+        select_package(_package, price) {
             this.package = {
                 id: _package,
                 price: price
