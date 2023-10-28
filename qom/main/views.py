@@ -44,11 +44,12 @@ class PanelRoomsView(LoginRequiredMixin, View):
         room = game_models.Room.objects.get(pk=room)
         from_date = data.get("from_date", "1401/01/01")
         to_date = data.get("to_date", "1402/02/02")
-        from_date = from_date.split("/")
-        to_date = to_date.split("/")
-        from_date = jdatetime.JalaliDate(year=int(from_date[0]), month=int(from_date[1]),
-                                         day=int(from_date[2])).to_gregorian()
-        to_date = jdatetime.JalaliDate(year=int(to_date[0]), month=int(to_date[1]), day=int(to_date[2])).to_gregorian()
+        if bool(from_date) and bool(to_date):
+            from_date = from_date.split("/")
+            to_date = to_date.split("/")
+            from_date = jdatetime.JalaliDate(year=int(from_date[0]), month=int(from_date[1]),
+                                            day=int(from_date[2])).to_gregorian()
+            to_date = jdatetime.JalaliDate(year=int(to_date[0]), month=int(to_date[1]), day=int(to_date[2])).to_gregorian()
 
         if not mode:
             pass
