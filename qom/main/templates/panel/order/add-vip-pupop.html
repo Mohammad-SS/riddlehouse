@@ -34,12 +34,14 @@
                         ساعت: [[time]]
                     </p>
                     
-                    <span class="badge badge-info mb-3">مشخصات مشتری</span>
+                    <span class="badge badge-info mb-3">مبلغ</span>
                     <div class="col-12 mb-2">
-                        <input style="direction:rtl !important;" v-model='vip.price_per_unit' required name="price_per_unit" type='number' class="form-control" placeholder="قیمت هر نفر" >
+                        <label for="price_per_unit" class="form-label">قیمت هر نفر</label>
+                        <input style="direction:rtl !important;" v-model='vip.price_per_unit' required id='price_per_unit' name="price_per_unit" type='number' class="form-control" placeholder="قیمت هر نفر" >
                     </div>
                     <div class="col-12">
-                        <input style="direction:rtl !important;" v-model='vip.pre_pay' required name="pre_pay" type='number' class="form-control" placeholder="مبلغ پیش پرداخت" >
+                        <label for="pre_pay" class="form-label">مبلغ پیش پرداخت</label>
+                        <input style="direction:rtl !important;" v-model='vip.pre_pay' required id='pre_pay' name="pre_pay" type='number' class="form-control" placeholder="مبلغ پیش پرداخت" >
                     </div>
 
 
