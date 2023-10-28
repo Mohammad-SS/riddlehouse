@@ -21,19 +21,32 @@ def check_vip(timestamp, room):
     time = dt.strftime('%H:%M')
 
     jalali = JalaliDateTime.fromtimestamp(timestamp, pytz.timezone("Asia/Tehran"))
-
-
     vip_sans = models.VipSans.objects.filter(room=room, weekdays__contains=[jalali.weekday() + 1])
     
+    last_vip = None
     if vip_sans.exists():
-        return vip_sans.last()
-    
+        last = vip_sans.last()
+
+        if last.from_date is None or last.to_date is None:
+            last_vip = last
+        
+        elif last.from_date <= dt.date() <= last.to_date:
+            last_vip = last
+
+
     vip_sans = models.VipSans.objects.filter(room=room, from_date__lte=dt.date(), to_date__gte=dt.date())
     if vip_sans.exists():
-        return vip_sans.last()
+        last_vip = vip_sans.last()
     
-
-    return False
+    
+    if bool(last_vip) and bool(last_vip.hours):
+        last_vip = last_vip if time in last_vip.hours else None
+    
+    
+    if last_vip is None:
+        return False
+    
+    return last_vip
     
 
 
