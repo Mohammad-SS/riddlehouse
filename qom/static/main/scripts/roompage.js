@@ -206,6 +206,7 @@ var app = new Vue({
             if (this.selected_date != detail.date) {
                 this.selected_turn.time = null
                 this.selected_turn.price = null
+                this.selected_turn.pre_pay = null
                 this.remove_selected()
             }
             this.datepicker = false
