@@ -26,26 +26,12 @@
                     <span class="badge badge-primary mb-3">
                         حالت زمانبندی
                     </span>
-                    <div class="col-12 mb-3">
-                      <select class="form-select" name='mode' v-model='schedule_mode' id="">
-                        <option value=1>
-                          بر اساس تاریخ
-                        </option>
-                        <option value=2>
-                          براساس روزهای هفته
-                        </option>
-                        <option value=3>
-                          بر اساس تاریخ و روز های هفته
-                        </option>
-                      </select>
+                    <div class="col-6 mb-3">
+                        <input name="from_date" data-jdp class="form-control" placeholder="از تاریخ" >
                     </div>
                     <div class="col-6 mb-3">
-                        <input required name="from_date" data-jdp class="form-control" placeholder="از تاریخ" >
+                      <input name="to_date" data-jdp class="form-control" placeholder="تا تاریخ" >
                     </div>
-                    <div class="col-6 mb-3">
-                      <input required name="to_date" data-jdp class="form-control" placeholder="تا تاریخ" >
-                    </div>
-                    [[schedule_vip_room_days]]
                     <div class="mb-3 col-12 weekday-selector">
                       <input class="d-none" type="checkbox" name='weekday' id='vip-d-1' :checked='schedule_vip_room_days.includes(1)' value="1">
                       <label for="vip-d-1" class="ripple btn btn-basic rounded shadow-2">
@@ -108,14 +94,14 @@
                         </div>
                       </div>
                     </div>
-                    <span class="badge badge-primary mb-3">
+                    <span class="badge badge-primary mt-3">
                         قیمت ها
                     </span>
                     <div class="col-12 mb-3">
-                        <input required name="price_per_unit" class="form-control" placeholder="قیمت هر نفر" >
+                        <input required name="price_per_unit" type='number' class="form-control" placeholder="قیمت هر نفر" >
                     </div>
                     <div class="col-12 mb-3">
-                        <input required name="pre_price" class="form-control" placeholder="مبلع پیش پرداخت" >
+                        <input required name="pre_price" type='number' class="form-control" placeholder="مبلع پیش پرداخت" >
                     </div>
 
                   </div>
