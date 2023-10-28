@@ -70,6 +70,14 @@ class PanelRoomsView(LoginRequiredMixin, View):
 
         if vip_setter is not None:
             fields.pop('role')
+            price_per_unit = data.get("price_per_unit", room.price_per_unit)
+            pre_pay = data.get("pre_pay", room.pre_pay)
+
+            fields.update({
+                "price_per_unit": price_per_unit,
+                "pre_pay" : pre_pay
+            })
+
             vip_sans = game_models.VipSans(**fields)
             vip_sans.save()
         else:
