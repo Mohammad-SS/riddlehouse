@@ -444,7 +444,7 @@ class RoomView(View):
                 data.get("pre_pay", room.pre_pay))
             
             is_vip = data.get('is_vip', False)
-            if is_vip:
+            if bool(is_vip):
                 amount = game_models.VipSans.objects.get(pk=is_vip, room=room).pre_pay
             else:
                 amount = data.get("pre_pay", 0)
@@ -622,7 +622,7 @@ class PanelRoomEditView(LoginRequiredMixin, View):
 class ReserveCompleted(View):
 
     def get(self, request):
-        rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL)
+        rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL, is_archive=False)
         order_status = functions.verify_payment(request.GET.get("Authority"))
         if order_status.get("ordered_before", False):
             now = datetime.datetime.now().strftime("%Y/%m/%d")
