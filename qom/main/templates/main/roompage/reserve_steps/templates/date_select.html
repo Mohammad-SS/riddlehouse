@@ -33,7 +33,7 @@
                 لطفا روز های دیگر را بررسی کنید
             </span>  
             <label v-else v-for='item in reservable_time_list' :id='item.rand_id'
-                   @click='() => {select_time(item, {{room.price_per_unit}})}'>
+                   @click='() => {select_time(item, item.price_per_unit)}'>
                 <span class="status-icon"></span>
                 <div class="reserve-time-detail">
                     <span class="time fw-bold">ساعت [[item.time]]</span>
