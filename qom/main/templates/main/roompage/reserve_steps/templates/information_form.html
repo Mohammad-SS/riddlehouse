@@ -31,7 +31,7 @@
             <input required name="phone" type="text" id="phone" class="form-control form-control-lg" required />
             <label class="form-label" for="phone">شماره موبایل</label>
         </div>
-        <div class="col-12">
+        <div class="col-6">
             <div class="form-outline mb-4">
                 {% if room.room_type == "REAL" %}
                 <input required name="persons" type="number" ref='players' min="{{room.min_players}}" max="{{room.max_players}}"
@@ -51,7 +51,12 @@
 
             </div>
         </div>
-        {% comment %} <div class="row">
+
+        <div class="col-6">
+
+        </div>
+        {% if user.is_authenticated %}
+        <div class="row">
             <div class="col-8">
                 <div class="form-outline mb-4">
                     <input name="coupon" type="text" id="coupon" class="form-control form-control-lg" />
@@ -61,7 +66,8 @@
             <div class="col-4">
                 <button type="button" class="btn btn-success fs-6">اعمال کد تخفیف</button>
             </div>
-        </div> {% endcomment %}
+        </div>
+        {% endif %}
 
         <div class="col-12">
             <label class="form-label">مسیریابی شعبه</label>
