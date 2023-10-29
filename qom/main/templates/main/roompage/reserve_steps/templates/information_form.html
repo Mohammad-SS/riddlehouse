@@ -57,7 +57,7 @@
         <div class="align-items-start d-flex flex-row flex-wrap">
             <div class="w-100">
                 <div class="form-outline mb-2">
-                    <input name="coupon" type="text" id="coupon" v-model="coupan_code" class="form-control form-control-lg" />
+                    <input name="coupon" type="text" id="coupon" v-model="coupan.code" class="form-control form-control-lg" />
                     <label class="form-label" for="coupon">کد تخفیف</label>
                 </div>
             </div>
@@ -111,7 +111,7 @@
             {% comment %} <p><b>پیش پرداخت :</b> {{room.pre_pay}} تومان</p> {% endcomment %}
             <p><b>پیش پرداخت :</b> [[selected_turn.pre_pay]] تومان</p>
             <p><b>مبلغ کل :</b> [[total_price.str]] تومان</p>
-            {% comment %} <p><b>مبلع با احتساب کد تخفیف :</b> - </p> {% endcomment %}
+            <p v-if="coupan.valid"><b>مبلع با احتساب کد تخفیف :</b> [[total_price_with_off.str]] </p>
         </div>
         <hr>
         <div>
