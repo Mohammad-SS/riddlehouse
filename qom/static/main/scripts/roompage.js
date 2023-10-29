@@ -392,7 +392,7 @@ var app = new Vue({
       try {
         let url =
           new URL(window.location).origin +
-          `/api/check-coupon?room=${this.current_room}&coupon=${this.coupan_code}`;
+          `/api/check-coupon?room=${this.current_room}&coupon=${this.coupan.code}`;
         let response = await axios.get(url);
         if (!response.data.valid) {
           this.show_toast("کد تخفیف وارد شده معتبر نمیباشد");
@@ -403,6 +403,7 @@ var app = new Vue({
           ...this.coupan,
           amount: response.data.amount,
           type: response.data.type,
+          valid: response.data.valid
         };
 
         return response.data;
