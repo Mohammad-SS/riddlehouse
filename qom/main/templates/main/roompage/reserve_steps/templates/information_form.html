@@ -53,7 +53,7 @@
         </div>
 
         <div class="col-12">
-        {% if user.is_authenticated %}
+        {% comment %} {% if user.is_authenticated %}
         <div class="align-items-start d-flex flex-row flex-wrap">
             <div class="w-100">
                 <div class="form-outline mb-2">
@@ -65,7 +65,7 @@
                 <button style="min-width: max-content;" type="button" class="btn btn-success fs-6" @click="check_coupan">اعمال کد تخفیف</button>
             </div>
         </div>
-        {% endif %}
+        {% endif %} {% endcomment %}
         </div>
 
         <div class="col-12">
@@ -111,7 +111,7 @@
             {% comment %} <p><b>پیش پرداخت :</b> {{room.pre_pay}} تومان</p> {% endcomment %}
             <p><b>پیش پرداخت :</b> [[selected_turn.pre_pay]] تومان</p>
             <p><b>مبلغ کل :</b> [[total_price.str]] تومان</p>
-            <p v-if="coupan.valid"><b>مبلغ کل با احتساب کد تخفیف :</b> [[total_price_with_off.str]] </p>
+            {% comment %} <p v-if="coupan.valid"><b>مبلغ کل با احتساب کد تخفیف :</b> [[total_price_with_off.str]] </p> {% endcomment %}
         </div>
         <hr>
         <div>
