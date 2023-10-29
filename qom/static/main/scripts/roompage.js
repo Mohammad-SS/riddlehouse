@@ -408,6 +408,7 @@ var app = new Vue({
 
         return response.data;
       } catch (error) {
+        this.show_toast("کد تخفیف وارد شده معتبر نمیباشد");
         return false;
       }
     },
