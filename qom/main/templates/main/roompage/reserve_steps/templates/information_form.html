@@ -53,21 +53,20 @@
         </div>
 
         <div class="col-12">
-
-        </div>
         {% if user.is_authenticated %}
-        <div class="row">
-            <div class="col-8">
-                <div class="form-outline mb-4">
+        <div class="align-items-start d-flex flex-row flex-wrap">
+            <div class="w-100">
+                <div class="form-outline mb-2">
                     <input name="coupon" type="text" id="coupon" class="form-control form-control-lg" />
                     <label class="form-label" for="coupon">کد تخفیف</label>
                 </div>
             </div>
-            <div class="col-4">
-                <button type="button" class="btn btn-success fs-6">اعمال کد تخفیف</button>
+            <div class="align-items-end d-flex flex-row justify-content-end w-100">
+                <button style="min-width: max-content;" type="button" class="btn btn-success fs-6">ثبت</button>
             </div>
         </div>
         {% endif %}
+        </div>
 
         <div class="col-12">
             <label class="form-label">مسیریابی شعبه</label>
