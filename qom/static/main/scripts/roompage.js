@@ -396,6 +396,12 @@ var app = new Vue({
         let response = await axios.get(url);
         if (!response.data.valid) {
           this.show_toast("کد تخفیف وارد شده معتبر نمیباشد");
+          this.coupan = {
+            ...this.coupan,
+            amount: null,
+            type: "",
+            valid: false,
+          };
         }
 
         let total = this.total_price.num;
@@ -403,12 +409,18 @@ var app = new Vue({
           ...this.coupan,
           amount: response.data.amount,
           type: response.data.type,
-          valid: response.data.valid
+          valid: response.data.valid,
         };
 
         return response.data;
       } catch (error) {
         this.show_toast("کد تخفیف وارد شده معتبر نمیباشد");
+        this.coupan = {
+          ...this.coupan,
+          amount: null,
+          type: "",
+          valid: false,
+        };
         return false;
       }
     },
@@ -452,11 +464,11 @@ var app = new Vue({
       let off_type = this.coupan.type;
       let off_amount = this.coupan.amount;
       let total_price =
-        off_type == "percent" 
-        ? this.total_price.num - ((this.total_price.num * off_amount) / 100) 
-        : this.total_price.num - off_amount;
+        off_type == "percent"
+          ? this.total_price.num - (this.total_price.num * off_amount) / 100
+          : this.total_price.num - off_amount;
 
-     return { str: separate(total_price), num: total_price }
+      return { str: separate(total_price), num: total_price };
     },
   },
 });
