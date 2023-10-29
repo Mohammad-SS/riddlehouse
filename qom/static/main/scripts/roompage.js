@@ -363,18 +363,19 @@ var app = new Vue({
             }
             
             
-        }
-        // check_coupan: async function (room, year, month) {
-        //     try {
-        //         let url = new URL(window.location).origin + `/api/check-coupon?room=${this.current_room}&coupon=${this.coupan_code}`
-        //         let response = await axios.get(url)
+        },
+        check_coupan: async function () {
+            try {
+                let url = new URL(window.location).origin + `/api/check-coupon?room=${this.current_room}&coupon=${this.coupan_code}`
+                let response = await axios.get(url)
+                let total = this.total_price.num
+                console.log(total);
+                return response.data
 
-        //         return response.data
-
-        //     } catch (error) {
-        //         return false
-        //     }
-        // },
+            } catch (error) {
+                return false
+            }
+        },
 
 
     },
