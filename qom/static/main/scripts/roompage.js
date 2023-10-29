@@ -453,8 +453,8 @@ var app = new Vue({
       let off_amount = this.coupan.amount;
       let total_price =
         off_type == "percent" 
-        ? this.total_price - ((this.total_price * off_amount) / 100) 
-        : this.total_price - off_amount;
+        ? this.total_price.num - ((this.total_price.num * off_amount) / 100) 
+        : this.total_price.num - off_amount;
 
      return { str: separate(total_price), num: total_price }
     },
