@@ -436,7 +436,6 @@ img.room-md-image {
 .reserve-time-section div label .status-icon {
     width: 3em;
     height: 3em;
-    background: url(./../images/icons/reserve-open.svg);
     background-position: center !important;
     background-repeat: no-repeat !important;
     background-size: 90% 90%;
@@ -444,7 +443,11 @@ img.room-md-image {
 }
 
 
-.reserve-time-section div label .status-icon.vip {
+.reserve-time-section div label.normal .status-icon{
+    background: url(./../images/icons/reserve-open.svg);
+}
+
+.reserve-time-section div label.vip .status-icon {
     background-image: url(./../images/icons/vip-reserve-open.svg);
 }
 
@@ -453,13 +456,13 @@ label.selected-time {
     background-color: var(--mb-light-purple) !important;
 }
 
-label.selected-time .status-icon {
+label.normal.selected-time .status-icon {
     background: url(./../images/icons/reserving.svg) !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
 }
 
-label.selected-time .status-icon.vip {
+label.vip.selected-time .status-icon {
     background-image: url(./../images/icons/vip-reserving.svg) !important;
 }
 
