@@ -444,7 +444,7 @@ img.room-md-image {
 
 
 .reserve-time-section div label.vip .status-icon {
-    background: url(./../images/icons/vip-reserve-open.svg) !important;
+    background-image: url(./../images/icons/vip-reserve-open.svg) !important;
 }
 
 
@@ -459,7 +459,7 @@ label.selected-time .status-icon {
 }
 
 label.selected-time.vip .status-icon {
-    background: url(./../images/icons/vip-reserving.svg) !important;
+    background-image: url(./../images/icons/vip-reserving.svg) !important;
 }
 
 
