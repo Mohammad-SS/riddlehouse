@@ -427,7 +427,7 @@ img.room-md-image {
 
 .reserve-time-section div label.vip .status-icon {
   background-image: url(./../images/icons/vip-reserve-open.svg);
-  background-size: 90% 90%;
+  background-size: 80% 80%;
 }
 
 label.selected-time {
@@ -442,7 +442,7 @@ label.normal.selected-time .status-icon {
 
 label.vip.selected-time .status-icon {
   background-image: url(./../images/icons/vip-reserving.svg) !important;
-  background-size: 90% 90%;
+  background-size: 80% 80%;
 }
 
 .reserve-form {
