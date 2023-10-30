@@ -417,6 +417,11 @@ img.room-md-image {
     user-select: none !important;
 }
 
+.reserve-time-section.vip div label {
+    background-color: #ffd70030;
+}
+
+
 .reserve-time-section div label {
     transition: all .2s;
     cursor: pointer;
@@ -437,6 +442,12 @@ img.room-md-image {
 
 }
 
+
+.reserve-time-section.vip div label .status-icon {
+    background: url(./../images/icons/vip-reserve-open.svg) !important;
+}
+
+
 label.selected-time {
     background-color: var(--mb-light-purple) !important;
 }
@@ -446,6 +457,11 @@ label.selected-time .status-icon {
     background-position: center !important;
     background-repeat: no-repeat !important;
 }
+
+.reserve-time-section.vip div label.selected-time .status-icon {
+    background: url(./../images/icons/vip-reserving.svg) !important;
+}
+
 
 .reserve-form {
     width: 100%;
