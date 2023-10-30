@@ -439,6 +439,7 @@ img.room-md-image {
     background: url(./../images/icons/reserve-open.svg);
     background-position: center !important;
     background-repeat: no-repeat !important;
+    background-size: 90% 90%;
 
 }
 
