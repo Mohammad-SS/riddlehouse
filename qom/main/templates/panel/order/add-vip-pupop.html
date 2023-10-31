@@ -16,7 +16,7 @@
 
     <div class="gdialog-body">
         <div class="px-md-2">
-            <form method="post" action="{% url 'main:panel-sans' %}"" class="gltr" ref='vip_form'>
+            <form method="post" action="{% url 'main:panel-sans' %}" class="gltr" ref='vip_form'>
                 {% csrf_token %}
                 <input v-if='vip.is_vip' type="hidden" name="action" value="delete">
                 <input v-if='!vip.is_vip' type="hidden" name="action" value="set">
