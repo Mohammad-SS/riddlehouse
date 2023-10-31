@@ -241,7 +241,7 @@
                                                     <span class="d-flex">
                                                         <i class="far fa-clock text-warning"></i>&nbsp;
                                                         <span class="px-2">
-                                                            سانس های vip :
+                                                            سانس های وی آی پی :
                                                             {% for hour in vipobj.hours %}
                                                                 {{ hour }} {% if not forloop.last %} - {% endif %}
                                                             {% endfor %}
@@ -251,7 +251,6 @@
                                                     <span class="d-flex">
                                                         <i class="far fa-clock text-danger"></i>&nbsp;
                                                         <span class="px-2">
-                                                            تغییرات :
                                                             {% with excluded_hours=vipobj|exclude_hours %}
 
                                                                 {% if excluded_hours.min_hours %}
@@ -260,15 +259,22 @@
                                                                         {{ hour }} {% if not forloop.last %} - {% endif %}
                                                                     {% endfor %}
                                                                 {% endif %}
-                                                                {% if excluded_hours.add_hours %}
+                                                                {% comment %} {% if excluded_hours.add_hours %}
                                                                     ساعت های اضافه شده :
                                                                     {% for hour in excluded_hours.add_hours %}
                                                                         {{ hour }} {% if not forloop.last %} - {% endif %}
                                                                     {% endfor %}
-                                                                {% endif %}
+                                                                {% endif %} {% endcomment %}
                                                             {% endwith %}
                                                         </span>
-
+                                                    </span>
+                                                    <span class='d-flex'>
+                                                        <i class="fas fa-hand-holding-usd text-info"></i>&nbsp;
+                                                        مبلغ به ازای هر نفر: {{vipobj.price_per_unit}}
+                                                    </span>
+                                                    <span class='d-flex'>
+                                                        <i class="fas fa-money-bill-1-wave text-success"></i>&nbsp;
+                                                        مبلغ پیش پرداخت: {{vipobj.pre_pay}}
                                                     </span>
                                                 </div>
                                             </div>
