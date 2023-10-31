@@ -189,6 +189,9 @@ class VipSansView(LoginRequiredMixin, View):
             return redirect(reverse('main:reserve_calendar'))
 
         room = room.last()
+        
+        print(data_dict)
+
         one_time = game_models.OneTimeVipSans.objects.filter(room=room, date_time=date)
         if one_time.exists():
             one_time = one_time.last()
