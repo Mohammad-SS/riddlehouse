@@ -472,15 +472,15 @@ var app = new Vue({
     },
     pre_price_with_off() {
       if (!this.coupan.valid) {
-        return this.price;
+        return this.selected_turn.pre_pay;
       }
 
       let off_type = this.coupan.type;
       let off_amount = this.coupan.amount;
       let price =
         off_type == "percent"
-          ? this.price.num - (this.price.num * off_amount) / 100
-          : this.price.num - off_amount;
+          ?this.selected_turn.pre_pay - (this.selected_turn.pre_pay * off_amount) / 100
+          :this.selected_turn.pre_pay - off_amount;
 
       return { str: separate(price), num: price };
     },
