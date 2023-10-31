@@ -21,8 +21,13 @@ def check_vip(timestamp, room):
     time = dt.strftime('%H:%M')
 
     jalali = JalaliDateTime.fromtimestamp(timestamp, pytz.timezone("Asia/Tehran"))
+
+
+    one_time_vip_sans = models.OneTimeVipSans.objects.filter(room=room, date_time=dt)
+    if one_time_vip_sans.exists():
+        return one_time_vip_sans.last()
+
     vip_sans = models.VipSans.objects.filter(room=room, weekdays__contains=[jalali.weekday() + 1])
-    
     last_vip = None
     if vip_sans.exists():
         last = vip_sans.last()
