@@ -39,8 +39,8 @@ var app = new Vue({
                 id,
                 name
             },
-            this.vip ={
-                is_vip: is_vip,
+            this.vip = {
+                is_vip: is_vip == "True" ? true : false,
                 price_per_unit: unit_price,
                 pre_pay: pre_pay
             }
@@ -64,8 +64,9 @@ var app = new Vue({
             let form = this.$refs.vip_form
             if (form.checkValidity()) {
                 console.log(e, action)
-                // this.vip_loading = true
-                // form.submit()
+                form.action.value = action
+                this.vip_loading = true
+                form.submit()
             } else {
                 this.vip_loading = false
             }
