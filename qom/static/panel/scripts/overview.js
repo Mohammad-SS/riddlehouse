@@ -63,8 +63,9 @@ var app = new Vue({
             e.preventDefault();
             let form = this.$refs.vip_form
             if (form.checkValidity()) {
-                this.vip_loading = true
-                form.submit()
+                console.log(e, action)
+                // this.vip_loading = true
+                // form.submit()
             } else {
                 this.vip_loading = false
             }
