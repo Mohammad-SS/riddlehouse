@@ -173,24 +173,127 @@ class PanelOverview(LoginRequiredMixin, View):
 
 class VipSansView(LoginRequiredMixin, View):
     
+    def redirect_to_overview(self):
+        return redirect(reverse('main:reserve_calendar'))
+
+
+    def create_new_one_time_vip_sans(self, data, exclude=False):
+        pass
+
+
     def post(self, requset):
         data = requset.POST
 
-        data_dict = {key:data.get(key) for key in ['room_id', 'date', 'hour', 'price_per_unit', 'pre_pay', 'action']}
+        data_dict = {key:data.get(key) for key in ['room_id', 'date', 'hour', 'price_per_unit', 'pre_pay', 'action', 'is_vip']}
 
         if not all(data_dict.values()):
-           return redirect(reverse('main:reserve_calendar'))
+           return self.redirect_to_overview()
         
         jalali_date = str(parser.parse("%s %s" % (data_dict.get('date'), data_dict.get('hour'))))
         date =jdatetime.JalaliDateTime.strptime(jalali_date, "%Y-%m-%d %H:%M").to_gregorian()
      
         room = game_models.Room.objects.filter(id=data_dict['room_id'])
         if not room.exists():
-            return redirect(reverse('main:reserve_calendar'))
+            return self.redirect_to_overview()
 
         room = room.last()
+        one_time = game_models.OneTimeVipSans.objects.filter(room=room, date_time=date)
+        if data_dict['action'] == "delete":
+            if one_time.exists():
+                one_time = one_time.last()
+                one_time.delete()
+            else:
+                self.create_new_one_time_vip_sans(
+                    data={
+                        "room": room,
+                        "date_time": date,
+                        "price_per_unit": data_dict['price_per_unit'],
+                        "pre_pay": data_dict['pre_pay'],
+                        "exclude": True if data_dict['is_vip'] == 'yes' else False
+                    }
+                )
+        elif data_dict['action'] == "set":
+            if one_time.exists():
+                one_time = one_time.last()
+                one_time.price_per_unit = data_dict['price_per_unit']
+                one_time.pre_pay = data_dict['pre_pay']
+                one_time.exclude = False
+                one_time.save()
+            elif data_dict['is_vip'] == 'no':
+                self.create_new_one_time_vip_sans(
+                    data={
+                        "room": room,
+                        "date_time": date,
+                        "price_per_unit": data_dict['price_per_unit'],
+                        "pre_pay": data_dict['pre_pay'],
+                        "exclude": False
+                    }
+                )
+
+        return self.redirect_to_overview()
         
-        print(data_dict)
+
+        if data_dict['is_vip'] =='no' and data_dict['action'] == "set":
+            if not one_time.exists():
+                self.create_new_one_time_vip_sans(
+                    data = {
+                        "room":room,
+                        "date_time":date,
+                        "price_per_unit":data_dict['price_per_unit'],
+                        "pre_pay":data_dict['pre_pay'],
+                        "exclude":False
+                    }
+                )
+                return self.redirect_to_overview()
+    
+        return self.redirect_to_overview()
+
+                
+
+       
+        # if data_dict['is_vip']:
+        #     if one_time.exists():
+        #         one_time = one_time.last()
+        #         if data_dict['action'] == "delete":
+        #             one_time.delete()
+        #         elif data_dict['action'] == 'set':
+                    # one_time.price_per_unit = data_dict['price_per_unit']
+                    # one_time.pre_pay = data_dict['pre_pay']
+        #             one_time.save()
+        #             return redirect(reverse('main:reserve_calendar'))
+            
+        #     else:
+        #         if data_dict['action'] == 'delete':
+        #             new_one_time = game_models.OneTimeVipSans(
+                        # room=room,
+                        # date_time=date,
+                        # price_per_unit=data_dict['price_per_unit'],
+                        # pre_pay=data_dict['pre_pay'],
+                        # exclude=True
+        #             )
+        #             new_one_time.save()
+
+        # else:
+        #     if one_time.exists():
+        #         one_time = one_time.last()
+        #         if data_dict['action'] == "delete":
+        #             one_time.delete()
+        #         elif data_dict['action'] == 'set':
+        #             one_time.price_per_unit = data_dict['price_per_unit']
+        #             one_time.pre_pay = data_dict['pre_pay']
+        #             one_time.save()
+        #             return redirect(reverse('main:reserve_calendar'))
+            
+        #     else:
+        #         if data_dict['action'] == 'delete':
+        #             new_one_time = game_models.OneTimeVipSans(
+        #                 room=room,
+        #                 date_time=date,
+        #                 price_per_unit=data_dict['price_per_unit'],
+        #                 pre_pay=data_dict['pre_pay'],
+        #                 exclude=True
+        #             )
+                    new_one_time.save()
 
         one_time = game_models.OneTimeVipSans.objects.filter(room=room, date_time=date)
         if one_time.exists():
@@ -206,14 +309,14 @@ class VipSansView(LoginRequiredMixin, View):
 
             return redirect(reverse('main:reserve_calendar'))
         
-
+        
 
         new_one_time = game_models.OneTimeVipSans(
             room=room,
             date_time=date,
             price_per_unit=data_dict['price_per_unit'],
             pre_pay=data_dict['pre_pay'],
-            exclude=True if data_dict['action'] == 'unset' else False
+            exclude=True if data_dict['action'] == 'delete' else False
         )
 
         new_one_time.save()
