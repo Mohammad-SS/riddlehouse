@@ -179,14 +179,14 @@ class VipSansView(LoginRequiredMixin, View):
         data_dict = {key:data.get(key) for key in ['room_id', 'date', 'hour', 'price_per_unit', 'pre_pay', 'action']}
 
         if not all(data_dict.values()):
-           redirect(reverse('main:reserve_calendar'))
+           return redirect(reverse('main:reserve_calendar'))
         
         jalali_date = str(parser.parse("%s %s" % (data_dict.get('date'), data_dict.get('hour'))))
         date =jdatetime.JalaliDateTime.strptime(jalali_date, "%Y-%m-%d %H:%M").to_gregorian()
      
         room = game_models.Room.objects.filter(id=data_dict['room_id'])
         if not room.exists():
-            redirect(reverse('main:reserve_calendar'))
+            return redirect(reverse('main:reserve_calendar'))
 
         room = room.last()
         one_time = game_models.OneTimeVipSans.objects.filter(room=room, date_time=date)
@@ -194,14 +194,14 @@ class VipSansView(LoginRequiredMixin, View):
             one_time = one_time.last()
             if data_dict['action'] == "delete":
                 one_time.delete()
-                redirect(reverse('main:reserve_calendar'))
+                return redirect(reverse('main:reserve_calendar'))
             elif data_dict['action'] == 'set':
                 one_time.price_per_unit = data_dict['price_per_unit']
                 one_time.pre_pay = data_dict['pre_pay']
                 one_time.save()
-                redirect(reverse('main:reserve_calendar'))
+                return redirect(reverse('main:reserve_calendar'))
 
-            redirect(reverse('main:reserve_calendar'))
+            return redirect(reverse('main:reserve_calendar'))
         
 
 
@@ -214,7 +214,7 @@ class VipSansView(LoginRequiredMixin, View):
         )
 
         new_one_time.save()
-        redirect(reverse('main:reserve_calendar'))
+        return redirect(reverse('main:reserve_calendar'))
 
 
 
