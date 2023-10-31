@@ -472,7 +472,8 @@ var app = new Vue({
     },
     pre_price_with_off() {
       if (!this.coupan.valid) {
-        return this.selected_turn.pre_pay;
+        return { str: separate(this.selected_turn.pre_pay), num: this.selected_turn.pre_pay }
+
       }
 
       let off_type = this.coupan.type;
