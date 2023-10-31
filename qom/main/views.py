@@ -191,10 +191,19 @@ class VipSansView(LoginRequiredMixin, View):
         room = room.last()
         one_time = game_models.OneTimeVipSans.objects.filter(room=room, date_time=date)
         if one_time.exists():
+            one_time = one_time.last()
             if data_dict['action'] == "delete":
                 one_time.delete()
                 redirect(reverse('main:reserve_calendar', kwargs={"action": data_dict['action']}))
+            elif data_dict['action'] == 'set':
+                one_time.price_per_unit = data_dict['price_per_unit']
+                one_time.pre_pay = data_dict['pre_pay']
+                one_time.save()
+                redirect(reverse('main:reserve_calendar', kwargs={"action": data_dict['action']}))
+
             redirect(reverse('main:reserve_calendar'))
+        
+
         
         new_one_time = game_models.OneTimeVipSans(
             room=room,

@@ -18,7 +18,8 @@
         <div class="px-md-2">
             <form method="post" action="" class="gltr" ref='vip_form'>
                 {% csrf_token %}
-                <input type="hidden" name="action" value="reserve">
+                <input v-if='vip.is_vip' type="hidden" name="action" value="delete">
+                <input v-if='!vip.is_vip' type="hidden" name="action" value="set">
                 <div class="row">
                     <span class="badge badge-secondary mb-3">اطلاعات vip</span>
                     <p>
