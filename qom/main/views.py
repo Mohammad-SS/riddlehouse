@@ -346,7 +346,7 @@ class PanelScheduleView(LoginRequiredMixin, View):
         otes = game_models.OneTimeExclusion.objects.filter(date_time__gte=datetime.date.today()).order_by("-pk")
         # vipsans = game_models.VipSans.objects.filter(to_date__gte=datetime.date.today()).order_by("-pk")
 
-        context = {
+        context = { 
             "exclusions": exclusions,
             # "vipsans" : vipsans,
             "otes": otes,

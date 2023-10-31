@@ -126,7 +126,8 @@ class VipSans(models.Model):
     
     hours = postgres_fields.ArrayField(models.CharField(max_length=12, blank=True), blank=True, null=True)
     create_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    
+    test = models.CharField(max_length=50, blank=True, null=True)
+
     @property
     def persian_dates(self):
         from_date = jdatetime.JalaliDate(self.from_date).replace(locale="fa").strftime(
