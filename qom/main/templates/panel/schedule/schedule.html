@@ -192,6 +192,49 @@
                 <div class="d-flex px-2 schedule-container">
                 
                 {% if user.is_authenticated and user.username == 'developer' %}
+                    {% if otvip %}
+                        <div class=" schedule-time bg-white flex-fill rounded shadow-3 p-2  m-2 my-1"
+                            style="margin-right: 1em;min-width: 25em;height: fit-content;">
+
+                            <table class="table align-middle mb-0 bg-white mb-rtl">
+                                <thead class="bg-light">
+                                <tr>
+                                    <th class="text-center">تایم های بسته شده</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in otvip %}
+                                    {% with datetime=item.persian_dates %}
+                                        <tr>
+                                            <td class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <p class="p-0 m-0 fw-bold">{{ item.room.name }}</p>
+                                                    <p class="p-0 m-0">تاریخ: {{ datetime.date.display }}</p>
+                                                    <p class="p-0 m-0">ساعت: {{ datetime.time }}</p>
+                                                </div>
+                                                <div>
+                                                    <form action="{% url 'main:reserve_calendar' %}" method="post">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="room" value="{{ item.room.id }}">
+                                                        <input type="hidden" name="date" value="{{ datetime.date.value }}">
+                                                        <input type="hidden" name="time" value="{{ datetime.time }}">
+                                                        <input type="hidden" name="action" value="open">
+                                                        <button class="btn btn-link text-primary">
+                                                            <i class="fas fa-unlock-alt"></i>&nbsp;
+                                                            بازکردن
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    {% endwith %}
+                                {% endfor %}
+                                </tbody>
+
+                            </table>
+                        </div>
+                    {% endif %}
                     {% if vipsans %}
                         <div class="schedule-exclusions bg-white flex-fill schedule rounded shadow-3 p-2 m-2 my-1">
                             <table class="table align-middle mb-0 bg-white" dir="rtl">

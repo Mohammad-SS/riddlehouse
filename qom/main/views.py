@@ -462,11 +462,12 @@ class PanelScheduleView(LoginRequiredMixin, View):
         exclusions = game_models.Exclusion.objects.all().order_by("-pk")
         otes = game_models.OneTimeExclusion.objects.filter(date_time__gte=datetime.date.today()).order_by("-pk")
         vipsans = game_models.VipSans.objects.filter(to_date__gte=datetime.date.today()).order_by("-pk")
-
+        otvip = game_models.OneTimeVipSans.objects.filter(date_time__gte=datetime.date.today()).order_by("-pk")
         context = {
             "exclusions": exclusions,
             "vipsans" : vipsans,
             "otes": otes,
+            "otvip": otvip,
             "title": "زمان بندی ها"
         }
         return render(request, "panel/schedule/schedule.html", context)
