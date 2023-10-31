@@ -232,7 +232,7 @@
                                                         روزهای هفته :
                                                         <span class="px-2">
                                                             {% for weekday in vipobj.weekdays %}
-                                                                {{ weekday|convert_iso_to_weekday }} -
+                                                                {{ weekday|convert_iso_to_weekday }} {% if not forloop.last %} - {% endif %}
                                                             {% endfor %}
                                                         </span>
                                                     </span>
@@ -241,9 +241,9 @@
                                                     <span class="d-flex">
                                                         <i class="far fa-clock text-warning"></i>&nbsp;
                                                         <span class="px-2">
-                                                            ساعات :
+                                                            سانس های vip :
                                                             {% for hour in vipobj.hours %}
-                                                                {{ hour }} -
+                                                                {{ hour }} {% if not forloop.last %} - {% endif %}
                                                             {% endfor %}
                                                         </span>
 
@@ -255,15 +255,15 @@
                                                             {% with excluded_hours=vipobj|exclude_hours %}
 
                                                                 {% if excluded_hours.min_hours %}
-                                                                    ساعت های حذف شده :
+                                                                    ساسن های عادی :
                                                                     {% for hour in excluded_hours.min_hours %}
-                                                                        {{ hour }} -
+                                                                        {{ hour }} {% if not forloop.last %} - {% endif %}
                                                                     {% endfor %}
                                                                 {% endif %}
                                                                 {% if excluded_hours.add_hours %}
                                                                     ساعت های اضافه شده :
                                                                     {% for hour in excluded_hours.add_hours %}
-                                                                        {{ hour }} -
+                                                                        {{ hour }} {% if not forloop.last %} - {% endif %}
                                                                     {% endfor %}
                                                                 {% endif %}
                                                             {% endwith %}
