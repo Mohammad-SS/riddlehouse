@@ -151,7 +151,7 @@ class OneTimeVipSans(models.Model):
     date_time = models.DateTimeField(blank=True, null=True)
     price_per_unit = models.IntegerField(blank=True, null=True)
     pre_pay = models.IntegerField(blank=True, null=True)
-    exclude = models.IntegerField(default=False, blank=True, null=True)
+    exclude = models.BooleanField(default=False, blank=True, null=True)
     
     def __str__(self):
         return f"{self.room.name} - ({self.date_time})"
