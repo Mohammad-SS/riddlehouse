@@ -25,6 +25,7 @@ urlpatterns = [
     
     path("panel/settings", views.PanelSettingsView.as_view(), name='settings'),
     path("panel/template", views.TemplateSettingsView.as_view(), name='template-settings'),
+    path("panel/sans", views.VipSansView.as_view(), name='panel-sans'),
 
     path("" ,  views.LandingView.as_view() ,name='main'),
     path("cities" ,  views.CitySelectView.as_view() ,name='city'),

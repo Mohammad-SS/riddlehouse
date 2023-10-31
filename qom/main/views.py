@@ -1,6 +1,6 @@
 import datetime
 import random, json
-
+from dateutil import parser
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
@@ -169,6 +169,45 @@ class PanelOverview(LoginRequiredMixin, View):
         order_object.save()
         functions.send_sms.delay(order=order_object.pk)
         return redirect("main:reserve_calendar")
+
+
+class VipSansView(LoginRequiredMixin, View):
+    
+    def post(self, requset):
+        data = requset.POST
+
+        data_dict = {key:data.get(key) for key in ['room_id', 'date', 'hour', 'price_per_unit', 'pre_pay', 'action']}
+
+        if not all(data_dict.values()):
+           redirect(reverse('main:reserve_calendar', kwargs={"error": "مقادیر ارسالی معتبر نمیباشد"}))
+        
+        jalali_date = parser.parse("%s %s" % (data_dict.get('date'), data_dict.get('hour')))
+        date =jdatetime.JalaliDateTime.strptime(jalali_date, "%Y-%m-%d %H:%M").to_gregorian()
+     
+        room = game_models.Room.objects.filter(id=data_dict['room_id'])
+        if not room.exists():
+            redirect(reverse('main:reserve_calendar', kwargs={"error": 'اتاق مورد نظر یافت نشد'}))
+
+        room = room.last()
+        one_time = game_models.OneTimeVipSans.objects.filter(room=room, date_time=date)
+        if one_time.exists():
+            if data_dict['action'] == "delete":
+                one_time.delete()
+                redirect(reverse('main:reserve_calendar', kwargs={"action": data_dict['action']}))
+            redirect(reverse('main:reserve_calendar'))
+        
+        new_one_time = game_models.OneTimeVipSans(
+            room=room,
+            date_time=date,
+            price_per_unit=data_dict['price_per_unit'],
+            pre_pay=data_dict['pre_pay'],
+            exclude=True if data_dict['action'] == 'unset' else False
+        )
+
+        new_one_time.save()
+        redirect(reverse('main:reserve_calendar', kwargs={"action": data_dict['action']}))
+
+
 
 
 class PanelRoomView(LoginRequiredMixin, View):
