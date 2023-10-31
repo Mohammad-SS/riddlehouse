@@ -220,7 +220,7 @@
                             {% endif %}
                         >
                         
-                        <span class="align-items-center cursor-pointer d-flex" @dblclick='()=>set_vip_detail({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{data.date}}`, `{{hour}}`, {{data.is_vip}}, {{data.price_per_unit}}, {{data.pre_pay}})'>
+                        <span class="align-items-center cursor-pointer d-flex user-select-none" @dblclick='()=>set_vip_detail({{room.room_obj.id}}, `{{room.room_obj.name}}`, `{{data.date}}`, `{{hour}}`, {{data.is_vip}}, {{data.price_per_unit}}, {{data.pre_pay}})'>
                             {% if data.is_vip %}<i class="fas fa-star text-warning"></i>{% else %}<i class="far fa-clock"></i>{% endif %}&nbsp; ساعت {{hour}}</span>
                         <span class="mb-expand"></span>
                         <span class="d-flex align-items-center">
