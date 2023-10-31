@@ -8,7 +8,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('game', '0018_room_is_archive'),
+        ('game', '0018_room_is_archive_vipsans_onetimevipsans'),
     ]
 
     operations = [
