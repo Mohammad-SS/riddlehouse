@@ -127,12 +127,12 @@
                                         <td colspan="5" class="m-0 p-0">
                                             <div collapse-id='collapse_{{ exclusion.pk }}'>
                                                 <div style='min-height:5em;' class='align-items-start d-flex flex-column flex-wrap px-4 py-3'>
-                                                    <span class="d-flex">
+                                                    <span class="d-flex align-items-center">
                                                         <i class="far fa-calendar text-primary"></i>&nbsp;
                                                         <span class="px-2"> از: {{ exclusion.persian_dates.from }} - تا: {{ exclusion.persian_dates.to }}</span>
                                                     </span>
                                                     {% if exclusion.role == "DW" %}
-                                                    <span class="d-flex">
+                                                    <span class="d-flex align-items-center">
                                                         <i class="far fa-calendar-alt text-secondary"></i>&nbsp;
                                                         روزهای هفته :
                                                         <span class="px-2">
@@ -143,7 +143,7 @@
                                                     </span>
                                                     {% endif %}
 
-                                                    <span class="d-flex">
+                                                    <span class="d-flex align-items-center">
                                                         <i class="far fa-clock text-warning"></i>&nbsp;
                                                         <span class="px-2">
                                                             ساعات :
@@ -153,7 +153,7 @@
                                                         </span>
 
                                                     </span>
-                                                    <span class="d-flex">
+                                                    <span class="d-flex align-items-center">
                                                         <i class="far fa-clock text-danger"></i>&nbsp;
                                                         <span class="px-2">
                                                             تغییرات :
@@ -223,14 +223,14 @@
                                             <div collapse-id='collapse_{{ vipobj.pk }}'>
                                                 <div style='min-height:5em;' class='align-items-start d-flex flex-column flex-wrap px-4 py-3'>
                                                     {% if vipobj.from_date and vipobj.to_date %}
-                                                    <span class="d-flex">
+                                                    <span class="d-flex align-items-center">
                                                         <i class="far fa-calendar text-primary"></i>&nbsp;
                                                         <span class="px-2"> از: {{ vipobj.persian_dates.from }} - تا : {{ vipobj.persian_dates.to }}</span>
                                                     </span>
                                                     {% endif %}
                                                     
                                                     {% if vipobj.weekdays %}
-                                                    <span class="d-flex">
+                                                    <span class="d-flex align-items-center">
                                                         <i class="far fa-calendar-alt text-secondary"></i>&nbsp;
                                                         روزهای هفته :
                                                         <span class="px-2">
@@ -241,7 +241,7 @@
                                                     </span>
                                                     {% endif %}
 
-                                                    <span class="d-flex">
+                                                    <span class="d-flex align-items-center">
                                                         <i class="far fa-clock text-warning"></i>&nbsp;
                                                         <span class="px-2">
                                                             سانس های وی آی پی :
@@ -256,7 +256,7 @@
 
                                                     </span>
                                                     {% if  vipobj.hours %}
-                                                    <span class="d-flex">
+                                                    <span class="d-flex align-items-center">
                                                         <i class="far fa-clock text-danger"></i>&nbsp;
                                                         <span class="px-2">
                                                             {% with excluded_hours=vipobj|exclude_hours %}
