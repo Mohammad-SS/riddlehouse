@@ -125,9 +125,22 @@ class VipSans(models.Model):
                                           blank=True, null=True)
     
     hours = postgres_fields.ArrayField(models.CharField(max_length=12, blank=True), blank=True, null=True)
+    create_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    
+    @property
+    def persian_dates(self):
+        from_date = jdatetime.JalaliDate(self.from_date).replace(locale="fa").strftime(
+            "%Y/%m/%d %A")
+        to_date = jdatetime.JalaliDate(self.to_date).replace(locale="fa").strftime(
+            "%Y/%m/%d %A")
+        created_date = jdatetime.JalaliDate(self.create_date).replace(locale="fa").strftime(
+            "%Y/%m/%d %A")
 
-    
-    
+        return {
+            "from": from_date,
+            "created": created_date,
+            "to": to_date
+        }
 
 class OneTimeVipSans(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
