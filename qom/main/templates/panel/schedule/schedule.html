@@ -82,7 +82,7 @@
                                     <i class="far fa-clock text-danger"></i>&nbsp;
                                     <span class="px-2">
                                         تغییرات :
-                                        {% with excluded_hours=exclusion|exclude_hours %}
+                                        {% with excluded_hours=vipobj|exclude_hours %}
 
                                             {% if excluded_hours.min_hours %}
                                                 ساعت های حذف شده :
