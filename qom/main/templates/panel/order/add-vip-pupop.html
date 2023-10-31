@@ -20,7 +20,7 @@
                 {% csrf_token %}
                 <input v-if='vip.is_vip' type="hidden" name="action" value="delete">
                 <input v-if='!vip.is_vip' type="hidden" name="action" value="set">
-                <input type="hidden" name="is_vip" :value="{vip.is_vip ? 'yes' : 'no' ">
+                <input type="hidden" name="is_vip" :value="vip.is_vip ? 'yes' : 'no' ">
                 <div class="row">
                     <span class="badge badge-secondary mb-3">اطلاعات vip</span>
                     <p>
