@@ -51,6 +51,11 @@ def check_vip(timestamp, room):
     if last_vip is None:
         return False
     
+    
+    one_time_exclude = models.OneTimeVipSans.objects.filter(room=room, date_time=dt, exclude=True)
+    if one_time_exclude.exists():
+        return False
+
     return last_vip
     
 

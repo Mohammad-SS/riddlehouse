@@ -142,9 +142,38 @@ class VipSans(models.Model):
             "created": created_date,
             "to": to_date
         }
+    
+    def __str__(self):
+        return f"{self.room.name} - ({self.from_date} - {self.to_date})"
 
 class OneTimeVipSans(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     date_time = models.DateTimeField(blank=True, null=True)
     price_per_unit = models.IntegerField(blank=True, null=True)
     pre_pay = models.IntegerField(blank=True, null=True)
+    exclude = models.IntegerField(default=False, blank=True, null=True)
+    
+    def __str__(self):
+        return f"{self.room.name} - ({self.date_time})"
+
+    @property
+    def persian_dates(self):
+        jdatetime.JalaliDateTime.fromtimestamp(self.date_time.timestamp()).replace(
+            locale="fa").strftime(
+            "%Y/%m/%d %A %H:%M")
+        date = {
+            "value": jdatetime.JalaliDateTime.fromtimestamp(self.date_time.timestamp()).replace(locale="en").strftime("%Y/%m/%d"),
+            "display": jdatetime.JalaliDateTime.fromtimestamp(self.date_time.timestamp()).replace(locale="fa").strftime("%A %d %B %Y")
+        }
+        time = jdatetime.JalaliDateTime.fromtimestamp(self.date_time.timestamp()).replace(locale="en").strftime("%H:%M")
+        created_date = jdatetime.JalaliDateTime(self.create_date, locale='en',tzinfo=pytz.timezone("Asia/Tehran")).strftime(
+            "%Y/%m/%d %A")
+
+        print('-' * 50)
+        print(date, time)
+        print('-' * 50)
+        return {
+            "date": date,
+            "time": time,
+            "created": created_date,
+        }
