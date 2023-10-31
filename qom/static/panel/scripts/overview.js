@@ -59,7 +59,7 @@ var app = new Vue({
 
         },
 
-        handle_vip_submit: function (e) {
+        handle_vip_submit: function (e, action) {
             e.preventDefault();
             let form = this.$refs.vip_form
             if (form.checkValidity()) {

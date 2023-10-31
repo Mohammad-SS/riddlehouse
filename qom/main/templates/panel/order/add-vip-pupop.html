@@ -18,8 +18,7 @@
         <div class="px-md-2">
             <form method="post" action="{% url 'main:panel-sans' %}" class="gltr" ref='vip_form'>
                 {% csrf_token %}
-                <input v-if='vip.is_vip' type="hidden" name="action" value="delete">
-                <input v-if='!vip.is_vip' type="hidden" name="action" value="set">
+                <input v-if='vip.is_vip' type="hidden" name="action" value=null>
                 <input type="hidden" name="is_vip" :value="vip.is_vip ? 'yes' : 'no' ">
                 <div class="row">
                     <span class="badge badge-secondary mb-3">اطلاعات vip</span>
@@ -48,9 +47,9 @@
 
 
                     <div class="col-12 mt-4 d-flex flex-fill justify-content-end">
-                        <button name='action' value='set' v-if='!vip.is_vip' type="submit" class="btn btn-primary btn-sm me-1" @click='handle_vip_submit' :disabled='vip_loading'>ثبت</button>
-                        <button name='action' value='delete'  v-if='vip.is_vip' type="submit" class="btn btn-warning btn-sm me-1" @click='handle_vip_submit' :disabled='vip_loading'>حذف</button>
-                        <button name='action' value='unset'  v-if='vip.is_vip' type="submit" class="btn btn-success btn-sm me-1" @click='handle_vip_submit' :disabled='vip_loading'>اپدیت</button>
+                        <button v-if='!vip.is_vip' type="submit" class="btn btn-primary btn-sm me-1" @click='() => handle_vip_submit($event, "set")' :disabled='vip_loading'>ثبت</button>
+                        <button v-if='vip.is_vip' type="submit" class="btn btn-warning btn-sm me-1" @click='() => handle_vip_submit($event, "delete")' :disabled='vip_loading'>حذف</button>
+                        <button v-if='vip.is_vip' type="submit" class="btn btn-success btn-sm me-1" @click='() => handle_vip_submit($event, "update")' :disabled='vip_loading'>اپدیت</button>
                         <span @click='vip_pupop=false' class="btn btn-danger btn-sm">انصراف</span>
                     </div>
                 </div>
