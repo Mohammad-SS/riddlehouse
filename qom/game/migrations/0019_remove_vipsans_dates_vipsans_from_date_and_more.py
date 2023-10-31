@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('game', '0019_vipsans_onetimevipsans'),
+        ('game', '0018_room_is_archive_vipsans_onetimevipsans'),
     ]
 
     operations = [

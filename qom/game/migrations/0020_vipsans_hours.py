@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('game', '0020_remove_vipsans_dates_vipsans_from_date_and_more'),
+        ('game', '0019_remove_vipsans_dates_vipsans_from_date_and_more'),
     ]
 
     operations = [
