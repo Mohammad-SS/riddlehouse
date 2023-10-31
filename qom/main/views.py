@@ -181,7 +181,7 @@ class VipSansView(LoginRequiredMixin, View):
         if not all(data_dict.values()):
            redirect(reverse('main:reserve_calendar', kwargs={"error": "مقادیر ارسالی معتبر نمیباشد"}))
         
-        jalali_date = parser.parse("%s %s" % (data_dict.get('date'), data_dict.get('hour')))
+        jalali_date = str(parser.parse("%s %s" % (data_dict.get('date'), data_dict.get('hour'))))
         date =jdatetime.JalaliDateTime.strptime(jalali_date, "%Y-%m-%d %H:%M").to_gregorian()
      
         room = game_models.Room.objects.filter(id=data_dict['room_id'])
@@ -204,7 +204,7 @@ class VipSansView(LoginRequiredMixin, View):
             redirect(reverse('main:reserve_calendar'))
         
 
-        
+
         new_one_time = game_models.OneTimeVipSans(
             room=room,
             date_time=date,
