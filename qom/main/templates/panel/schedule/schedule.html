@@ -35,7 +35,7 @@
                                 <div class="d-flex flex-fill align-items-center"
                                      collapse-id-data='collapse_{{ vipobj.pk }}' collapse-auto-close='true'>
                                     <div class="">
-                                        <p class="fw-bold mb-1">{{ vipobj.room.name }} ({{ vipobj.get_role_display }})</p>
+                                        <p class="fw-bold mb-1">{{ vipobj.room.name }}</p>
                                         <p class="text-muted mb-0">تاریخ ایجاد: {{ vipobj.persian_dates.created }}</p>
                                     </div>
                                 </div>
@@ -168,7 +168,7 @@
                                 <div class="d-flex flex-fill align-items-center"
                                      collapse-id-data='collapse_{{ exclusion.pk }}' collapse-auto-close='true'>
                                     <div class="">
-                                        <p class="fw-bold mb-1">{{ exclusion.room.name }} ({{ exclusion.get_role_display }})</p>
+                                        <p class="fw-bold mb-1">{{ exclusion.room.name }} <span class='fw-normal'>({{ exclusion.get_role_display }})</span></p>
                                         <p class="text-muted mb-0">تاریخ ایجاد: {{ exclusion.persian_dates.created }}</p>
                                     </div>
                                 </div>
