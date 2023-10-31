@@ -40,7 +40,7 @@ var app = new Vue({
                 name
             },
             this.vip = {
-                is_vip: is_vip == "True" ? true : false,
+                is_vip: is_vip == 1 ? true : false,
                 price_per_unit: unit_price,
                 pre_pay: pre_pay
             }
