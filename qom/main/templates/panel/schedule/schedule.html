@@ -222,11 +222,14 @@
                                         <td colspan="5" class="m-0 p-0">
                                             <div collapse-id='collapse_{{ vipobj.pk }}'>
                                                 <div style='min-height:5em;' class='align-items-start d-flex flex-column flex-wrap px-4 py-3'>
+                                                    {% if vipobj.from_date and vipobj.to_date %}
                                                     <span class="d-flex">
                                                         <i class="far fa-calendar text-primary"></i>&nbsp;
                                                         <span class="px-2"> از: {{ vipobj.persian_dates.from }} - تا : {{ vipobj.persian_dates.to }}</span>
                                                     </span>
-                                                    {% if vipobj.role == "DW" %}
+                                                    {% endif %}
+                                                    
+                                                    {% if vipobj.weekdays %}
                                                     <span class="d-flex">
                                                         <i class="far fa-calendar-alt text-secondary"></i>&nbsp;
                                                         روزهای هفته :
