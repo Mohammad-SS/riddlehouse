@@ -23,7 +23,7 @@ def check_vip(timestamp, room):
     jalali = JalaliDateTime.fromtimestamp(timestamp, pytz.timezone("Asia/Tehran"))
 
 
-    one_time_vip_sans = models.OneTimeVipSans.objects.filter(room=room, date_time=dt)
+    one_time_vip_sans = models.OneTimeVipSans.objects.filter(room=room, date_time=dt, exclude=False)
     if one_time_vip_sans.exists():
         return one_time_vip_sans.last()
 
@@ -52,11 +52,10 @@ def check_vip(timestamp, room):
         return False
     
     
-    print(dt)
+
     one_time_exclude = models.OneTimeVipSans.objects.filter(room=room, date_time=dt, exclude=True)
     if one_time_exclude.exists():
-        print(one_time_exclude)
-        print(dt)
+        print("here")
         return False
 
     return last_vip
