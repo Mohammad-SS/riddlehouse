@@ -18,7 +18,7 @@
 {% endblock dialogs %}
 
 {% block content %}
-    <div class="d-flex mt-3 schedule-container ">
+    <div class="d-flex mt-3 schedule-container px-3">
         {% if user.is_authenticated and user.username == 'developer' %}
             {% if vipsans %}
             <div class="schedule-exclusions bg-white flex-fill schedule rounded shadow-3 p-2 m-2">
