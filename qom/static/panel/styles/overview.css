@@ -10,9 +10,9 @@
 }
 
 .overview table td.vip {
-    background-image: url("./../images/overview-vio-item.svg");
-    background-size: contain;
-    background-position: 10px 15px;
+    background-image: url"(./../images/overview-vio-item.svg");
+    background-size: 60% 60%;
+    background-position: 0 140%;
     background-repeat: no-repeat;
 }
 

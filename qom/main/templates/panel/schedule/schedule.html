@@ -203,7 +203,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for item in otvip %}
+                                {% comment %} {% for item in otvip %}
                                     {% with datetime=item.persian_dates %}
                                         <tr>
                                             <td class="d-flex justify-content-between align-items-center">
@@ -229,7 +229,7 @@
 
                                         </tr>
                                     {% endwith %}
-                                {% endfor %}
+                                {% endfor %} {% endcomment %}
                                 </tbody>
 
                             </table>
