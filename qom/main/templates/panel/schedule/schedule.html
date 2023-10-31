@@ -245,12 +245,17 @@
                                                         <i class="far fa-clock text-warning"></i>&nbsp;
                                                         <span class="px-2">
                                                             سانس های وی آی پی :
+                                                            {% if vipobj.hours %}
                                                             {% for hour in vipobj.hours %}
                                                                 {{ hour }} {% if not forloop.last %} - {% endif %}
                                                             {% endfor %}
+                                                            {% else %}
+                                                            همه ساعات
+                                                            {% endif %}
                                                         </span>
 
                                                     </span>
+                                                    {% if  vipobj.hours %}
                                                     <span class="d-flex">
                                                         <i class="far fa-clock text-danger"></i>&nbsp;
                                                         <span class="px-2">
@@ -271,6 +276,7 @@
                                                             {% endwith %}
                                                         </span>
                                                     </span>
+                                                    {% endif %}
                                                     <span class='d-flex'>
                                                         <i class="fas fa-hand-holding-usd text-info"></i>&nbsp;
                                                         مبلغ به ازای هر نفر: {{vipobj.price_per_unit}}
