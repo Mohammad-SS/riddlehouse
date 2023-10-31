@@ -178,7 +178,8 @@ class VipSansView(LoginRequiredMixin, View):
 
 
     def create_new_one_time_vip_sans(self, data, exclude=False):
-        pass
+        obj = game_models.OneTimeVipSans.objects.create(**data)
+        return obj
 
 
     def post(self, requset):
