@@ -198,6 +198,7 @@ class VipSansView(LoginRequiredMixin, View):
 
         room = room.last()
         one_time = game_models.OneTimeVipSans.objects.filter(room=room, date_time=date)
+
         if data_dict['action'] == "delete":
             if one_time.exists():
                 one_time = one_time.last()
@@ -231,98 +232,6 @@ class VipSansView(LoginRequiredMixin, View):
                 )
 
         return self.redirect_to_overview()
-        
-
-        if data_dict['is_vip'] =='no' and data_dict['action'] == "set":
-            if not one_time.exists():
-                self.create_new_one_time_vip_sans(
-                    data = {
-                        "room":room,
-                        "date_time":date,
-                        "price_per_unit":data_dict['price_per_unit'],
-                        "pre_pay":data_dict['pre_pay'],
-                        "exclude":False
-                    }
-                )
-                return self.redirect_to_overview()
-    
-        return self.redirect_to_overview()
-
-                
-
-       
-        # if data_dict['is_vip']:
-        #     if one_time.exists():
-        #         one_time = one_time.last()
-        #         if data_dict['action'] == "delete":
-        #             one_time.delete()
-        #         elif data_dict['action'] == 'set':
-                    # one_time.price_per_unit = data_dict['price_per_unit']
-                    # one_time.pre_pay = data_dict['pre_pay']
-        #             one_time.save()
-        #             return redirect(reverse('main:reserve_calendar'))
-            
-        #     else:
-        #         if data_dict['action'] == 'delete':
-        #             new_one_time = game_models.OneTimeVipSans(
-                        # room=room,
-                        # date_time=date,
-                        # price_per_unit=data_dict['price_per_unit'],
-                        # pre_pay=data_dict['pre_pay'],
-                        # exclude=True
-        #             )
-        #             new_one_time.save()
-
-        # else:
-        #     if one_time.exists():
-        #         one_time = one_time.last()
-        #         if data_dict['action'] == "delete":
-        #             one_time.delete()
-        #         elif data_dict['action'] == 'set':
-        #             one_time.price_per_unit = data_dict['price_per_unit']
-        #             one_time.pre_pay = data_dict['pre_pay']
-        #             one_time.save()
-        #             return redirect(reverse('main:reserve_calendar'))
-            
-        #     else:
-        #         if data_dict['action'] == 'delete':
-        #             new_one_time = game_models.OneTimeVipSans(
-        #                 room=room,
-        #                 date_time=date,
-        #                 price_per_unit=data_dict['price_per_unit'],
-        #                 pre_pay=data_dict['pre_pay'],
-        #                 exclude=True
-        #             )
-                    new_one_time.save()
-
-        one_time = game_models.OneTimeVipSans.objects.filter(room=room, date_time=date)
-        if one_time.exists():
-            one_time = one_time.last()
-            if data_dict['action'] == "delete":
-                one_time.delete()
-                return redirect(reverse('main:reserve_calendar'))
-            elif data_dict['action'] == 'set':
-                one_time.price_per_unit = data_dict['price_per_unit']
-                one_time.pre_pay = data_dict['pre_pay']
-                one_time.save()
-                return redirect(reverse('main:reserve_calendar'))
-
-            return redirect(reverse('main:reserve_calendar'))
-        
-        
-
-        new_one_time = game_models.OneTimeVipSans(
-            room=room,
-            date_time=date,
-            price_per_unit=data_dict['price_per_unit'],
-            pre_pay=data_dict['pre_pay'],
-            exclude=True if data_dict['action'] == 'delete' else False
-        )
-
-        new_one_time.save()
-        return redirect(reverse('main:reserve_calendar'))
-
-
 
 
 class PanelRoomView(LoginRequiredMixin, View):
