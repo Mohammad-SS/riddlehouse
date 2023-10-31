@@ -219,9 +219,9 @@
                             '
                             {% endif %}
                         >
-                        {{hour}} - {{data}}
+                        
                         <span class="d-flex align-items-center">
-                            <i class="far fa-clock"></i>&nbsp; ساعت {{hour}}</span>
+                            {% if data.is_vip %}<i class="fas fa-star text-warning"></i>{% else %}<i class="far fa-clock"></i>{% endif %}&nbsp; ساعت {{hour}}</span>
                         <span class="mb-expand"></span>
                         <span class="d-flex align-items-center">
                             {% if data.status == 'FREE' and data.is_reservable %}
