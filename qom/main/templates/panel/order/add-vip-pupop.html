@@ -48,9 +48,9 @@
 
 
                     <div class="col-12 mt-4 d-flex flex-fill justify-content-end">
-                        <button v-if='!vip.is_vip' type="submit" class="btn btn-primary btn-sm me-1" @click='handle_vip_submit' :disabled='vip_loading'>ثبت</button>
-                        <button v-if='vip.is_vip' type="submit" class="btn btn-warning btn-sm me-1" @click='handle_vip_submit' :disabled='vip_loading'>حذف</button>
-                        <button v-if='vip.is_vip' type="submit" class="btn btn-success btn-sm me-1" @click='handle_vip_submit' :disabled='vip_loading'>اپدیت</button>
+                        <button name='action' value='set' v-if='!vip.is_vip' type="submit" class="btn btn-primary btn-sm me-1" @click='handle_vip_submit' :disabled='vip_loading'>ثبت</button>
+                        <button name='action' value='delete'  v-if='vip.is_vip' type="submit" class="btn btn-warning btn-sm me-1" @click='handle_vip_submit' :disabled='vip_loading'>حذف</button>
+                        <button name='action' value='unset'  v-if='vip.is_vip' type="submit" class="btn btn-success btn-sm me-1" @click='handle_vip_submit' :disabled='vip_loading'>اپدیت</button>
                         <span @click='vip_pupop=false' class="btn btn-danger btn-sm">انصراف</span>
                     </div>
                 </div>
