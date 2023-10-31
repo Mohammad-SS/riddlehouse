@@ -115,36 +115,36 @@ def get_current_month_day_choices():
     return choices
 
 
-class VipSans(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='vipsans')
-    price_per_unit = models.IntegerField(blank=True, null=True)
-    pre_pay = models.IntegerField(blank=True, null=True)
-    from_date = models.DateField(blank=True, null=True)
-    to_date = models.DateField(blank=True, null=True)
-    weekdays = postgres_fields.ArrayField(models.IntegerField(choices=enums.WeekDays.choices, blank=True, null=True),
-                                          blank=True, null=True)
+# class VipSans(models.Model):
+#     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='vipsans')
+#     price_per_unit = models.IntegerField(blank=True, null=True)
+#     pre_pay = models.IntegerField(blank=True, null=True)
+#     from_date = models.DateField(blank=True, null=True)
+#     to_date = models.DateField(blank=True, null=True)
+#     weekdays = postgres_fields.ArrayField(models.IntegerField(choices=enums.WeekDays.choices, blank=True, null=True),
+#                                           blank=True, null=True)
     
-    hours = postgres_fields.ArrayField(models.CharField(max_length=12, blank=True), blank=True, null=True)
-    create_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    test = models.CharField(max_length=50, blank=True, null=True)
+#     hours = postgres_fields.ArrayField(models.CharField(max_length=12, blank=True), blank=True, null=True)
+#     create_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+#     test = models.CharField(max_length=50, blank=True, null=True)
 
-    @property
-    def persian_dates(self):
-        from_date = jdatetime.JalaliDate(self.from_date).replace(locale="fa").strftime(
-            "%Y/%m/%d %A")
-        to_date = jdatetime.JalaliDate(self.to_date).replace(locale="fa").strftime(
-            "%Y/%m/%d %A")
-        created_date = jdatetime.JalaliDate(self.create_date).replace(locale="fa").strftime(
-            "%Y/%m/%d %A")
+#     @property
+#     def persian_dates(self):
+#         from_date = jdatetime.JalaliDate(self.from_date).replace(locale="fa").strftime(
+#             "%Y/%m/%d %A")
+#         to_date = jdatetime.JalaliDate(self.to_date).replace(locale="fa").strftime(
+#             "%Y/%m/%d %A")
+#         created_date = jdatetime.JalaliDate(self.create_date).replace(locale="fa").strftime(
+#             "%Y/%m/%d %A")
 
-        return {
-            "from": from_date,
-            "created": created_date,
-            "to": to_date
-        }
+#         return {
+#             "from": from_date,
+#             "created": created_date,
+#             "to": to_date
+#         }
 
-class OneTimeVipSans(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    date_time = models.DateTimeField(blank=True, null=True)
-    price_per_unit = models.IntegerField(blank=True, null=True)
-    pre_pay = models.IntegerField(blank=True, null=True)
+# class OneTimeVipSans(models.Model):
+#     room = models.ForeignKey(Room, on_delete=models.CASCADE)
+#     date_time = models.DateTimeField(blank=True, null=True)
+#     price_per_unit = models.IntegerField(blank=True, null=True)
+#     pre_pay = models.IntegerField(blank=True, null=True)
