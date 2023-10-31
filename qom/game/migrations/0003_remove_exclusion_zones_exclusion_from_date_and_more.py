@@ -11,10 +11,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name="exclusion",
-            name="zones",
-        ),
+        # migrations.RemoveField(
+        #     model_name="exclusion",
+        #     name="zones",
+        # ),
         migrations.AddField(
             model_name="exclusion",
             name="from_date",
