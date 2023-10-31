@@ -18,7 +18,7 @@
 
     <div class="gdialog-body">
         <div class="px-md-2">
-            <form method="post" action="{% url 'main:panel-sans' arg %}" class="gltr" ref='vip_schedule_submit_form'>
+            <form method="post" action="" class="gltr" ref='vip_schedule_submit_form'>
                 {% csrf_token %}
                 <input type="hidden" name='room' :value='schedule_room_id'>
                 <input type="hidden" name='vip_set' value=true>
