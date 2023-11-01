@@ -480,6 +480,13 @@ class PanelRemoveSchedule(LoginRequiredMixin, View):
         exclusion.delete()
         return redirect("main:schedule")
 
+class PanelRemoveVipSchedule(LoginRequiredMixin, View):
+
+    def get(self, request, pk):
+        vip = game_models.VipSans.objects.get(pk=pk)
+        vip.delete()
+        return redirect("main:schedule")
+
 
 class CitySelectView(View):
     def get(self, request):

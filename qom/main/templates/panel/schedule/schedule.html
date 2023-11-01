@@ -47,302 +47,301 @@
         </li>
     </ul>
     <div class="tab-content" id="ex1-content">
-            <div
-                class="tab-pane fade show active"
-                id="schedule"
-                role="tabpanel"
-                aria-labelledby="ex1-tab-1"
-            >
-                <div class="d-flex px-2 schedule-container">
-                    {% if otes %}
-                        <div class=" schedule-time bg-white flex-fill rounded shadow-3 p-2  m-2 my-1"
-                            style="margin-right: 1em;min-width: 25em;height: fit-content;">
+        <div
+            class="tab-pane fade show active"
+            id="schedule"
+            role="tabpanel"
+            aria-labelledby="ex1-tab-1">
+            <div class="d-flex px-2 schedule-container">
+                {% if otes %}
+                    <div class=" schedule-time bg-white flex-fill rounded shadow-3 p-2  m-2 my-1"
+                        style="margin-right: 1em;min-width: 25em;height: fit-content;">
 
-                            <table class="table align-middle mb-0 bg-white mb-rtl">
-                                <thead class="bg-light">
-                                <tr>
-                                    <th class="text-center">تایم های بسته شده</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for item in otes %}
-                                    {% with datetime=item.persian_dates %}
-                                        <tr>
-                                            <td class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <p class="p-0 m-0 fw-bold">{{ item.room.name }}</p>
-                                                    <p class="p-0 m-0">تاریخ: {{ datetime.date.display }}</p>
-                                                    <p class="p-0 m-0">ساعت: {{ datetime.time }}</p>
-                                                </div>
-                                                <div>
-                                                    <form action="{% url 'main:reserve_calendar' %}" method="post">
-                                                        {% csrf_token %}
-                                                        <input type="hidden" name="room" value="{{ item.room.id }}">
-                                                        <input type="hidden" name="date" value="{{ datetime.date.value }}">
-                                                        <input type="hidden" name="time" value="{{ datetime.time }}">
-                                                        <input type="hidden" name="action" value="open">
-                                                        <button class="btn btn-link text-primary">
-                                                            <i class="fas fa-unlock-alt"></i>&nbsp;
-                                                            بازکردن
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                    {% endwith %}
-                                {% endfor %}
-                                </tbody>
-
-                            </table>
-                        </div>
-                    {% endif %}
-                    {% if exclusions %}
-                        <div class="schedule-exclusions bg-white flex-fill schedule rounded shadow-3 p-2 m-2 my-1">
-                            <table class="table align-middle mb-0 bg-white" dir="rtl">
-                                <thead class="bg-light">
-                                <tr>
-                                    <th>مشخصات</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for exclusion in exclusions %}
-                                    <tr class="schedule-item">
-                                        <td class="position-relative d-flex align-items-center justify-content-between">
-                                            <div class="d-flex flex-fill align-items-center"
-                                                collapse-id-data='collapse_{{ exclusion.pk }}' collapse-auto-close='true'>
-                                                <div class="">
-                                                    <p class="fw-bold mb-1">{{ exclusion.room.name }} <span class='fw-normal'>({{ exclusion.get_role_display }})</span></p>
-                                                    <p class="text-muted mb-0">تاریخ ایجاد: {{ exclusion.persian_dates.created }}</p>
-                                                </div>
-                                            </div>
-                                            <button class="btn me-3 p-2 btn-link text-danger"
-                                                    @click="()=> handle_remove_schedule(`{% url 'main:remove-schedule' pk=exclusion.pk %}`)">
-                                                <i class="far fa-trash-alt"></i>&nbsp;
-                                                حذف
-                                            </button>
-                                        </td>
-                                    </tr>
+                        <table class="table align-middle mb-0 bg-white mb-rtl">
+                            <thead class="bg-light">
+                            <tr>
+                                <th class="text-center">تایم های بسته شده</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in otes %}
+                                {% with datetime=item.persian_dates %}
                                     <tr>
-                                        <td colspan="5" class="m-0 p-0">
-                                            <div collapse-id='collapse_{{ exclusion.pk }}'>
-                                                <div style='min-height:5em;' class='align-items-start d-flex flex-column flex-wrap px-4 py-3'>
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="far fa-calendar text-primary"></i>&nbsp;
-                                                        <span class="px-2"> از: {{ exclusion.persian_dates.from }} - تا: {{ exclusion.persian_dates.to }}</span>
-                                                    </span>
-                                                    {% if exclusion.role == "DW" %}
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="far fa-calendar-alt text-secondary"></i>&nbsp;
-                                                        روزهای هفته :
-                                                        <span class="px-2">
-                                                            {% for weekday in exclusion.weekdays %}
-                                                                {{ weekday|convert_iso_to_weekday }} -
-                                                            {% endfor %}
-                                                        </span>
-                                                    </span>
-                                                    {% endif %}
-
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="far fa-clock text-warning"></i>&nbsp;
-                                                        <span class="px-2">
-                                                            ساعات :
-                                                            {% for hour in exclusion.hours %}
-                                                                {{ hour }} -
-                                                            {% endfor %}
-                                                        </span>
-
-                                                    </span>
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="far fa-clock text-danger"></i>&nbsp;
-                                                        <span class="px-2">
-                                                            تغییرات :
-                                                            {% with excluded_hours=exclusion|exclude_hours %}
-
-                                                                {% if excluded_hours.min_hours %}
-                                                                    ساعت های حذف شده :
-                                                                    {% for hour in excluded_hours.min_hours %}
-                                                                        {{ hour }} -
-                                                                    {% endfor %}
-                                                                {% endif %}
-                                                                {% if excluded_hours.add_hours %}
-                                                                    ساعت های اضافه شده :
-                                                                    {% for hour in excluded_hours.add_hours %}
-                                                                        {{ hour }} -
-                                                                    {% endfor %}
-                                                                {% endif %}
-                                                            {% endwith %}
-                                                        </span>
-
-                                                    </span>
-                                                </div>
+                                        <td class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p class="p-0 m-0 fw-bold">{{ item.room.name }}</p>
+                                                <p class="p-0 m-0">تاریخ: {{ datetime.date.display }}</p>
+                                                <p class="p-0 m-0">ساعت: {{ datetime.time }}</p>
+                                            </div>
+                                            <div>
+                                                <form action="{% url 'main:reserve_calendar' %}" method="post">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="room" value="{{ item.room.id }}">
+                                                    <input type="hidden" name="date" value="{{ datetime.date.value }}">
+                                                    <input type="hidden" name="time" value="{{ datetime.time }}">
+                                                    <input type="hidden" name="action" value="open">
+                                                    <button class="btn btn-link text-primary">
+                                                        <i class="fas fa-unlock-alt"></i>&nbsp;
+                                                        بازکردن
+                                                    </button>
+                                                </form>
                                             </div>
                                         </td>
+
                                     </tr>
-                                {% endfor %}
+                                {% endwith %}
+                            {% endfor %}
+                            </tbody>
 
-
-                                </tbody>
-                            </table>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="tab-pane fade" id="vip-schedule" role="tabpanel" aria-labelledby="ex1-tab-2">
-                <div class="d-flex px-2 schedule-container">
-                
-                {% if user.is_authenticated and user.username == 'developer' %}
-                    {% if otvip %}
-                        <div class=" schedule-time bg-white flex-fill rounded shadow-3 p-2  m-2 my-1"
-                            style="margin-right: 1em;min-width: 25em;height: fit-content;">
-
-                            <table class="table align-middle mb-0 bg-white mb-rtl">
-                                <thead class="bg-light">
-                                <tr>
-                                    <th class="text-center">تایم های بسته شده</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% comment %} {% for item in otvip %}
-                                    {% with datetime=item.persian_dates %}
-                                        <tr>
-                                            <td class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <p class="p-0 m-0 fw-bold">{{ item.room.name }}</p>
-                                                    <p class="p-0 m-0">تاریخ: {{ datetime.date.display }}</p>
-                                                    <p class="p-0 m-0">ساعت: {{ datetime.time }}</p>
-                                                </div>
-                                                <div>
-                                                    <form action="{% url 'main:reserve_calendar' %}" method="post">
-                                                        {% csrf_token %}
-                                                        <input type="hidden" name="room" value="{{ item.room.id }}">
-                                                        <input type="hidden" name="date" value="{{ datetime.date.value }}">
-                                                        <input type="hidden" name="time" value="{{ datetime.time }}">
-                                                        <input type="hidden" name="action" value="open">
-                                                        <button class="btn btn-link text-primary">
-                                                            <i class="fas fa-unlock-alt"></i>&nbsp;
-                                                            بازکردن
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                    {% endwith %}
-                                {% endfor %} {% endcomment %}
-                                </tbody>
-
-                            </table>
-                        </div>
-                    {% endif %}
-                    {% if vipsans %}
-                        <div class="schedule-exclusions bg-white flex-fill schedule rounded shadow-3 p-2 m-2 my-1">
-                            <table class="table align-middle mb-0 bg-white" dir="rtl">
-                                <thead class="bg-light">
-                                <tr>
-                                    <th>مشخصات</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for vipobj in vipsans %}
-                                    <tr class="schedule-item">
-                                        <td class="position-relative d-flex align-items-center justify-content-between">
-                                            <div class="d-flex flex-fill align-items-center"
-                                                collapse-id-data='collapse_{{ vipobj.pk }}' collapse-auto-close='true'>
-                                                <div class="">
-                                                    <p class="fw-bold mb-1">{{ vipobj.room.name }}</p>
-                                                    <p class="text-muted mb-0">تاریخ ایجاد: {{ vipobj.persian_dates.created }}</p>
-                                                </div>
-                                            </div>
-                                            <button class="btn me-3 p-2 btn-link text-danger"
-                                                    @click="()=> handle_remove_schedule(`{% url 'main:remove-schedule' pk=vipobj.pk %}`)">
-                                                <i class="far fa-trash-alt"></i>&nbsp;
-                                                حذف
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5" class="m-0 p-0">
-                                            <div collapse-id='collapse_{{ vipobj.pk }}'>
-                                                <div style='min-height:5em;' class='align-items-start d-flex flex-column flex-wrap px-4 py-3'>
-                                                    {% if vipobj.from_date and vipobj.to_date %}
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="far fa-calendar text-primary"></i>&nbsp;
-                                                        <span class="px-2"> از: {{ vipobj.persian_dates.from }} - تا : {{ vipobj.persian_dates.to }}</span>
-                                                    </span>
-                                                    {% endif %}
-                                                    
-                                                    {% if vipobj.weekdays %}
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="far fa-calendar-alt text-secondary"></i>&nbsp;
-                                                        روزهای هفته :
-                                                        <span class="px-2">
-                                                            {% for weekday in vipobj.weekdays %}
-                                                                {{ weekday|convert_iso_to_weekday }} {% if not forloop.last %} - {% endif %}
-                                                            {% endfor %}
-                                                        </span>
-                                                    </span>
-                                                    {% endif %}
-
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="far fa-clock text-warning"></i>&nbsp;
-                                                        <span class="px-2">
-                                                            سانس های وی آی پی :
-                                                            {% if vipobj.hours %}
-                                                            {% for hour in vipobj.hours %}
-                                                                {{ hour }} {% if not forloop.last %} - {% endif %}
-                                                            {% endfor %}
-                                                            {% else %}
-                                                            همه ساعات
-                                                            {% endif %}
-                                                        </span>
-
-                                                    </span>
-                                                    {% if  vipobj.hours %}
-                                                    <span class="d-flex align-items-center">
-                                                        <i class="far fa-clock text-danger"></i>&nbsp;
-                                                        <span class="px-2">
-                                                            {% with excluded_hours=vipobj|exclude_hours %}
-
-                                                                {% if excluded_hours.min_hours %}
-                                                                    ساسن های عادی :
-                                                                    {% for hour in excluded_hours.min_hours %}
-                                                                        {{ hour }} {% if not forloop.last %} - {% endif %}
-                                                                    {% endfor %}
-                                                                {% endif %}
-                                                                {% comment %} {% if excluded_hours.add_hours %}
-                                                                    ساعت های اضافه شده :
-                                                                    {% for hour in excluded_hours.add_hours %}
-                                                                        {{ hour }} {% if not forloop.last %} - {% endif %}
-                                                                    {% endfor %}
-                                                                {% endif %} {% endcomment %}
-                                                            {% endwith %}
-                                                        </span>
-                                                    </span>
-                                                    {% endif %}
-                                                    <span class='d-flex'>
-                                                        <i class="fas fa-hand-holding-usd text-info"></i>&nbsp;
-                                                        مبلغ به ازای هر نفر: {{vipobj.price_per_unit}}
-                                                    </span>
-                                                    <span class='d-flex'>
-                                                        <i class="fas fa-money-bill-1-wave text-success"></i>&nbsp;
-                                                        مبلغ پیش پرداخت: {{vipobj.pre_pay}}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                    {% endif %}
+                        </table>
+                    </div>
                 {% endif %}
-                </div>
+                {% if exclusions %}
+                    <div class="schedule-exclusions bg-white flex-fill schedule rounded shadow-3 p-2 m-2 my-1">
+                        <table class="table align-middle mb-0 bg-white" dir="rtl">
+                            <thead class="bg-light">
+                            <tr>
+                                <th>مشخصات</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for exclusion in exclusions %}
+                                <tr class="schedule-item">
+                                    <td class="position-relative d-flex align-items-center justify-content-between">
+                                        <div class="d-flex flex-fill align-items-center"
+                                            collapse-id-data='collapse_{{ exclusion.pk }}' collapse-auto-close='true'>
+                                            <div class="">
+                                                <p class="fw-bold mb-1">{{ exclusion.room.name }} <span class='fw-normal'>({{ exclusion.get_role_display }})</span></p>
+                                                <p class="text-muted mb-0">تاریخ ایجاد: {{ exclusion.persian_dates.created }}</p>
+                                            </div>
+                                        </div>
+                                        <button class="btn me-3 p-2 btn-link text-danger"
+                                                @click="()=> handle_remove_schedule(`{% url 'main:remove-schedule' pk=exclusion.pk %}`)">
+                                            <i class="far fa-trash-alt"></i>&nbsp;
+                                            حذف
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" class="m-0 p-0">
+                                        <div collapse-id='collapse_{{ exclusion.pk }}'>
+                                            <div style='min-height:5em;' class='align-items-start d-flex flex-column flex-wrap px-4 py-3'>
+                                                <span class="d-flex align-items-center">
+                                                    <i class="far fa-calendar text-primary"></i>&nbsp;
+                                                    <span class="px-2"> از: {{ exclusion.persian_dates.from }} - تا: {{ exclusion.persian_dates.to }}</span>
+                                                </span>
+                                                {% if exclusion.role == "DW" %}
+                                                <span class="d-flex align-items-center">
+                                                    <i class="far fa-calendar-alt text-secondary"></i>&nbsp;
+                                                    روزهای هفته :
+                                                    <span class="px-2">
+                                                        {% for weekday in exclusion.weekdays %}
+                                                            {{ weekday|convert_iso_to_weekday }} -
+                                                        {% endfor %}
+                                                    </span>
+                                                </span>
+                                                {% endif %}
+
+                                                <span class="d-flex align-items-center">
+                                                    <i class="far fa-clock text-warning"></i>&nbsp;
+                                                    <span class="px-2">
+                                                        ساعات :
+                                                        {% for hour in exclusion.hours %}
+                                                            {{ hour }} -
+                                                        {% endfor %}
+                                                    </span>
+
+                                                </span>
+                                                <span class="d-flex align-items-center">
+                                                    <i class="far fa-clock text-danger"></i>&nbsp;
+                                                    <span class="px-2">
+                                                        تغییرات :
+                                                        {% with excluded_hours=exclusion|exclude_hours %}
+
+                                                            {% if excluded_hours.min_hours %}
+                                                                ساعت های حذف شده :
+                                                                {% for hour in excluded_hours.min_hours %}
+                                                                    {{ hour }} -
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                            {% if excluded_hours.add_hours %}
+                                                                ساعت های اضافه شده :
+                                                                {% for hour in excluded_hours.add_hours %}
+                                                                    {{ hour }} -
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endwith %}
+                                                    </span>
+
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
             </div>
         </div>
+        
+        <div class="tab-pane fade" id="vip-schedule" role="tabpanel" aria-labelledby="ex1-tab-2">
+            <div class="d-flex px-2 schedule-container">
+
+            {% if otvip %}
+                {% comment %} <div class=" schedule-time bg-white flex-fill rounded shadow-3 p-2  m-2 my-1"
+                    style="margin-right: 1em;min-width: 25em;height: fit-content;">
+
+                    <table class="table align-middle mb-0 bg-white mb-rtl">
+                        <thead class="bg-light">
+                        <tr>
+                            <th class="text-center">تایم های بسته شده</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in otvip %}
+                            {% with datetime=item.persian_dates %}
+                                <tr>
+                                    <td class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p class="p-0 m-0 fw-bold">{{ item.room.name }}</p>
+                                            <p class="p-0 m-0">تاریخ: {{ datetime.date.display }}</p>
+                                            <p class="p-0 m-0">ساعت: {{ datetime.time }}</p>
+                                        </div>
+                                        <div>
+                                            <form action="{% url 'main:reserve_calendar' %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="room" value="{{ item.room.id }}">
+                                                <input type="hidden" name="date" value="{{ datetime.date.value }}">
+                                                <input type="hidden" name="time" value="{{ datetime.time }}">
+                                                <input type="hidden" name="action" value="open">
+                                                <button class="btn btn-link text-primary">
+                                                    <i class="fas fa-unlock-alt"></i>&nbsp;
+                                                    بازکردن
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            {% endwith %}
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div> {% endcomment %}
+            {% endif %}
+            {% if vipsans %}
+                <div class="schedule-exclusions bg-white flex-fill schedule rounded shadow-3 p-2 m-2 my-1">
+                    <table class="table align-middle mb-0 bg-white" dir="rtl">
+                        <thead class="bg-light">
+                        <tr>
+                            <th>مشخصات</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for vipobj in vipsans %}
+                            <tr class="schedule-item">
+                                <td class="position-relative d-flex align-items-center justify-content-between">
+                                    <div class="d-flex flex-fill align-items-center"
+                                        collapse-id-data='collapse_{{ vipobj.pk }}' collapse-auto-close='true'>
+                                        <div class="">
+                                            <p class="fw-bold mb-1">{{ vipobj.room.name }}</p>
+                                            <p class="text-muted mb-0">تاریخ ایجاد: {{ vipobj.persian_dates.created }}</p>
+                                        </div>
+                                    </div>
+                                    <button class="btn me-3 p-2 btn-link text-danger"
+                                            @click="()=> handle_remove_schedule(`{% url 'main:remove-vip-schedule' pk=vipobj.pk %}`)">
+                                        <i class="far fa-trash-alt"></i>&nbsp;
+                                        حذف
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="m-0 p-0">
+                                    <div collapse-id='collapse_{{ vipobj.pk }}'>
+                                        <div style='min-height:5em;' class='align-items-start d-flex flex-column flex-wrap px-4 py-3'>
+                                            {% if vipobj.from_date and vipobj.to_date %}
+                                            <span class="d-flex align-items-center">
+                                                <i class="far fa-calendar text-primary"></i>&nbsp;
+                                                <span class="px-2"> از: {{ vipobj.persian_dates.from }} - تا : {{ vipobj.persian_dates.to }}</span>
+                                            </span>
+                                            {% endif %}
+                                            
+                                            {% if vipobj.weekdays %}
+                                            <span class="d-flex align-items-center">
+                                                <i class="far fa-calendar-alt text-secondary"></i>&nbsp;
+                                                روزهای هفته :
+                                                <span class="px-2">
+                                                    {% for weekday in vipobj.weekdays %}
+                                                        {{ weekday|convert_iso_to_weekday }} {% if not forloop.last %} - {% endif %}
+                                                    {% endfor %}
+                                                </span>
+                                            </span>
+                                            {% endif %}
+
+                                            <span class="d-flex align-items-center">
+                                                <i class="far fa-clock text-warning"></i>&nbsp;
+                                                <span class="px-2">
+                                                    سانس های وی آی پی :
+                                                    {% if vipobj.hours %}
+                                                    {% for hour in vipobj.hours %}
+                                                        {{ hour }} {% if not forloop.last %} - {% endif %}
+                                                    {% endfor %}
+                                                    {% else %}
+                                                    همه ساعات
+                                                    {% endif %}
+                                                </span>
+
+                                            </span>
+                                            {% if  vipobj.hours %}
+                                            <span class="d-flex align-items-center">
+                                                <i class="far fa-clock text-danger"></i>&nbsp;
+                                                <span class="px-2">
+                                                    {% with excluded_hours=vipobj|exclude_hours %}
+
+                                                        {% if excluded_hours.min_hours %}
+                                                            ساسن های عادی :
+                                                            {% for hour in excluded_hours.min_hours %}
+                                                                {{ hour }} {% if not forloop.last %} - {% endif %}
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                        {% comment %} {% if excluded_hours.add_hours %}
+                                                            ساعت های اضافه شده :
+                                                            {% for hour in excluded_hours.add_hours %}
+                                                                {{ hour }} {% if not forloop.last %} - {% endif %}
+                                                            {% endfor %}
+                                                        {% endif %} {% endcomment %}
+                                                    {% endwith %}
+                                                </span>
+                                            </span>
+                                            {% endif %}
+                                            <span class='d-flex'>
+                                                <i class="fas fa-hand-holding-usd text-info"></i>&nbsp;
+                                                مبلغ به ازای هر نفر: {{vipobj.price_per_unit}}
+                                            </span>
+                                            <span class='d-flex'>
+                                                <i class="fas fa-money-bill-1-wave text-success"></i>&nbsp;
+                                                مبلغ پیش پرداخت: {{vipobj.pre_pay}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 

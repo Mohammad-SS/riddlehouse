@@ -22,6 +22,7 @@ urlpatterns = [
 
     path("panel/schedule", views.PanelScheduleView.as_view(), name='schedule'),
     path("panel/schedule/<int:pk>/remove" , views.PanelRemoveSchedule.as_view() , name="remove-schedule"),
+    path("panel/schedule/vip/<int:pk>/remove" , views.PanelRemoveVipSchedule.as_view() , name="remove-vip-schedule"),
     
     path("panel/settings", views.PanelSettingsView.as_view(), name='settings'),
     path("panel/template", views.TemplateSettingsView.as_view(), name='template-settings'),
