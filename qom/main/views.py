@@ -572,9 +572,12 @@ class RoomView(View):
             
             is_vip = data.get('is_vip', False)
             if bool(is_vip):
-                amount = game_models.VipSans.objects.get(pk=is_vip, room=room).pre_pay
+                try:
+                    amount = game_models.VipSans.objects.get(pk=is_vip, room=room).pre_pay
+                except Exception as e:
+                    amount = room.pre_pay
             else:
-                amount = data.get("pre_pay", 0)
+                amount = room.pre_pay
             
         else:
             if not package:
