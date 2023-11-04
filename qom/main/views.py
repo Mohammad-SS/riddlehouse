@@ -462,7 +462,7 @@ class PanelScheduleView(LoginRequiredMixin, View):
     def get(self, request):
         exclusions = game_models.Exclusion.objects.all().order_by("-pk")
         otes = game_models.OneTimeExclusion.objects.filter(date_time__gte=datetime.date.today()).order_by("-pk")
-        vipsans = game_models.VipSans.objects.filter(Q(to_date__gte=datetime.date.today()) | Q(to_date__is_null=True) | Q(from_date__is_null=True)).order_by("-pk")
+        vipsans = game_models.VipSans.objects.filter(Q(to_date__gte=datetime.date.today()) | Q(to_date__isnull=True) | Q(from_date__isnull=True)).order_by("-pk")
         otvip = game_models.OneTimeVipSans.objects.filter(date_time__gte=datetime.date.today()).order_by("-pk")
         context = {
             "exclusions": exclusions,
