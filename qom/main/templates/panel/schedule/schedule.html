@@ -268,7 +268,11 @@
                                             {% if vipobj.from_date and vipobj.to_date %}
                                             <span class="d-flex align-items-center">
                                                 <i class="far fa-calendar text-primary"></i>&nbsp;
+                                                {% if vipobj.from_date and vipobj.to_date %}
                                                 <span class="px-2"> از: {{ vipobj.persian_dates.from }} - تا : {{ vipobj.persian_dates.to }}</span>
+                                                {% else %}
+                                                <span class="px-2"> از: ∞ - تا : ∞</span>
+                                                {% endif %}
                                             </span>
                                             {% endif %}
                                             
