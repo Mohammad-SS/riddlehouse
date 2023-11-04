@@ -1,6 +1,7 @@
 import datetime
 import random, json
 from dateutil import parser
+from django.db.models import Q
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
@@ -461,7 +462,7 @@ class PanelScheduleView(LoginRequiredMixin, View):
     def get(self, request):
         exclusions = game_models.Exclusion.objects.all().order_by("-pk")
         otes = game_models.OneTimeExclusion.objects.filter(date_time__gte=datetime.date.today()).order_by("-pk")
-        vipsans = game_models.VipSans.objects.filter(to_date__gte=datetime.date.today()).order_by("-pk")
+        vipsans = game_models.VipSans.objects.filter(Q(to_date__gte=datetime.date.today()) | Q(to_date__is_null=True) | Q(from_date__is_null=True)).order_by("-pk")
         otvip = game_models.OneTimeVipSans.objects.filter(date_time__gte=datetime.date.today()).order_by("-pk")
         context = {
             "exclusions": exclusions,
