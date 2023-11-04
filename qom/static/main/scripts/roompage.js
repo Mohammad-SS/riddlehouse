@@ -388,6 +388,9 @@ var app = new Vue({
         return;
       }
     },
+    to_local_price: function(num, local, postfix) {
+      return toLocaleString(num, local) + ' ' + postfix
+    },
     check_coupan: async function () {
       try {
         let url =
@@ -427,6 +430,9 @@ var app = new Vue({
   },
 
   computed: {
+
+    
+
     is_reservable_time_list_empty() {
       return this.reservable_time_list.length < 1 ? true : false;
     },
