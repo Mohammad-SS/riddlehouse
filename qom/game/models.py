@@ -130,19 +130,27 @@ class VipSans(models.Model):
 
     @property
     def persian_dates(self):
-        from_date = jdatetime.JalaliDate(self.from_date).replace(locale="fa").strftime(
-            "%Y/%m/%d %A")
-        to_date = jdatetime.JalaliDate(self.to_date).replace(locale="fa").strftime(
-            "%Y/%m/%d %A")
+       
         created_date = jdatetime.JalaliDate(self.create_date).replace(locale="fa").strftime(
             "%Y/%m/%d %A")
 
-        return {
-            "from": from_date,
+        result = {
             "created": created_date,
-            "to": to_date
         }
-    
+        if self.from_date and self.to_date:
+            from_date = jdatetime.JalaliDate(self.from_date).replace(locale="fa").strftime(
+                "%Y/%m/%d %A")
+            to_date = jdatetime.JalaliDate(self.to_date).replace(locale="fa").strftime(
+                "%Y/%m/%d %A")
+            
+            result.update({
+                "from": from_date,
+                "to": to_date
+            })
+
+        return result
+
+
     def __str__(self):
         return f"{self.room.name} - ({self.from_date} - {self.to_date})"
 
