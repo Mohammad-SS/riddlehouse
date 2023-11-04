@@ -325,11 +325,11 @@
                                             {% endif %}
                                             <span class='d-flex'>
                                                 <i class="fas fa-hand-holding-usd text-info"></i>&nbsp;
-                                                مبلغ به ازای هر نفر: {{vipobj.price_per_unit}}
+                                                مبلغ به ازای هر نفر: {{vipobj.price_per_unit|num_to_irt}}
                                             </span>
                                             <span class='d-flex'>
                                                 <i class="fas fa-money-bill-1-wave text-success"></i>&nbsp;
-                                                مبلغ پیش پرداخت: {{vipobj.pre_pay}}
+                                                مبلغ پیش پرداخت: {{vipobj.pre_pay|num_to_irt}}
                                             </span>
                                         </div>
                                     </div>

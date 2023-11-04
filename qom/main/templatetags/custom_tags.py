@@ -2,9 +2,18 @@ from django import template
 from riddlehouse.helpers import functions, enums
 import itertools
 from main import models as main_models
+import locale
 
 register = template.Library()
 
+def num_to_irt(value):
+    try:
+        locale.setlocale(locale.LC_ALL, '')
+        num = int(value)
+        return '{:,}'.format(num) + ' تومان'
+
+    except:
+        return value
 
 def pagination_handle_pages(value, arg):
     if arg < 3:
@@ -116,5 +125,6 @@ register.filter('pagination_handle_pages', pagination_handle_pages)
 register.filter('convert_iso_to_weekday', convert_iso_to_weekday)
 register.filter('overview_handler', overview_handler)
 register.filter('overview_get_detail', overview_get_detail)
+register.filter('num_to_irt', num_to_irt)
 
 register.simple_tag(load_landing_context, name="get_context")
