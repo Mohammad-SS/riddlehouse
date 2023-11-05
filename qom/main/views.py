@@ -501,6 +501,9 @@ class PanelRemoveVipSchedule(LoginRequiredMixin, View):
 
     def get(self, request, pk):
         vip = game_models.VipSans.objects.get(pk=pk)
+        one_time_vip = game_models.OneTimeVipSans.objects.filter(Q(room=vip.room) and (Q(date_time__range=(vip.from_date, vip.to_date)) | Q(weekdays__contains=vip.weekdays)))
+        if one_time_vip.exists():
+            one_time_vip.delete()
         vip.delete()
         return redirect("main:schedule")
 
