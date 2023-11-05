@@ -202,7 +202,7 @@ class VipSansView(LoginRequiredMixin, View):
 
         room = room.last()
         one_time = game_models.OneTimeVipSans.objects.filter(room=room, date_time=date)
-        is_vip_sans = game_models.VipSans.objects.filter(Q(room=room) and (Q(from_date__lte=date, to_date__gte=date) | Q(weekdays__contains=[jalali_date.weekday()])))
+        is_vip_sans = game_models.VipSans.objects.filter(Q(room=room) and (Q(from_date__lte=date, to_date__gte=date) | Q(weekdays__contains=[jalali_date.weekday()+1])))
         print(date)
         print(date.weekday())
         print(jalali_date.weekday())
