@@ -13,6 +13,14 @@ Array.prototype.remove = function () {
     
 feather.replace()
 
+function copyToClipboard(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+}
 
 function pagination(params) {
     let pagination_items = document.getElementsByClassName('mb-pagination-item')
