@@ -192,8 +192,9 @@ class VipSansView(LoginRequiredMixin, View):
         if not all(data_dict.values()):
            return self.redirect_to_overview()
         
-        jalali_date = str(parser.parse("%s %s" % (data_dict.get('date'), data_dict.get('hour'))))
-        date =jdatetime.JalaliDateTime.strptime(jalali_date, "%Y-%m-%d %H:%M").to_gregorian()
+        jalali_date_str = str(parser.parse("%s %s" % (data_dict.get('date'), data_dict.get('hour'))))
+        jalali_date = jdatetime.JalaliDateTime.strptime(jalali_date_str, "%Y-%m-%d %H:%M")
+        date =jalali_date.to_gregorian()
      
         room = game_models.Room.objects.filter(id=data_dict['room_id'])
         if not room.exists():
@@ -201,6 +202,7 @@ class VipSansView(LoginRequiredMixin, View):
 
         room = room.last()
         one_time = game_models.OneTimeVipSans.objects.filter(room=room, date_time=date)
+        is_vip_sans = game_models.VipSans.objects.filter(Q(room=room) and (Q(from_date__lte=date, to_date__gte=date) | Q(weekdays__contains=[jalali_date.weekday()])))
 
         action = data_dict['action']
         if action == 'set':
@@ -239,6 +241,17 @@ class VipSansView(LoginRequiredMixin, View):
         if action == 'delete':
             if one_time.exists():
                 one_time.delete()
+                
+                if is_vip_sans.exists():
+                    self.create_new_one_time_vip_sans(
+                        data={
+                            "room": room,
+                            "date_time": date,
+                            "price_per_unit": data_dict['price_per_unit'],
+                            "pre_pay": data_dict['pre_pay'],
+                            "exclude": True
+                        }
+                )
 
             else:
                  self.create_new_one_time_vip_sans(
