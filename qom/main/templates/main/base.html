@@ -95,7 +95,11 @@
     <!-- scroll animating -->
     <script defer src="{% static 'modules/aos.js' %}"></script>
     <!-- scroll animating -->
+    {% if user.is_authenticated and user.username == 'developer' %}
     <script src="{% static 'modules/vue.js' %}"></script>
+    {% else %}
+    <script src="{% static 'modules/vue2-production.js' %}"></script>
+    {% endif %}
     <script defer src="{% static 'main/' %}scripts/calendar.js"></script>
     <script defer src="{% static 'main/' %}scripts/base.js"></script>
     <script defer src="{% static 'main/' %}scripts/nav.js"></script>

@@ -32,7 +32,7 @@
             <label class="form-label" for="phone">شماره موبایل</label>
         </div>
         <div class='row'>
-            <div class="col-12">
+            <div class="col-12 col-sm-6">
                 <div class="form-outline mb-4">
                     {% if room.room_type == "REAL" %}
                     <input required name="persons" type="number" ref='players' min="{{room.min_players}}" max="{{room.max_players}}"
@@ -52,7 +52,7 @@
 
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
                 <div class="align-items-start d-flex flex-row flex-wrap">
                     <div class="w-100">
                         <div class="form-outline mb-2">
