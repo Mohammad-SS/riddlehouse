@@ -464,7 +464,7 @@ label.vip.selected-time .status-icon {
 }
 
 .reserve-form input {
-  min-width: 18em;
+  /* min-width: 18em; */
 }
 
 .reserve-form {

@@ -31,39 +31,40 @@
             <input required name="phone" type="text" id="phone" class="form-control form-control-lg" required />
             <label class="form-label" for="phone">شماره موبایل</label>
         </div>
-        <div class="col-12">
-            <div class="form-outline mb-4">
-                {% if room.room_type == "REAL" %}
-                <input required name="persons" type="number" ref='players' min="{{room.min_players}}" max="{{room.max_players}}"
-                    id="persons" class="form-control form-control-lg" @change='handle_players' />
-                <label class="form-label" for="persons">تعداد
-                    نفرات</label>
-                {% else %}
-                <input type="number" ref='players' min="1" max="1" id="persons" class="d-none"
-                    @change='handle_players' />
-                <label class="form-label">پکیج انتخابی</label>
-                <br />
-                <span>
-                    پکیج [[package.id]] : [[price.str]] تومان
-                </span>
+        <div class='row'>
+            <div class="col-12">
+                <div class="form-outline mb-4">
+                    {% if room.room_type == "REAL" %}
+                    <input required name="persons" type="number" ref='players' min="{{room.min_players}}" max="{{room.max_players}}"
+                        id="persons" class="form-control form-control-lg" @change='handle_players' />
+                    <label class="form-label" for="persons">تعداد
+                        نفرات</label>
+                    {% else %}
+                    <input type="number" ref='players' min="1" max="1" id="persons" class="d-none"
+                        @change='handle_players' />
+                    <label class="form-label">پکیج انتخابی</label>
+                    <br />
+                    <span>
+                        پکیج [[package.id]] : [[price.str]] تومان
+                    </span>
 
-                {% endif %}
+                    {% endif %}
 
-            </div>
-        </div>
-
-        <div class="col-12">
-        <div class="align-items-start d-flex flex-row flex-wrap">
-            <div class="w-100">
-                <div class="form-outline mb-2">
-                    <input name="coupon" type="text" id="coupon" v-model="coupan.code" class="form-control form-control-lg" />
-                    <label class="form-label" for="coupon">کد تخفیف</label>
                 </div>
             </div>
-            <div class="align-items-end d-flex flex-row justify-content-end w-100">
-                <button style="min-width: max-content;" type="button" class="btn btn-success fs-6" @click="check_coupan">اعمال کد تخفیف</button>
+            <div class="col-6">
+                <div class="align-items-start d-flex flex-row flex-wrap">
+                    <div class="w-100">
+                        <div class="form-outline mb-2">
+                            <input name="coupon" type="text" id="coupon" v-model="coupan.code" class="form-control form-control-lg" />
+                            <label class="form-label" for="coupon">کد تخفیف</label>
+                        </div>
+                    </div>
+                    <div class="align-items-end d-flex flex-row justify-content-end w-100">
+                        <button style="min-width: max-content" type="button" class="btn btn-success btn-sm fs-6" @click="check_coupan">اعمال کد تخفیف</button>
+                    </div>
+                </div>
             </div>
-        </div>
         </div>
 
         <div class="col-12">
