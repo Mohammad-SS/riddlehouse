@@ -388,9 +388,12 @@ var app = new Vue({
         return;
       }
     },
+    
     to_local_price: function(num, local, postfix) {
-      return toLocaleString(num, local) + ' ' + postfix
+      let number = parseInt(num)
+      return number.toLocaleString(num, local) + ' ' + postfix
     },
+
     check_coupan: async function () {
       try {
         let url =
