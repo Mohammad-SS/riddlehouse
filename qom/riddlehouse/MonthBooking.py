@@ -27,7 +27,7 @@ def check_vip(timestamp, room):
     if one_time_vip_sans.exists():
         return one_time_vip_sans.last()
 
-    vip_sans = models.VipSans.objects.filter(room=room, weekdays__contains=[jalali.weekday() + 1])
+    vip_sans = models.VipSans.objects.filter(room=room, weekdays__contains=[jalali.weekday() + 1] ,hours__contains=[time])
     last_vip = None
     if vip_sans.exists():
         last = vip_sans.last()
@@ -39,14 +39,15 @@ def check_vip(timestamp, room):
             last_vip = last
 
 
-    vip_sans = models.VipSans.objects.filter(room=room, from_date__lte=dt.date(), to_date__gte=dt.date())
+    vip_sans = models.VipSans.objects.filter(room=room, from_date__lte=dt.date(), to_date__gte=dt.date(),hours__contains=[time],weekdays__contains=[jalali.weekday() + 1])
+    # print("11111-",vip_sans.count())
     if vip_sans.exists():
+        
         last_vip = vip_sans.last()
     
-    
+    # print("22222-",time,last_vip.hours)
     if bool(last_vip) and bool(last_vip.hours):
         last_vip = last_vip if time in last_vip.hours else None
-    
     
     if last_vip is None:
         return False
@@ -109,6 +110,7 @@ class Month():
                                             int(this_minutes)).timestamp()
             
             is_vip = check_vip(this_timestamp, room)
+            # print("33333-",this_hour , is_vip)
             hours[hour] = dict()
             hours[hour]["is_vip"] = is_vip.pk if is_vip else False
             hours[hour]["price_per_unit"] = is_vip.price_per_unit if is_vip else room.price_per_unit
@@ -184,7 +186,7 @@ class RoomWeek():
     week_range = 7
 
     def __init__(self):
-        self.rooms = models.Room.objects.all()
+        self.rooms = models.Room.objects.filter(is_archive=False)
         self.today = datetime.date.today()
         rooms = self.create_rooms_list()
 

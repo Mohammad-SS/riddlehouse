@@ -31,8 +31,11 @@ DEBUG = 1
 ALLOWED_HOSTS = os.environ.get("DJANGO_QOM_ALLOWED_HOSTS").split(" ")
 CSRF_TRUSTED_ORIGINS = ['https://qom.azimim.ir',"https://qom.riddlehouse.ir" , "http://127.0.0.1:8000"]
 
-LOGIN_URL = "main:panel"
+LOGIN_URL = "main:login"
+LOGOUT_REDIRECT_URL = "main:login"
 # Application definition
+
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",

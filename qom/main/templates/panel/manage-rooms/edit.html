@@ -183,6 +183,12 @@
                 </div>
             </div>
         </div>
+        
+        <div class="col-12 mb-4">
+            <label for="img-alt" class="form-label ">متن جایگزین تصویر</label>
+            <input name="img-alt" type="text" class="form-control" id="img-alt"
+                placeholder="متن جایگزین تصویر" value="{{room.img_alt|default_if_none:""}}">
+        </div>
     </div>
 
     <div class="row">

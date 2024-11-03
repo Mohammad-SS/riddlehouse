@@ -53,7 +53,7 @@
                     <td>
                         <div class="d-flex align-items-center">
                             {% if room.banner %}
-                            <img src="{{ room.banner.url }}" alt=""
+                            <img src="{{ room.banner.url }}" alt="{{room.img_alt}}"
                                  style="width: 8em; height: 5em;object-fit: cover;filter: brightness(1.2);"
                                  class="rounded bg-light"/>
                                 {% else %}

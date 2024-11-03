@@ -20,6 +20,17 @@
                     <span>منو</span>
                 </label>
             </a>
+            
+            {% if user.username == "admin" or user.username == "developer" %}
+            <a href="{% url 'main:users' %}">
+                <li class="mb-menu-item ripple {% if title == 'کاربران' %}
+                active
+                {% endif %} ">
+                    <i class="fas fa-users mb-menu-icon"></i>
+                    <span>مدیریت کاربران</span>
+                </li>
+            </a>
+            {% endif %}
             <a href="{% url 'main:rooms' %}">
                 <li class="mb-menu-item ripple {% if title == 'اتاق ها' %}
                 active
@@ -61,6 +72,8 @@
                     <span>کدهای تخفیف</span>
                 </li>
             </a>
+            {% if user.username == "admin" or user.username == "developer" %}
+            
             <a href="{% url 'main:settings' %}">
                 <li class="mb-menu-item ripple {% if title == 'تنظیمات' %}
                 active
@@ -77,7 +90,8 @@
                     <span>تنظیمات قالب</span>
                 </li>
             </a>
-            <a href="#">
+            {% endif %}
+            <a href="{% url 'admin:logout' %}">
                 <li class="mb-menu-item ripple">
                     <i class="fas fa-sign-out-alt mb-menu-icon"></i>
                     <span>خروج</span>

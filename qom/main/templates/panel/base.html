@@ -93,6 +93,9 @@
     <script src="{% static 'modules/mdb.min.js' %}"></script>
     <script src="{% static 'panel/' %}scripts/script.js"></script>
     <script src="{% static 'panel/' %}scripts/menu.js"></script>
+    {% block end-body-scripts %}
+
+    {% endblock %}
     <!-- scripts -->
 </body>
 

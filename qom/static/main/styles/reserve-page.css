@@ -261,6 +261,7 @@ img.room-md-image {
   padding: 0.3em;
   border-radius: 10px;
   object-fit: cover;
+  object-position: top;
 }
 
 .reserve-dates {

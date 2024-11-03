@@ -280,7 +280,7 @@ var app = new Vue({
       return result;
     },
 
-    show_toast: function (text) {
+    show_toast: function (text, is_success) {
       Toastify({
         text: text,
         duration: 3000,
@@ -290,7 +290,7 @@ var app = new Vue({
         position: "right", // `left`, `center` or `right`
         stopOnFocus: true, // Prevents dismissing of toast on hover
         style: {
-          background: "var(--mb-original-red)",
+          background: !is_success ? "var(--mb-original-red)" : "var(--mdb-green)",
         },
         onClick: function () {}, // Callback after click
       }).showToast();
@@ -417,7 +417,8 @@ var app = new Vue({
           type: response.data.type,
           valid: response.data.valid,
         };
-
+        this.show_toast("کد تخفیف با موفقیت اعمال شد", true);
+        
         return response.data;
       } catch (error) {
         this.show_toast("کد تخفیف وارد شده معتبر نمیباشد");

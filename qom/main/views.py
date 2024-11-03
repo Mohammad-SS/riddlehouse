@@ -21,8 +21,9 @@ from persiantools import jdatetime
 import pytz
 from riddlehouse import MonthBooking
 from pprint import pprint
-
-
+from django.contrib.auth.models import User
+from .base_views import ActionBaseView
+from django.contrib import messages
 # Create your views here.
 
 class PanelRoomsView(LoginRequiredMixin, View):
@@ -311,6 +312,7 @@ class PanelRoomView(LoginRequiredMixin, View):
 
     def post(self, request):
         data = request.POST
+        img_alt = data.get('img-alt', "")
         room_type = data.get("room_type", None)
         picture = request.FILES.get("banner", None)
         if room_type == "box":
@@ -363,6 +365,7 @@ class PanelRoomView(LoginRequiredMixin, View):
             "google_map": data.get("google_map", ""),
             "balad_link": data.get("balad_link", ""),
             "box_packages_prices": box_packages_prices,
+            "img-alt": img_alt
         }
         fields = functions.remove_empties(fields)
         room = game_models.Room(**fields)
@@ -515,7 +518,12 @@ class CitySelectView(View):
 
 class LandingView(View):
     def get(self, request):
-        rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL, is_archive=False)
+        if request.user.is_authenticated and request.user.username == 'developer':
+            rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL)
+        else:
+            rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL, is_archive=False)
+            
+            
         last_box = game_models.Room.objects.filter(room_type=enums.RoomType.BOX, is_archive=False).last()
         context = {
             "rooms": rooms, "box": last_box,
@@ -707,6 +715,7 @@ class PanelRoomEditView(LoginRequiredMixin, View):
     def post(self, request, pk):
         room = game_models.Room.objects.filter(pk=pk)
         data = request.POST
+        img_alt = data.get('img-alt', "")
         is_archive = data.get('is_archive', False)
         is_archive = True if is_archive == 'on' else False
         room_type = data.get("room_type", None)
@@ -760,7 +769,8 @@ class PanelRoomEditView(LoginRequiredMixin, View):
             "balad_link": data.get("balad_link", ""),
             "room_type": this_type,
             "box_packages_prices": box_packages_prices,
-            "is_archive": is_archive
+            "is_archive": is_archive,
+            "img_alt": img_alt
         }
         fields = functions.remove_empties(fields)
         room.update(**fields)
@@ -809,3 +819,70 @@ class TemplateSettingsView(LoginRequiredMixin, View):
             functions.set_context(name, setting)
 
         return redirect("main:template-settings")
+
+
+class MangeUsersView(LoginRequiredMixin, ActionBaseView):
+    model = User
+    page_name = "کاربران"
+    actions = ['create', 'delete', 'change_password']
+    template_name = 'panel/users.html'
+
+    def get(self, request):
+        users = self.get_queryset().order_by('-date_joined')
+        context = self.get_context_data({"title": self.page_name, "users": users})
+        return render(request, self.template_name, context)
+    
+
+    def create(self, request):
+        data = request.POST.dict()
+        fields = ['first_name', 'last_name', 'username', 'password']
+
+        
+        
+
+        if not all([bool(str(data.get(field, ""))) for field in fields]):
+            messages.error(request, 'مقادیر ارسال شده متبر نیست')
+            return redirect(reverse("main:users"))
+
+        print("here")
+        
+        new_user = self.model(
+            first_name=data.get('first_name'),
+            last_name=data.get('last_name'),
+            username=data.get('username'),
+        )
+
+        new_user.set_password(data.get('password'))
+        new_user.save()
+        return redirect(reverse("main:users"))
+    
+
+    def delete(self, request):
+        pk = request.POST.get('pk', None)
+        user = self.get_object(pk=pk)
+        if user is None:
+            messages.error(request, 'کاربر یافت نشد')
+            return redirect(reverse("main:users"))
+        
+        user.delete()
+        messages.success(request, 'کاربر با موفقیت حذف شد')
+        return redirect(reverse("main:users"))
+    
+
+    def change_password(self, request):
+        pk = request.POST.get('pk', 0)
+        user = self.get_object(pk=pk)
+        if user is None:
+            messages.error(request, 'کاربر یافت نشد')
+            return redirect(reverse("main:users"))
+        
+        password = request.POST.get('password', "")
+        password1 = request.POST.get('password1', "")
+        if not bool(str(password).strip()) or not bool(str(password1).strip()) or password != password1:
+            messages.error(request, 'مقادیر ارسال شده متبر نیست')
+            return redirect(reverse("main:users"))
+        
+        user.set_password(password)
+        user.save()
+        messages.success(request, 'رمز ورود کاربر تغییر کرد')
+        return redirect(reverse("main:users"))

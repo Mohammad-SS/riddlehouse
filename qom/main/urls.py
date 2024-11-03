@@ -1,4 +1,4 @@
-from django.urls import path , include
+from django.urls import path , include, re_path
 from . import views
 from .api import urls as api_urls
 
@@ -7,8 +7,10 @@ app_name = 'main'
 urlpatterns = [
     path("api/", include(api_urls, namespace="main_api")),
 
-    path("login", views.LoginView.as_view(), name='login'),
+    path("login/", views.LoginView.as_view(), name='login'),
+
     path("panel/", views.LoginView.as_view(), name='panel'),
+    path("panel/manage-users", views.MangeUsersView.as_view(), name='users'),
     path("panel/manage-rooms", views.PanelRoomsView.as_view(), name='rooms'),
     path("panel/manage-rooms/create", views.PanelRoomView.as_view(), name='createroom'),
     path("panel/manage-rooms/edit/<int:pk>", views.PanelRoomEditView.as_view(), name='editroom'),

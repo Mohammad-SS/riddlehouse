@@ -1,0 +1,175 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load custom_tags %}
+
+{% block contentHead %}
+<div class="content-head">
+    <h4>مدیریت کاربران</h4>
+</div>
+{% endblock %}
+
+
+{% block dialogs %}
+<div class="modal fade" id="userAddModal" tabindex="-1" aria-labelledby="userAddModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userAddModalLabel">ایجاد کاربر جدید</h5>
+                    <button type="button" class="btn-close m-0" data-mdb-ripple-init data-mdb-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+
+                {% csrf_token %}
+                <input type="hidden" name="action" value="create">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <label for="form-label mb-1">نام</label>
+                            <input type="text" name="first_name" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="form-label mb-1">نام خانوادگی</label>
+                            <input type="text" name="last_name" class="form-control">
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <label for="form-label mb-1">نام کاربری</label>
+                            <input type="text" name="username" class="form-control">
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <label for="form-label mb-1">رمزورود</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" data-mdb-ripple-init>ایجاد</button>
+                    <button type="button" class="btn btn-danger" data-mdb-ripple-init
+                        data-mdb-dismiss="modal">انصراف</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="modal fade" id="userDeleteModal" tabindex="-1" aria-labelledby="userDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userDeleteModalLabel">حذف کاربر</h5>
+                    <button type="button" class="btn-close m-0" data-mdb-ripple-init data-mdb-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+
+                {% csrf_token %}
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="pk" value="">
+                <div class="modal-body">
+                    <div class="row">
+                        <div> ایا از حذف کاربر <span class="user-fullname"></span> با نام کاربری <span
+                                class="user-username"></span> مطمئن هستید?
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" data-mdb-ripple-init>بله</button>
+                    <button type="button" class="btn btn-danger" data-mdb-ripple-init
+                        data-mdb-dismiss="modal">انصراف</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="userChangePasswordModal" tabindex="-1" aria-labelledby="userChangePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userChangePasswordModalLabel">تغییر رمز</h5>
+                    <button type="button" class="btn-close m-0" data-mdb-ripple-init data-mdb-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+
+                {% csrf_token %}
+                <input type="hidden" name="action" value="change_password">
+                <input type="hidden" name="pk" value="">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-2">
+                            <label for="form-label mb-1">رمز جدید</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <label for="form-label mb-1">تکرار رمز جدید</label>
+                            <input type="password" name="password1" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" data-mdb-ripple-init>بله</button>
+                    <button type="button" class="btn btn-danger" data-mdb-ripple-init
+                        data-mdb-dismiss="modal">انصراف</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+{% endblock dialogs %}
+
+{% block content %}
+<div class="mb-rtl">
+
+    <div class="mb-filter mb-card my-3 mx-4 mb-4">
+        <button class="btn btn-success" @click='room_add_dialog = true' onclick="modal.show()">
+            +&nbsp;&nbsp;ایجاد کاربر جدید
+        </button>
+    </div>
+    <div class="m-4 my-1 d-flex gap-2 flex-wrap">
+
+        {% for user in users %}
+        <div class="w-100 w-md-auto bg-white p-3 rounded-6 d-flex align-items-center gap-3"
+            style="min-width: 330px; max-width: 380px;">
+            <div style="width: 50px; height: 50px;background-image: url(https://ui-avatars.com/api/?format=svg&font-size=0.22&name={{user.username}}); background-position: center;"
+                class="rounded-circle bg-light-flet">
+
+            </div>
+            <div class="d-flex flex-column">
+                <span class="d-flex align-items-center fw-bold"
+                    style="min-width: max-content;">{{user.first_name|default_if_none:''}}
+                    {{user.last_name|default_if_none:''}}</span>
+                <span class="d-flex align-items-center text-muted fw-bold"
+                    style="min-width: max-content;"><small>{{user.username}}</small></span>
+            </div>
+            <div class="flex-grow-1 d-flex justify-content-end">
+                <div class="d-flex flex-column gap-1">
+                    {% if user.username != "developer" %}
+                    <button class="btn btn-sm btn-outline-success" data-mdb-target="#userChangePasswordModal"
+                    data-mdb-toggle="modal" data-mdb-ripple-init data-mdb-modal-init data-mdb-pk="{{user.pk}}">تغییر رمز</button>
+                    {% endif %}
+                    {% if user.username != "admin" and user.username != "developer" %}
+                    <button class="btn btn-sm btn-outline-danger delete-user-btn" data-mdb-target="#userDeleteModal"
+                        data-mdb-toggle="modal" data-mdb-ripple-init data-mdb-modal-init data-mdb-pk="{{user.pk}}"
+                        data-mdb-username="{{user.username}}" data-mdb-fullname="{{user.get_full_name}}">
+                        حذف
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+{% block end-body-scripts %}
+
+<script src="{% static 'panel/scripts/users.js' %}"></script>
+
+{% endblock %}
