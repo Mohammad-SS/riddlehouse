@@ -365,7 +365,7 @@ class PanelRoomView(LoginRequiredMixin, View):
             "google_map": data.get("google_map", ""),
             "balad_link": data.get("balad_link", ""),
             "box_packages_prices": box_packages_prices,
-            "img-alt": img_alt
+            "img_alt": img_alt
         }
         fields = functions.remove_empties(fields)
         room = game_models.Room(**fields)

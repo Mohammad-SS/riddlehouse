@@ -40,6 +40,11 @@ class Order(models.Model):
             "created": created_date
         }
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['room', 'reserved_time']),
+        ]
+
 
 class Coupon(models.Model):
     available_rooms = models.ManyToManyField("game.Room", related_name="coupons")

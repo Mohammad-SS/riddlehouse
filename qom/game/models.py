@@ -32,7 +32,7 @@ class Room(models.Model):
     google_map = models.TextField(blank=True, null=True)
     balad_link = models.TextField(blank=True, null=True)
     img_alt = models.TextField(blank=True, null=True)
-    is_archive = models.BooleanField(default=False)
+    is_archive = models.BooleanField(default=False,db_index=True)
     def __str__(self):
         return self.name
 
@@ -75,6 +75,11 @@ class Exclusion(models.Model):
             "to": to_date
         }
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['room', 'from_date', 'to_date']),
+        ]
+
 
 class OneTimeExclusion(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="otes")
@@ -107,6 +112,11 @@ class OneTimeExclusion(models.Model):
             "created": created_date,
         }
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['room', 'date_time']),
+        ]
+
 
 # Function to generate choices for days in the current month
 def get_current_month_day_choices():
@@ -117,7 +127,7 @@ def get_current_month_day_choices():
 
 
 class VipSans(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='vipsans')
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='vipsans',db_index=True)
     price_per_unit = models.IntegerField(blank=True, null=True)
     pre_pay = models.IntegerField(blank=True, null=True)
     from_date = models.DateField(blank=True, null=True)
@@ -155,6 +165,11 @@ class VipSans(models.Model):
     def __str__(self):
         return f"{self.room.name} - ({self.from_date} - {self.to_date})"
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['from_date', 'to_date']),
+        ]
+
 class OneTimeVipSans(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     date_time = models.DateTimeField(blank=True, null=True)
@@ -187,3 +202,8 @@ class OneTimeVipSans(models.Model):
             "time": time,
             "created": created_date,
         }
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['room', 'date_time', 'exclude']),
+        ]
