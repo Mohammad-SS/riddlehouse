@@ -1,24 +1,25 @@
+from .base_merchant import BaseMerchant
 import requests
 from game import models as game_models
 from orders import models as orders_models
 from riddlehouse.helpers import enums
 from riddlehouse.helpers.functions import get_setting, validate_coupon, get_amount_after_coupon, \
     create_random_authority, create_payment_object, place_order, send_sms
-from .base_merchant import BaseMerchant
+from zeep import Client
+from zeep.exceptions import Fault
 
+class PecMerchant(BaseMerchant):
 
-class ZarinpalMerchant(BaseMerchant):
+    def __init__(self):
+        self.call_back = "336HOyi0G55xEI38S2CJ"
+        self.pin = "https://qom.riddlehouse.ir/reserve-completed/"
+
 
     def start_payment(self, **kwargs):
-        merchant = get_setting(enums.DefaultSettings.ZARINPAL_MERCHANT_KEY, "cd7b446a-17d3-11e9-ab83-005056a205be")
-        zarinpal_url = get_setting(enums.DefaultSettings.ZARINPAL_START_URL)
-        callback_url = get_setting(enums.DefaultSettings.ZARINPAL_CALLBACK_URL)
-        zarinpal_payment_url = get_setting(enums.DefaultSettings.ZARINPAL_PAYMENT_URL)
         amount = kwargs.get("amount", None)
-        if not merchant or not amount:
+        if not amount:
             return False
         coupon = kwargs.get("coupon", None)
-
         room_id = kwargs.get("room_id", None)
         room = game_models.Room.objects.get(pk=room_id)
         coupon = orders_models.Coupon.objects.filter(code=coupon)
@@ -38,26 +39,30 @@ class ZarinpalMerchant(BaseMerchant):
             kwargs['authority'] = create_random_authority()
             payment_obj = create_payment_object(**kwargs)
             return {"valid": True,
-                    "url": callback_url + "?Authority=" + kwargs['authority'] + "&Status=" + "OK"}
+                    "url": self.call_back + "?Authority=" + kwargs['authority'] + "&Status=" + "OK"}
         description = f"پرداخت به نام {kwargs.get('customer_name', '')} با شماره تلفن  {kwargs.get('mobile', '')}"
-        data = {
-            "merchant_id": merchant,
-            "amount": amount * 10,
-            "callback_url": callback_url,
-            "description": description,
+        wsdl_url = "https://pec.shaparak.ir/NewIPGServices/Sale/SaleService.asmx?WSDL"
+        payment_obj = create_payment_object(**kwargs)
+        params = {
+            "LoginAccount": self.pin,
+            "Amount": amount,
+            "OrderId": payment_obj.id,
+            "CallBackUrl": self.call_back,
         }
-        request_obj = requests.post(zarinpal_url, data=data)
-        response = request_obj.json()
-        if response['errors']:
-            return {"valid": False, "data": response['errors']}
-        else:
-            kwargs['authority'] = response['data']['authority']
-            payment_obj = create_payment_object(**kwargs)
+        client = Client(wsdl=wsdl_url)
+        response = client.service.SalePaymentRequest(requestData=params)
+        result = response.SalePaymentRequestResult
+        if result.Token and result.Status == 0:
+            payment_url = f"https://pec.shaparak.ir/NewIPG/?Token={result.Token}"
+            kwargs['authority'] = result.Token
             if payment_obj:
-                return {"valid": True, "data": response['data'],
-                        "url": zarinpal_payment_url + response['data']['authority']}
+                payment_obj.authority_key = result.Token
+                payment_obj.save()
+                return {"valid": True, "url": f"https://pec.shaparak.ir/NewIPG/?Token={result.Token}"}
             else:
                 return {"valid": False, "data": "Failed to create payment object"}
+        else:
+            return {"valid": False, "data": result.Message}
 
     def verify_payment(self, authority):
         merchant = get_setting(enums.DefaultSettings.ZARINPAL_MERCHANT_KEY, "cd7b446a-17d3-11e9-ab83-005056a205be")
@@ -66,7 +71,6 @@ class ZarinpalMerchant(BaseMerchant):
         except orders_models.Payment.DoesNotExist as e:
             print(e)
             return {"valid": False, "data": "No Authority key found", "payment": None, "order": None}
-        # ordered_before = orders_models.Order.objects.filter(reserved_time=payment.reserved_time, room=payment.room)
         ordered_before = orders_models.Order.objects.filter(reserved_time=payment.reserved_time,
                                                             room=payment.room).exclude(
             customer_number=payment.customer_mobile)
@@ -85,23 +89,24 @@ class ZarinpalMerchant(BaseMerchant):
                 "card_hash": "رایگان",
             }
             return {"valid": True, "data": data, "order": order_object, "payment": payment_object}
-        url = get_setting(enums.DefaultSettings.ZARINPAL_VERIFY_URL)
-        data = {
-            "merchant_id": merchant,
-            "amount": amount,
-            "authority": authority
-        }
-        request = requests.post(url, data=data)
-        response = request.json()
 
-        if response['errors']:
-            return {"valid": False, "data": response['errors'], "payment": payment, "order": None}
+
+
+        wsdl_url = 'https://pec.shaparak.ir/NewIPGServices/Confirm/ConfirmService.asmx?WSDL'
+        params = {
+            "LoginAccount": self.pin,
+            "Token": authority
+        }
+        client = Client(wsdl=wsdl_url)
+        response = client.service.ConfirmPayment(requestData=params)
+        result = response.ConfirmPaymentResult
+        if result.Status != 0:
+            return {"valid": False, "data": result.Status, "payment": payment, "order": None}
         else:
-            order_object, payment_object = place_order(authority, response['data']['ref_id'],
-                                                       response['data']['card_pan'])
+            order_object, payment_object = place_order(authority,authority,authority)
             if order_object:
                 if not order_object.user_sms_bulk or not order_object.admin_sms_bulk:
                     send_sms.delay(order=order_object.pk)
-                return {"valid": True, "data": response['data'], "order": order_object, "payment": payment_object}
+                return {"valid": True, "data": authority, "order": order_object, "payment": payment_object}
             else:
                 return {"valid": False, "data": "Failed to place order", "payment": None, "order": None}
