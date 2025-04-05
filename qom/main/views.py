@@ -24,7 +24,8 @@ from pprint import pprint
 from django.contrib.auth.models import User
 from .base_views import ActionBaseView
 from django.contrib import messages
-# Create your views here.
+from orders.merchants.zarinpal_merchant import ZarinpalMerchant
+from orders.merchants.pec_merchant import PecMerchant
 
 class PanelRoomsView(LoginRequiredMixin, View):
     def get(self, request):
@@ -618,7 +619,6 @@ class RoomView(View):
         year, month, day = date.split("/")
         reserved_date = jdatetime.JalaliDateTime(int(year), int(month), int(day), int(hour),
                                                  int(minutes)).to_gregorian()
-        # reserved_date = pytz.timezone("Asia/Tehran").localize(reserved_date)
         fields = {
             "amount": amount,
             "rest_payment": rest_payment,
@@ -630,7 +630,6 @@ class RoomView(View):
             "coupon": data.get('coupon', None),
             "reserved_time": reserved_date,
         }
-        # is ordered or in payment time :
         is_ordered, is_in_payment = functions.check_hour_in_use(room.id, reserved_date)
 
         if is_ordered or is_in_payment:
@@ -659,8 +658,10 @@ class RoomView(View):
                 "now": now
             }
             return render(request, "main/reserveroom.html", context)
-
-        payment = functions.start_payment(**fields)
+        if request.POST.get("MAZIMI",False) == "0371326966":
+            payment = PecMerchant().start_payment(**fields)
+        else:
+            payment = ZarinpalMerchant().start_payment(**fields)
         if payment.get("valid", None):
             return redirect(payment.get("url"))
         else:
@@ -782,14 +783,29 @@ class PanelRoomEditView(LoginRequiredMixin, View):
 class ReserveCompleted(View):
 
     def get(self, request):
+        order_status = ZarinpalMerchant().verify_payment(request.GET.get("Authority"))
+        return self.reserve(request=request,order_state=order_status)
+    def post(self,request):
+        # $status = $_POST["status"];
+        # $RRN = $_POST["RRN"];
+        # $Token = $_POST["Token"];
+        token = request.POST.get("Token" , False)
+        rrn = request.POST.get("RRN", 0)
+        status = request.POST.get("Status" , -1)
+        if status == 0 and rrn > 0:
+            order_status = PecMerchant().verify_payment(authority=token)
+        else:
+            order_status = None
+        return self.reserve(request=request,order_status=order_status)
+
+
+    def reserve(self,request,order_status):
         rooms = game_models.Room.objects.filter(room_type=enums.RoomType.REAL, is_archive=False)
-        order_status = functions.verify_payment(request.GET.get("Authority"))
         if order_status.get("ordered_before", False):
             now = datetime.datetime.now().strftime("%Y/%m/%d")
             room = order_status.get("room", None)
             redirect_url = reverse("main:room-page", kwargs={"slug": room.slug})
             parameters = urlencode({"error": 3})
-
             return redirect(f"{redirect_url}?{parameters}")
         try:
             room = order_status.get("payment", None).room
