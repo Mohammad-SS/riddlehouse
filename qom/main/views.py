@@ -658,7 +658,7 @@ class RoomView(View):
                 "now": now
             }
             return render(request, "main/reserveroom.html", context)
-        if request.POST.get("MAZIMI",False) == "0371326966":
+        if request.user.is_authenticated:
             payment = PecMerchant().start_payment(**fields)
         else:
             payment = ZarinpalMerchant().start_payment(**fields)
