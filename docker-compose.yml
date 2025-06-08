@@ -12,8 +12,12 @@ services:
     build: ./qom
     # command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn riddlehouse.wsgi:application --bind 0.0.0.0:8000"
     command: /bin/sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    restart: always
     volumes:
       - ./qom/:/usr/src/app/
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
     expose:
       - 8000
     env_file:
@@ -23,6 +27,7 @@ services:
       - redis
   qom_db:
     image: postgres:13.0-alpine
+    restart: always
     volumes:
       - qom_postgres_data:/var/lib/postgresql/data/
     environment:
@@ -110,12 +115,8 @@ services:
       - ./qom/static/:/home/qom/static
       - ./qom/medias/:/home/qom/medias
       - ./city/:/home/select_city
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
     ports:
-      - 80:80
-      - 8000:8000
-      - 443:443
+      - 8001:80
     depends_on:
       - qom
       - wordpress
