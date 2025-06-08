@@ -11,6 +11,11 @@ from django.utils.timezone import datetime
 import calendar
 
 class Room(models.Model):
+
+    class RoomMerchant(models.IntegerChoices):
+        ZARINPAL = 1 , "زرین پال"
+        PEC = 2 , "پارسیان"
+
     name = models.CharField(max_length=255)
     difficulty = models.CharField(blank=True, null=True, max_length=3)
     slug = models.CharField(max_length=63, default="", blank=True, null=True)
@@ -33,6 +38,8 @@ class Room(models.Model):
     balad_link = models.TextField(blank=True, null=True)
     img_alt = models.TextField(blank=True, null=True)
     is_archive = models.BooleanField(default=False,db_index=True)
+    merchant = models.IntegerField(default=RoomMerchant.ZARINPAL)
+
     def __str__(self):
         return self.name
 

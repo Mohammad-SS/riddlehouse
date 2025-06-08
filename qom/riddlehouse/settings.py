@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = int(os.environ.get("DEBUG", default=0))
-DEBUG = 0
+DEBUG = 1
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_QOM_ALLOWED_HOSTS").split(" ")
 CSRF_TRUSTED_ORIGINS = ['https://qom.azimim.ir',"https://qom.riddlehouse.ir" , "http://127.0.0.1:8000"]
@@ -127,6 +127,8 @@ LANGUAGE_CODE = "en-us"
 
 USE_I18N = True
 
+TIME_ZONE = "Asia/Tehran"
+
 USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
@@ -142,4 +144,3 @@ MEDIA_URL = "media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-TIME_ZONE = "Asia/Tehran"

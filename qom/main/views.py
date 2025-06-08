@@ -26,6 +26,8 @@ from .base_views import ActionBaseView
 from django.contrib import messages
 from orders.merchants.zarinpal_merchant import ZarinpalMerchant
 from orders.merchants.pec_merchant import PecMerchant
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 class PanelRoomsView(LoginRequiredMixin, View):
     def get(self, request):
@@ -339,6 +341,7 @@ class PanelRoomView(LoginRequiredMixin, View):
         weekdays = data.getlist("weekday", None)
         game_duration = data.get("duration", "")
         admin_phones = data.get("admin_phones", None)
+        merchant = data.get("merchant",None)
         if not admin_phones:
             admin_phones = functions.get_setting(enums.DefaultSettings.MAX_SMS_ADMIN_NUMBER)
         hours = data.getlist("hours", None)
@@ -366,7 +369,8 @@ class PanelRoomView(LoginRequiredMixin, View):
             "google_map": data.get("google_map", ""),
             "balad_link": data.get("balad_link", ""),
             "box_packages_prices": box_packages_prices,
-            "img_alt": img_alt
+            "img_alt": img_alt,
+            "merchant" : merchant,
         }
         fields = functions.remove_empties(fields)
         room = game_models.Room(**fields)
@@ -633,7 +637,7 @@ class RoomView(View):
         is_ordered, is_in_payment = functions.check_hour_in_use(room.id, reserved_date)
 
         if is_ordered or is_in_payment:
-            rooms = game_models.Room.objects.all()
+            rooms = game_models.Room.objects.filter(is_archive=False)
             now = datetime.datetime.now().strftime("%Y/%m/%d")
 
             try:
@@ -658,7 +662,7 @@ class RoomView(View):
                 "now": now
             }
             return render(request, "main/reserveroom.html", context)
-        if request.user.is_authenticated:
+        if room.merchant == game_models.Room.RoomMerchant.PEC or request.user.is_authenticated:
             payment = PecMerchant().start_payment(**fields)
         else:
             payment = ZarinpalMerchant().start_payment(**fields)
@@ -752,6 +756,7 @@ class PanelRoomEditView(LoginRequiredMixin, View):
         pre_pay = data.get("pre_pay", "")
         game_duration = data.get("duration", "")
         conditions = data.get("conditions", "")
+        merchant = data.get("merchant",None)
         fields = {
             "name": name,
             "difficulty": difficulty,
@@ -771,7 +776,8 @@ class PanelRoomEditView(LoginRequiredMixin, View):
             "room_type": this_type,
             "box_packages_prices": box_packages_prices,
             "is_archive": is_archive,
-            "img_alt": img_alt
+            "img_alt": img_alt,
+            "merchant" : merchant
         }
         fields = functions.remove_empties(fields)
         room.update(**fields)
@@ -779,24 +785,31 @@ class PanelRoomEditView(LoginRequiredMixin, View):
         room[0].save()
         return redirect("main:rooms")
 
-
+@method_decorator(csrf_exempt, name='dispatch')
 class ReserveCompleted(View):
 
     def get(self, request):
         order_status = ZarinpalMerchant().verify_payment(request.GET.get("Authority"))
         return self.reserve(request=request,order_state=order_status)
+
     def post(self,request):
-        # $status = $_POST["status"];
-        # $RRN = $_POST["RRN"];
-        # $Token = $_POST["Token"];
         token = request.POST.get("Token" , False)
         rrn = request.POST.get("RRN", 0)
-        status = request.POST.get("Status" , -1)
-        if status == 0 and rrn > 0:
+        status = request.POST.get("status" , -1)
+        try:
+            rrn = int(rrn)
+        except:
+            pass
+        try:
+            status = int(status)
+        except:
+            pass
+        if (status == 0 and rrn > 0):
             order_status = PecMerchant().verify_payment(authority=token)
         else:
-            order_status = None
-        return self.reserve(request=request,order_status=order_status)
+            order_status = dict()
+        response = self.reserve(request=request,order_status=order_status)
+        return response
 
 
     def reserve(self,request,order_status):
