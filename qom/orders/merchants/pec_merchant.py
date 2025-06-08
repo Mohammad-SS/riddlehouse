@@ -11,8 +11,8 @@ from zeep.exceptions import Fault
 class PecMerchant(BaseMerchant):
 
     def __init__(self):
-        self.call_back = "336HOyi0G55xEI38S2CJ"
-        self.pin = "https://qom.riddlehouse.ir/reserve-completed/"
+        self.pin = "336HOyi0G55xEI38S2CJ"
+        self.call_back = "https://qom.riddlehouse.ir/reserve-completed"
 
 
     def start_payment(self, **kwargs):
@@ -23,7 +23,7 @@ class PecMerchant(BaseMerchant):
         room_id = kwargs.get("room_id", None)
         room = game_models.Room.objects.get(pk=room_id)
         coupon = orders_models.Coupon.objects.filter(code=coupon)
-        amount = int(amount)
+        amount = int(amount) * 10
         if coupon.exists():
             coupon = coupon[0]
         else:
@@ -32,7 +32,7 @@ class PecMerchant(BaseMerchant):
         if validate_coupon(room, coupon):
             coupon.used += 1
             coupon.save()
-            amount = get_amount_after_coupon(coupon, amount)
+            amount = get_amount_after_coupon(coupon, amount,unit="RIAL")
 
         kwargs['amount'] = amount
         if amount == 0:
@@ -42,16 +42,17 @@ class PecMerchant(BaseMerchant):
                     "url": self.call_back + "?Authority=" + kwargs['authority'] + "&Status=" + "OK"}
         description = f"پرداخت به نام {kwargs.get('customer_name', '')} با شماره تلفن  {kwargs.get('mobile', '')}"
         wsdl_url = "https://pec.shaparak.ir/NewIPGServices/Sale/SaleService.asmx?WSDL"
+        kwargs["authority"] = "TEMP_PEC"
         payment_obj = create_payment_object(**kwargs)
         params = {
             "LoginAccount": self.pin,
-            "Amount": amount,
+            "Amount": int(amount),
             "OrderId": payment_obj.id,
             "CallBackUrl": self.call_back,
         }
+        print(params,"***********************************************************")
         client = Client(wsdl=wsdl_url)
-        response = client.service.SalePaymentRequest(requestData=params)
-        result = response.SalePaymentRequestResult
+        result = client.service.SalePaymentRequest(requestData=params)
         if result.Token and result.Status == 0:
             payment_url = f"https://pec.shaparak.ir/NewIPG/?Token={result.Token}"
             kwargs['authority'] = result.Token
@@ -98,8 +99,7 @@ class PecMerchant(BaseMerchant):
             "Token": authority
         }
         client = Client(wsdl=wsdl_url)
-        response = client.service.ConfirmPayment(requestData=params)
-        result = response.ConfirmPaymentResult
+        result = client.service.ConfirmPayment(requestData=params)
         if result.Status != 0:
             return {"valid": False, "data": result.Status, "payment": payment, "order": None}
         else:

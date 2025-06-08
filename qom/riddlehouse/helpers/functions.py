@@ -31,14 +31,17 @@ def get_setting(setting, default=None):
         return setting_default
 
 
-def get_amount_after_coupon(coupon, amount):
+def get_amount_after_coupon(coupon, amount,unit="TOMAN"):
+    coupon_amount = coupon.amount
     if coupon.type == enums.CouponsType.PERCENTAGE:
-        amount = amount - (coupon.amount / 100 * amount)
+        amount = amount - (coupon_amount * amount / 100 )
     elif coupon.type == enums.CouponsType.CONSTANT:
-        amount = amount - coupon.amount
+        if unit == "RIAL" :
+            coupon_amount = coupon_amount * 10
+        amount = amount - coupon_amount
         if amount <= 0:
             amount = 0
-
+    print("********* - amount :",amount)
     return amount
 
 
